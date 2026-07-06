@@ -1,374 +1,636 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wealthify Admin — Refinance Leads</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{
-  font-family:'Plus Jakarta Sans',system-ui,sans-serif;
-  background:#F6F8FB;color:#0B1F3A;min-height:100vh;
-}
-.wrap{max-width:1100px;margin:0 auto;padding:32px 24px}
-h1{font-size:24px;font-weight:800;letter-spacing:-.5px}
-.sub{font-size:13px;color:#8B9AAD;margin-top:4px}
-.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;gap:16px;flex-wrap:wrap}
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:6px;
-  padding:10px 18px;border-radius:8px;border:none;font-family:inherit;
-  font-size:13px;font-weight:700;cursor:pointer;transition:opacity .15s;
-}
-.btn:disabled{opacity:.55;cursor:not-allowed}
-.btn-primary{background:linear-gradient(135deg,#16C172,#0E9E5C);color:#fff}
-.btn-secondary{background:#fff;border:1.5px solid #E4E9F0;color:#0B1F3A}
-.btn-ghost{background:none;color:#5B6B82;padding:8px 12px}
-.btn:hover:not(:disabled){opacity:.9}
-.card{
-  background:#fff;border:1px solid #E4E9F0;border-radius:14px;
-  padding:24px;box-shadow:0 2px 12px rgba(11,31,58,.04);
-}
-.login-card{max-width:400px;margin:80px auto 0}
-.field{margin-bottom:16px}
-.field label{display:block;font-size:12px;font-weight:700;margin-bottom:6px;color:#5B6B82}
-.field input{
-  width:100%;height:44px;padding:0 14px;border:1.5px solid #E4E9F0;
-  border-radius:8px;font-family:inherit;font-size:14px;color:#0B1F3A;
-}
-.field input:focus{outline:none;border-color:#16C172}
-.error{
-  display:none;margin-top:12px;padding:10px 12px;border-radius:8px;
-  background:rgba(214,69,69,.08);color:#D64545;font-size:13px;font-weight:600;
-}
-.error.show{display:block}
-.table-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:13px}
-th,td{padding:12px 14px;text-align:left;border-bottom:1px solid #E4E9F0}
-th{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#8B9AAD}
-tbody tr{cursor:pointer;transition:background .12s}
-tbody tr:hover{background:#F6F8FB}
-.empty{padding:40px;text-align:center;color:#8B9AAD;font-size:14px}
-.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
-.detail-item{background:#F6F8FB;border:1px solid #E4E9F0;border-radius:10px;padding:14px}
-.detail-item .label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#8B9AAD;margin-bottom:4px}
-.detail-item .value{font-size:15px;font-weight:700;color:#0B1F3A;word-break:break-word}
-.section-title{font-size:15px;font-weight:800;margin:24px 0 12px}
-.options-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.opt-field label{display:block;font-size:12.5px;font-weight:700;margin-bottom:6px}
-.opt-field input{
-  width:100%;height:42px;padding:0 12px;border:1.5px solid #E4E9F0;
-  border-radius:8px;font-family:inherit;font-size:14px;font-weight:600;
-}
-.opt-hint{font-size:10.5px;color:#8B9AAD;margin-top:4px;line-height:1.4}
-.actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
-.hidden{display:none!important}
-@media(max-width:720px){
-  .detail-grid,.options-grid{grid-template-columns:1fr}
-}
-</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
 </head>
 <body>
-<div class="wrap">
-  <div id="loginView" class="login-card card">
-    <h1>Wealthify Admin</h1>
-    <p class="sub">Sign in to manage refinance leads</p>
-    <form id="loginForm" style="margin-top:24px">
-      <div class="field">
-        <label for="password">Password</label>
-        <input id="password" type="password" autocomplete="current-password" required>
-      </div>
-      <button class="btn btn-primary" type="submit" style="width:100%;height:44px">Sign in</button>
-      <div class="error" id="loginError"></div>
-    </form>
+<x-dc>
+<helmet>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;font-family:'Plus Jakarta Sans',sans-serif;color:#1A2433;background:#071929}
+    input,button,textarea{font-family:inherit}
+    a{text-decoration:none;color:inherit}
+    ::placeholder{color:#8B9AAD}
+    :focus-visible{outline:none}
+    ::-webkit-scrollbar{width:5px}
+    ::-webkit-scrollbar-track{background:transparent}
+    ::-webkit-scrollbar-thumb{background:#D0D6E2;border-radius:3px}
+    @keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+  </style>
+</helmet>
+
+<!-- ── INIT LOADING ── -->
+<sc-if value="{{ showInit }}" hint-placeholder-val="{{ true }}">
+  <div style="min-height:100vh;background:#071929;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:24px">
+    <svg width="38" height="30" viewBox="0 0 34 26" fill="none">
+      <defs><linearGradient id="ig" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#16C172"></stop><stop offset="100%" stop-color="#0FB5BA"></stop></linearGradient></defs>
+      <rect x="0" y="13" width="5" height="13" rx="1.5" fill="url(#ig)"></rect>
+      <rect x="7" y="6" width="5" height="20" rx="1.5" fill="url(#ig)"></rect>
+      <rect x="14.5" y="9" width="5" height="17" rx="1.5" fill="url(#ig)"></rect>
+      <rect x="22" y="2" width="5" height="24" rx="1.5" fill="url(#ig)"></rect>
+      <rect x="29" y="0" width="5" height="26" rx="1.5" fill="url(#ig)"></rect>
+    </svg>
+    <div style="width:18px;height:18px;border:2px solid rgba(255,255,255,0.08);border-top-color:#16C172;border-radius:50%;animation:spin 0.75s linear infinite"></div>
   </div>
+</sc-if>
 
-  <div id="appView" class="hidden">
-    <div class="topbar">
-      <div>
-        <h1>Refinance leads</h1>
-        <p class="sub" id="leadCount">Loading…</p>
-      </div>
-      <button class="btn btn-ghost" id="logoutBtn" type="button">Log out</button>
-    </div>
+<!-- ── LOGIN ── -->
+<sc-if value="{{ showLogin }}" hint-placeholder-val="{{ false }}">
+  <div style="min-height:100vh;background:#071929;display:flex;align-items:center;justify-content:center;padding:24px;position:relative;overflow:hidden">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% -10%,rgba(22,193,114,0.08) 0%,transparent 70%);pointer-events:none"></div>
+    <div style="width:100%;max-width:396px;animation:fadein 0.35s ease both">
+      <div style="background:white;border-radius:20px;padding:36px 34px;box-shadow:0 40px 100px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.04)">
 
-    <div id="listView" class="card">
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Address</th>
-              <th>Balance</th>
-            </tr>
-          </thead>
-          <tbody id="leadsBody"></tbody>
-        </table>
-      </div>
-      <div class="empty hidden" id="emptyState">No leads yet.</div>
-    </div>
-
-    <div id="detailView" class="hidden">
-      <button class="btn btn-ghost" id="backBtn" type="button" style="margin-bottom:16px;padding-left:0">← Back to leads</button>
-      <div class="card">
-        <h1 id="detailTitle">Lead details</h1>
-        <p class="sub" id="detailDate"></p>
-
-        <div class="section-title">Client information</div>
-        <div class="detail-grid" id="clientGrid"></div>
-
-        <div class="section-title">Refinance options</div>
-        <p class="sub" style="margin-bottom:12px">Configure rates and costs for this lead's PDF report.</p>
-        <div class="options-grid">
-          <div class="opt-field">
-            <label for="optNewRate">Target new rate</label>
-            <input id="optNewRate" type="text" inputmode="decimal">
-            <div class="opt-hint">NZ fixed rates Jun 2026: 4.49–4.79%</div>
-          </div>
-          <div class="opt-field">
-            <label for="optCashback">Cashback</label>
-            <input id="optCashback" type="text" inputmode="decimal">
-            <div class="opt-hint">Typically 0.85–1.25%, capped ~$20k</div>
-          </div>
-          <div class="opt-field">
-            <label for="optBreakFee">Break fee</label>
-            <input id="optBreakFee" type="text" inputmode="numeric">
-            <div class="opt-hint">Near $0 at rollover date</div>
-          </div>
-          <div class="opt-field">
-            <label for="optLegal">Legal costs</label>
-            <input id="optLegal" type="text" inputmode="numeric">
-            <div class="opt-hint">Typical NZ legals: $800–$1,500</div>
-          </div>
+        <!-- Brand -->
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:30px">
+          <svg width="28" height="22" viewBox="0 0 34 26" fill="none">
+            <defs><linearGradient id="lg" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#16C172"></stop><stop offset="100%" stop-color="#0FB5BA"></stop></linearGradient></defs>
+            <rect x="0" y="13" width="5" height="13" rx="1.5" fill="url(#lg)"></rect>
+            <rect x="7" y="6" width="5" height="20" rx="1.5" fill="url(#lg)"></rect>
+            <rect x="14.5" y="9" width="5" height="17" rx="1.5" fill="url(#lg)"></rect>
+            <rect x="22" y="2" width="5" height="24" rx="1.5" fill="url(#lg)"></rect>
+            <rect x="29" y="0" width="5" height="26" rx="1.5" fill="url(#lg)"></rect>
+          </svg>
+          <span style="font-size:17px;font-weight:800;color:#071929;letter-spacing:-0.4px">Wealthify</span>
+          <span style="margin-left:auto;padding:4px 9px;background:#F0F3F8;border-radius:5px;font-size:9.5px;font-weight:700;color:#5B6B82;letter-spacing:.06em;text-transform:uppercase">Admin</span>
         </div>
 
-        <div class="actions">
-          <button class="btn btn-secondary" id="saveBtn" type="button">Save options</button>
-          <button class="btn btn-primary" id="reportBtn" type="button">Generate PDF report</button>
-        </div>
-        <div class="error" id="detailError"></div>
+        <h1 style="font-size:20px;font-weight:800;color:#0B1F3A;margin:0 0 5px;letter-spacing:-0.4px">Welcome back</h1>
+        <p style="font-size:13px;color:#8B9AAD;margin:0 0 26px;line-height:1.5">Sign in to manage leads and generate reports.</p>
+
+        <form onSubmit="{{ onLogin }}">
+          <div style="margin-bottom:16px">
+            <label style="display:block;font-size:10.5px;font-weight:700;color:#5B6B82;text-transform:uppercase;letter-spacing:.05em;margin-bottom:7px">Password</label>
+            <input type="password" autocomplete="current-password" required
+              style="width:100%;height:44px;padding:0 14px;border:1.5px solid #E4E9F0;border-radius:9px;font-size:14px;font-weight:500;color:#0B1F3A;background:#fff;transition:border-color 0.15s,box-shadow 0.15s"
+              style-focus="border-color:#16C172;box-shadow:0 0 0 3px rgba(22,193,114,0.12)">
+          </div>
+          <button type="submit" disabled="{{ loginBtnDisabled }}"
+            style="width:100%;height:46px;background:linear-gradient(135deg,#16C172,#0E9E5C);border:none;border-radius:9px;font-size:14px;font-weight:700;color:white;cursor:pointer;letter-spacing:-0.2px;transition:opacity 0.15s"
+            style-hover="opacity:0.88">{{ loginBtnText }}</button>
+        </form>
+
+        <sc-if value="{{ loginError }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:13px;padding:11px 13px;background:rgba(214,69,69,0.07);border:1px solid rgba(214,69,69,0.15);border-radius:8px;color:#C84040;font-size:13px;font-weight:600">{{ loginError }}</div>
+        </sc-if>
       </div>
+      <p style="text-align:center;margin-top:18px;font-size:11px;color:rgba(255,255,255,0.18);font-weight:500">Wealthify · Internal use only</p>
     </div>
   </div>
-</div>
+</sc-if>
 
-<script>
-const $ = id => document.getElementById(id);
-const fmtMoney = n => '$' + Math.abs(Math.round(Number(n) || 0)).toLocaleString('en-NZ');
-const clean = v => parseFloat(String(v).replace(/[^0-9.]/g, '')) || 0;
+<!-- ── APP ── -->
+<sc-if value="{{ showApp }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;height:100vh;overflow:hidden">
 
-let leads = [];
-let currentLead = null;
+    <!-- SIDEBAR -->
+    <aside style="width:226px;flex-shrink:0;background:#071929;display:flex;flex-direction:column;border-right:1px solid rgba(255,255,255,0.05)">
 
-function showError(elId, msg) {
-  const el = $(elId);
-  if (!msg) {
-    el.textContent = '';
-    el.classList.remove('show');
-    return;
+      <!-- Logo -->
+      <div style="padding:20px 18px 16px;border-bottom:1px solid rgba(255,255,255,0.05)">
+        <div style="display:flex;align-items:center;gap:8px">
+          <svg width="24" height="19" viewBox="0 0 34 26" fill="none">
+            <defs><linearGradient id="sl" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#16C172"></stop><stop offset="100%" stop-color="#0FB5BA"></stop></linearGradient></defs>
+            <rect x="0" y="13" width="5" height="13" rx="1.5" fill="url(#sl)"></rect>
+            <rect x="7" y="6" width="5" height="20" rx="1.5" fill="url(#sl)"></rect>
+            <rect x="14.5" y="9" width="5" height="17" rx="1.5" fill="url(#sl)"></rect>
+            <rect x="22" y="2" width="5" height="24" rx="1.5" fill="url(#sl)"></rect>
+            <rect x="29" y="0" width="5" height="26" rx="1.5" fill="url(#sl)"></rect>
+          </svg>
+          <span style="font-size:15px;font-weight:800;color:white;letter-spacing:-0.4px">Wealthify</span>
+        </div>
+        <div style="display:inline-flex;align-items:center;gap:5px;margin-top:9px;padding:3px 8px;background:rgba(22,193,114,0.12);border:1px solid rgba(22,193,114,0.18);border-radius:4px">
+          <div style="width:5px;height:5px;background:#16C172;border-radius:50%"></div>
+          <span style="font-size:9px;font-weight:700;color:#16C172;letter-spacing:.1em;text-transform:uppercase">Admin Portal</span>
+        </div>
+      </div>
+
+      <!-- Nav -->
+      <div style="flex:1;padding:12px 10px;overflow-y:auto">
+        <div style="padding:0 8px;margin-bottom:5px;font-size:9px;font-weight:700;color:rgba(255,255,255,0.18);text-transform:uppercase;letter-spacing:.1em">Leads</div>
+
+        <div style="display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:8px;background:rgba(22,193,114,0.1);cursor:default;margin-bottom:2px">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <span style="font-size:13px;font-weight:700;color:#16C172;flex:1">Refinance Leads</span>
+          <span style="background:rgba(22,193,114,0.18);color:#16C172;font-size:10px;font-weight:800;padding:1px 7px;border-radius:20px;border:1px solid rgba(22,193,114,0.2)">{{ totalLeads }}</span>
+        </div>
+
+        <div style="margin:14px 0 5px;padding:0 8px;font-size:9px;font-weight:700;color:rgba(255,255,255,0.18);text-transform:uppercase;letter-spacing:.1em">Tools</div>
+
+        <div style="display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:8px;cursor:not-allowed;opacity:0.28">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+          </svg>
+          <span style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.5)">PDF Reports</span>
+          <span style="font-size:9px;font-weight:600;color:rgba(255,255,255,0.2);margin-left:auto">Soon</span>
+        </div>
+      </div>
+
+      <!-- Logout -->
+      <div style="padding:12px 10px;border-top:1px solid rgba(255,255,255,0.05)">
+        <button onClick="{{ onLogout }}"
+          style="width:100%;display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:8px;border:none;background:transparent;cursor:pointer;transition:background 0.15s"
+          style-hover="background:rgba(255,255,255,0.06)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          <span style="font-size:12.5px;font-weight:600;color:rgba(255,255,255,0.25)">Log out</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main style="flex:1;overflow-y:auto;background:#F0F3F8;min-width:0">
+
+      <!-- ── LIST VIEW ── -->
+      <sc-if value="{{ showList }}" hint-placeholder-val="{{ true }}">
+        <div style="animation:fadein 0.2s ease both">
+
+          <!-- Top bar -->
+          <div style="padding:24px 30px 18px;background:#F0F3F8;position:sticky;top:0;z-index:10;border-bottom:1px solid #E0E6EF">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+              <div>
+                <h1 style="font-size:19px;font-weight:800;color:#0B1F3A;margin:0;letter-spacing:-0.5px">Refinance Leads</h1>
+                <p style="font-size:12.5px;color:#8B9AAD;margin:3px 0 0">{{ totalLeads }} total · {{ thisWeek }} new this week</p>
+              </div>
+              <div style="position:relative">
+                <svg style="position:absolute;left:11px;top:50%;transform:translateY(-50%);pointer-events:none" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8B9AAD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="search" placeholder="Search by email, phone or address…" value="{{ search }}" onInput="{{ onSearch }}"
+                  style="height:38px;padding:0 14px 0 34px;border:1.5px solid #E4E9F0;border-radius:8px;font-size:12.5px;color:#0B1F3A;background:white;width:290px;transition:border-color 0.15s,box-shadow 0.15s"
+                  style-focus="border-color:#16C172;box-shadow:0 0 0 3px rgba(22,193,114,0.1)">
+              </div>
+            </div>
+          </div>
+
+          <!-- Stats row -->
+          <div style="padding:20px 30px 0;display:grid;grid-template-columns:repeat(4,1fr);gap:13px">
+            <div style="background:white;border-radius:12px;padding:18px 20px;border:1px solid #E4E9F0">
+              <div style="font-size:9.5px;font-weight:700;color:#B0BAC5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Total Leads</div>
+              <div style="font-size:30px;font-weight:800;color:#0B1F3A;letter-spacing:-1.5px;line-height:1">{{ totalLeads }}</div>
+              <div style="font-size:10.5px;color:#C4CDD6;margin-top:6px">all time</div>
+            </div>
+            <div style="background:white;border-radius:12px;padding:18px 20px;border:1px solid #E4E9F0">
+              <div style="font-size:9.5px;font-weight:700;color:#B0BAC5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">This Week</div>
+              <div style="font-size:30px;font-weight:800;color:#16C172;letter-spacing:-1.5px;line-height:1">{{ thisWeek }}</div>
+              <div style="font-size:10.5px;color:#C4CDD6;margin-top:6px">last 7 days</div>
+            </div>
+            <div style="background:white;border-radius:12px;padding:18px 20px;border:1px solid #E4E9F0">
+              <div style="font-size:9.5px;font-weight:700;color:#B0BAC5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Avg. Balance</div>
+              <div style="font-size:24px;font-weight:800;color:#0B1F3A;letter-spacing:-1px;line-height:1">{{ avgBal }}</div>
+              <div style="font-size:10.5px;color:#C4CDD6;margin-top:6px">loan size</div>
+            </div>
+            <div style="background:white;border-radius:12px;padding:18px 20px;border:1px solid #E4E9F0">
+              <div style="font-size:9.5px;font-weight:700;color:#B0BAC5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Full Data</div>
+              <div style="font-size:30px;font-weight:800;color:#0B1F3A;letter-spacing:-1.5px;line-height:1">{{ complete }}</div>
+              <div style="font-size:10.5px;color:#C4CDD6;margin-top:6px">address + balance</div>
+            </div>
+          </div>
+
+          <!-- Table -->
+          <div style="padding:16px 30px 40px">
+            <div style="background:white;border-radius:14px;border:1px solid #E4E9F0;overflow:hidden">
+              <div style="overflow-x:auto">
+                <table style="width:100%;border-collapse:collapse;font-size:13px">
+                  <thead>
+                    <tr style="border-bottom:1px solid #F0F3F8">
+                      <th style="padding:12px 20px;text-align:left;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;white-space:nowrap;background:#FAFBFC">Date</th>
+                      <th style="padding:12px 20px;text-align:left;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Email</th>
+                      <th style="padding:12px 20px;text-align:left;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Phone</th>
+                      <th style="padding:12px 20px;text-align:right;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Balance</th>
+                      <th style="padding:12px 20px;text-align:right;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Rate</th>
+                      <th style="padding:12px 20px;text-align:center;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Status</th>
+                      <th style="padding:12px 14px;background:#FAFBFC;width:28px"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <sc-for list="{{ leadRows }}" as="row" hint-placeholder-count="5">
+                      <tr style="border-bottom:1px solid #F6F8FB;cursor:pointer;transition:background 0.1s" style-hover="background:#F8FAFC" onClick="{{ row.onClick }}">
+                        <td style="padding:13px 20px;font-size:12px;color:#8B9AAD;white-space:nowrap">{{ row.dateFmt }}</td>
+                        <td style="padding:13px 20px;font-weight:700;color:#0B1F3A">{{ row.email }}</td>
+                        <td style="padding:13px 20px;color:#5B6B82;white-space:nowrap">{{ row.phone }}</td>
+                        <td style="padding:13px 20px;text-align:right;font-weight:700;color:#0B1F3A">{{ row.balFmt }}</td>
+                        <td style="padding:13px 20px;text-align:right;font-weight:600;color:#5B6B82">{{ row.rateFmt }}</td>
+                        <td style="padding:13px 20px;text-align:center">
+                          <span style="display:inline-block;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:700;background:{{ row.statusBg }};color:{{ row.statusColor }}">{{ row.statusLabel }}</span>
+                        </td>
+                        <td style="padding:13px 14px;text-align:right;color:#D0D6E2">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </td>
+                      </tr>
+                    </sc-for>
+                  </tbody>
+                </table>
+              </div>
+
+              <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+                <div style="padding:52px 24px;text-align:center">
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#D0D6E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:0 auto 13px">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                  </svg>
+                  <p style="font-size:14px;color:#8B9AAD;font-weight:600;margin:0">No leads found</p>
+                  <p style="font-size:12.5px;color:#B0BAC5;margin:5px 0 0">Try a different search, or check back later</p>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ── DETAIL VIEW ── -->
+      <sc-if value="{{ showDetail }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:24px 30px 48px;animation:fadein 0.2s ease both">
+
+          <!-- Back -->
+          <button onClick="{{ onBack }}"
+            style="display:inline-flex;align-items:center;gap:6px;padding:7px 12px;background:white;border:1.5px solid #E4E9F0;border-radius:8px;font-size:12.5px;font-weight:600;color:#5B6B82;cursor:pointer;margin-bottom:20px;transition:all 0.15s"
+            style-hover="border-color:#C4CDD6;color:#0B1F3A">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            All leads
+          </button>
+
+          <!-- Lead header -->
+          <div style="background:white;border-radius:14px;padding:22px 26px;border:1px solid #E4E9F0;margin-bottom:16px">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:9.5px;font-weight:700;color:#B0BAC5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px">Lead</div>
+                <h2 style="font-size:19px;font-weight:800;color:#0B1F3A;margin:0 0 8px;letter-spacing:-0.4px">{{ detailEmail }}</h2>
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                  <span style="font-size:12px;color:#8B9AAD">Submitted {{ detailDate }}</span>
+                  <span style="padding:3px 8px;background:rgba(22,193,114,0.08);border:1px solid rgba(22,193,114,0.15);border-radius:5px;font-size:9px;font-weight:700;color:#0E9E5C;letter-spacing:.04em;text-transform:uppercase">{{ detailSource }}</span>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:9px">
+                <button onClick="{{ onSave }}" disabled="{{ saveBtnDisabled }}"
+                  style="display:inline-flex;align-items:center;gap:6px;padding:9px 15px;background:white;border:1.5px solid #E4E9F0;border-radius:8px;font-size:12.5px;font-weight:700;color:#0B1F3A;cursor:pointer;white-space:nowrap;transition:all 0.15s"
+                  style-hover="border-color:#C4CDD6;background:#FAFBFC">{{ saveBtnText }}</button>
+                <button onClick="{{ onGenPDF }}" disabled="{{ genBtnDisabled }}"
+                  style="display:inline-flex;align-items:center;gap:7px;padding:9px 16px;background:linear-gradient(135deg,#16C172,#0E9E5C);border:none;border-radius:8px;font-size:12.5px;font-weight:700;color:white;cursor:pointer;white-space:nowrap;transition:opacity 0.15s"
+                  style-hover="opacity:0.88">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                  {{ genBtnText }}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2-col: client info | savings + options -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start">
+
+            <!-- Client info -->
+            <div style="background:white;border-radius:14px;padding:20px 24px;border:1px solid #E4E9F0">
+              <h3 style="font-size:12.5px;font-weight:800;color:#0B1F3A;margin:0 0 14px;letter-spacing:-0.2px">Client Information</h3>
+              <sc-for list="{{ clientFields }}" as="field" hint-placeholder-count="6">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:10px 0;border-bottom:1px solid #F6F8FB">
+                  <span style="font-size:11.5px;font-weight:600;color:#8B9AAD;white-space:nowrap;flex-shrink:0">{{ field.label }}</span>
+                  <span style="font-size:13.5px;font-weight:700;color:#0B1F3A;text-align:right;word-break:break-all">{{ field.value }}</span>
+                </div>
+              </sc-for>
+            </div>
+
+            <!-- Right col -->
+            <div style="display:flex;flex-direction:column;gap:14px">
+
+              <!-- Savings estimate -->
+              <sc-if value="{{ showSavings }}" hint-placeholder-val="{{ false }}">
+                <div style="background:#071929;border-radius:14px;padding:18px 22px;border:1px solid rgba(22,193,114,0.14)">
+                  <div style="font-size:9px;font-weight:700;color:rgba(255,255,255,0.28);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px">Live savings estimate</div>
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                    <div>
+                      <div style="font-size:10px;color:rgba(255,255,255,0.3);margin-bottom:4px">Monthly saving</div>
+                      <div style="font-size:21px;font-weight:800;color:#16C172;letter-spacing:-1px;line-height:1">{{ savingsEst.moSave }}</div>
+                    </div>
+                    <div>
+                      <div style="font-size:10px;color:rgba(255,255,255,0.3);margin-bottom:4px">Cashback</div>
+                      <div style="font-size:21px;font-weight:800;color:white;letter-spacing:-1px;line-height:1">{{ savingsEst.cb }}</div>
+                    </div>
+                    <div>
+                      <div style="font-size:10px;color:rgba(255,255,255,0.3);margin-bottom:4px">Total costs</div>
+                      <div style="font-size:15px;font-weight:700;color:rgba(255,255,255,0.45);letter-spacing:-0.5px">{{ savingsEst.costs }}</div>
+                    </div>
+                    <div>
+                      <div style="font-size:10px;color:rgba(255,255,255,0.3);margin-bottom:4px">Net year 1</div>
+                      <div style="font-size:15px;font-weight:700;color:#16C172;letter-spacing:-0.5px">{{ savingsEst.net1yr }}</div>
+                    </div>
+                  </div>
+                </div>
+              </sc-if>
+
+              <!-- Options form -->
+              <div style="background:white;border-radius:14px;padding:20px 24px;border:1px solid #E4E9F0">
+                <h3 style="font-size:12.5px;font-weight:800;color:#0B1F3A;margin:0 0 4px;letter-spacing:-0.2px">Refinance Options</h3>
+                <p style="font-size:11.5px;color:#8B9AAD;margin:0 0 16px;line-height:1.5">Set parameters for the PDF report. Savings update live above.</p>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:13px">
+                  <div>
+                    <label style="display:block;font-size:9.5px;font-weight:700;color:#5B6B82;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">New rate (%)</label>
+                    <input type="text" inputmode="decimal" value="{{ optRate }}" onInput="{{ onOptRate }}"
+                      style="width:100%;height:40px;padding:0 11px;border:1.5px solid #E4E9F0;border-radius:7px;font-size:14px;font-weight:700;color:#0B1F3A;transition:border-color 0.15s"
+                      style-focus="border-color:#16C172;box-shadow:0 0 0 3px rgba(22,193,114,0.1)">
+                    <div style="font-size:9.5px;color:#C4CDD6;margin-top:3px">NZ Jun 2026: 4.49–4.79%</div>
+                  </div>
+                  <div>
+                    <label style="display:block;font-size:9.5px;font-weight:700;color:#5B6B82;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Cashback (%)</label>
+                    <input type="text" inputmode="decimal" value="{{ optCashback }}" onInput="{{ onOptCashback }}"
+                      style="width:100%;height:40px;padding:0 11px;border:1.5px solid #E4E9F0;border-radius:7px;font-size:14px;font-weight:700;color:#0B1F3A;transition:border-color 0.15s"
+                      style-focus="border-color:#16C172;box-shadow:0 0 0 3px rgba(22,193,114,0.1)">
+                    <div style="font-size:9.5px;color:#C4CDD6;margin-top:3px">Typically 0.85–1.25%</div>
+                  </div>
+                  <div>
+                    <label style="display:block;font-size:9.5px;font-weight:700;color:#5B6B82;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Break fee ($)</label>
+                    <input type="text" inputmode="numeric" value="{{ optBreak }}" onInput="{{ onOptBreak }}"
+                      style="width:100%;height:40px;padding:0 11px;border:1.5px solid #E4E9F0;border-radius:7px;font-size:14px;font-weight:700;color:#0B1F3A;transition:border-color 0.15s"
+                      style-focus="border-color:#16C172;box-shadow:0 0 0 3px rgba(22,193,114,0.1)">
+                    <div style="font-size:9.5px;color:#C4CDD6;margin-top:3px">Near $0 at rollover</div>
+                  </div>
+                  <div>
+                    <label style="display:block;font-size:9.5px;font-weight:700;color:#5B6B82;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Legal costs ($)</label>
+                    <input type="text" inputmode="numeric" value="{{ optLegal }}" onInput="{{ onOptLegal }}"
+                      style="width:100%;height:40px;padding:0 11px;border:1.5px solid #E4E9F0;border-radius:7px;font-size:14px;font-weight:700;color:#0B1F3A;transition:border-color 0.15s"
+                      style-focus="border-color:#16C172;box-shadow:0 0 0 3px rgba(22,193,114,0.1)">
+                    <div style="font-size:9.5px;color:#C4CDD6;margin-top:3px">Typical NZ: $800–$1,500</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <sc-if value="{{ error }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:14px;padding:12px 14px;background:rgba(214,69,69,0.07);border:1px solid rgba(214,69,69,0.15);border-radius:9px;color:#C84040;font-size:13px;font-weight:600">{{ error }}</div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+    </main>
+  </div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    view: 'init',
+    leads: [],
+    currentLead: null,
+    formLoading: false,
+    loginError: '',
+    search: '',
+    saving: false,
+    saveOk: false,
+    generating: false,
+    error: '',
+    optRate: '4.79',
+    optCashback: '0.90',
+    optBreak: '0',
+    optLegal: '1200',
+  };
+
+  _clean(v) { return parseFloat(String(v).replace(/[^0-9.]/g, '')) || 0; }
+
+  fmt$(n) {
+    if (n == null || n === '') return '—';
+    const val = Math.abs(Math.round(Number(n) || 0));
+    return '$' + val.toLocaleString('en-NZ');
   }
-  el.textContent = msg;
-  el.classList.add('show');
-}
 
-function showLogin() {
-  $('loginView').classList.remove('hidden');
-  $('appView').classList.add('hidden');
-}
-
-function showApp() {
-  $('loginView').classList.add('hidden');
-  $('appView').classList.remove('hidden');
-  $('listView').classList.remove('hidden');
-  $('detailView').classList.add('hidden');
-}
-
-async function api(path, options = {}) {
-  const res = await fetch(path, {
-    credentials: 'same-origin',
-    headers: options.body ? { 'Content-Type': 'application/json' } : undefined,
-    ...options,
-  });
-  if (res.status === 401) {
-    showLogin();
-    throw new Error('Unauthorized');
+  fmtD(iso) {
+    if (!iso) return '';
+    return new Date(iso).toLocaleDateString('en-NZ', { day: 'numeric', month: 'short', year: 'numeric' });
   }
-  if (!res.ok) {
-    let msg = 'Request failed';
+
+  fmtDT(iso) {
+    if (!iso) return '';
+    return new Date(iso).toLocaleDateString('en-NZ', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+  }
+
+  componentDidMount() {
+    this._load().catch(() => this.setState({ view: 'login' }));
+  }
+
+  async _req(path, opts = {}) {
+    const res = await fetch(path, {
+      credentials: 'same-origin',
+      headers: opts.body ? { 'Content-Type': 'application/json' } : {},
+      ...opts,
+    });
+    if (res.status === 401) {
+      this.setState({ view: 'login' });
+      throw new Error('Unauthorized');
+    }
+    if (!res.ok) {
+      let msg = 'Request failed';
+      try { msg = (await res.json()).error || msg; } catch {}
+      throw new Error(msg);
+    }
+    if (opts.raw) return res;
+    return res.json();
+  }
+
+  async _load() {
+    const { leads } = await this._req('/api/admin/leads');
+    this.setState({ leads: leads || [], view: 'list' });
+  }
+
+  async login(pw) {
+    this.setState({ formLoading: true, loginError: '' });
     try {
-      const data = await res.json();
-      msg = data.error || msg;
-    } catch {}
-    throw new Error(msg);
+      await this._req('/api/admin/login', { method: 'POST', body: JSON.stringify({ password: pw }) });
+      await this._load();
+    } catch (err) {
+      this.setState({ loginError: err.message === 'Unauthorized' ? 'Incorrect password' : err.message });
+    }
+    this.setState({ formLoading: false });
   }
-  if (options.raw) return res;
-  const ct = res.headers.get('content-type') || '';
-  if (ct.includes('application/json')) return res.json();
-  return res;
-}
 
-function formatDate(iso) {
-  return new Date(iso).toLocaleDateString('en-NZ', {
-    day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit',
-  });
-}
+  async logout() {
+    try { await this._req('/api/admin/logout', { method: 'POST' }); } catch {}
+    this.setState({ view: 'login', leads: [], currentLead: null, error: '' });
+  }
 
-function renderLeads() {
-  const body = $('leadsBody');
-  body.innerHTML = '';
-  $('leadCount').textContent = `${leads.length} lead${leads.length === 1 ? '' : 's'}`;
-  $('emptyState').classList.toggle('hidden', leads.length > 0);
+  async openLead(id) {
+    try {
+      const { lead } = await this._req('/api/admin/lead?id=' + encodeURIComponent(id));
+      this.setState({
+        currentLead: lead,
+        view: 'detail',
+        error: '',
+        optRate: String(lead.target_new_rate != null ? lead.target_new_rate : '4.79'),
+        optCashback: String(lead.cashback_pct != null ? lead.cashback_pct : '0.90'),
+        optBreak: String(lead.break_fee != null ? lead.break_fee : '0'),
+        optLegal: lead.legal_costs != null ? String(Math.round(Number(lead.legal_costs))) : '1200',
+      });
+    } catch (err) {
+      this.setState({ error: err.message });
+    }
+  }
 
-  leads.forEach(lead => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${formatDate(lead.created_at)}</td>
-      <td>${lead.email}</td>
-      <td>${lead.phone}</td>
-      <td>${lead.property_address || '—'}</td>
-      <td>${fmtMoney(lead.loan_balance)}</td>`;
-    tr.addEventListener('click', () => openLead(lead.id));
-    body.appendChild(tr);
-  });
-}
+  async save() {
+    if (!this.state.currentLead) return;
+    this.setState({ saving: true, error: '', saveOk: false });
+    try {
+      const { lead } = await this._req('/api/admin/lead?id=' + encodeURIComponent(this.state.currentLead.id), {
+        method: 'PATCH',
+        body: JSON.stringify({
+          target_new_rate: this._clean(this.state.optRate),
+          cashback_pct: this._clean(this.state.optCashback),
+          break_fee: this._clean(this.state.optBreak),
+          legal_costs: this._clean(this.state.optLegal),
+        }),
+      });
+      const leads = this.state.leads.map(l => l.id === lead.id ? lead : l);
+      this.setState({ currentLead: lead, leads, saving: false, saveOk: true });
+      setTimeout(() => this.setState({ saveOk: false }), 2000);
+    } catch (err) {
+      this.setState({ saving: false, error: err.message });
+    }
+  }
 
-function renderClientGrid(lead) {
-  const items = [
-    ['Email', lead.email],
-    ['Phone', lead.phone],
-    ['Property address', lead.property_address || '—'],
-    ['Loan balance', fmtMoney(lead.loan_balance)],
-    ['Current rate', lead.current_rate != null ? lead.current_rate + '%' : '—'],
-    ['Years remaining', lead.years_remaining != null ? lead.years_remaining + ' yrs' : '—'],
-  ];
-  $('clientGrid').innerHTML = items.map(([label, value]) => `
-    <div class="detail-item">
-      <div class="label">${label}</div>
-      <div class="value">${value}</div>
-    </div>`).join('');
-}
+  async genPDF() {
+    if (!this.state.currentLead) return;
+    this.setState({ generating: true, error: '' });
+    try {
+      const res = await this._req('/api/admin/report?id=' + encodeURIComponent(this.state.currentLead.id), { raw: true });
+      const blob = await res.blob();
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'wealthify-report-' + this.state.currentLead.email.replace(/[^a-zA-Z0-9._-]+/g, '-') + '.pdf';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    } catch (err) {
+      this.setState({ error: err.message });
+    }
+    this.setState({ generating: false });
+  }
 
-function fillOptions(lead) {
-  $('optNewRate').value = lead.target_new_rate ?? '4.79';
-  $('optCashback').value = lead.cashback_pct ?? '0.90';
-  $('optBreakFee').value = lead.break_fee ?? '0';
-  $('optLegal').value = lead.legal_costs != null
-    ? Number(lead.legal_costs).toLocaleString('en-NZ')
-    : '1,200';
-}
+  renderVals() {
+    const { view, leads, currentLead, formLoading, loginError, search, saving, saveOk, generating, error, optRate, optCashback, optBreak, optLegal } = this.state;
 
-async function openLead(id) {
-  showError('detailError', '');
-  const data = await api(`/api/admin/lead?id=${encodeURIComponent(id)}`);
-  currentLead = data.lead;
-  $('detailTitle').textContent = currentLead.email;
-  $('detailDate').textContent = 'Submitted ' + formatDate(currentLead.created_at);
-  renderClientGrid(currentLead);
-  fillOptions(currentLead);
-  $('listView').classList.add('hidden');
-  $('detailView').classList.remove('hidden');
-}
+    const filtered = search
+      ? leads.filter(l => {
+          const q = search.toLowerCase();
+          return (l.email || '').toLowerCase().includes(q)
+              || (l.phone || '').toLowerCase().includes(q)
+              || (l.property_address || '').toLowerCase().includes(q);
+        })
+      : leads;
 
-async function loadLeads() {
-  const data = await api('/api/admin/leads');
-  leads = data.leads || [];
-  renderLeads();
-  showApp();
-}
+    const weekAgo = new Date(Date.now() - 7 * 864e5);
+    const thisWeek = leads.filter(l => new Date(l.created_at) > weekAgo).length;
+    const avgBal = leads.length ? Math.round(leads.reduce((s, l) => s + (Number(l.loan_balance) || 0), 0) / leads.length) : 0;
+    const complete = leads.filter(l => l.property_address && l.loan_balance).length;
 
-$('loginForm').addEventListener('submit', async e => {
-  e.preventDefault();
-  showError('loginError', '');
-  const btn = e.target.querySelector('button[type="submit"]');
-  btn.disabled = true;
-  try {
-    await api('/api/admin/login', {
-      method: 'POST',
-      body: JSON.stringify({ password: $('password').value }),
+    const leadRows = filtered.map(l => {
+      const ok = !!(l.property_address && l.loan_balance);
+      return {
+        id: l.id,
+        email: l.email,
+        phone: l.phone,
+        dateFmt: this.fmtD(l.created_at),
+        balFmt: this.fmt$(l.loan_balance),
+        rateFmt: l.current_rate != null ? l.current_rate + '%' : '—',
+        statusLabel: ok ? 'Complete' : 'Partial',
+        statusBg: ok ? 'rgba(22,193,114,0.1)' : 'rgba(245,162,0,0.1)',
+        statusColor: ok ? '#0E9E5C' : '#9A6500',
+        onClick: () => this.openLead(l.id),
+      };
     });
-    $('password').value = '';
-    await loadLeads();
-  } catch (err) {
-    showError('loginError', err.message === 'Unauthorized' ? 'Invalid password' : err.message);
-  } finally {
-    btn.disabled = false;
+
+    const clientFields = currentLead ? [
+      { label: 'Email', value: currentLead.email },
+      { label: 'Phone', value: currentLead.phone },
+      { label: 'Address', value: currentLead.property_address || '—' },
+      { label: 'Loan balance', value: this.fmt$(currentLead.loan_balance) },
+      { label: 'Current rate', value: currentLead.current_rate != null ? currentLead.current_rate + '%' : '—' },
+      { label: 'Years remaining', value: currentLead.years_remaining != null ? currentLead.years_remaining + ' yrs' : '—' },
+    ] : [];
+
+    let savingsEst = null;
+    if (currentLead) {
+      const bal = Number(currentLead.loan_balance) || 0;
+      const cur = Number(currentLead.current_rate) || 0;
+      const newR = this._clean(optRate);
+      const cbPct = this._clean(optCashback);
+      const brk = this._clean(optBreak);
+      const leg = this._clean(optLegal);
+      const yrs = Number(currentLead.years_remaining) || 25;
+      if (bal > 0 && cur > 0 && newR > 0 && cur !== newR) {
+        const mo = r => (bal * (r / 100 / 12)) / (1 - Math.pow(1 + r / 100 / 12, -yrs * 12));
+        const moSave = Math.round(mo(cur) - mo(newR));
+        const cb = Math.round(bal * cbPct / 100);
+        const costs = Math.round(brk + leg);
+        const net1yr = Math.round(moSave * 12 + cb - costs);
+        savingsEst = {
+          moSave: (moSave >= 0 ? '' : '-') + this.fmt$(Math.abs(moSave)) + '/mo',
+          cb: this.fmt$(cb),
+          costs: this.fmt$(costs),
+          net1yr: (net1yr >= 0 ? '' : '-') + this.fmt$(Math.abs(net1yr)),
+        };
+      }
+    }
+
+    return {
+      showInit: view === 'init',
+      showLogin: view === 'login',
+      showApp: view === 'list' || view === 'detail',
+      showList: view === 'list',
+      showDetail: view === 'detail',
+
+      onLogin: e => { e.preventDefault(); this.login(e.target.querySelector('input[type=password]').value); },
+      loginBtnText: formLoading ? 'Signing in…' : 'Sign in →',
+      loginBtnDisabled: formLoading,
+      loginError,
+
+      onLogout: () => this.logout(),
+      totalLeads: leads.length,
+      thisWeek,
+      avgBal: avgBal > 0 ? this.fmt$(avgBal) : '—',
+      complete,
+      search,
+      onSearch: e => this.setState({ search: e.target.value }),
+      leadRows,
+      isEmpty: leadRows.length === 0,
+
+      onBack: () => this.setState({ view: 'list', currentLead: null, error: '' }),
+      detailEmail: currentLead ? currentLead.email : '',
+      detailDate: currentLead ? this.fmtDT(currentLead.created_at) : '',
+      detailSource: currentLead ? (currentLead.source || 'refinance-calculator') : '',
+      clientFields,
+      showSavings: savingsEst !== null,
+      savingsEst: savingsEst || { moSave: '—', cb: '—', costs: '—', net1yr: '—' },
+      optRate, optCashback, optBreak, optLegal,
+      onOptRate: e => this.setState({ optRate: e.target.value }),
+      onOptCashback: e => this.setState({ optCashback: e.target.value }),
+      onOptBreak: e => this.setState({ optBreak: e.target.value }),
+      onOptLegal: e => this.setState({ optLegal: e.target.value }),
+      saveBtnText: saving ? 'Saving…' : (saveOk ? 'Saved ✓' : 'Save options'),
+      saveBtnDisabled: saving,
+      genBtnText: generating ? 'Generating…' : 'Generate PDF',
+      genBtnDisabled: generating,
+      onSave: () => this.save(),
+      onGenPDF: () => this.genPDF(),
+      error,
+    };
   }
-});
-
-$('logoutBtn').addEventListener('click', async () => {
-  await api('/api/admin/logout', { method: 'POST' });
-  showLogin();
-});
-
-$('backBtn').addEventListener('click', () => {
-  $('detailView').classList.add('hidden');
-  $('listView').classList.remove('hidden');
-  currentLead = null;
-});
-
-$('saveBtn').addEventListener('click', async () => {
-  if (!currentLead) return;
-  showError('detailError', '');
-  const btn = $('saveBtn');
-  btn.disabled = true;
-  try {
-    const data = await api(`/api/admin/lead?id=${encodeURIComponent(currentLead.id)}`, {
-      method: 'PATCH',
-      body: JSON.stringify({
-        target_new_rate: clean($('optNewRate').value),
-        cashback_pct: clean($('optCashback').value),
-        break_fee: clean($('optBreakFee').value),
-        legal_costs: clean($('optLegal').value),
-      }),
-    });
-    currentLead = data.lead;
-    const idx = leads.findIndex(l => l.id === currentLead.id);
-    if (idx >= 0) leads[idx] = currentLead;
-    fillOptions(currentLead);
-    btn.textContent = 'Saved';
-    setTimeout(() => { btn.textContent = 'Save options'; }, 1500);
-  } catch (err) {
-    showError('detailError', err.message);
-  } finally {
-    btn.disabled = false;
-  }
-});
-
-$('reportBtn').addEventListener('click', async () => {
-  if (!currentLead) return;
-  showError('detailError', '');
-  const btn = $('reportBtn');
-  btn.disabled = true;
-  btn.textContent = 'Generating…';
-  try {
-    const res = await api(`/api/admin/report?id=${encodeURIComponent(currentLead.id)}`, { raw: true });
-    const blob = await res.blob();
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `wealthify-refinance-report-${currentLead.email.replace(/[^a-zA-Z0-9._-]+/g, '-')}.pdf`;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
-  } catch (err) {
-    showError('detailError', err.message);
-  } finally {
-    btn.disabled = false;
-    btn.textContent = 'Generate PDF report';
-  }
-});
-
-(async () => {
-  try {
-    await loadLeads();
-  } catch {
-    showLogin();
-  }
-})();
+}
 </script>
 </body>
 </html>

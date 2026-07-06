@@ -1,4 +1,10 @@
 {
   "cleanUrls": false,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "functions": {
+    "api/admin/report.js": {
+      "memory": 1536,
+      "maxDuration": 30
+    }
+  }
 }
