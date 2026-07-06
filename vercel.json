@@ -3,8 +3,8 @@
   "trailingSlash": false,
   "functions": {
     "api/admin/report.js": {
-      "memory": 1536,
-      "maxDuration": 30
+      "memory": 2048,
+      "maxDuration": 60
     }
   }
 }
