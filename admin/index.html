@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wealthify Admin — Refinance Leads</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Plus Jakarta Sans',system-ui,sans-serif;
+  background:#F6F8FB;color:#0B1F3A;min-height:100vh;
+}
+.wrap{max-width:1100px;margin:0 auto;padding:32px 24px}
+h1{font-size:24px;font-weight:800;letter-spacing:-.5px}
+.sub{font-size:13px;color:#8B9AAD;margin-top:4px}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;gap:16px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  padding:10px 18px;border-radius:8px;border:none;font-family:inherit;
+  font-size:13px;font-weight:700;cursor:pointer;transition:opacity .15s;
+}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn-primary{background:linear-gradient(135deg,#16C172,#0E9E5C);color:#fff}
+.btn-secondary{background:#fff;border:1.5px solid #E4E9F0;color:#0B1F3A}
+.btn-ghost{background:none;color:#5B6B82;padding:8px 12px}
+.btn:hover:not(:disabled){opacity:.9}
+.card{
+  background:#fff;border:1px solid #E4E9F0;border-radius:14px;
+  padding:24px;box-shadow:0 2px 12px rgba(11,31,58,.04);
+}
+.login-card{max-width:400px;margin:80px auto 0}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:12px;font-weight:700;margin-bottom:6px;color:#5B6B82}
+.field input{
+  width:100%;height:44px;padding:0 14px;border:1.5px solid #E4E9F0;
+  border-radius:8px;font-family:inherit;font-size:14px;color:#0B1F3A;
+}
+.field input:focus{outline:none;border-color:#16C172}
+.error{
+  display:none;margin-top:12px;padding:10px 12px;border-radius:8px;
+  background:rgba(214,69,69,.08);color:#D64545;font-size:13px;font-weight:600;
+}
+.error.show{display:block}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:12px 14px;text-align:left;border-bottom:1px solid #E4E9F0}
+th{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#8B9AAD}
+tbody tr{cursor:pointer;transition:background .12s}
+tbody tr:hover{background:#F6F8FB}
+.empty{padding:40px;text-align:center;color:#8B9AAD;font-size:14px}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+.detail-item{background:#F6F8FB;border:1px solid #E4E9F0;border-radius:10px;padding:14px}
+.detail-item .label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#8B9AAD;margin-bottom:4px}
+.detail-item .value{font-size:15px;font-weight:700;color:#0B1F3A;word-break:break-word}
+.section-title{font-size:15px;font-weight:800;margin:24px 0 12px}
+.options-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opt-field label{display:block;font-size:12.5px;font-weight:700;margin-bottom:6px}
+.opt-field input{
+  width:100%;height:42px;padding:0 12px;border:1.5px solid #E4E9F0;
+  border-radius:8px;font-family:inherit;font-size:14px;font-weight:600;
+}
+.opt-hint{font-size:10.5px;color:#8B9AAD;margin-top:4px;line-height:1.4}
+.actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+.hidden{display:none!important}
+@media(max-width:720px){
+  .detail-grid,.options-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="loginView" class="login-card card">
+    <h1>Wealthify Admin</h1>
+    <p class="sub">Sign in to manage refinance leads</p>
+    <form id="loginForm" style="margin-top:24px">
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" type="password" autocomplete="current-password" required>
+      </div>
+      <button class="btn btn-primary" type="submit" style="width:100%;height:44px">Sign in</button>
+      <div class="error" id="loginError"></div>
+    </form>
+  </div>
+
+  <div id="appView" class="hidden">
+    <div class="topbar">
+      <div>
+        <h1>Refinance leads</h1>
+        <p class="sub" id="leadCount">Loading…</p>
+      </div>
+      <button class="btn btn-ghost" id="logoutBtn" type="button">Log out</button>
+    </div>
+
+    <div id="listView" class="card">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Address</th>
+              <th>Balance</th>
+            </tr>
+          </thead>
+          <tbody id="leadsBody"></tbody>
+        </table>
+      </div>
+      <div class="empty hidden" id="emptyState">No leads yet.</div>
+    </div>
+
+    <div id="detailView" class="hidden">
+      <button class="btn btn-ghost" id="backBtn" type="button" style="margin-bottom:16px;padding-left:0">← Back to leads</button>
+      <div class="card">
+        <h1 id="detailTitle">Lead details</h1>
+        <p class="sub" id="detailDate"></p>
+
+        <div class="section-title">Client information</div>
+        <div class="detail-grid" id="clientGrid"></div>
+
+        <div class="section-title">Refinance options</div>
+        <p class="sub" style="margin-bottom:12px">Configure rates and costs for this lead's PDF report.</p>
+        <div class="options-grid">
+          <div class="opt-field">
+            <label for="optNewRate">Target new rate</label>
+            <input id="optNewRate" type="text" inputmode="decimal">
+            <div class="opt-hint">NZ fixed rates Jun 2026: 4.49–4.79%</div>
+          </div>
+          <div class="opt-field">
+            <label for="optCashback">Cashback</label>
+            <input id="optCashback" type="text" inputmode="decimal">
+            <div class="opt-hint">Typically 0.85–1.25%, capped ~$20k</div>
+          </div>
+          <div class="opt-field">
+            <label for="optBreakFee">Break fee</label>
+            <input id="optBreakFee" type="text" inputmode="numeric">
+            <div class="opt-hint">Near $0 at rollover date</div>
+          </div>
+          <div class="opt-field">
+            <label for="optLegal">Legal costs</label>
+            <input id="optLegal" type="text" inputmode="numeric">
+            <div class="opt-hint">Typical NZ legals: $800–$1,500</div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-secondary" id="saveBtn" type="button">Save options</button>
+          <button class="btn btn-primary" id="reportBtn" type="button">Generate PDF report</button>
+        </div>
+        <div class="error" id="detailError"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const fmtMoney = n => '$' + Math.abs(Math.round(Number(n) || 0)).toLocaleString('en-NZ');
+const clean = v => parseFloat(String(v).replace(/[^0-9.]/g, '')) || 0;
+
+let leads = [];
+let currentLead = null;
+
+function showError(elId, msg) {
+  const el = $(elId);
+  if (!msg) {
+    el.textContent = '';
+    el.classList.remove('show');
+    return;
+  }
+  el.textContent = msg;
+  el.classList.add('show');
+}
+
+function showLogin() {
+  $('loginView').classList.remove('hidden');
+  $('appView').classList.add('hidden');
+}
+
+function showApp() {
+  $('loginView').classList.add('hidden');
+  $('appView').classList.remove('hidden');
+  $('listView').classList.remove('hidden');
+  $('detailView').classList.add('hidden');
+}
+
+async function api(path, options = {}) {
+  const res = await fetch(path, {
+    credentials: 'same-origin',
+    headers: options.body ? { 'Content-Type': 'application/json' } : undefined,
+    ...options,
+  });
+  if (res.status === 401) {
+    showLogin();
+    throw new Error('Unauthorized');
+  }
+  if (!res.ok) {
+    let msg = 'Request failed';
+    try {
+      const data = await res.json();
+      msg = data.error || msg;
+    } catch {}
+    throw new Error(msg);
+  }
+  if (options.raw) return res;
+  const ct = res.headers.get('content-type') || '';
+  if (ct.includes('application/json')) return res.json();
+  return res;
+}
+
+function formatDate(iso) {
+  return new Date(iso).toLocaleDateString('en-NZ', {
+    day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit',
+  });
+}
+
+function renderLeads() {
+  const body = $('leadsBody');
+  body.innerHTML = '';
+  $('leadCount').textContent = `${leads.length} lead${leads.length === 1 ? '' : 's'}`;
+  $('emptyState').classList.toggle('hidden', leads.length > 0);
+
+  leads.forEach(lead => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${formatDate(lead.created_at)}</td>
+      <td>${lead.email}</td>
+      <td>${lead.phone}</td>
+      <td>${lead.property_address || '—'}</td>
+      <td>${fmtMoney(lead.loan_balance)}</td>`;
+    tr.addEventListener('click', () => openLead(lead.id));
+    body.appendChild(tr);
+  });
+}
+
+function renderClientGrid(lead) {
+  const items = [
+    ['Email', lead.email],
+    ['Phone', lead.phone],
+    ['Property address', lead.property_address || '—'],
+    ['Loan balance', fmtMoney(lead.loan_balance)],
+    ['Current rate', lead.current_rate != null ? lead.current_rate + '%' : '—'],
+    ['Years remaining', lead.years_remaining != null ? lead.years_remaining + ' yrs' : '—'],
+  ];
+  $('clientGrid').innerHTML = items.map(([label, value]) => `
+    <div class="detail-item">
+      <div class="label">${label}</div>
+      <div class="value">${value}</div>
+    </div>`).join('');
+}
+
+function fillOptions(lead) {
+  $('optNewRate').value = lead.target_new_rate ?? '4.79';
+  $('optCashback').value = lead.cashback_pct ?? '0.90';
+  $('optBreakFee').value = lead.break_fee ?? '0';
+  $('optLegal').value = lead.legal_costs != null
+    ? Number(lead.legal_costs).toLocaleString('en-NZ')
+    : '1,200';
+}
+
+async function openLead(id) {
+  showError('detailError', '');
+  const data = await api(`/api/admin/lead?id=${encodeURIComponent(id)}`);
+  currentLead = data.lead;
+  $('detailTitle').textContent = currentLead.email;
+  $('detailDate').textContent = 'Submitted ' + formatDate(currentLead.created_at);
+  renderClientGrid(currentLead);
+  fillOptions(currentLead);
+  $('listView').classList.add('hidden');
+  $('detailView').classList.remove('hidden');
+}
+
+async function loadLeads() {
+  const data = await api('/api/admin/leads');
+  leads = data.leads || [];
+  renderLeads();
+  showApp();
+}
+
+$('loginForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  showError('loginError', '');
+  const btn = e.target.querySelector('button[type="submit"]');
+  btn.disabled = true;
+  try {
+    await api('/api/admin/login', {
+      method: 'POST',
+      body: JSON.stringify({ password: $('password').value }),
+    });
+    $('password').value = '';
+    await loadLeads();
+  } catch (err) {
+    showError('loginError', err.message === 'Unauthorized' ? 'Invalid password' : err.message);
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+$('logoutBtn').addEventListener('click', async () => {
+  await api('/api/admin/logout', { method: 'POST' });
+  showLogin();
+});
+
+$('backBtn').addEventListener('click', () => {
+  $('detailView').classList.add('hidden');
+  $('listView').classList.remove('hidden');
+  currentLead = null;
+});
+
+$('saveBtn').addEventListener('click', async () => {
+  if (!currentLead) return;
+  showError('detailError', '');
+  const btn = $('saveBtn');
+  btn.disabled = true;
+  try {
+    const data = await api(`/api/admin/lead?id=${encodeURIComponent(currentLead.id)}`, {
+      method: 'PATCH',
+      body: JSON.stringify({
+        target_new_rate: clean($('optNewRate').value),
+        cashback_pct: clean($('optCashback').value),
+        break_fee: clean($('optBreakFee').value),
+        legal_costs: clean($('optLegal').value),
+      }),
+    });
+    currentLead = data.lead;
+    const idx = leads.findIndex(l => l.id === currentLead.id);
+    if (idx >= 0) leads[idx] = currentLead;
+    fillOptions(currentLead);
+    btn.textContent = 'Saved';
+    setTimeout(() => { btn.textContent = 'Save options'; }, 1500);
+  } catch (err) {
+    showError('detailError', err.message);
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+$('reportBtn').addEventListener('click', async () => {
+  if (!currentLead) return;
+  showError('detailError', '');
+  const btn = $('reportBtn');
+  btn.disabled = true;
+  btn.textContent = 'Generating…';
+  try {
+    const res = await api(`/api/admin/report?id=${encodeURIComponent(currentLead.id)}`, { raw: true });
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `wealthify-refinance-report-${currentLead.email.replace(/[^a-zA-Z0-9._-]+/g, '-')}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  } catch (err) {
+    showError('detailError', err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Generate PDF report';
+  }
+});
+
+(async () => {
+  try {
+    await loadLeads();
+  } catch {
+    showLogin();
+  }
+})();
+</script>
+</body>
+</html>

@@ -68,23 +68,6 @@ input[type=range]::-moz-range-thumb{
 }
 .range-ends{display:flex;justify-content:space-between;margin-top:5px;font-size:10.5px;color:#8B9AAD}
 
-/* ── Divider ── */
-.divider{height:1px;background:#E4E9F0;margin:20px 0}
-
-/* ── Advanced toggle ── */
-.adv-btn{
-  display:flex;align-items:center;gap:6px;background:none;border:none;
-  font-family:inherit;font-size:13px;font-weight:600;color:#0E9E5C;
-  cursor:pointer;padding:0;
-}
-.adv-btn svg{transition:transform .2s;flex:none}
-.adv-btn.open svg{transform:rotate(180deg)}
-.adv-body{display:none;margin-top:16px}
-.adv-body.open{display:block}
-.adv-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.adv-field label{display:block;font-size:12.5px;font-weight:700;color:#0B1F3A;margin-bottom:6px}
-.adv-hint{font-size:10.5px;color:#8B9AAD;margin-top:4px;line-height:1.4}
-
 /* ── Results: primary metric ── */
 .primary-metric{margin-bottom:16px}
 .pm-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#5B6B82;margin-bottom:5px}
@@ -126,7 +109,7 @@ canvas{display:block;width:100%;height:210px;cursor:crosshair}
   border:5px solid transparent;border-top-color:#0B1F3A;
 }
 
-/* ── Lead gate ── */
+/* ── Contact CTA + lead modal ── */
 .sent-banner{
   display:none;align-items:center;gap:8px;margin-bottom:14px;
   background:rgba(22,193,114,.07);border:1px solid rgba(22,193,114,.22);
@@ -134,14 +117,42 @@ canvas{display:block;width:100%;height:210px;cursor:crosshair}
   font-size:13px;font-weight:600;color:#0E9E5C;
 }
 .sent-banner.show{display:flex}
-.locked-zone{position:relative;min-height:200px}
-.locked-content{filter:blur(5px);opacity:.45;pointer-events:none;user-select:none}
-.locked-zone.unlocked .locked-content{
-  filter:none;opacity:1;pointer-events:auto;
-  transition:filter .55s ease,opacity .55s ease;
+.contact-cta{
+  margin-top:6px;padding:28px 24px;text-align:center;
+  background:linear-gradient(135deg,rgba(22,193,114,.08) 0%,rgba(15,181,186,.06) 100%);
+  border:1.5px solid rgba(22,193,114,.22);border-radius:14px;
 }
-.lock-overlay{position:absolute;inset:0;z-index:10;display:flex;align-items:flex-start;justify-content:center;padding-top:6px}
-.locked-zone.unlocked .lock-overlay{display:none}
+.contact-cta-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;max-width:420px;height:52px;padding:0 28px;
+  background:linear-gradient(135deg,#16C172 0%,#0E9E5C 100%);
+  border:none;border-radius:10px;
+  font-family:inherit;font-size:15px;font-weight:800;color:#fff;cursor:pointer;
+  letter-spacing:-.2px;
+  box-shadow:0 8px 24px rgba(22,193,114,.35);
+  transition:transform .15s,box-shadow .15s,background .15s;
+  animation:ctaPulse 2.5s ease-in-out infinite;
+}
+.contact-cta-btn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 12px 28px rgba(22,193,114,.42);
+  background:linear-gradient(135deg,#0E9E5C 0%,#0B8A52 100%);
+}
+.contact-cta-sub{
+  margin-top:12px;font-size:13px;color:#5B6B82;line-height:1.5;
+}
+@keyframes ctaPulse{
+  0%,100%{box-shadow:0 8px 24px rgba(22,193,114,.35)}
+  50%{box-shadow:0 8px 32px rgba(22,193,114,.55)}
+}
+.modal-backdrop{
+  position:fixed;inset:0;z-index:1000;
+  display:none;align-items:center;justify-content:center;
+  padding:20px;background:rgba(11,31,58,.45);
+  backdrop-filter:blur(4px);
+}
+.modal-backdrop.open{display:flex}
+.modal-backdrop .gate{max-width:420px;max-height:90vh;overflow-y:auto}
 
 .gate{
   background:#fff;border:1.5px solid #E4E9F0;border-radius:14px;
@@ -174,52 +185,18 @@ canvas{display:block;width:100%;height:210px;cursor:crosshair}
   font-family:inherit;font-size:14px;font-weight:700;color:#fff;cursor:pointer;
   letter-spacing:-.1px;transition:background .15s;
 }
-.gate-btn:hover{background:#0E9E5C}
+.gate-btn:hover:not(:disabled){background:#0E9E5C}
+.gate-btn:disabled{opacity:.65;cursor:not-allowed}
+.gate-error{
+  display:none;margin-bottom:10px;padding:9px 12px;
+  background:rgba(229,72,77,.08);border:1px solid rgba(229,72,77,.25);
+  border-radius:8px;font-size:12.5px;font-weight:600;color:#C53030;
+}
+.gate-error.show{display:block}
 .gate-trust{
   display:flex;align-items:flex-start;gap:6px;margin-top:10px;
   font-size:11px;color:#8B9AAD;line-height:1.5;
 }
-
-/* ── Detail report ── */
-.detail-label{
-  font-size:10.5px;font-weight:700;text-transform:uppercase;
-  letter-spacing:.1em;color:#5B6B82;margin-bottom:10px;
-}
-.bank-wrap{border:1px solid #E4E9F0;border-radius:12px;overflow:hidden;margin-bottom:14px}
-.bank-tbl{width:100%;border-collapse:collapse;font-size:13px}
-.bank-tbl thead tr{background:#0B1F3A}
-.bank-tbl th{
-  color:rgba(255,255,255,.6);font-weight:600;font-size:10.5px;
-  text-align:left;padding:10px 13px;letter-spacing:.05em;text-transform:uppercase;
-}
-.bank-tbl th.r,.bank-tbl td.r{text-align:right}
-.bank-tbl td{padding:11px 13px;border-bottom:1px solid #E4E9F0;color:#1A2433;font-weight:500}
-.bank-tbl tr:last-child td{border-bottom:none}
-.bank-tbl tr.best td{background:rgba(22,193,114,.05)}
-.save-cell{color:#0E9E5C;font-weight:700}
-.best-badge{
-  display:inline-flex;align-items:center;height:16px;padding:0 6px;
-  border-radius:100px;background:#16C172;color:#fff;
-  font-size:9.5px;font-weight:800;letter-spacing:.04em;
-  text-transform:uppercase;margin-left:5px;vertical-align:middle;
-}
-
-.breakdown{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
-.bd{background:#F6F8FB;border:1px solid #E4E9F0;border-radius:10px;padding:12px 13px}
-.bd-lbl{font-size:10px;color:#5B6B82;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
-.bd-val{font-size:18px;font-weight:800;color:#0B1F3A;letter-spacing:-.4px}
-.bd-val.green{color:#0E9E5C}.bd-val.gold{color:#B8781E}.bd-val.red{color:#C53030}
-
-.net-box{
-  background:rgba(22,193,114,.06);border:1.5px solid rgba(22,193,114,.2);
-  border-radius:11px;padding:14px 16px;margin-bottom:12px;
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
-}
-.net-label{font-size:13px;font-weight:700;color:#0B1F3A}
-.net-sub{font-size:11px;color:#5B6B82;margin-top:2px}
-.net-val{font-size:26px;font-weight:800;color:#0E9E5C;letter-spacing:-.5px;white-space:nowrap}
-
-.fn-note{font-size:11px;color:#8B9AAD;line-height:1.5;margin-bottom:14px}
 
 /* ── Booking CTA ── */
 .booking{display:none;background:#0B1F3A;border-radius:12px;padding:22px;color:#fff;text-align:center;margin-top:14px}
@@ -243,10 +220,9 @@ canvas{display:block;width:100%;height:210px;cursor:crosshair}
 /* ── Responsive ── */
 @media(max-width:720px){
   .calc-grid{grid-template-columns:1fr}
-  .adv-grid,.stats-grid,.breakdown{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:1fr}
   .pm-number{font-size:42px}
   .pm-number .pm-pre{font-size:24px}
-  .net-box{flex-direction:column;align-items:flex-start;gap:8px}
   canvas{height:180px}
 }
 @media(max-width:440px){
@@ -304,48 +280,6 @@ canvas{display:block;width:100%;height:210px;cursor:crosshair}
         <div class="range-ends"><span>1 yr</span><span>30 yrs</span></div>
       </div>
 
-      <div class="divider"></div>
-
-      <button class="adv-btn" id="advToggle" type="button">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-        Refinance options
-      </button>
-      <div class="adv-body" id="advBody">
-        <div class="adv-grid">
-          <div class="adv-field">
-            <label for="newRateNum">Target new rate</label>
-            <div class="input-box">
-              <input id="newRateNum" type="text" inputmode="decimal" value="4.79">
-              <span class="sfx">%</span>
-            </div>
-            <div class="adv-hint">NZ fixed rates Jun 2026: 4.49–4.79%</div>
-          </div>
-          <div class="adv-field">
-            <label for="cashPct">Cashback</label>
-            <div class="input-box">
-              <input id="cashPct" type="text" inputmode="decimal" value="0.90">
-              <span class="sfx">%</span>
-            </div>
-            <div class="adv-hint">Typically 0.85–1.25%, capped ~$20k</div>
-          </div>
-          <div class="adv-field" style="margin-top:10px">
-            <label for="breakFee">Break fee</label>
-            <div class="input-box">
-              <span class="pfx">$</span>
-              <input id="breakFee" type="text" inputmode="numeric" value="0">
-            </div>
-            <div class="adv-hint">Near $0 at rollover date</div>
-          </div>
-          <div class="adv-field" style="margin-top:10px">
-            <label for="legal">Legal costs</label>
-            <div class="input-box">
-              <span class="pfx">$</span>
-              <input id="legal" type="text" inputmode="numeric" value="1,200">
-            </div>
-            <div class="adv-hint">Typical NZ legals: $800–$1,500</div>
-          </div>
-        </div>
-      </div>
     </div>
 
     <!-- ════════════════════════════ RIGHT: RESULTS ════════════════════════════ -->
@@ -398,103 +332,95 @@ canvas{display:block;width:100%;height:210px;cursor:crosshair}
       <!-- Sent banner -->
       <div class="sent-banner" id="sentBanner">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-        Report on its way — full lender breakdown is below.
+        Thanks — a Wealthify adviser will be in touch shortly.
       </div>
 
-      <!-- Gated detail -->
-      <div class="locked-zone" id="lockedZone">
-        <div class="lock-overlay">
-          <div class="gate">
-            <div id="gateFormWrap">
-              <h4>See which bank saves you the most</h4>
-              <p class="gate-sub">Unlock your personalised lender comparison — no obligation.</p>
-              <div class="gate-items">
-                <div class="gate-item">Bank-by-bank rate &amp; repayment table</div>
-                <div class="gate-item">Net benefit after cashback &amp; switch costs</div>
-                <div class="gate-item">Your simple action plan</div>
-              </div>
-              <form id="leadForm" novalidate="">
-                <div class="fld">
-                  <label for="gEmail">Email address</label>
-                  <input id="gEmail" type="email" placeholder="you@email.co.nz" autocomplete="email">
-                </div>
-                <div class="fld">
-                  <label for="gPhone">Mobile number</label>
-                  <input id="gPhone" type="tel" placeholder="021 234 5678" autocomplete="tel">
-                </div>
-                <button class="gate-btn" type="submit">Submit</button>
-              </form>
-              <div class="gate-trust">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16C172" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                No spam — one report, then only if you want a call. Your details stay with Wealthify.
-              </div>
+      <!-- Contact CTA -->
+      <div class="contact-cta" id="contactCta">
+        <button class="contact-cta-btn" id="openLeadModal" type="button">
+          Get your free lender comparison
+        </button>
+        <p class="contact-cta-sub">See which bank saves you the most — no obligation.</p>
+      </div>
+
+      <!-- Lead modal -->
+      <div class="modal-backdrop" id="leadModal" aria-hidden="true">
+        <div class="gate" role="dialog" aria-labelledby="leadModalTitle">
+          <div id="gateFormWrap">
+            <h4 id="leadModalTitle">See which bank saves you the most</h4>
+            <p class="gate-sub">Unlock your personalised lender comparison — no obligation.</p>
+            <div class="gate-items">
+              <div class="gate-item">Bank-by-bank rate &amp; repayment table</div>
+              <div class="gate-item">Net benefit after cashback &amp; switch costs</div>
+              <div class="gate-item">Your simple action plan</div>
             </div>
-            <div id="gateThank" style="display:none;text-align:center;padding:8px 0 4px">
-              <div style="width:52px;height:52px;border-radius:50%;background:rgba(22,193,114,.1);display:flex;align-items:center;justify-content:center;margin:0 auto 16px">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16C172" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <div class="gate-error" id="gateError"></div>
+            <form id="leadForm" novalidate="">
+              <div class="fld">
+                <label for="gEmail">Email address</label>
+                <input id="gEmail" type="email" placeholder="you@email.co.nz" autocomplete="email">
               </div>
-              <h4 style="font-size:17px;font-weight:800;color:#0B1F3A;margin-bottom:8px;letter-spacing:-.3px">Thank you for your submission</h4>
-              <p style="font-size:13.5px;color:#5B6B82;line-height:1.6;margin-bottom:20px">One of our licensed advisers will be in touch shortly to walk you through your personalised lender comparison and answer any questions.</p>
-              <div style="background:#F6F8FB;border:1px solid #E4E9F0;border-radius:10px;padding:14px 16px;text-align:left">
-                <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#8B9AAD;margin-bottom:10px">What happens next</div>
-                <div style="display:flex;flex-direction:column;gap:8px">
-                  <div style="display:flex;align-items:flex-start;gap:9px">
-                    <div style="width:18px;height:18px;border-radius:50%;background:#16C172;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
-                      <svg width="9" height="9" viewBox="0 0 16 16" fill="none"><path d="M3 8.5 L6.5 12 L13 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </div>
-                    <span style="font-size:12.5px;color:#1A2433;font-weight:500;line-height:1.4">Your full lender comparison is now unlocked below</span>
-                  </div>
-                  <div style="display:flex;align-items:flex-start;gap:9px">
-                    <div style="width:18px;height:18px;border-radius:50%;background:#0FB5BA;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
-                      <svg width="9" height="9" viewBox="0 0 16 16" fill="none"><path d="M3 8.5 L6.5 12 L13 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </div>
-                    <span style="font-size:12.5px;color:#1A2433;font-weight:500;line-height:1.4">An adviser will reach out within one business day</span>
-                  </div>
-                  <div style="display:flex;align-items:flex-start;gap:9px">
-                    <div style="width:18px;height:18px;border-radius:50%;background:#0B1F3A;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
-                      <svg width="9" height="9" viewBox="0 0 16 16" fill="none"><path d="M3 8.5 L6.5 12 L13 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </div>
-                    <span style="font-size:12.5px;color:#1A2433;font-weight:500;line-height:1.4">No obligation — free advice, always</span>
-                  </div>
-                </div>
+              <div class="fld">
+                <label for="gPhone">Mobile number</label>
+                <input id="gPhone" type="tel" placeholder="021 234 5678" autocomplete="tel">
               </div>
+              <button class="gate-btn" id="leadFormNext" type="submit">Next</button>
+            </form>
+            <div class="gate-trust">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16C172" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              No spam — one report, then only if you want a call. Your details stay with Wealthify.
             </div>
           </div>
-        </div>
-
-        <!-- Blurred content behind gate -->
-        <div class="locked-content">
-          <div class="detail-label">Lender comparison — Jun 2026</div>
-          <div class="bank-wrap">
-            <table class="bank-tbl">
-              <thead>
-                <tr>
-                  <th>Lender</th>
-                  <th class="r">Fixed rate</th>
-                  <th class="r">New repayment</th>
-                  <th class="r">Monthly saving</th>
-                </tr>
-              </thead>
-              <tbody id="bankBody"></tbody>
-            </table>
-          </div>
-
-          <div class="breakdown">
-            <div class="bd"><div class="bd-lbl">Interest saved</div><div class="bd-val green">$<span id="dInt">0</span></div></div>
-            <div class="bd"><div class="bd-lbl">Paid off sooner</div><div class="bd-val"><span id="dYears">0</span> yrs*</div></div>
-            <div class="bd"><div class="bd-lbl">Cashback</div><div class="bd-val gold">$<span id="dCash">0</span></div></div>
-            <div class="bd"><div class="bd-lbl">Switch costs</div><div class="bd-val red">−$<span id="dCost">0</span></div></div>
-          </div>
-
-          <div class="net-box">
-            <div>
-              <div class="net-label">Net year-one benefit</div>
-              <div class="net-sub">cashback minus all switching costs</div>
+          <div id="gateFormStep2" style="display:none">
+            <h4>Almost there</h4>
+            <p class="gate-sub">Tell us about your property so we can prepare your comparison.</p>
+            <div class="gate-error" id="gateErrorStep2"></div>
+            <form id="leadForm2" novalidate="">
+              <div class="fld">
+                <label for="gAddress">Property address</label>
+                <input id="gAddress" type="text" placeholder="123 Example St, Auckland" autocomplete="street-address">
+              </div>
+              <div class="fld">
+                <label for="gLoanBal">Loan balance</label>
+                <input id="gLoanBal" type="text" inputmode="numeric" placeholder="500,000" autocomplete="off">
+              </div>
+              <button class="gate-btn" id="leadFormSubmit" type="submit">Submit</button>
+            </form>
+            <div class="gate-trust">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16C172" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              No spam — one report, then only if you want a call. Your details stay with Wealthify.
             </div>
-            <div class="net-val" id="netValEl">$<span id="dNet">0</span></div>
           </div>
-
-          <p class="fn-note">*Keeping your current repayment amount at the lower rate. Estimates based on Jun 2026 NZ market rates.</p>
+          <div id="gateThank" style="display:none;text-align:center;padding:8px 0 4px">
+            <div style="width:52px;height:52px;border-radius:50%;background:rgba(22,193,114,.1);display:flex;align-items:center;justify-content:center;margin:0 auto 16px">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16C172" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </div>
+            <h4 style="font-size:17px;font-weight:800;color:#0B1F3A;margin-bottom:8px;letter-spacing:-.3px">Thank you for your submission</h4>
+            <p style="font-size:13.5px;color:#5B6B82;line-height:1.6;margin-bottom:20px">One of our licensed advisers will be in touch shortly to walk you through your personalised lender comparison and answer any questions.</p>
+            <div style="background:#F6F8FB;border:1px solid #E4E9F0;border-radius:10px;padding:14px 16px;text-align:left">
+              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#8B9AAD;margin-bottom:10px">What happens next</div>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <div style="display:flex;align-items:flex-start;gap:9px">
+                  <div style="width:18px;height:18px;border-radius:50%;background:#16C172;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
+                    <svg width="9" height="9" viewBox="0 0 16 16" fill="none"><path d="M3 8.5 L6.5 12 L13 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  <span style="font-size:12.5px;color:#1A2433;font-weight:500;line-height:1.4">We prepare your personalised lender comparison</span>
+                </div>
+                <div style="display:flex;align-items:flex-start;gap:9px">
+                  <div style="width:18px;height:18px;border-radius:50%;background:#0FB5BA;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
+                    <svg width="9" height="9" viewBox="0 0 16 16" fill="none"><path d="M3 8.5 L6.5 12 L13 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  <span style="font-size:12.5px;color:#1A2433;font-weight:500;line-height:1.4">An adviser will reach out within one business day</span>
+                </div>
+                <div style="display:flex;align-items:flex-start;gap:9px">
+                  <div style="width:18px;height:18px;border-radius:50%;background:#0B1F3A;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
+                    <svg width="9" height="9" viewBox="0 0 16 16" fill="none"><path d="M3 8.5 L6.5 12 L13 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  <span style="font-size:12.5px;color:#1A2433;font-weight:500;line-height:1.4">No obligation — free advice, always</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -519,14 +445,9 @@ const $  = id => document.getElementById(id);
 const fmt  = n => Math.abs(Math.round(n)).toLocaleString('en-NZ');
 const clean = v => parseFloat(String(v).replace(/[^0-9.]/g,'')) || 0;
 
-const BANKS = [
-  {name:'ASB',      rate:4.65},
-  {name:'ANZ',      rate:4.65},
-  {name:'Kiwibank', rate:4.69},
-  {name:'BNZ',      rate:4.69},
-  {name:'Westpac',  rate:4.79},
-];
 const CASH_CAP = 20000;
+const DEFAULT_NEW_RATE = 4.79;
+const DEFAULT_CASH_PCT = 0.90;
 
 /* ── Finance helpers ── */
 function pmt(P, rAnn, years){
@@ -536,13 +457,6 @@ function pmt(P, rAnn, years){
 }
 function totalInterest(P, rAnn, years){
   return pmt(P,rAnn,years)*years*12 - P;
-}
-function payoffMonths(P, rAnn, monthlyPmt){
-  const r = rAnn/100/12;
-  if(r===0) return P/monthlyPmt;
-  const d = monthlyPmt - P*r;
-  if(d<=0) return Infinity;
-  return -Math.log(1-P*r/monthlyPmt)/Math.log(1+r);
 }
 
 /* ── Animated counter ── */
@@ -748,10 +662,8 @@ function recalc(){
   const bal   = clean($('balNum').value);
   const rate  = clean($('rateNum').value);
   const term  = Math.max(1,Math.round(clean($('termNum').value)));
-  const newR  = clean($('newRateNum').value);
-  const cashP = clean($('cashPct').value);
-  const brk   = clean($('breakFee').value);
-  const leg   = clean($('legal').value);
+  const newR  = DEFAULT_NEW_RATE;
+  const cashP = DEFAULT_CASH_PCT;
 
   if(!bal||!rate||!term) return;
 
@@ -760,24 +672,11 @@ function recalc(){
   const intSaved = Math.max(0,totalInterest(bal,rate,term)-totalInterest(bal,newR,term));
   const moSaved  = Math.max(0,payCur-payNew);
   const cashback = Math.min(bal*cashP/100, CASH_CAP);
-  const mNew     = payoffMonths(bal,newR,payCur);
-  const yrsSoon  = Math.max(0,(term*12-mNew)/12);
-  const costs    = brk+leg;
-  const netYr1   = cashback-costs;
 
   /* Animate numbers */
   animate('moSave',moSaved);
   animate('intSave',intSaved);
   animate('cashVal',cashback);
-  animate('dInt',intSaved);
-  animate('dCash',cashback);
-  animate('dCost',costs);
-  animate('dNet',Math.abs(netYr1));
-  $('dYears').textContent=yrsSoon.toFixed(1);
-
-  /* Net benefit color */
-  const netEl=$('netValEl');
-  if(netEl) netEl.style.color=netYr1>=0?'#0E9E5C':'#C53030';
 
   /* Sub-line */
   $('pmSub').textContent = moSaved>0
@@ -787,19 +686,6 @@ function recalc(){
   /* Chart title */
   $('chartTitle').textContent=
     `Cumulative interest — ${rate}% vs ${newR}% over ${term} years`;
-
-  /* Bank table */
-  const rows=BANKS
-    .map(b=>({...b,pmtNew:pmt(bal,b.rate,term),save:Math.max(0,payCur-pmt(bal,b.rate,term))}))
-    .sort((a,b)=>b.save-a.save);
-
-  $('bankBody').innerHTML=rows.map((b,i)=>`
-    <tr class="${i===0?'best':''}">
-      <td><strong>${b.name}</strong>${i===0?'<span class="best-badge">Best</span>':''}</td>
-      <td class="r">${b.rate.toFixed(2)}%</td>
-      <td class="r">$${fmt(b.pmtNew)}/mo</td>
-      <td class="r save-cell">$${fmt(b.save)}/mo</td>
-    </tr>`).join('');
 
   /* Recompute chart data */
   curYearly=computeYearly(bal,rate,term);
@@ -831,33 +717,176 @@ function linkSlider(numId,rangeId,isMoney,dp){
 linkSlider('balNum','balRange',true,0);
 linkSlider('rateNum','rateRange',false,2);
 linkSlider('termNum','termRange',false,0);
-['newRateNum','cashPct','breakFee','legal'].forEach(id=>{
-  const el=$(id); if(el) el.addEventListener('input',recalc);
+
+/* ── Lead modal ── */
+function leadApiUrl(){
+  return '/api/leads';
+}
+
+function requireHttpOrigin(errorElId){
+  if(location.protocol!=='file:') return true;
+  showGateError(errorElId,'This form needs a local server. Run npm run dev, then open http://localhost:3000');
+  return false;
+}
+
+function showGateError(elId, message){
+  const el=$(elId);
+  if(!message){
+    el.textContent='';
+    el.classList.remove('show');
+    return;
+  }
+  el.textContent=message;
+  el.classList.add('show');
+}
+
+let leadStep1Rate = null;
+let leadStep1Term = null;
+
+function resetLeadModal(){
+  $('gateFormWrap').style.display='block';
+  $('gateFormStep2').style.display='none';
+  $('gateThank').style.display='none';
+  showGateError('gateError','');
+  showGateError('gateErrorStep2','');
+  $('leadForm').reset();
+  $('leadForm2').reset();
+  $('leadFormNext').disabled=false;
+  $('leadFormNext').textContent='Next';
+  $('leadFormSubmit').disabled=false;
+  $('leadFormSubmit').textContent='Submit';
+  leadStep1Rate = null;
+  leadStep1Term = null;
+}
+
+function openLeadModal(){
+  resetLeadModal();
+  $('gLoanBal').value=$('balNum').value;
+  $('leadModal').classList.add('open');
+  $('leadModal').setAttribute('aria-hidden','false');
+  $('gEmail').focus();
+  reportHeight();
+}
+
+function closeLeadModal(){
+  $('leadModal').classList.remove('open');
+  $('leadModal').setAttribute('aria-hidden','true');
+  reportHeight();
+}
+
+$('openLeadModal').addEventListener('click',openLeadModal);
+
+$('leadModal').addEventListener('click',e=>{
+  if(e.target===$('leadModal')) closeLeadModal();
 });
 
-/* ── Advanced toggle ── */
-$('advToggle').addEventListener('click',()=>{
-  $('advToggle').classList.toggle('open');
-  $('advBody').classList.toggle('open');
-  setTimeout(reportHeight,350);
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape' && $('leadModal').classList.contains('open')) closeLeadModal();
 });
 
-/* ── Lead form ── */
-$('leadForm').addEventListener('submit',e=>{
+$('leadForm').addEventListener('submit',async e=>{
   e.preventDefault();
+  showGateError('gateError','');
   const em=$('gEmail'), ph=$('gPhone');
-  const emOk=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim());
-  const phOk=ph.value.replace(/\D/g,'').length>=8;
+  const email=em.value.trim();
+  const phone=ph.value.trim();
+  const emOk=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const phOk=phone.replace(/\D/g,'').length>=8;
   em.classList.toggle('err',!emOk);
   ph.classList.toggle('err',!phOk);
   if(!emOk||!phOk) return;
-  $('gateFormWrap').style.display='none';
-  $('gateThank').style.display='block';
-  setTimeout(()=>{
-    $('lockedZone').classList.add('unlocked');
+  if(!requireHttpOrigin('gateError')) return;
+
+  const current_rate = clean($('rateNum').value);
+  const years_remaining = Math.max(1, Math.round(clean($('termNum').value)));
+  const loan_balance = clean($('balNum').value);
+  if(!current_rate || !years_remaining || !loan_balance){
+    showGateError('gateError','Please complete the calculator fields first.');
+    return;
+  }
+
+  const btn=$('leadFormNext');
+  btn.disabled=true;
+  btn.textContent='Saving…';
+
+  try{
+    const res=await fetch(leadApiUrl(),{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        step:1,
+        email,
+        phone,
+        current_rate,
+        years_remaining,
+        loan_balance,
+      }),
+    });
+    const data=await res.json();
+    if(!res.ok) throw new Error(data.error||'Something went wrong. Please try again.');
+
+    leadStep1Rate = current_rate;
+    leadStep1Term = years_remaining;
+    $('gateFormWrap').style.display='none';
+    $('gateFormStep2').style.display='block';
+    $('gLoanBal').value=$('balNum').value;
+    $('gAddress').focus();
+  }catch(err){
+    showGateError('gateError',err.message||'Something went wrong. Please try again.');
+  }finally{
+    btn.disabled=false;
+    btn.textContent='Next';
+  }
+});
+
+$('leadForm2').addEventListener('submit',async e=>{
+  e.preventDefault();
+  showGateError('gateErrorStep2','');
+  const addr=$('gAddress'), bal=$('gLoanBal');
+  const property_address=addr.value.trim();
+  const loan_balance=clean(bal.value);
+  const email=$('gEmail').value.trim();
+  const phone=$('gPhone').value.trim();
+  const addrOk=property_address.length>0;
+  const balOk=loan_balance>0;
+  const emOk=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const phOk=phone.replace(/\D/g,'').length>=8;
+  addr.classList.toggle('err',!addrOk);
+  bal.classList.toggle('err',!balOk);
+  if(!addrOk||!balOk||!emOk||!phOk) return;
+  if(!requireHttpOrigin('gateErrorStep2')) return;
+
+  const btn=$('leadFormSubmit');
+  btn.disabled=true;
+  btn.textContent='Submitting…';
+
+  try{
+    const res=await fetch(leadApiUrl(),{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        step:2,
+        email,
+        phone,
+        property_address,
+        loan_balance,
+        current_rate: leadStep1Rate ?? clean($('rateNum').value),
+        years_remaining: leadStep1Term ?? Math.max(1, Math.round(clean($('termNum').value))),
+      }),
+    });
+    const data=await res.json();
+    if(!res.ok) throw new Error(data.error||'Something went wrong. Please try again.');
+
+    $('gateFormStep2').style.display='none';
+    $('gateThank').style.display='block';
+    $('sentBanner').classList.add('show');
     $('booking').classList.add('show');
-    setTimeout(reportHeight,700);
-  },1400);
+    setTimeout(reportHeight,300);
+  }catch(err){
+    showGateError('gateErrorStep2',err.message||'Something went wrong. Please try again.');
+    btn.disabled=false;
+    btn.textContent='Submit';
+  }
 });
 
 /* ── Height reporting to parent ── */
