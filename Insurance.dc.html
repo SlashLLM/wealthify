@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'Plus Jakarta Sans',sans-serif;color:#1A2433;background:#fff}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
+    a{text-decoration:none;color:inherit}
+  </style>
+</helmet>
+
+<!-- ═══ NAV ═══ -->
+<nav style="position:fixed;top:0;left:0;right:0;z-index:100;transition:background 0.3s,box-shadow 0.3s;background:{{ navBg }};box-shadow:{{ navShadow }}">
+  <div style="max-width:1200px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;gap:24px">
+    <a href="./index.html" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+      <svg width="32" height="24" viewBox="0 0 34 26" fill="none">
+        <defs><linearGradient id="wg" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#16C172"></stop><stop offset="100%" stop-color="#16C172"></stop></linearGradient></defs>
+        <rect x="0" y="13" width="5" height="13" rx="1.5" fill="url(#wg)"></rect>
+        <rect x="7" y="6" width="5" height="20" rx="1.5" fill="url(#wg)"></rect>
+        <rect x="14.5" y="9" width="5" height="17" rx="1.5" fill="url(#wg)"></rect>
+        <rect x="22" y="2" width="5" height="24" rx="1.5" fill="url(#wg)"></rect>
+        <rect x="29" y="0" width="5" height="26" rx="1.5" fill="url(#wg)"></rect>
+      </svg>
+      <span style="font-size:18px;font-weight:800;color:{{ navTextColor }};letter-spacing:-0.5px;transition:color 0.3s">Wealthify</span>
+    </a>
+    <div style="display:flex;gap:26px;align-items:center;flex:1;justify-content:center">
+      <a href="./Mortgages.dc.html" style="font-size:14px;font-weight:600;color:{{ navTextColor }};opacity:0.65">Mortgages</a>
+      <a href="#" style="font-size:14px;font-weight:700;color:#16C172;padding-bottom:2px;border-bottom:2px solid #16C172">Insurance</a>
+      <a href="./KiwiSaver.dc.html" style="font-size:14px;font-weight:600;color:{{ navTextColor }};opacity:0.65">KiwiSaver</a>
+      <a href="./Refinance-Calculator-Embed.html" style="font-size:14px;font-weight:600;color:{{ navTextColor }};opacity:0.65">Loans</a>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;flex-shrink:0">
+      <button style="padding:8px 18px;background:#16C172;border:none;color:white;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Book a free call</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section style="padding:120px 24px 0;background:#071929">
+  <div style="max-width:1200px;margin:0 auto;text-align:center">
+    <div style="display:inline-flex;align-items:center;gap:8px;margin-bottom:24px;padding:6px 14px;background:rgba(22,193,114,0.12);border-radius:100px;border:1px solid rgba(22,193,114,0.2)">
+      <span style="width:6px;height:6px;border-radius:50%;background:#16C172;animation:pulse 2s infinite;display:inline-block"></span>
+      <span style="font-size:11.5px;font-weight:700;color:#16C172;letter-spacing:.04em">FAP Licensed · AIA · Fidelity Life · NIB · Free Advice · Always</span>
+    </div>
+    <h1 style="font-size:clamp(40px,5.5vw,72px);font-weight:800;color:white;margin:0 0 18px;line-height:1.02;letter-spacing:-3.5px">Protect everything<br>you've worked for.</h1>
+    <p style="font-size:17px;color:rgba(255,255,255,0.42);margin:0 auto 32px;max-width:500px;line-height:1.7">The mortgage is sorted. Now protect the income that pays it — and the family that depends on it.</p>
+    <div style="display:flex;gap:12px;justify-content:center;margin-bottom:40px;flex-wrap:wrap">
+      <button style="padding:14px 28px;background:#16C172;border:none;color:white;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s" style-hover="opacity:0.88">Get a free insurance review</button>
+      <button onClick="{{ scrollToCovers }}" style="padding:14px 24px;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s" style-hover="background:rgba(255,255,255,0.12);color:white">Explore cover types ↓</button>
+    </div>
+    <div style="display:flex;gap:28px;justify-content:center;padding-bottom:52px;flex-wrap:wrap">
+      <div><span style="font-size:22px;font-weight:800;color:white;letter-spacing:-0.5px">800+</span><span style="font-size:12px;color:rgba(255,255,255,0.3);margin-left:8px">families covered</span></div>
+      <div style="width:1px;background:rgba(255,255,255,0.1)"></div>
+      <div><span style="font-size:22px;font-weight:800;color:white;letter-spacing:-0.5px">6</span><span style="font-size:12px;color:rgba(255,255,255,0.3);margin-left:8px">cover types</span></div>
+      <div style="width:1px;background:rgba(255,255,255,0.1)"></div>
+      <div><span style="font-size:22px;font-weight:800;color:#16C172;letter-spacing:-0.5px">4.9 ★</span><span style="font-size:12px;color:rgba(255,255,255,0.3);margin-left:8px">Google</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WHAT IF STRIP ═══ -->
+<section style="background:#071929;padding:0 24px 80px">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:rgba(255,255,255,0.2);text-align:center;margin-bottom:28px">The questions worth asking yourself</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+
+      <!-- Card 1 -->
+      <div style="border-radius:20px;padding:32px;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07)">
+        <div style="width:44px;height:44px;border-radius:12px;background:rgba(22,193,114,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:20px">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <rect x="2" y="7" width="20" height="15" rx="2" stroke="#16C172" stroke-width="1.8"></rect>
+            <path d="M16 7V5a4 4 0 0 0-8 0v2" stroke="#16C172" stroke-width="1.8" stroke-linecap="round"></path>
+            <path d="M8 13h8M8 17h5" stroke="#16C172" stroke-width="1.6" stroke-linecap="round"></path>
+          </svg>
+        </div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#16C172;margin-bottom:8px">Income at risk</div>
+        <div style="font-size:44px;font-weight:800;color:white;letter-spacing:-2.5px;line-height:1;margin-bottom:5px">~$34K</div>
+        <div style="font-size:12.5px;color:rgba(255,255,255,0.3);font-weight:600;margin-bottom:18px">lost in 6 months off work</div>
+        <div style="width:28px;height:2px;background:rgba(22,193,114,0.35);margin-bottom:16px"></div>
+        <div style="font-size:13.5px;color:rgba(255,255,255,0.45);line-height:1.65">What if you couldn't work for 6 months? Income protection replaces up to 75% of your salary — so your mortgage stays paid.</div>
+      </div>
+
+      <!-- Card 2 -->
+      <div style="border-radius:20px;padding:32px;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07)">
+        <div style="width:44px;height:44px;border-radius:12px;background:rgba(232,176,75,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:20px">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" stroke="#E8B04B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></polyline>
+          </svg>
+        </div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#E8B04B;margin-bottom:8px">Health reality</div>
+        <div style="font-size:44px;font-weight:800;color:white;letter-spacing:-2.5px;line-height:1;margin-bottom:5px">1 in 3</div>
+        <div style="font-size:12.5px;color:rgba(255,255,255,0.3);font-weight:600;margin-bottom:18px">NZ men will get cancer</div>
+        <div style="width:28px;height:2px;background:rgba(232,176,75,0.35);margin-bottom:16px"></div>
+        <div style="font-size:13.5px;color:rgba(255,255,255,0.45);line-height:1.65">Trauma cover pays a lump sum on diagnosis — so you can focus entirely on recovery, not how to cover the bills.</div>
+      </div>
+
+      <!-- Card 3 -->
+      <div style="border-radius:20px;padding:32px;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07)">
+        <div style="width:44px;height:44px;border-radius:12px;background:rgba(22,193,114,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:20px">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M3 12L12 3L21 12V21H15V15H9V21H3V12Z" stroke="#16C172" stroke-width="1.8" stroke-linejoin="round"></path>
+          </svg>
+        </div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#16C172;margin-bottom:8px">Mortgage risk</div>
+        <div style="font-size:44px;font-weight:800;color:white;letter-spacing:-2.5px;line-height:1;margin-bottom:5px">$580K</div>
+        <div style="font-size:12.5px;color:rgba(255,255,255,0.3);font-weight:600;margin-bottom:18px">average NZ mortgage balance</div>
+        <div style="width:28px;height:2px;background:rgba(22,193,114,0.35);margin-bottom:16px"></div>
+        <div style="font-size:13.5px;color:rgba(255,255,255,0.45);line-height:1.65">If you weren't here tomorrow, life cover ensures your family keeps the home and has a real financial future.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COVER GATEWAY ═══ -->
+<section id="covers" style="padding:80px 24px;background:white">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:48px">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#5B6B82;margin-bottom:10px">Coverage</div>
+      <h2 style="font-size:clamp(26px,3vw,40px);font-weight:800;color:#0B1F3A;margin:0 0 12px;letter-spacing:-1.5px">Choose your cover</h2>
+      <p style="font-size:16px;color:#8B9AAD;margin:0 auto;max-width:480px;line-height:1.6">We compare AIA, Fidelity Life, NIB and more to find the right policy at the best price.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+
+      <!-- Life Cover -->
+      <div style="border-radius:20px;padding:28px;background:white;border:1px solid #E4E9F0;cursor:pointer;transition:all 0.25s" style-hover="transform:translateY(-5px);border-color:#16C172;box-shadow:0 12px 36px rgba(22,193,114,0.12)">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px">
+          <div style="width:52px;height:52px;border-radius:14px;background:rgba(22,193,114,0.08);display:flex;align-items:center;justify-content:center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2L4 5v6c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V5L12 2z" stroke="#16C172" stroke-width="1.8" stroke-linejoin="round"></path>
+              <path d="M9 12l2 2 4-4" stroke="#16C172" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:#16C172;background:rgba(22,193,114,0.08);padding:4px 10px;border-radius:100px;white-space:nowrap">from ~$12/mo</div>
+        </div>
+        <div style="font-size:19px;font-weight:800;color:#0B1F3A;letter-spacing:-0.3px;margin-bottom:8px">Life Cover</div>
+        <div style="font-size:13.5px;color:#5B6B82;line-height:1.65;margin-bottom:20px">A tax-free lump sum to your family when you die — enough to clear the mortgage and secure their future.</div>
+        <div style="font-size:13px;font-weight:700;color:#16C172;display:flex;align-items:center;gap:5px">
+          Talk to an adviser
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 4L10 8L6 12" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </div>
+      </div>
+
+      <!-- Income Protection -->
+      <div style="border-radius:20px;padding:28px;background:white;border:1.5px solid rgba(22,193,114,0.3);cursor:pointer;transition:all 0.25s;position:relative" style-hover="transform:translateY(-5px);border-color:#16C172;box-shadow:0 12px 36px rgba(22,193,114,0.15)">
+        <div style="position:absolute;top:-1px;left:24px;font-size:9.5px;font-weight:700;background:#16C172;color:white;padding:4px 10px;border-radius:0 0 8px 8px;letter-spacing:.07em">MOST RECOMMENDED</div>
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px">
+          <div style="width:52px;height:52px;border-radius:14px;background:rgba(22,193,114,0.08);display:flex;align-items:center;justify-content:center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M23 12a11 11 0 0 0-22 0" stroke="#16C172" stroke-width="1.8" stroke-linecap="round"></path>
+              <path d="M12 12v7M9 19h6" stroke="#16C172" stroke-width="1.8" stroke-linecap="round"></path>
+              <circle cx="12" cy="5" r="2" stroke="#16C172" stroke-width="1.6"></circle>
+            </svg>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:#16C172;background:rgba(22,193,114,0.08);padding:4px 10px;border-radius:100px;white-space:nowrap">from ~$35/mo</div>
+        </div>
+        <div style="font-size:19px;font-weight:800;color:#0B1F3A;letter-spacing:-0.3px;margin-bottom:8px">Income Protection</div>
+        <div style="font-size:13.5px;color:#5B6B82;line-height:1.65;margin-bottom:20px">Replace up to 75% of your income if illness or injury stops you working — paid monthly for up to 5 years.</div>
+        <div style="font-size:13px;font-weight:700;color:#16C172;display:flex;align-items:center;gap:5px">
+          Talk to an adviser
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 4L10 8L6 12" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </div>
+      </div>
+
+      <!-- Trauma Cover -->
+      <div style="border-radius:20px;padding:28px;background:white;border:1px solid #E4E9F0;cursor:pointer;transition:all 0.25s" style-hover="transform:translateY(-5px);border-color:#E8B04B;box-shadow:0 12px 36px rgba(232,176,75,0.1)">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px">
+          <div style="width:52px;height:52px;border-radius:14px;background:rgba(232,176,75,0.08);display:flex;align-items:center;justify-content:center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" stroke="#E8B04B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></polyline>
+            </svg>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:#E8B04B;background:rgba(232,176,75,0.08);padding:4px 10px;border-radius:100px;white-space:nowrap">from ~$18/mo</div>
+        </div>
+        <div style="font-size:19px;font-weight:800;color:#0B1F3A;letter-spacing:-0.3px;margin-bottom:8px">Trauma Cover</div>
+        <div style="font-size:13.5px;color:#5B6B82;line-height:1.65;margin-bottom:20px">A lump sum paid on diagnosis of cancer, heart attack, or stroke. Spend it however recovery demands.</div>
+        <div style="font-size:13px;font-weight:700;color:#E8B04B;display:flex;align-items:center;gap:5px">
+          Talk to an adviser
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 4L10 8L6 12" stroke="#E8B04B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </div>
+      </div>
+
+      <!-- Health Cover -->
+      <div style="border-radius:20px;padding:28px;background:white;border:1px solid #E4E9F0;cursor:pointer;transition:all 0.25s" style-hover="transform:translateY(-5px);border-color:#16C172;box-shadow:0 12px 36px rgba(22,193,114,0.1)">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px">
+          <div style="width:52px;height:52px;border-radius:14px;background:rgba(22,193,114,0.08);display:flex;align-items:center;justify-content:center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <rect x="3" y="3" width="18" height="18" rx="4" stroke="#16C172" stroke-width="1.8"></rect>
+              <line x1="12" y1="8" x2="12" y2="16" stroke="#16C172" stroke-width="1.8" stroke-linecap="round"></line>
+              <line x1="8" y1="12" x2="16" y2="12" stroke="#16C172" stroke-width="1.8" stroke-linecap="round"></line>
+            </svg>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:#16C172;background:rgba(22,193,114,0.08);padding:4px 10px;border-radius:100px;white-space:nowrap">from ~$55/mo</div>
+        </div>
+        <div style="font-size:19px;font-weight:800;color:#0B1F3A;letter-spacing:-0.3px;margin-bottom:8px">Health Cover</div>
+        <div style="font-size:13.5px;color:#5B6B82;line-height:1.65;margin-bottom:20px">Skip public wait lists. Private specialists, surgery, and diagnostics — when you need them, not years later.</div>
+        <div style="font-size:13px;font-weight:700;color:#16C172;display:flex;align-items:center;gap:5px">
+          Talk to an adviser
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 4L10 8L6 12" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </div>
+      </div>
+
+      <!-- Mortgage Repayment -->
+      <div style="border-radius:20px;padding:28px;background:white;border:1px solid #E4E9F0;cursor:pointer;transition:all 0.25s" style-hover="transform:translateY(-5px);border-color:#16C172;box-shadow:0 12px 36px rgba(22,193,114,0.12)">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px">
+          <div style="width:52px;height:52px;border-radius:14px;background:rgba(22,193,114,0.08);display:flex;align-items:center;justify-content:center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M3 12L12 3L21 12V21H15V15H9V21H3V12Z" stroke="#16C172" stroke-width="1.8" stroke-linejoin="round"></path>
+              <path d="M9 16l2 2 4-4" stroke="#16C172" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:#16C172;background:rgba(22,193,114,0.08);padding:4px 10px;border-radius:100px;white-space:nowrap">from ~$25/mo</div>
+        </div>
+        <div style="font-size:19px;font-weight:800;color:#0B1F3A;letter-spacing:-0.3px;margin-bottom:8px">Mortgage Repayment</div>
+        <div style="font-size:13.5px;color:#5B6B82;line-height:1.65;margin-bottom:20px">Covers your mortgage repayments directly if you're unable to work — built specifically for homeowners.</div>
+        <div style="font-size:13px;font-weight:700;color:#16C172;display:flex;align-items:center;gap:5px">
+          Talk to an adviser
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 4L10 8L6 12" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </div>
+      </div>
+
+      <!-- TPD -->
+      <div style="border-radius:20px;padding:28px;background:white;border:1px solid #E4E9F0;cursor:pointer;transition:all 0.25s" style-hover="transform:translateY(-5px);border-color:#8B9AAD;box-shadow:0 12px 36px rgba(139,154,173,0.12)">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px">
+          <div style="width:52px;height:52px;border-radius:14px;background:rgba(139,154,173,0.07);display:flex;align-items:center;justify-content:center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="5" r="2.5" stroke="#8B9AAD" stroke-width="1.8"></circle>
+              <path d="M12 9v6M9 21v-2a3 3 0 0 1 6 0v2" stroke="#8B9AAD" stroke-width="1.8" stroke-linecap="round"></path>
+              <path d="M7.5 13.5L12 15l4.5-1.5" stroke="#8B9AAD" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:#8B9AAD;background:rgba(139,154,173,0.07);padding:4px 10px;border-radius:100px;white-space:nowrap">from ~$14/mo</div>
+        </div>
+        <div style="font-size:19px;font-weight:800;color:#0B1F3A;letter-spacing:-0.3px;margin-bottom:8px">TPD Cover</div>
+        <div style="font-size:13.5px;color:#5B6B82;line-height:1.65;margin-bottom:20px">A lump sum if you're permanently disabled and unable to work — for loan repayment, care costs, or home modifications.</div>
+        <div style="font-size:13px;font-weight:700;color:#8B9AAD;display:flex;align-items:center;gap:5px">
+          Talk to an adviser
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 4L10 8L6 12" stroke="#8B9AAD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;margin-top:20px">
+      <span style="font-size:11px;color:#C4CDD6">Indicative monthly premiums for a non-smoking 35-year-old. Actual premiums vary by age, health, and cover amount.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BUNDLE & SAVE ═══ -->
+<section style="padding:60px 24px;background:linear-gradient(130deg,#071929 0%,#0a2845 100%)">
+  <div style="max-width:1100px;margin:0 auto">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:22px">
+        <div style="width:60px;height:60px;border-radius:16px;background:rgba(22,193,114,0.12);border:1px solid rgba(22,193,114,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L4 5v6c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V5L12 2z" stroke="#16C172" stroke-width="1.8" stroke-linejoin="round"></path>
+            <path d="M9 12l2 2 4-4" stroke="#16C172" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,0.3);margin-bottom:6px">Already a Wealthify mortgage client?</div>
+          <div style="font-size:clamp(18px,2.2vw,24px);font-weight:800;color:white;letter-spacing:-0.5px;line-height:1.25">Bundle your mortgage and insurance.<br>Save up to <span style="color:#16C172">20%</span> on premiums.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;flex-shrink:0">
+        <button style="padding:13px 26px;background:#16C172;border:none;color:white;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s" style-hover="opacity:0.88">Talk about bundling</button>
+        <button style="padding:13px 22px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.65);border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s" style-hover="background:rgba(255,255,255,0.1);color:white">Learn more</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<section style="padding:80px 24px;background:#F6F8FB">
+  <div style="max-width:900px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:56px">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#5B6B82;margin-bottom:10px">The Process</div>
+      <h2 style="font-size:clamp(26px,3vw,40px);font-weight:800;color:#0B1F3A;margin:0;letter-spacing:-1.5px">Covered in as little as a week</h2>
+    </div>
+
+    <div style="position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:0">
+      <div style="position:absolute;top:22px;left:17%;right:17%;height:2px;background:linear-gradient(90deg,#16C172,#16C172);z-index:0;opacity:0.25"></div>
+
+      <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 28px;position:relative;z-index:1">
+        <div style="width:44px;height:44px;border-radius:50%;background:#16C172;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:white;box-shadow:0 0 0 6px rgba(22,193,114,0.1);margin-bottom:14px">1</div>
+        <div style="font-size:10px;font-weight:700;color:#16C172;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Day 1</div>
+        <div style="font-size:16px;font-weight:800;color:#0B1F3A;margin-bottom:8px;line-height:1.25">Free 30-min review</div>
+        <div style="font-size:13px;color:#8B9AAD;line-height:1.6">Tell us what you own, who depends on you, and what keeps you up at night. Zero obligation.</div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 28px;position:relative;z-index:1">
+        <div style="width:44px;height:44px;border-radius:50%;background:#0B1F3A;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:white;box-shadow:0 0 0 6px rgba(11,31,58,0.08);margin-bottom:14px">2</div>
+        <div style="font-size:10px;font-weight:700;color:#5B6B82;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Days 2–3</div>
+        <div style="font-size:16px;font-weight:800;color:#0B1F3A;margin-bottom:8px;line-height:1.25">We compare the market</div>
+        <div style="font-size:13px;color:#8B9AAD;line-height:1.6">We match your needs against AIA, Fidelity Life, NIB and more — and recommend the right cover at the right price.</div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 28px;position:relative;z-index:1">
+        <div style="width:44px;height:44px;border-radius:50%;background:#16C172;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:white;box-shadow:0 0 0 6px rgba(22,193,114,0.1);margin-bottom:14px">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M4 10L8 14L16 6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </div>
+        <div style="font-size:10px;font-weight:700;color:#16C172;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Week 1</div>
+        <div style="font-size:16px;font-weight:800;color:#0B1F3A;margin-bottom:8px;line-height:1.25">You're covered</div>
+        <div style="font-size:13px;color:#8B9AAD;line-height:1.6">Policies placed, documents in hand. We review your cover whenever life changes.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIALS ═══ -->
+<section style="padding:80px 24px;background:#F6F8FB">
+  <div style="max-width:1100px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:44px">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#5B6B82;margin-bottom:10px">Client stories</div>
+      <h2 style="font-size:clamp(24px,3vw,36px);font-weight:800;color:#0B1F3A;margin:0;letter-spacing:-1px">Real outcomes for real families</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+
+      <div style="border-radius:18px;padding:28px;background:white;border:1px solid #E4E9F0;display:flex;flex-direction:column">
+        <div style="font-size:14px;color:#1A2433;line-height:1.72;font-weight:500;flex:1">"Our bank quoted $1,100/year for life cover. Wealthify found the same amount for $520 — same insurer, better structure."</div>
+        <div style="display:flex;align-items:center;gap:12px;padding-top:18px;border-top:1px solid #F0F2F5;margin-top:18px">
+          <div style="width:36px;height:36px;border-radius:50%;background:rgba(22,193,114,0.1);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#16C172;flex-shrink:0">JR</div>
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:700;color:#0B1F3A">James &amp; Rachel T.</div>
+            <div style="font-size:11.5px;color:#8B9AAD">Auckland · Life cover</div>
+          </div>
+          <div style="font-size:11px;color:#E8B04B;font-weight:700">★★★★★</div>
+        </div>
+      </div>
+
+      <div style="border-radius:18px;padding:28px;background:white;border:1px solid #E4E9F0;display:flex;flex-direction:column">
+        <div style="font-size:14px;color:#1A2433;line-height:1.72;font-weight:500;flex:1">"Three years self-employed and zero income protection. Got cover in a week. I sleep better knowing the mortgage is safe if I can't work."</div>
+        <div style="display:flex;align-items:center;gap:12px;padding-top:18px;border-top:1px solid #F0F2F5;margin-top:18px">
+          <div style="width:36px;height:36px;border-radius:50%;background:rgba(22,193,114,0.1);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#16C172;flex-shrink:0">MH</div>
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:700;color:#0B1F3A">Marcus H.</div>
+            <div style="font-size:11.5px;color:#8B9AAD">Wellington · Income protection</div>
+          </div>
+          <div style="font-size:11px;color:#E8B04B;font-weight:700">★★★★★</div>
+        </div>
+      </div>
+
+      <div style="border-radius:18px;padding:28px;background:white;border:1px solid #E4E9F0;display:flex;flex-direction:column">
+        <div style="font-size:14px;color:#1A2433;line-height:1.72;font-weight:500;flex:1">"Diagnosed and into a private specialist in 5 days. The public wait was 14 months. The cover paid for everything. It changed my outcome."</div>
+        <div style="display:flex;align-items:center;gap:12px;padding-top:18px;border-top:1px solid #F0F2F5;margin-top:18px">
+          <div style="width:36px;height:36px;border-radius:50%;background:rgba(22,193,114,0.1);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#16C172;flex-shrink:0">SR</div>
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:700;color:#0B1F3A">Sunita R.</div>
+            <div style="font-size:11.5px;color:#8B9AAD">Christchurch · Health cover</div>
+          </div>
+          <div style="font-size:11px;color:#E8B04B;font-weight:700">★★★★★</div>
+        </div>
+      </div>
+
+    </div>
+    <div style="text-align:center;margin-top:24px">
+      <span style="font-size:13.5px;font-weight:700;color:#0B1F3A">4.9 ★★★★★</span>
+      <span style="font-size:13px;color:#8B9AAD;margin-left:8px">from 180+ Google reviews</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PARTNERS STRIP ═══ -->
+<div style="background:white;border-top:1px solid #E4E9F0;border-bottom:1px solid #E4E9F0;padding:14px 24px">
+  <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+    <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#C4CDD6;white-space:nowrap;flex-shrink:0">We work with</span>
+    <div style="width:1px;height:14px;background:#E4E9F0;flex-shrink:0"></div>
+    <div style="display:flex;align-items:center;gap:32px;flex:1;flex-wrap:wrap">
+      <span style="font-size:12.5px;font-weight:800;color:#C4CDD6;letter-spacing:.06em">AIA NEW ZEALAND</span>
+      <span style="font-size:12.5px;font-weight:800;color:#C4CDD6;letter-spacing:.06em">FIDELITY LIFE</span>
+      <span style="font-size:12.5px;font-weight:800;color:#C4CDD6;letter-spacing:.06em">NIB</span>
+      <span style="font-size:11px;font-weight:600;color:#B0BAC5">+ specialist providers</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+      <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <span style="font-size:11px;font-weight:700;color:#0E9E5C">Independent advice — free to you</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FAQ ═══ -->
+<section style="padding:80px 24px;background:white">
+  <div style="max-width:720px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:44px">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#5B6B82;margin-bottom:10px">FAQ</div>
+      <h2 style="font-size:clamp(24px,3vw,36px);font-weight:800;color:#0B1F3A;margin:0;letter-spacing:-1px">Questions about insurance</h2>
+    </div>
+    <div style="background:#F6F8FB;border-radius:16px;border:1px solid #E4E9F0;overflow:hidden">
+      <sc-for list="{{ faqItems }}" as="faq" hint-placeholder-count="6">
+        <div style="border-bottom:1px solid #E4E9F0">
+          <button onClick="{{ faq.toggle }}" style="width:100%;padding:20px 22px;background:none;border:none;display:flex;justify-content:space-between;align-items:center;cursor:pointer;text-align:left;font-family:inherit" style-hover="background:rgba(255,255,255,0.65)">
+            <span style="font-size:15px;font-weight:600;color:#0B1F3A;line-height:1.4;padding-right:16px">{{ faq.q }}</span>
+            <span style="font-size:20px;color:#8B9AAD;font-weight:300;flex-shrink:0;width:20px;text-align:center;line-height:1">{{ faq.icon }}</span>
+          </button>
+          <sc-if value="{{ faq.open }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:0 22px 18px;font-size:14px;color:#5B6B82;line-height:1.72">{{ faq.a }}</div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA CLOSER ═══ -->
+<section style="padding:80px 24px;background:linear-gradient(135deg,#071929,#0f2d52)">
+  <div style="max-width:580px;margin:0 auto;text-align:center">
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,0.35);margin-bottom:16px">Free · No obligation · FAP licensed</div>
+    <h2 style="font-size:clamp(26px,4vw,42px);font-weight:800;color:white;margin:0 0 16px;letter-spacing:-1.5px;line-height:1.12">Your mortgage protects the house. Insurance protects the life inside it.</h2>
+    <p style="font-size:16px;color:rgba(255,255,255,0.5);margin:0 0 36px;line-height:1.7">A free 30-minute review. No jargon, no pressure. Just clarity on what cover you actually need.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <button style="padding:15px 30px;background:#16C172;border:none;color:white;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s" style-hover="opacity:0.9">Book a free insurance review</button>
+      <button style="padding:15px 28px;border:1.5px solid rgba(255,255,255,0.2);background:transparent;color:rgba(255,255,255,0.7);border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s" style-hover="background:rgba(255,255,255,0.07);color:white">Call 0800 WEALTHIFY</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer style="background:#0B1F3A;padding:56px 24px 24px">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:44px">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+          <svg width="30" height="22" viewBox="0 0 34 26" fill="none"><defs><linearGradient id="wgf" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#16C172"></stop><stop offset="100%" stop-color="#16C172"></stop></linearGradient></defs><rect x="0" y="13" width="5" height="13" rx="1.5" fill="url(#wgf)"></rect><rect x="7" y="6" width="5" height="20" rx="1.5" fill="url(#wgf)"></rect><rect x="14.5" y="9" width="5" height="17" rx="1.5" fill="url(#wgf)"></rect><rect x="22" y="2" width="5" height="24" rx="1.5" fill="url(#wgf)"></rect><rect x="29" y="0" width="5" height="26" rx="1.5" fill="url(#wgf)"></rect></svg>
+          <span style="font-size:17px;font-weight:800;color:white;letter-spacing:-0.5px">Wealthify</span>
+        </div>
+        <p style="font-size:13px;color:rgba(255,255,255,0.4);line-height:1.7;margin:0 0 20px;max-width:260px">Independent NZ financial advisers. Plain English advice, no fees, ever.</p>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px">Mortgages</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <a href="#" style="font-size:13px;color:rgba(255,255,255,0.5)" style-hover="color:white">First Home</a>
+          <a href="#" style="font-size:13px;color:rgba(255,255,255,0.5)" style-hover="color:white">Refinancing</a>
+          <a href="#" style="font-size:13px;color:rgba(255,255,255,0.5)" style-hover="color:white">Investment</a>
+          <a href="#" style="font-size:13px;color:rgba(255,255,255,0.5)" style-hover="color:white">New Build</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px">Services</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <a href="#" style="font-size:13px;color:#16C172;font-weight:600">Insurance</a>
+          <a href="./KiwiSaver.dc.html" style="font-size:13px;color:rgba(255,255,255,0.5)" style-hover="color:white">KiwiSaver</a>
+          <a href="#" style="font-size:13px;color:rgba(255,255,255,0.5)" style-hover="color:white">Personal Loans</a>
+          <a href="#" style="font-size:13px;color:rgba(255,255,255,0.5)" style-hover="color:white">Calculator</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px">Legal</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <a href="#" style="font-size:13px;color:rgba(255,255,255,0.5)" style-hover="color:white">Privacy Policy</a>
+          <a href="#" style="font-size:13px;color:rgba(255,255,255,0.5)" style-hover="color:white">Terms of Use</a>
+          <a href="#" style="font-size:13px;color:rgba(255,255,255,0.5)" style-hover="color:white">Disclosure Statement</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,0.07);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+      <p style="font-size:11px;color:rgba(255,255,255,0.3);margin:0;max-width:560px;line-height:1.5">Wealthify Limited is a NZ Financial Advice Provider (FAP). Indicative premiums shown are estimates only and do not constitute financial advice. Insurance products are provided by third-party insurers.</p>
+      <p style="font-size:11px;color:rgba(255,255,255,0.3);margin:0">© 2026 Wealthify Limited</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ STICKY CTA ═══ -->
+<div style="position:fixed;bottom:0;left:0;right:0;z-index:200;transform:{{ stickyTransform }};transition:transform 0.4s cubic-bezier(0.16,1,0.3,1);background:#0B1F3A;border-top:1px solid rgba(255,255,255,0.07)">
+  <div style="max-width:1200px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+    <div>
+      <div style="font-size:14px;font-weight:700;color:white;line-height:1.3">Free insurance review — 30 minutes, no obligation.</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.38);margin-top:2px">FAP licensed · AIA · Fidelity Life · NIB and more</div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;flex-shrink:0">
+      <button style="padding:10px 22px;background:#16C172;border:none;color:white;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Book a free review</button>
+      <button onClick="{{ dismissSticky }}" style="padding:8px 10px;background:transparent;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:22px;line-height:1;font-family:inherit" style-hover="color:rgba(255,255,255,0.65)">×</button>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    scrolled: false,
+    faqOpen: null,
+    showSticky: false,
+    stickyDismissed: false,
+  };
+
+  componentDidMount() {
+    this._onScroll = () => {
+      const { stickyDismissed } = this.state;
+      this.setState({
+        scrolled: window.scrollY > 60,
+        showSticky: !stickyDismissed && window.scrollY > 500,
+      });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this._onScroll);
+  }
+
+  renderVals() {
+    const { scrolled, faqOpen, showSticky, stickyDismissed } = this.state;
+
+    const faqData = [
+      {
+        q: 'Do I really need insurance if I\'m young and healthy?',
+        a: 'That\'s exactly when you should get it — premiums are at their lowest when you\'re young and healthy. Waiting until you\'re older or have health issues means significantly higher costs or declined cover entirely. Locking in a policy now protects your future insurability.',
+      },
+      {
+        q: 'What\'s the difference between trauma cover and income protection?',
+        a: 'Trauma cover pays a one-off lump sum when you\'re diagnosed with a serious illness (cancer, heart attack, stroke) — regardless of whether you can still work. Income protection pays a regular monthly income while you\'re unable to work. Most people benefit from both: one handles the diagnosis shock, the other keeps the household running.',
+      },
+      {
+        q: 'Can I get cover if I have a pre-existing condition?',
+        a: 'Often yes, though that specific condition may be excluded or attract a premium loading. Different insurers underwrite risk very differently — which is exactly why using an adviser to compare multiple providers matters. We\'ve found cover for clients who had been turned away elsewhere.',
+      },
+      {
+        q: 'How much life cover do I actually need?',
+        a: 'A common starting point is enough to clear your mortgage plus 5–10 years of living expenses. The right amount depends on your debts, income, number of dependants, and any existing cover through KiwiSaver or your employer. We work this out with you in the free review — there\'s no one-size-fits-all.',
+      },
+      {
+        q: 'Will my premiums increase as I get older?',
+        a: 'Stepped premiums increase annually as you age — cheaper upfront but more expensive long-term. Level premiums stay flat throughout the policy — higher initially but predictable. We help you choose the right structure based on your budget, how long you\'re likely to hold the policy, and your cashflow goals.',
+      },
+      {
+        q: 'How does insurance work alongside ACC?',
+        a: 'ACC covers injury only — not illness. If you\'re unable to work because of cancer, a heart condition, or any medical diagnosis, ACC pays nothing. Income protection, trauma cover, and health insurance fill that gap directly. They\'re complementary, not duplicative.',
+      },
+    ];
+
+    const faqItems = faqData.map((f, i) => ({
+      q: f.q,
+      a: f.a,
+      open: faqOpen === i,
+      icon: faqOpen === i ? '−' : '+',
+      toggle: () => this.setState(s => ({ faqOpen: s.faqOpen === i ? null : i })),
+    }));
+
+    const scrollToCovers = () => {
+      const el = document.getElementById('covers');
+      if (el) window.scrollTo({ top: el.offsetTop - 64, behavior: 'smooth' });
+    };
+
+    return {
+      navBg: scrolled ? 'white' : 'transparent',
+      navShadow: scrolled ? '0 2px 20px rgba(0,0,0,0.08)' : 'none',
+      navTextColor: scrolled ? '#0B1F3A' : 'white',
+      navBtnBorder: scrolled ? '#E4E9F0' : 'rgba(255,255,255,0.3)',
+      faqItems,
+      scrollToCovers,
+      stickyTransform: showSticky ? 'translateY(0)' : 'translateY(100%)',
+      dismissSticky: () => this.setState({ showSticky: false, stickyDismissed: true }),
+    };
+  }
+}
+</script>
+</body>
+</html>

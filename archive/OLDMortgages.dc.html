@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'Plus Jakarta Sans',sans-serif;color:#1A2433;background:#fff}
+    input[type=range]{-webkit-appearance:none;appearance:none;background:transparent;width:100%;cursor:pointer;position:absolute;left:0;right:0;margin:0;padding:0}
+    input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:#fff;border:2.5px solid #16C172;cursor:pointer;box-shadow:0 1px 8px rgba(0,0,0,.18);margin-top:-8px}
+    input[type=range]::-webkit-slider-runnable-track{height:4px;background:transparent}
+    input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#fff;border:2.5px solid #16C172;cursor:pointer}
+    @keyframes fadein{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
+    a{text-decoration:none;color:inherit}
+  </style>
+</helmet>
+
+<!-- ═══ NAV ═══ -->
+<nav style="position:fixed;top:0;left:0;right:0;z-index:100;transition:background 0.3s,box-shadow 0.3s;background:{{ navBg }};box-shadow:{{ navShadow }}">
+  <div style="max-width:1200px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;gap:24px">
+    <a href="./Wealthify v2.dc.html" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+      <svg width="32" height="24" viewBox="0 0 34 26" fill="none">
+        <defs><linearGradient id="wg" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#16C172"></stop><stop offset="100%" stop-color="#0FB5BA"></stop></linearGradient></defs>
+        <rect x="0" y="13" width="5" height="13" rx="1.5" fill="url(#wg)"></rect>
+        <rect x="7" y="6" width="5" height="20" rx="1.5" fill="url(#wg)"></rect>
+        <rect x="14.5" y="9" width="5" height="17" rx="1.5" fill="url(#wg)"></rect>
+        <rect x="22" y="2" width="5" height="24" rx="1.5" fill="url(#wg)"></rect>
+        <rect x="29" y="0" width="5" height="26" rx="1.5" fill="url(#wg)"></rect>
+      </svg>
+      <span style="font-size:18px;font-weight:800;color:{{ navColor }};letter-spacing:-0.5px;transition:color 0.3s">Wealthify</span>
+    </a>
+    <div style="display:flex;gap:26px;align-items:center;flex:1;justify-content:center">
+      <a href="#" style="font-size:14px;font-weight:700;color:#16C172;padding-bottom:2px;border-bottom:2px solid #16C172">Mortgages</a>
+      <a href="#" style="font-size:14px;font-weight:600;color:{{ navColor }};opacity:0.75" style-hover="opacity:1">Insurance</a>
+      <a href="#" style="font-size:14px;font-weight:600;color:{{ navColor }};opacity:0.75" style-hover="opacity:1">KiwiSaver</a>
+      <a href="#" style="font-size:14px;font-weight:600;color:{{ navColor }};opacity:0.75" style-hover="opacity:1">Loans</a>
+      <a href="#calculator" style="font-size:14px;font-weight:600;color:{{ navColor }};opacity:0.75" style-hover="opacity:1">Calculator</a>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;flex-shrink:0">
+      <button style="padding:8px 16px;background:transparent;border:1.5px solid {{ navBtnBorder }};color:{{ navColor }};border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.3s;font-family:inherit">Log in</button>
+      <button style="padding:8px 18px;background:#16C172;border:none;color:white;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Book a free call</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section style="min-height:100vh;background:#071929;padding:100px 24px 80px;display:flex;align-items:center">
+  <div style="max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 420px;gap:72px;align-items:center">
+
+    <!-- Left -->
+    <div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:28px">
+        <span style="width:7px;height:7px;border-radius:50%;background:#16C172;box-shadow:0 0 0 5px rgba(22,193,114,.18);display:inline-block;animation:pulse 2s infinite"></span>
+        <span style="font-size:11.5px;font-weight:700;color:rgba(255,255,255,0.4);letter-spacing:.08em;text-transform:uppercase">NZ Mortgage Brokers · FAP Licensed · Free Advice</span>
+      </div>
+
+      <!-- Situation pills -->
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px">
+        <button onClick="{{ selectSit0 }}" style="padding:9px 18px;border:none;border-radius:100px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;background:{{ sit0Bg }};color:{{ sit0Color }}">First Home</button>
+        <button onClick="{{ selectSit1 }}" style="padding:9px 18px;border:none;border-radius:100px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;background:{{ sit1Bg }};color:{{ sit1Color }}">Refinancing</button>
+        <button onClick="{{ selectSit2 }}" style="padding:9px 18px;border:none;border-radius:100px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;background:{{ sit2Bg }};color:{{ sit2Color }}">Investment</button>
+        <button onClick="{{ selectSit3 }}" style="padding:9px 18px;border:none;border-radius:100px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;background:{{ sit3Bg }};color:{{ sit3Color }}">New Build</button>
+      </div>
+
+      <h1 style="font-size:clamp(40px,5vw,66px);font-weight:800;color:white;margin:0 0 22px;line-height:1.04;letter-spacing:-3px;text-wrap:pretty">{{ heroHeadline }}</h1>
+      <p style="font-size:16.5px;color:rgba(255,255,255,0.52);margin:0 0 32px;line-height:1.72;max-width:460px">{{ heroSub }}</p>
+
+      <!-- Key facts row -->
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:36px">
+        <div style="display:flex;align-items:center;gap:7px;padding:8px 14px;background:rgba(255,255,255,0.07);border-radius:8px;border:1px solid rgba(255,255,255,0.1)">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 1 L2 4 V8 C2 12 8 15 8 15 C8 15 14 12 14 8 V4 Z" stroke="#16C172" stroke-width="1.5" stroke-linejoin="round"></path></svg>
+          <span style="font-size:12.5px;font-weight:600;color:rgba(255,255,255,0.75)">{{ heroDeposit }}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:7px;padding:8px 14px;background:rgba(255,255,255,0.07);border-radius:8px;border:1px solid rgba(255,255,255,0.1)">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#0FB5BA" stroke-width="1.5"></circle><path d="M8 5V8L10 10" stroke="#0FB5BA" stroke-width="1.5" stroke-linecap="round"></path></svg>
+          <span style="font-size:12.5px;font-weight:600;color:rgba(255,255,255,0.75)">{{ heroTimeline }}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:7px;padding:8px 14px;background:rgba(22,193,114,0.12);border-radius:8px;border:1px solid rgba(22,193,114,0.25)">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <span style="font-size:12.5px;font-weight:600;color:#16C172">{{ heroHighlight }}</span>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:56px">
+        <button style="padding:14px 26px;background:#16C172;border:none;color:white;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:-0.2px;transition:opacity 0.15s" style-hover="opacity:0.88">Book a free call</button>
+        <a href="#calculator" style="font-size:14px;font-weight:600;color:rgba(255,255,255,0.45);transition:color 0.2s" style-hover="color:rgba(255,255,255,0.8)">Use the calculator →</a>
+      </div>
+
+      <!-- Stats -->
+      <div style="display:flex;gap:36px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.07)">
+        <div><div style="font-size:26px;font-weight:800;color:white;letter-spacing:-1px;line-height:1">$2.4B+</div><div style="font-size:11.5px;color:rgba(255,255,255,0.32);margin-top:6px">mortgages settled</div></div>
+        <div><div style="font-size:26px;font-weight:800;color:white;letter-spacing:-1px;line-height:1">1,500+</div><div style="font-size:11.5px;color:rgba(255,255,255,0.32);margin-top:6px">Kiwi families helped</div></div>
+        <div><div style="font-size:26px;font-weight:800;color:#16C172;letter-spacing:-1px;line-height:1">4.9 ★</div><div style="font-size:11.5px;color:rgba(255,255,255,0.32);margin-top:6px">Google rating</div></div>
+      </div>
+    </div>
+
+    <!-- Right: Rate comparison card -->
+    <div>
+      <div style="background:white;border-radius:20px;padding:26px;box-shadow:0 0 0 1px rgba(255,255,255,0.06),0 32px 80px rgba(0,0,0,0.55)">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid #F0F3F7">
+          <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#8B9AAD">Rate comparison · Jul 2026</span>
+          <span style="font-size:10px;color:#C4CDD6;font-weight:500">Indicative</span>
+        </div>
+
+        <div style="background:#F6F8FB;border-radius:10px;padding:16px 18px;margin-bottom:4px">
+          <div style="font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#B0BAC5;margin-bottom:8px">Floating · avg. big bank</div>
+          <div style="display:flex;align-items:baseline;justify-content:space-between">
+            <span style="font-size:38px;font-weight:800;color:#C4CDD6;letter-spacing:-2px;line-height:1">7.24%</span>
+            <div style="text-align:right"><div style="font-size:13px;font-weight:600;color:#B0BAC5">$3,586/mo</div><div style="font-size:10px;color:#C4CDD6;margin-top:2px">$500k · 25 yrs</div></div>
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:center;padding:6px 0">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M10 2V18M4 12L10 18L16 12" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </div>
+
+        <div style="background:rgba(22,193,114,0.06);border:1.5px solid rgba(22,193,114,0.2);border-radius:10px;padding:16px 18px;margin-bottom:14px">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+            <div style="font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#0E9E5C">Wealthify · 2-yr fixed</div>
+            <div style="background:#16C172;color:white;font-size:8.5px;font-weight:800;padding:2px 6px;border-radius:100px;letter-spacing:.04em">BEST</div>
+          </div>
+          <div style="display:flex;align-items:baseline;justify-content:space-between">
+            <span style="font-size:38px;font-weight:800;color:#16C172;letter-spacing:-2px;line-height:1">5.45%</span>
+            <div style="text-align:right"><div style="font-size:13px;font-weight:600;color:#5B6B82">$3,001/mo</div><div style="font-size:10px;color:#8B9AAD;margin-top:2px">same balance &amp; term</div></div>
+          </div>
+        </div>
+
+        <div style="background:#16C172;border-radius:10px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <div><div style="font-size:10px;font-weight:700;color:rgba(255,255,255,0.75);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px">Monthly saving</div><div style="font-size:10px;color:rgba(255,255,255,0.5)">back in your pocket</div></div>
+          <div style="font-size:28px;font-weight:800;color:white;letter-spacing:-1px;line-height:1">$585<span style="font-size:13px;font-weight:600;letter-spacing:0">/mo</span></div>
+        </div>
+
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:2px">
+          <span style="font-size:11.5px;color:#8B9AAD;font-weight:500">Total interest saved · 25 yrs</span>
+          <span style="font-size:18px;font-weight:800;color:#0B1F3A;letter-spacing:-0.5px">$175k+</span>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:6px;margin-top:12px;padding:0 4px">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#16C172" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg>
+        <span style="font-size:11px;color:rgba(255,255,255,0.28);font-weight:500">FAP licensed · Estimate only, not financial advice</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ LENDER STRIP ═══ -->
+<div style="background:white;border-top:1px solid #E4E9F0;border-bottom:1px solid #E4E9F0;padding:13px 24px">
+  <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+    <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#C4CDD6;white-space:nowrap;flex-shrink:0">We compare</span>
+    <div style="width:1px;height:14px;background:#E4E9F0;flex-shrink:0"></div>
+    <div style="display:flex;align-items:center;gap:28px;flex:1;flex-wrap:wrap">
+      <span style="font-size:12px;font-weight:800;color:#C4CDD6;letter-spacing:.06em">ANZ</span>
+      <span style="font-size:12px;font-weight:800;color:#C4CDD6;letter-spacing:.06em">ASB</span>
+      <span style="font-size:12px;font-weight:800;color:#C4CDD6;letter-spacing:.06em">BNZ</span>
+      <span style="font-size:12px;font-weight:800;color:#C4CDD6;letter-spacing:.06em">WESTPAC</span>
+      <span style="font-size:12px;font-weight:800;color:#C4CDD6;letter-spacing:.06em">KIWIBANK</span>
+      <span style="font-size:12px;font-weight:800;color:#C4CDD6;letter-spacing:.06em">SBS BANK</span>
+      <span style="font-size:11px;font-weight:600;color:#B0BAC5">+ 14 more lenders</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+      <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <span style="font-size:11px;font-weight:700;color:#0E9E5C">Free to you — always</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ LIVE RATE BOARD ═══ -->
+<section style="padding:80px 24px;background:#F6F8FB" data-reveal="">
+  <div style="max-width:1100px;margin:0 auto">
+
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:36px;flex-wrap:wrap;gap:16px">
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#0E9E5C;margin-bottom:10px">Live Rate Comparison</div>
+        <h2 style="font-size:clamp(26px,3vw,38px);font-weight:800;color:#0B1F3A;margin:0 0 8px;letter-spacing:-1.5px">Today's NZ mortgage rates</h2>
+        <p style="font-size:14px;color:#8B9AAD;margin:0">Based on a $500,000 loan · 25-year term · Indicative only</p>
+      </div>
+      <!-- Term selector -->
+      <div style="display:flex;gap:3px;background:white;border:1px solid #E4E9F0;border-radius:10px;padding:3px">
+        <button onClick="{{ selectTermFloat }}" style="padding:8px 14px;border:none;border-radius:7px;font-family:inherit;font-size:12.5px;font-weight:600;cursor:pointer;transition:all 0.2s;background:{{ termFloatBg }};color:{{ termFloatColor }}">Floating</button>
+        <button onClick="{{ selectTermY1 }}" style="padding:8px 14px;border:none;border-radius:7px;font-family:inherit;font-size:12.5px;font-weight:600;cursor:pointer;transition:all 0.2s;background:{{ termY1Bg }};color:{{ termY1Color }}">1yr</button>
+        <button onClick="{{ selectTermY2 }}" style="padding:8px 14px;border:none;border-radius:7px;font-family:inherit;font-size:12.5px;font-weight:600;cursor:pointer;transition:all 0.2s;background:{{ termY2Bg }};color:{{ termY2Color }}">2yr</button>
+        <button onClick="{{ selectTermY3 }}" style="padding:8px 14px;border:none;border-radius:7px;font-family:inherit;font-size:12.5px;font-weight:600;cursor:pointer;transition:all 0.2s;background:{{ termY3Bg }};color:{{ termY3Color }}">3yr</button>
+        <button onClick="{{ selectTermY5 }}" style="padding:8px 14px;border:none;border-radius:7px;font-family:inherit;font-size:12.5px;font-weight:600;cursor:pointer;transition:all 0.2s;background:{{ termY5Bg }};color:{{ termY5Color }}">5yr</button>
+      </div>
+    </div>
+
+    <!-- Wealthify featured rate -->
+    <div style="background:white;border:2px solid rgba(22,193,114,0.3);border-radius:16px;padding:28px 32px;margin-bottom:12px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;box-shadow:0 4px 24px rgba(22,193,114,0.08)">
+      <div style="display:flex;align-items:center;gap:20px">
+        <div style="background:linear-gradient(135deg,#16C172,#0FB5BA);width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1.8" stroke-linejoin="round"></path><path d="M9 12l2 2 4-4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </div>
+        <div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+            <span style="font-size:15px;font-weight:800;color:#0B1F3A">Wealthify</span>
+            <span style="background:rgba(22,193,114,0.12);color:#0E9E5C;font-size:10px;font-weight:800;padding:3px 8px;border-radius:100px;letter-spacing:.04em;text-transform:uppercase">Best Negotiated Rate</span>
+          </div>
+          <div style="font-size:12.5px;color:#8B9AAD;font-weight:500">{{ termLabel }} · negotiated across 20+ lenders</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:32px">
+        <div style="text-align:right">
+          <div style="font-size:40px;font-weight:800;color:#16C172;letter-spacing:-2px;line-height:1">{{ wRateStr }}</div>
+          <div style="font-size:13px;color:#5B6B82;font-weight:500;margin-top:3px">{{ wMonthlyStr }}/mo</div>
+        </div>
+        <div style="background:#F6F8FB;border-radius:10px;padding:12px 18px;text-align:center;border:1px solid #E4E9F0">
+          <div style="font-size:10px;font-weight:700;color:#0E9E5C;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">avg. saving</div>
+          <div style="font-size:20px;font-weight:800;color:#0B1F3A;letter-spacing:-0.5px">{{ monthlySavingStr }}<span style="font-size:11px;font-weight:600;color:#5B6B82">/mo</span></div>
+        </div>
+        <button style="padding:12px 22px;background:#0B1F3A;border:none;color:white;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;transition:opacity 0.15s" style-hover="opacity:0.85">Get this rate →</button>
+      </div>
+    </div>
+
+    <!-- Bank comparison -->
+    <div style="background:white;border:1px solid #E4E9F0;border-radius:16px;overflow:hidden">
+      <div style="padding:14px 32px;background:#F6F8FB;border-bottom:1px solid #E4E9F0;display:grid;grid-template-columns:1fr 110px 130px 140px;gap:12px;align-items:center">
+        <span style="font-size:10.5px;font-weight:700;color:#8B9AAD;text-transform:uppercase;letter-spacing:.08em">Bank</span>
+        <span style="font-size:10.5px;font-weight:700;color:#8B9AAD;text-transform:uppercase;letter-spacing:.08em;text-align:right">Rate</span>
+        <span style="font-size:10.5px;font-weight:700;color:#8B9AAD;text-transform:uppercase;letter-spacing:.08em;text-align:right">Monthly</span>
+        <span style="font-size:10.5px;font-weight:700;color:#8B9AAD;text-transform:uppercase;letter-spacing:.08em;text-align:right">vs Wealthify</span>
+      </div>
+      <sc-for list="{{ lenderRows }}" as="lender" hint-placeholder-count="6">
+        <div style="padding:16px 32px;border-bottom:1px solid #F0F3F7;display:grid;grid-template-columns:1fr 110px 130px 140px;gap:12px;align-items:center;transition:background 0.15s" style-hover="background:#FAFBFD">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:36px;height:36px;border-radius:9px;background:{{ lender.color }};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:white;flex-shrink:0">{{ lender.initial }}</div>
+            <span style="font-size:14px;font-weight:700;color:#0B1F3A">{{ lender.name }}</span>
+          </div>
+          <div style="text-align:right;font-size:18px;font-weight:800;color:#1A2433;letter-spacing:-0.5px">{{ lender.rateStr }}</div>
+          <div style="text-align:right;font-size:13.5px;font-weight:600;color:#5B6B82">{{ lender.monthlyStr }}<span style="font-size:11px;color:#B0BAC5">/mo</span></div>
+          <div style="text-align:right"><span style="background:rgba(232,176,75,0.1);color:#997A3A;font-size:12px;font-weight:700;padding:4px 10px;border-radius:6px;white-space:nowrap">{{ lender.extraStr }}</span></div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:6px;margin-top:14px">
+      <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#B0BAC5" stroke-width="1.3"></circle><path d="M8 7V8.5M8 10.5V11" stroke="#B0BAC5" stroke-width="1.3" stroke-linecap="round"></path></svg>
+      <span style="font-size:11.5px;color:#B0BAC5;font-weight:500">Rates are indicative estimates for Jul 2026. Not financial advice. Actual rates depend on your specific situation.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MORTGAGE TYPES ═══ -->
+<section style="padding:80px 24px;background:white" data-reveal="">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:48px">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#5B6B82;margin-bottom:10px">What's your situation?</div>
+      <h2 style="font-size:clamp(26px,3vw,40px);font-weight:800;color:#0B1F3A;margin:0;letter-spacing:-1.5px">Every mortgage type, covered.</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+
+      <!-- First Home -->
+      <div style="background:#F6F8FB;border:1px solid #E4E9F0;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:0;transition:box-shadow 0.2s,border-color 0.2s;cursor:pointer" style-hover="box-shadow:0 8px 32px rgba(22,193,114,0.12);border-color:rgba(22,193,114,0.3)" onClick="{{ card0Click }}">
+        <div style="width:44px;height:44px;border-radius:12px;background:rgba(22,193,114,0.1);display:flex;align-items:center;justify-content:center;margin-bottom:18px">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 12L12 3L21 12V21H15V15H9V21H3V12Z" stroke="#16C172" stroke-width="1.8" stroke-linejoin="round"></path></svg>
+        </div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#0E9E5C;margin-bottom:8px">First Home Buyer</div>
+        <div style="font-size:28px;font-weight:800;color:#0B1F3A;letter-spacing:-1px;line-height:1;margin-bottom:6px">5%</div>
+        <div style="font-size:12.5px;color:#8B9AAD;font-weight:600;margin-bottom:20px">min. deposit (FHB)</div>
+        <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:24px;flex:1">
+          <div style="display:flex;align-items:flex-start;gap:8px"><svg style="flex-shrink:0;margin-top:2px" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:13px;color:#1A2433;line-height:1.45">KiwiSaver withdrawal towards deposit</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px"><svg style="flex-shrink:0;margin-top:2px" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:13px;color:#1A2433;line-height:1.45">First Home Grant up to $10k</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px"><svg style="flex-shrink:0;margin-top:2px" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:13px;color:#1A2433;line-height:1.45">Pre-approval in days</span></div>
+        </div>
+        <div style="font-size:13px;font-weight:700;color:#16C172">First home checklist →</div>
+      </div>
+
+      <!-- Refinancing -->
+      <div style="background:#F6F8FB;border:1px solid #E4E9F0;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:0;transition:box-shadow 0.2s,border-color 0.2s;cursor:pointer" style-hover="box-shadow:0 8px 32px rgba(22,193,114,0.12);border-color:rgba(22,193,114,0.3)" onClick="{{ card1Click }}">
+        <div style="width:44px;height:44px;border-radius:12px;background:rgba(15,181,186,0.1);display:flex;align-items:center;justify-content:center;margin-bottom:18px">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M1 4V10H7" stroke="#0FB5BA" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><path d="M23 20V14H17" stroke="#0FB5BA" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10M23 14L18.36 18.36A9 9 0 0 1 3.51 15" stroke="#0FB5BA" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#0E9E5C;margin-bottom:8px">Refinancing / Refixing</div>
+        <div style="font-size:28px;font-weight:800;color:#0B1F3A;letter-spacing:-1px;line-height:1;margin-bottom:6px">$593</div>
+        <div style="font-size:12.5px;color:#8B9AAD;font-weight:600;margin-bottom:20px">avg. saving per month</div>
+        <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:24px;flex:1">
+          <div style="display:flex;align-items:flex-start;gap:8px"><svg style="flex-shrink:0;margin-top:2px" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:13px;color:#1A2433;line-height:1.45">Compare 20+ lenders at refix time</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px"><svg style="flex-shrink:0;margin-top:2px" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:13px;color:#1A2433;line-height:1.45">No break-fee switching (in most cases)</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px"><svg style="flex-shrink:0;margin-top:2px" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:13px;color:#1A2433;line-height:1.45">We handle the full bank switch</span></div>
+        </div>
+        <div style="font-size:13px;font-weight:700;color:#16C172">Check my saving →</div>
+      </div>
+
+      <!-- Investment -->
+      <div style="background:#F6F8FB;border:1px solid #E4E9F0;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:0;transition:box-shadow 0.2s,border-color 0.2s;cursor:pointer" style-hover="box-shadow:0 8px 32px rgba(22,193,114,0.12);border-color:rgba(22,193,114,0.3)" onClick="{{ card2Click }}">
+        <div style="width:44px;height:44px;border-radius:12px;background:rgba(232,176,75,0.1);display:flex;align-items:center;justify-content:center;margin-bottom:18px">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2" y="7" width="20" height="15" rx="2" stroke="#E8B04B" stroke-width="1.8"></rect><path d="M16 7V5a2 2 0 0 0-4 0v2M8 7V5a2 2 0 0 0-2 2v0" stroke="#E8B04B" stroke-width="1.8" stroke-linecap="round"></path><path d="M8 12H16M8 16H12" stroke="#E8B04B" stroke-width="1.8" stroke-linecap="round"></path></svg>
+        </div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#0E9E5C;margin-bottom:8px">Investment Property</div>
+        <div style="font-size:28px;font-weight:800;color:#0B1F3A;letter-spacing:-1px;line-height:1;margin-bottom:6px">35%</div>
+        <div style="font-size:12.5px;color:#8B9AAD;font-weight:600;margin-bottom:20px">min. deposit required</div>
+        <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:24px;flex:1">
+          <div style="display:flex;align-items:flex-start;gap:8px"><svg style="flex-shrink:0;margin-top:2px" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:13px;color:#1A2433;line-height:1.45">LVR rule expertise &amp; structuring</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px"><svg style="flex-shrink:0;margin-top:2px" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:13px;color:#1A2433;line-height:1.45">Interest-only options available</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px"><svg style="flex-shrink:0;margin-top:2px" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:13px;color:#1A2433;line-height:1.45">Multi-property portfolio structuring</span></div>
+        </div>
+        <div style="font-size:13px;font-weight:700;color:#16C172">Discuss my portfolio →</div>
+      </div>
+
+      <!-- New Build -->
+      <div style="background:#F6F8FB;border:1px solid #E4E9F0;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:0;transition:box-shadow 0.2s,border-color 0.2s;cursor:pointer" style-hover="box-shadow:0 8px 32px rgba(22,193,114,0.12);border-color:rgba(22,193,114,0.3)" onClick="{{ card3Click }}">
+        <div style="width:44px;height:44px;border-radius:12px;background:rgba(11,31,58,0.07);display:flex;align-items:center;justify-content:center;margin-bottom:18px">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M2 20H22M4 20V10L12 4L20 10V20" stroke="#0B1F3A" stroke-width="1.8" stroke-linejoin="round"></path><rect x="9" y="14" width="6" height="6" rx="0.5" stroke="#0B1F3A" stroke-width="1.8"></rect><path d="M9 10H15" stroke="#0B1F3A" stroke-width="1.8" stroke-linecap="round"></path></svg>
+        </div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#0E9E5C;margin-bottom:8px">New Build</div>
+        <div style="font-size:28px;font-weight:800;color:#0B1F3A;letter-spacing:-1px;line-height:1;margin-bottom:6px">10%</div>
+        <div style="font-size:12.5px;color:#8B9AAD;font-weight:600;margin-bottom:20px">min. deposit (eligible builds)</div>
+        <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:24px;flex:1">
+          <div style="display:flex;align-items:flex-start;gap:8px"><svg style="flex-shrink:0;margin-top:2px" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:13px;color:#1A2433;line-height:1.45">Staged drawdown construction loans</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px"><svg style="flex-shrink:0;margin-top:2px" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:13px;color:#1A2433;line-height:1.45">Access specialist build lenders</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px"><svg style="flex-shrink:0;margin-top:2px" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:13px;color:#1A2433;line-height:1.45">LVR exemptions for new builds</span></div>
+        </div>
+        <div style="font-size:13px;font-weight:700;color:#16C172">Finance my build →</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CALCULATOR ═══ -->
+<section id="calculator" style="padding:80px 24px;background:#F6F8FB" data-reveal="">
+  <div style="max-width:1080px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:44px">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#0E9E5C;margin-bottom:10px">Mortgage Calculator</div>
+      <h2 style="font-size:clamp(26px,3vw,40px);font-weight:800;color:#0B1F3A;margin:0 0 12px;letter-spacing:-1.5px">Run your numbers</h2>
+      <p style="font-size:15px;color:#5B6B82;margin:0 auto;max-width:440px;line-height:1.65">No login required. See your borrowing power or estimate repayments in seconds.</p>
+    </div>
+
+    <!-- Mode toggle -->
+    <div style="display:flex;justify-content:center;margin-bottom:32px">
+      <div style="display:flex;gap:3px;background:white;border:1px solid #E4E9F0;border-radius:10px;padding:3px">
+        <button onClick="{{ setBorrowMode }}" style="padding:10px 24px;border:none;border-radius:8px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.2s;background:{{ borrowBg }};color:{{ borrowColor }}">Borrowing Power</button>
+        <button onClick="{{ setRepayMode }}" style="padding:10px 24px;border:none;border-radius:8px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.2s;background:{{ repayBg }};color:{{ repayColor }}">Monthly Repayment</button>
+      </div>
+    </div>
+
+    <div style="background:white;border:1px solid #E4E9F0;border-radius:20px;overflow:hidden;box-shadow:0 4px 24px rgba(11,31,58,0.07)">
+      <div style="display:grid;grid-template-columns:1fr 1fr">
+
+        <!-- Left: Inputs -->
+        <div style="padding:40px 44px;border-right:1px solid #E4E9F0">
+
+          <!-- BORROW MODE -->
+          <sc-if value="{{ isBorrowMode }}" hint-placeholder-val="{{ true }}">
+            <div style="animation:fadein 0.3s ease">
+              <div style="margin-bottom:32px">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px">
+                  <label style="font-size:13px;font-weight:700;color:#5B6B82;text-transform:uppercase;letter-spacing:.06em">Annual household income</label>
+                  <span style="font-size:18px;font-weight:800;color:#0B1F3A;letter-spacing:-0.5px">{{ incomeStr }}</span>
+                </div>
+                <div style="position:relative;height:28px;display:flex;align-items:center">
+                  <div style="position:absolute;left:0;right:0;height:4px;background:#E4E9F0;border-radius:2px"></div>
+                  <div style="position:absolute;left:0;height:4px;background:#16C172;border-radius:2px;width:{{ incomePct }}"></div>
+                  <input type="range" min="60000" max="300000" step="5000" value="{{ income }}" onChange="{{ onIncomeChange }}">
+                </div>
+                <div style="display:flex;justify-content:space-between;margin-top:6px"><span style="font-size:11px;color:#C4CDD6;font-weight:500">$60k</span><span style="font-size:11px;color:#C4CDD6;font-weight:500">$300k</span></div>
+              </div>
+
+              <div style="margin-bottom:32px">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px">
+                  <label style="font-size:13px;font-weight:700;color:#5B6B82;text-transform:uppercase;letter-spacing:.06em">Deposit saved</label>
+                  <span style="font-size:18px;font-weight:800;color:#0B1F3A;letter-spacing:-0.5px">{{ depositStr }}</span>
+                </div>
+                <div style="position:relative;height:28px;display:flex;align-items:center">
+                  <div style="position:absolute;left:0;right:0;height:4px;background:#E4E9F0;border-radius:2px"></div>
+                  <div style="position:absolute;left:0;height:4px;background:#16C172;border-radius:2px;width:{{ depositPct }}"></div>
+                  <input type="range" min="20000" max="600000" step="5000" value="{{ deposit }}" onChange="{{ onDepositChange }}">
+                </div>
+                <div style="display:flex;justify-content:space-between;margin-top:6px"><span style="font-size:11px;color:#C4CDD6;font-weight:500">$20k</span><span style="font-size:11px;color:#C4CDD6;font-weight:500">$600k</span></div>
+              </div>
+
+              <div style="background:#F6F8FB;border-radius:10px;padding:14px 16px;border:1px solid #E4E9F0">
+                <div style="font-size:12px;color:#8B9AAD;font-weight:500">Rate used: <strong style="color:#0B1F3A">{{ rateStr }}</strong> · {{ rateTermLabel }} · Wealthify negotiated</div>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- REPAY MODE -->
+          <sc-if value="{{ isRepayMode }}" hint-placeholder-val="{{ false }}">
+            <div style="animation:fadein 0.3s ease">
+              <div style="margin-bottom:32px">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px">
+                  <label style="font-size:13px;font-weight:700;color:#5B6B82;text-transform:uppercase;letter-spacing:.06em">Loan amount</label>
+                  <span style="font-size:18px;font-weight:800;color:#0B1F3A;letter-spacing:-0.5px">{{ loanAmountStr }}</span>
+                </div>
+                <div style="position:relative;height:28px;display:flex;align-items:center">
+                  <div style="position:absolute;left:0;right:0;height:4px;background:#E4E9F0;border-radius:2px"></div>
+                  <div style="position:absolute;left:0;height:4px;background:#16C172;border-radius:2px;width:{{ loanPct }}"></div>
+                  <input type="range" min="100000" max="1500000" step="10000" value="{{ loanAmount }}" onChange="{{ onLoanAmountChange }}">
+                </div>
+                <div style="display:flex;justify-content:space-between;margin-top:6px"><span style="font-size:11px;color:#C4CDD6;font-weight:500">$100k</span><span style="font-size:11px;color:#C4CDD6;font-weight:500">$1.5M</span></div>
+              </div>
+
+              <div style="margin-bottom:32px">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px">
+                  <label style="font-size:13px;font-weight:700;color:#5B6B82;text-transform:uppercase;letter-spacing:.06em">Loan term</label>
+                  <span style="font-size:18px;font-weight:800;color:#0B1F3A;letter-spacing:-0.5px">{{ loanTermStr }}</span>
+                </div>
+                <div style="position:relative;height:28px;display:flex;align-items:center">
+                  <div style="position:absolute;left:0;right:0;height:4px;background:#E4E9F0;border-radius:2px"></div>
+                  <div style="position:absolute;left:0;height:4px;background:#16C172;border-radius:2px;width:{{ termPct }}"></div>
+                  <input type="range" min="5" max="35" step="1" value="{{ loanTerm }}" onChange="{{ onLoanTermChange }}">
+                </div>
+                <div style="display:flex;justify-content:space-between;margin-top:6px"><span style="font-size:11px;color:#C4CDD6;font-weight:500">5 yrs</span><span style="font-size:11px;color:#C4CDD6;font-weight:500">35 yrs</span></div>
+              </div>
+
+              <div style="background:#F6F8FB;border-radius:10px;padding:14px 16px;border:1px solid #E4E9F0">
+                <div style="font-size:12px;color:#8B9AAD;font-weight:500">Rate used: <strong style="color:#0B1F3A">{{ rateStr }}</strong> · {{ rateTermLabel }} · Wealthify negotiated</div>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+
+        <!-- Right: Output -->
+        <div style="padding:40px 44px;background:#FAFBFD;display:flex;flex-direction:column;justify-content:center">
+
+          <!-- BORROW OUTPUT -->
+          <sc-if value="{{ isBorrowMode }}" hint-placeholder-val="{{ true }}">
+            <div style="animation:fadein 0.3s ease">
+              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#8B9AAD;margin-bottom:20px">Your estimated borrowing power</div>
+              <div style="font-size:52px;font-weight:800;color:#0B1F3A;letter-spacing:-2.5px;line-height:1;margin-bottom:6px">{{ maxLoanStr }}</div>
+              <div style="font-size:13px;color:#8B9AAD;font-weight:500;margin-bottom:28px">Maximum loan amount</div>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px">
+                <div style="background:white;border:1px solid #E4E9F0;border-radius:12px;padding:16px 18px">
+                  <div style="font-size:10.5px;font-weight:700;color:#8B9AAD;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Max property</div>
+                  <div style="font-size:20px;font-weight:800;color:#0B1F3A;letter-spacing:-0.5px">{{ maxPropStr }}</div>
+                </div>
+                <div style="background:white;border:1px solid #E4E9F0;border-radius:12px;padding:16px 18px">
+                  <div style="font-size:10.5px;font-weight:700;color:#8B9AAD;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">LVR</div>
+                  <div style="font-size:20px;font-weight:800;letter-spacing:-0.5px;color:{{ lvrColor }}">{{ lvrStr }}</div>
+                </div>
+              </div>
+
+              <div style="background:white;border:1px solid #E4E9F0;border-radius:12px;padding:16px 18px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between">
+                <div><div style="font-size:10.5px;font-weight:700;color:#8B9AAD;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">Est. monthly repayment</div><div style="font-size:11.5px;color:#B0BAC5">At best rate · 30yr term</div></div>
+                <div style="font-size:22px;font-weight:800;color:#0B1F3A;letter-spacing:-0.5px">{{ borrowMonthlyStr }}</div>
+              </div>
+
+              <div style="font-size:11.5px;color:#B0BAC5;margin-bottom:20px;line-height:1.55">{{ lvrLabel }}. Actual borrowing depends on your full financial situation.</div>
+              <button style="width:100%;padding:14px;background:#16C172;border:none;color:white;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s" style-hover="opacity:0.88">Get pre-approved at this rate →</button>
+            </div>
+          </sc-if>
+
+          <!-- REPAY OUTPUT -->
+          <sc-if value="{{ isRepayMode }}" hint-placeholder-val="{{ false }}">
+            <div style="animation:fadein 0.3s ease">
+              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#8B9AAD;margin-bottom:20px">Your estimated repayment</div>
+              <div style="font-size:52px;font-weight:800;color:#0B1F3A;letter-spacing:-2.5px;line-height:1;margin-bottom:6px">{{ repayMonthlyStr }}</div>
+              <div style="font-size:13px;color:#8B9AAD;font-weight:500;margin-bottom:28px">per month</div>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:22px">
+                <div style="background:white;border:1px solid #E4E9F0;border-radius:12px;padding:16px 18px">
+                  <div style="font-size:10.5px;font-weight:700;color:#8B9AAD;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Total interest</div>
+                  <div style="font-size:18px;font-weight:800;color:#0B1F3A;letter-spacing:-0.5px">{{ totalInterestStr }}</div>
+                </div>
+                <div style="background:white;border:1px solid #E4E9F0;border-radius:12px;padding:16px 18px">
+                  <div style="font-size:10.5px;font-weight:700;color:#8B9AAD;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Total paid</div>
+                  <div style="font-size:18px;font-weight:800;color:#0B1F3A;letter-spacing:-0.5px">{{ totalPaidStr }}</div>
+                </div>
+              </div>
+
+              <!-- Principal vs interest bar -->
+              <div style="margin-bottom:24px">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+                  <span style="font-size:11.5px;color:#8B9AAD;font-weight:600">Principal vs Interest breakdown</span>
+                </div>
+                <div style="height:10px;border-radius:5px;overflow:hidden;display:flex;background:#E4E9F0">
+                  <div style="height:100%;background:#16C172;border-radius:5px 0 0 5px;width:{{ principalPct }}"></div>
+                </div>
+                <div style="display:flex;justify-content:space-between;margin-top:6px">
+                  <div style="display:flex;align-items:center;gap:5px"><div style="width:8px;height:8px;border-radius:50%;background:#16C172"></div><span style="font-size:11px;color:#5B6B82;font-weight:600">Principal {{ principalPct }}</span></div>
+                  <div style="display:flex;align-items:center;gap:5px"><div style="width:8px;height:8px;border-radius:50%;background:#E4E9F0"></div><span style="font-size:11px;color:#5B6B82;font-weight:600">Interest {{ interestPct }}</span></div>
+                </div>
+              </div>
+
+              <button style="width:100%;padding:14px;background:#16C172;border:none;color:white;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s" style-hover="opacity:0.88">Lock in this rate →</button>
+            </div>
+          </sc-if>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<section style="padding:80px 24px;background:white" data-reveal="">
+  <div style="max-width:1100px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:56px">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#5B6B82;margin-bottom:10px">The Process</div>
+      <h2 style="font-size:clamp(26px,3vw,40px);font-weight:800;color:#0B1F3A;margin:0;letter-spacing:-1.5px">From first call to keys in hand</h2>
+    </div>
+
+    <!-- Timeline -->
+    <div style="position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:0">
+      <!-- Connecting line -->
+      <div style="position:absolute;top:22px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,#16C172,#0FB5BA,#0B1F3A,#0B1F3A,#16C172);z-index:0;opacity:0.25"></div>
+
+      <!-- Step 1 -->
+      <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12px;position:relative;z-index:1">
+        <div style="width:44px;height:44px;border-radius:50%;background:#16C172;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:white;box-shadow:0 0 0 6px rgba(22,193,114,0.1);margin-bottom:14px">1</div>
+        <div style="font-size:10px;font-weight:700;color:#16C172;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Day 1</div>
+        <div style="font-size:14px;font-weight:800;color:#0B1F3A;margin-bottom:8px;line-height:1.25">Free consultation</div>
+        <div style="font-size:12px;color:#8B9AAD;line-height:1.55">30 minutes. Tell us your goals and situation. Zero obligation.</div>
+      </div>
+
+      <!-- Step 2 -->
+      <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12px;position:relative;z-index:1">
+        <div style="width:44px;height:44px;border-radius:50%;background:#0FB5BA;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:white;box-shadow:0 0 0 6px rgba(15,181,186,0.1);margin-bottom:14px">2</div>
+        <div style="font-size:10px;font-weight:700;color:#0FB5BA;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Days 2–3</div>
+        <div style="font-size:14px;font-weight:800;color:#0B1F3A;margin-bottom:8px;line-height:1.25">We search the market</div>
+        <div style="font-size:12px;color:#8B9AAD;line-height:1.55">We compare 20+ lenders simultaneously and negotiate on your behalf.</div>
+      </div>
+
+      <!-- Step 3 -->
+      <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12px;position:relative;z-index:1">
+        <div style="width:44px;height:44px;border-radius:50%;background:#0B1F3A;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:white;box-shadow:0 0 0 6px rgba(11,31,58,0.08);margin-bottom:14px">3</div>
+        <div style="font-size:10px;font-weight:700;color:#5B6B82;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Day 4–5</div>
+        <div style="font-size:14px;font-weight:800;color:#0B1F3A;margin-bottom:8px;line-height:1.25">Your options presented</div>
+        <div style="font-size:12px;color:#8B9AAD;line-height:1.55">Clear comparison of your best deals. You choose. No pressure.</div>
+      </div>
+
+      <!-- Step 4 -->
+      <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12px;position:relative;z-index:1">
+        <div style="width:44px;height:44px;border-radius:50%;background:#0B1F3A;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:white;box-shadow:0 0 0 6px rgba(11,31,58,0.08);margin-bottom:14px">4</div>
+        <div style="font-size:10px;font-weight:700;color:#5B6B82;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Week 2</div>
+        <div style="font-size:14px;font-weight:800;color:#0B1F3A;margin-bottom:8px;line-height:1.25">Application &amp; docs</div>
+        <div style="font-size:12px;color:#8B9AAD;line-height:1.55">We handle all paperwork and liaise with the lender directly.</div>
+      </div>
+
+      <!-- Step 5 -->
+      <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12px;position:relative;z-index:1">
+        <div style="width:44px;height:44px;border-radius:50%;background:#16C172;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:white;box-shadow:0 0 0 6px rgba(22,193,114,0.1);margin-bottom:14px">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M4 10L8 14L16 6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </div>
+        <div style="font-size:10px;font-weight:700;color:#16C172;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Week 3–4</div>
+        <div style="font-size:14px;font-weight:800;color:#0B1F3A;margin-bottom:8px;line-height:1.25">Approved &amp; settled</div>
+        <div style="font-size:12px;color:#8B9AAD;line-height:1.55">Formal approval, settlement, and keys in hand.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WHAT YOU NEED ═══ -->
+<section style="padding:72px 24px;background:#F6F8FB" data-reveal="">
+  <div style="max-width:1000px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:320px 1fr;gap:64px;align-items:start">
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#5B6B82;margin-bottom:12px">Preparation</div>
+        <h2 style="font-size:clamp(24px,3vw,34px);font-weight:800;color:#0B1F3A;margin:0 0 16px;letter-spacing:-1px;line-height:1.15">What you'll need to apply</h2>
+        <p style="font-size:14.5px;color:#5B6B82;line-height:1.7;margin:0 0 24px">Gather these ahead of your call and we'll move fast. Most clients are pre-approved within 48 hours.</p>
+        <button style="padding:12px 22px;background:#0B1F3A;border:none;color:white;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s" style-hover="opacity:0.85">Book a free call</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div style="background:white;border:1px solid #E4E9F0;border-radius:14px;padding:22px">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#0E9E5C;margin-bottom:16px">All applicants</div>
+          <div style="display:flex;flex-direction:column;gap:11px">
+            <div style="display:flex;align-items:flex-start;gap:9px"><svg style="flex-shrink:0;margin-top:2px" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:13px;color:#1A2433;line-height:1.4">Passport or driver's licence</span></div>
+            <div style="display:flex;align-items:flex-start;gap:9px"><svg style="flex-shrink:0;margin-top:2px" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:13px;color:#1A2433;line-height:1.4">Last 3 months payslips</span></div>
+            <div style="display:flex;align-items:flex-start;gap:9px"><svg style="flex-shrink:0;margin-top:2px" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:13px;color:#1A2433;line-height:1.4">Last 3 months bank statements</span></div>
+            <div style="display:flex;align-items:flex-start;gap:9px"><svg style="flex-shrink:0;margin-top:2px" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:13px;color:#1A2433;line-height:1.4">Deposit evidence (savings / KiwiSaver)</span></div>
+            <div style="display:flex;align-items:flex-start;gap:9px"><svg style="flex-shrink:0;margin-top:2px" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:13px;color:#1A2433;line-height:1.4">Existing debts (credit cards, loans)</span></div>
+          </div>
+        </div>
+        <div>
+          <div style="background:white;border:1px solid #E4E9F0;border-radius:14px;padding:22px;margin-bottom:14px">
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#5B6B82;margin-bottom:16px">If self-employed</div>
+            <div style="display:flex;flex-direction:column;gap:11px">
+              <div style="display:flex;align-items:flex-start;gap:9px"><svg style="flex-shrink:0;margin-top:2px" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#0FB5BA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:13px;color:#1A2433;line-height:1.4">2 years financial statements</span></div>
+              <div style="display:flex;align-items:flex-start;gap:9px"><svg style="flex-shrink:0;margin-top:2px" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#0FB5BA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:13px;color:#1A2433;line-height:1.4">2 years IR3 tax returns</span></div>
+              <div style="display:flex;align-items:flex-start;gap:9px"><svg style="flex-shrink:0;margin-top:2px" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#0FB5BA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:13px;color:#1A2433;line-height:1.4">Business bank statements (6 months)</span></div>
+            </div>
+          </div>
+          <div style="background:rgba(22,193,114,0.06);border:1px solid rgba(22,193,114,0.2);border-radius:12px;padding:14px 16px">
+            <div style="font-size:12.5px;font-weight:600;color:#0B1F3A;line-height:1.55">If purchasing: have your Sale &amp; Purchase agreement ready once you have one.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIALS ═══ -->
+<section style="padding:80px 24px;background:white" data-reveal="">
+  <div style="max-width:1100px;margin:0 auto">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:40px;flex-wrap:wrap;gap:12px">
+      <h2 style="font-size:clamp(26px,3vw,38px);font-weight:800;color:#0B1F3A;margin:0;letter-spacing:-1px">What our clients say</h2>
+      <div style="display:flex;align-items:center;gap:6px"><span style="color:#E8B04B;font-size:13px;letter-spacing:2px">★★★★★</span><span style="font-size:13px;color:#5B6B82;font-weight:600">4.9 / 5 · 340+ Google reviews</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+      <div style="background:#F6F8FB;border:1px solid #E4E9F0;border-radius:18px;padding:30px">
+        <span style="color:#E8B04B;font-size:12px;letter-spacing:2px">★★★★★</span>
+        <p style="font-size:15px;color:#1A2433;line-height:1.68;margin:16px 0 22px;font-weight:500">"We were refixing and just about to sign with our bank. Wealthify found us a rate that saves $487 a month. For a 30-minute call, that's ridiculous value."</p>
+        <div><div style="font-size:14px;font-weight:700;color:#0B1F3A">Sarah &amp; Mike H.</div><div style="font-size:12px;color:#8B9AAD;margin-top:3px">Auckland · Refinancing · Nov 2024</div></div>
+      </div>
+      <div style="background:#F6F8FB;border:1px solid #E4E9F0;border-radius:18px;padding:30px">
+        <span style="color:#E8B04B;font-size:12px;letter-spacing:2px">★★★★★</span>
+        <p style="font-size:15px;color:#1A2433;line-height:1.68;margin:16px 0 22px;font-weight:500">"As first home buyers we had no idea where to start. Wealthify explained everything clearly, got us pre-approved in two days, and we're in our home now. Incredible."</p>
+        <div><div style="font-size:14px;font-weight:700;color:#0B1F3A">Marcus &amp; Talia R.</div><div style="font-size:12px;color:#8B9AAD;margin-top:3px">Wellington · First home · Feb 2025</div></div>
+      </div>
+      <div style="background:#F6F8FB;border:1px solid #E4E9F0;border-radius:18px;padding:30px">
+        <span style="color:#E8B04B;font-size:12px;letter-spacing:2px">★★★★★</span>
+        <p style="font-size:15px;color:#1A2433;line-height:1.68;margin:16px 0 22px;font-weight:500">"Self-employed for 6 years. Every bank I approached directly turned me down. Wealthify found a lender who understood my financials and got the deal done in 3 weeks."</p>
+        <div><div style="font-size:14px;font-weight:700;color:#0B1F3A">Priya M.</div><div style="font-size:12px;color:#8B9AAD;margin-top:3px">Christchurch · Self-employed · May 2025</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section style="padding:80px 24px;background:#F6F8FB" data-reveal="">
+  <div style="max-width:720px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:44px">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#5B6B82;margin-bottom:10px">FAQ</div>
+      <h2 style="font-size:clamp(24px,3vw,36px);font-weight:800;color:#0B1F3A;margin:0;letter-spacing:-1px">Questions we get a lot</h2>
+    </div>
+    <div style="background:white;border-radius:16px;border:1px solid #E4E9F0;overflow:hidden">
+
+      <div style="border-bottom:1px solid #E4E9F0">
+        <button onClick="{{ toggleFaq0 }}" style="width:100%;padding:20px 22px;background:none;border:none;display:flex;justify-content:space-between;align-items:center;cursor:pointer;text-align:left;font-family:inherit" style-hover="background:#FAFBFD">
+          <span style="font-size:15px;font-weight:600;color:#0B1F3A;line-height:1.4;padding-right:16px">What's the difference between fixed and floating mortgage rates?</span>
+          <span style="font-size:20px;color:#8B9AAD;font-weight:300;flex-shrink:0;width:20px;text-align:center;line-height:1">{{ faqIcon0 }}</span>
+        </button>
+        <sc-if value="{{ faq0Open }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:0 22px 18px;font-size:14px;color:#5B6B82;line-height:1.72">Fixed rates lock your rate for a set term (typically 1–5 years), giving certainty on repayments. Floating rates move with the market — more flexibility but less predictability. Most Kiwis fix for 1–3 years. We help you choose the right mix for your goals.</div>
+        </sc-if>
+      </div>
+
+      <div style="border-bottom:1px solid #E4E9F0">
+        <button onClick="{{ toggleFaq1 }}" style="width:100%;padding:20px 22px;background:none;border:none;display:flex;justify-content:space-between;align-items:center;cursor:pointer;text-align:left;font-family:inherit" style-hover="background:#FAFBFD">
+          <span style="font-size:15px;font-weight:600;color:#0B1F3A;line-height:1.4;padding-right:16px">How much deposit do I need to buy a home in New Zealand?</span>
+          <span style="font-size:20px;color:#8B9AAD;font-weight:300;flex-shrink:0;width:20px;text-align:center;line-height:1">{{ faqIcon1 }}</span>
+        </button>
+        <sc-if value="{{ faq1Open }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:0 22px 18px;font-size:14px;color:#5B6B82;line-height:1.72">Most owner-occupier purchases need at least 20% deposit for standard lending. First home buyers may qualify for 5–10% through first home schemes. Investment properties require 35–40%. KiwiSaver and the First Home Grant can help boost your deposit — we'll check your full eligibility.</div>
+        </sc-if>
+      </div>
+
+      <div style="border-bottom:1px solid #E4E9F0">
+        <button onClick="{{ toggleFaq2 }}" style="width:100%;padding:20px 22px;background:none;border:none;display:flex;justify-content:space-between;align-items:center;cursor:pointer;text-align:left;font-family:inherit" style-hover="background:#FAFBFD">
+          <span style="font-size:15px;font-weight:600;color:#0B1F3A;line-height:1.4;padding-right:16px">Can I use my KiwiSaver as a deposit?</span>
+          <span style="font-size:20px;color:#8B9AAD;font-weight:300;flex-shrink:0;width:20px;text-align:center;line-height:1">{{ faqIcon2 }}</span>
+        </button>
+        <sc-if value="{{ faq2Open }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:0 22px 18px;font-size:14px;color:#5B6B82;line-height:1.72">Yes — if you've been contributing for at least 3 years, you can withdraw most of your KiwiSaver balance for your first home purchase. You may also be eligible for the First Home Grant (up to $10,000 per person). We'll assess your eligibility as part of our initial consultation.</div>
+        </sc-if>
+      </div>
+
+      <div style="border-bottom:1px solid #E4E9F0">
+        <button onClick="{{ toggleFaq3 }}" style="width:100%;padding:20px 22px;background:none;border:none;display:flex;justify-content:space-between;align-items:center;cursor:pointer;text-align:left;font-family:inherit" style-hover="background:#FAFBFD">
+          <span style="font-size:15px;font-weight:600;color:#0B1F3A;line-height:1.4;padding-right:16px">Will using a mortgage broker affect my credit score?</span>
+          <span style="font-size:20px;color:#8B9AAD;font-weight:300;flex-shrink:0;width:20px;text-align:center;line-height:1">{{ faqIcon3 }}</span>
+        </button>
+        <sc-if value="{{ faq3Open }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:0 22px 18px;font-size:14px;color:#5B6B82;line-height:1.72">No — our initial assessment uses a soft credit check which doesn't affect your score. A formal credit inquiry only happens when you submit an application to a chosen lender, and only once you've reviewed and approved the options we present.</div>
+        </sc-if>
+      </div>
+
+      <div style="border-bottom:1px solid #E4E9F0">
+        <button onClick="{{ toggleFaq4 }}" style="width:100%;padding:20px 22px;background:none;border:none;display:flex;justify-content:space-between;align-items:center;cursor:pointer;text-align:left;font-family:inherit" style-hover="background:#FAFBFD">
+          <span style="font-size:15px;font-weight:600;color:#0B1F3A;line-height:1.4;padding-right:16px">I'm self-employed. Can I still get a mortgage?</span>
+          <span style="font-size:20px;color:#8B9AAD;font-weight:300;flex-shrink:0;width:20px;text-align:center;line-height:1">{{ faqIcon4 }}</span>
+        </button>
+        <sc-if value="{{ faq4Open }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:0 22px 18px;font-size:14px;color:#5B6B82;line-height:1.72">Absolutely. Self-employed applicants need 2 years of financials and tax returns, but many lenders specialise in this space. We present your application in the best possible light and work with lenders who understand variable income — something the banks' front-line staff often don't.</div>
+        </sc-if>
+      </div>
+
+      <div style="border-bottom:1px solid #E4E9F0">
+        <button onClick="{{ toggleFaq5 }}" style="width:100%;padding:20px 22px;background:none;border:none;display:flex;justify-content:space-between;align-items:center;cursor:pointer;text-align:left;font-family:inherit" style-hover="background:#FAFBFD">
+          <span style="font-size:15px;font-weight:600;color:#0B1F3A;line-height:1.4;padding-right:16px">What happens when my fixed rate expires?</span>
+          <span style="font-size:20px;color:#8B9AAD;font-weight:300;flex-shrink:0;width:20px;text-align:center;line-height:1">{{ faqIcon5 }}</span>
+        </button>
+        <sc-if value="{{ faq5Open }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:0 22px 18px;font-size:14px;color:#5B6B82;line-height:1.72">Your bank will send a refix notice. Most people accept it without comparing the market — which costs them thousands. Contact us 4–6 weeks before your fix expires and we'll compare every lender. Switching typically takes 2–3 weeks and in most cases there's no break fee.</div>
+        </sc-if>
+      </div>
+
+      <div style="border-bottom:1px solid #E4E9F0">
+        <button onClick="{{ toggleFaq6 }}" style="width:100%;padding:20px 22px;background:none;border:none;display:flex;justify-content:space-between;align-items:center;cursor:pointer;text-align:left;font-family:inherit" style-hover="background:#FAFBFD">
+          <span style="font-size:15px;font-weight:600;color:#0B1F3A;line-height:1.4;padding-right:16px">What is LVR and why does it matter?</span>
+          <span style="font-size:20px;color:#8B9AAD;font-weight:300;flex-shrink:0;width:20px;text-align:center;line-height:1">{{ faqIcon6 }}</span>
+        </button>
+        <sc-if value="{{ faq6Open }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:0 22px 18px;font-size:14px;color:#5B6B82;line-height:1.72">LVR (Loan to Value Ratio) is your loan amount as a percentage of the property value. At 80% LVR or below, most lenders are available to you. Above 80%, your options narrow and you may pay a higher rate or need a specialist lender. A bigger deposit means a lower LVR and better rates.</div>
+        </sc-if>
+      </div>
+
+      <div>
+        <button onClick="{{ toggleFaq7 }}" style="width:100%;padding:20px 22px;background:none;border:none;display:flex;justify-content:space-between;align-items:center;cursor:pointer;text-align:left;font-family:inherit" style-hover="background:#FAFBFD">
+          <span style="font-size:15px;font-weight:600;color:#0B1F3A;line-height:1.4;padding-right:16px">How does Wealthify make money if advice is free?</span>
+          <span style="font-size:20px;color:#8B9AAD;font-weight:300;flex-shrink:0;width:20px;text-align:center;line-height:1">{{ faqIcon7 }}</span>
+        </button>
+        <sc-if value="{{ faq7Open }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:0 22px 18px;font-size:14px;color:#5B6B82;line-height:1.72">We're paid a commission by the lender when we successfully place a mortgage. This is fully disclosed and doesn't affect the rate you receive — lenders pay the same commission regardless of the rate. You always see full transparency on fees and commissions before signing anything.</div>
+        </sc-if>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section style="padding:80px 24px;background:linear-gradient(135deg,#071929,#0f2d52)" data-reveal="">
+  <div style="max-width:580px;margin:0 auto;text-align:center">
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,0.35);margin-bottom:16px">Free · No obligation · FAP licensed</div>
+    <h2 style="font-size:clamp(28px,4vw,44px);font-weight:800;color:white;margin:0 0 16px;letter-spacing:-1.5px;line-height:1.1">Ready to find your best mortgage?</h2>
+    <p style="font-size:16px;color:rgba(255,255,255,0.55);margin:0 0 36px;line-height:1.7">A 30-minute call with a Wealthify adviser could save you tens of thousands. No jargon, no pressure — just straightforward advice.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <button style="padding:15px 30px;background:#16C172;border:none;color:white;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s" style-hover="opacity:0.9">Book a free call</button>
+      <a href="#calculator" style="display:inline-flex;align-items:center;padding:15px 28px;border:1.5px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.75);border-radius:10px;font-size:15px;font-weight:600;transition:all 0.2s" style-hover="background:rgba(255,255,255,0.07);color:white">Run the calculator →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer style="background:#0B1F3A;padding:56px 24px 24px">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:44px">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+          <svg width="30" height="22" viewBox="0 0 34 26" fill="none"><defs><linearGradient id="wgf" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#16C172"></stop><stop offset="100%" stop-color="#0FB5BA"></stop></linearGradient></defs><rect x="0" y="13" width="5" height="13" rx="1.5" fill="url(#wgf)"></rect><rect x="7" y="6" width="5" height="20" rx="1.5" fill="url(#wgf)"></rect><rect x="14.5" y="9" width="5" height="17" rx="1.5" fill="url(#wgf)"></rect><rect x="22" y="2" width="5" height="24" rx="1.5" fill="url(#wgf)"></rect><rect x="29" y="0" width="5" height="26" rx="1.5" fill="url(#wgf)"></rect></svg>
+          <span style="font-size:17px;font-weight:800;color:white;letter-spacing:-0.5px">Wealthify</span>
+        </div>
+        <p style="font-size:13px;color:rgba(255,255,255,0.4);line-height:1.7;margin:0 0 20px;max-width:260px">Independent NZ mortgage advisers. Plain English advice, no fees, ever.</p>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px">Mortgages</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <a href="#" style="font-size:13px;color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">First Home</a>
+          <a href="#" style="font-size:13px;color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Refinancing</a>
+          <a href="#" style="font-size:13px;color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Investment</a>
+          <a href="#" style="font-size:13px;color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">New Build</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px">Services</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <a href="#" style="font-size:13px;color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Insurance</a>
+          <a href="#" style="font-size:13px;color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">KiwiSaver</a>
+          <a href="#" style="font-size:13px;color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Personal Loans</a>
+          <a href="#" style="font-size:13px;color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Calculator</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px">Legal</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <a href="#" style="font-size:13px;color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Privacy Policy</a>
+          <a href="#" style="font-size:13px;color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Terms of Use</a>
+          <a href="#" style="font-size:13px;color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Disclosure Statement</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,0.07);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+      <p style="font-size:11px;color:rgba(255,255,255,0.3);margin:0;max-width:560px;line-height:1.5">Wealthify Limited is a NZ Financial Advice Provider (FAP). Rates shown are indicative estimates only and do not constitute financial advice. Past performance is not indicative of future results.</p>
+      <p style="font-size:11px;color:rgba(255,255,255,0.3);margin:0">© 2026 Wealthify Limited</p>
+    </div>
+  </div>
+</footer>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    scrolled: false,
+    situation: 0,
+    rateTerm: 'y2',
+    calcMode: 'borrow',
+    income: 120000,
+    deposit: 120000,
+    loanAmount: 600000,
+    loanTerm: 25,
+    faqOpen: null,
+  };
+
+  componentDidMount() {
+    this._onScroll = () => this.setState({ scrolled: window.scrollY > 60 });
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+
+    this._obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+          this._obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.07 });
+    setTimeout(() => {
+      document.querySelectorAll('[data-reveal]').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(26px)';
+        el.style.transition = 'opacity 0.65s ease, transform 0.65s ease';
+        this._obs.observe(el);
+      });
+    }, 100);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this._onScroll);
+    if (this._obs) this._obs.disconnect();
+  }
+
+  _repay(P, ratePct, years) {
+    const r = ratePct / 100 / 12;
+    const n = years * 12;
+    if (r === 0) return P / n;
+    return P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+  }
+
+  _fmt(n) {
+    return new Intl.NumberFormat('en-NZ').format(Math.round(n));
+  }
+
+  _pct(val, min, max) {
+    return ((val - min) / (max - min) * 100).toFixed(1) + '%';
+  }
+
+  renderVals() {
+    const { scrolled, situation, rateTerm, calcMode, income, deposit, loanAmount, loanTerm, faqOpen } = this.state;
+
+    // ── Rate data ──
+    const lenderMeta = [
+      { name: 'ANZ',      color: '#0079C2', initial: 'A' },
+      { name: 'ASB',      color: '#DC2626', initial: 'A' },
+      { name: 'BNZ',      color: '#C41230', initial: 'B' },
+      { name: 'Westpac',  color: '#CC0000', initial: 'W' },
+      { name: 'Kiwibank', color: '#00843D', initial: 'K' },
+      { name: 'SBS Bank', color: '#1B3A6B', initial: 'S' },
+    ];
+    const bankRates = {
+      float: [7.24, 7.20, 7.20, 7.25, 6.99, 7.10],
+      y1:    [6.15, 6.05, 6.09, 6.10, 5.99, 6.10],
+      y2:    [5.85, 5.79, 5.79, 5.85, 5.69, 5.75],
+      y3:    [5.75, 5.65, 5.69, 5.75, 5.55, 5.65],
+      y5:    [5.89, 5.79, 5.79, 5.85, 5.75, 5.79],
+    };
+    const wRates = { float: 6.79, y1: 5.75, y2: 5.45, y3: 5.35, y5: 5.55 };
+    const wRate = wRates[rateTerm];
+    const wMonthly = Math.round(this._repay(500000, wRate, 25));
+    const rates = bankRates[rateTerm];
+    const avgRate = rates.reduce((s, r) => s + r, 0) / rates.length;
+    const avgMonthly = Math.round(this._repay(500000, avgRate, 25));
+    const monthlySaving = avgMonthly - wMonthly;
+    const termLabels = { float: 'Floating', y1: '1-year fixed', y2: '2-year fixed', y3: '3-year fixed', y5: '5-year fixed' };
+
+    const lenderRows = lenderMeta.map((m, i) => {
+      const rate = rates[i];
+      const monthly = Math.round(this._repay(500000, rate, 25));
+      const extra = monthly - wMonthly;
+      return {
+        name: m.name, color: m.color, initial: m.initial,
+        rateStr: rate.toFixed(2) + '%',
+        monthlyStr: '$' + this._fmt(monthly),
+        extraStr: '+$' + this._fmt(extra) + '/mo',
+      };
+    }).sort((a, b) => parseFloat(a.rateStr) - parseFloat(b.rateStr));
+
+    // ── Situations ──
+    const sits = [
+      { headline: 'Get into your first home with confidence.', sub: 'We guide first home buyers through every step — from understanding what you can borrow, to negotiating your rate and managing the paperwork. No cost, no jargon.', deposit: '5–20% min deposit (FHB)', timeline: '2–4 weeks to pre-approval', highlight: 'KiwiSaver + First Home Grant eligible' },
+      { headline: 'Stop overpaying. Refix at the right rate.', sub: "Fixed rate ending soon? Most Kiwis refix with their current bank without comparing the market. We compare 20+ lenders, negotiate hard, and handle the switch — average saving is $585/month.", deposit: 'No extra deposit needed', timeline: '2–3 weeks to switch', highlight: 'Avg. $175k saved over loan term' },
+      { headline: 'Structure your investment property correctly.', sub: "Investment mortgages have different LVR rules, serviceability tests, and structuring requirements. We work with lenders who understand property investors and make your numbers work.", deposit: '35–40% deposit required', timeline: '3–5 weeks to settlement', highlight: 'Correct loan structuring for tax' },
+      { headline: 'Finance your new build, start to finish.', sub: "Construction lending is complex — staged drawdowns, specialist lenders, progress payments. We've navigated hundreds of new build loans and will keep your project on track.", deposit: '10% deposit (eligible builds)', timeline: '4–6 weeks', highlight: 'Access build-specialist lenders' },
+    ];
+    const sit = sits[situation];
+
+    // ── Term pill styles ──
+    const termStyle = (t) => ({
+      bg: rateTerm === t ? '#0B1F3A' : 'transparent',
+      color: rateTerm === t ? 'white' : '#5B6B82',
+    });
+
+    // ── Calculator ──
+    const incomePct   = this._pct(income, 60000, 300000);
+    const depositPct  = this._pct(deposit, 20000, 600000);
+    const loanPct     = this._pct(loanAmount, 100000, 1500000);
+    const termPct     = this._pct(loanTerm, 5, 35);
+
+    // Borrow mode
+    const maxLoan = Math.round(income * 5.5 / 10000) * 10000;
+    const maxProp = maxLoan + deposit;
+    const lvr = Math.round(maxLoan / maxProp * 100);
+    const borrowMonthly = Math.round(this._repay(maxLoan, wRate, 30));
+    const lvrColor = lvr <= 80 ? '#16C172' : lvr <= 90 ? '#E8B04B' : '#E05252';
+    const lvrLabel = lvr <= 80 ? 'Standard LVR — most lenders available' : lvr <= 90 ? 'High LVR — specialist lenders may apply' : 'Very high LVR — limited options';
+
+    // Repay mode
+    const repayMonthly = Math.round(this._repay(loanAmount, wRate, loanTerm));
+    const totalPaid = repayMonthly * loanTerm * 12;
+    const totalInterest = totalPaid - loanAmount;
+    const principalPctNum = Math.round(loanAmount / totalPaid * 100);
+
+    return {
+      // Nav
+      navBg: scrolled ? 'white' : 'transparent',
+      navShadow: scrolled ? '0 2px 20px rgba(0,0,0,0.08)' : 'none',
+      navColor: scrolled ? '#0B1F3A' : 'white',
+      navBtnBorder: scrolled ? '#E4E9F0' : 'rgba(255,255,255,0.3)',
+
+      // Situation
+      heroHeadline: sit.headline,
+      heroSub: sit.sub,
+      heroDeposit: sit.deposit,
+      heroTimeline: sit.timeline,
+      heroHighlight: sit.highlight,
+      sit0Bg: situation === 0 ? '#16C172' : 'rgba(255,255,255,0.1)',
+      sit0Color: situation === 0 ? 'white' : 'rgba(255,255,255,0.65)',
+      sit1Bg: situation === 1 ? '#16C172' : 'rgba(255,255,255,0.1)',
+      sit1Color: situation === 1 ? 'white' : 'rgba(255,255,255,0.65)',
+      sit2Bg: situation === 2 ? '#16C172' : 'rgba(255,255,255,0.1)',
+      sit2Color: situation === 2 ? 'white' : 'rgba(255,255,255,0.65)',
+      sit3Bg: situation === 3 ? '#16C172' : 'rgba(255,255,255,0.1)',
+      sit3Color: situation === 3 ? 'white' : 'rgba(255,255,255,0.65)',
+
+      // Rate board
+      termLabel: termLabels[rateTerm],
+      wRateStr: wRate.toFixed(2) + '%',
+      wMonthlyStr: '$' + this._fmt(wMonthly),
+      monthlySavingStr: '$' + this._fmt(monthlySaving),
+      lenderRows,
+      termFloatBg: termStyle('float').bg, termFloatColor: termStyle('float').color,
+      termY1Bg:    termStyle('y1').bg,    termY1Color:    termStyle('y1').color,
+      termY2Bg:    termStyle('y2').bg,    termY2Color:    termStyle('y2').color,
+      termY3Bg:    termStyle('y3').bg,    termY3Color:    termStyle('y3').color,
+      termY5Bg:    termStyle('y5').bg,    termY5Color:    termStyle('y5').color,
+
+      // Calculator
+      isBorrowMode: calcMode === 'borrow',
+      isRepayMode: calcMode === 'repay',
+      borrowBg: calcMode === 'borrow' ? '#0B1F3A' : 'transparent',
+      borrowColor: calcMode === 'borrow' ? 'white' : '#5B6B82',
+      repayBg: calcMode === 'repay' ? '#0B1F3A' : 'transparent',
+      repayColor: calcMode === 'repay' ? 'white' : '#5B6B82',
+      income, deposit, loanAmount, loanTerm,
+      incomeStr: '$' + this._fmt(income),
+      depositStr: '$' + this._fmt(deposit),
+      loanAmountStr: '$' + this._fmt(loanAmount),
+      loanTermStr: loanTerm + ' years',
+      rateStr: wRate.toFixed(2) + '%',
+      rateTermLabel: termLabels[rateTerm],
+      incomePct, depositPct, loanPct, termPct,
+      // Borrow outputs
+      maxLoanStr: '$' + this._fmt(maxLoan),
+      maxPropStr: '$' + this._fmt(maxProp),
+      lvrStr: lvr + '%',
+      lvrColor, lvrLabel,
+      borrowMonthlyStr: '$' + this._fmt(borrowMonthly) + '/mo',
+      // Repay outputs
+      repayMonthlyStr: '$' + this._fmt(repayMonthly) + '/mo',
+      totalPaidStr: '$' + this._fmt(totalPaid),
+      totalInterestStr: '$' + this._fmt(totalInterest),
+      principalPct: principalPctNum + '%',
+      interestPct: (100 - principalPctNum) + '%',
+
+      // FAQ
+      faq0Open: faqOpen === 0, faq1Open: faqOpen === 1,
+      faq2Open: faqOpen === 2, faq3Open: faqOpen === 3,
+      faq4Open: faqOpen === 4, faq5Open: faqOpen === 5,
+      faq6Open: faqOpen === 6, faq7Open: faqOpen === 7,
+      faqIcon0: faqOpen === 0 ? '−' : '+', faqIcon1: faqOpen === 1 ? '−' : '+',
+      faqIcon2: faqOpen === 2 ? '−' : '+', faqIcon3: faqOpen === 3 ? '−' : '+',
+      faqIcon4: faqOpen === 4 ? '−' : '+', faqIcon5: faqOpen === 5 ? '−' : '+',
+      faqIcon6: faqOpen === 6 ? '−' : '+', faqIcon7: faqOpen === 7 ? '−' : '+',
+
+      // Handlers
+      selectSit0: () => this.setState({ situation: 0 }),
+      selectSit1: () => this.setState({ situation: 1 }),
+      selectSit2: () => this.setState({ situation: 2 }),
+      selectSit3: () => this.setState({ situation: 3 }),
+      card0Click: () => { this.setState({ situation: 0 }); window.scrollTo({ top: 0, behavior: 'smooth' }); },
+      card1Click: () => { this.setState({ situation: 1 }); window.scrollTo({ top: 0, behavior: 'smooth' }); },
+      card2Click: () => { this.setState({ situation: 2 }); window.scrollTo({ top: 0, behavior: 'smooth' }); },
+      card3Click: () => { this.setState({ situation: 3 }); window.scrollTo({ top: 0, behavior: 'smooth' }); },
+      selectTermFloat: () => this.setState({ rateTerm: 'float' }),
+      selectTermY1: () => this.setState({ rateTerm: 'y1' }),
+      selectTermY2: () => this.setState({ rateTerm: 'y2' }),
+      selectTermY3: () => this.setState({ rateTerm: 'y3' }),
+      selectTermY5: () => this.setState({ rateTerm: 'y5' }),
+      setBorrowMode: () => this.setState({ calcMode: 'borrow' }),
+      setRepayMode: () => this.setState({ calcMode: 'repay' }),
+      onIncomeChange: e => this.setState({ income: +e.target.value }),
+      onDepositChange: e => this.setState({ deposit: +e.target.value }),
+      onLoanAmountChange: e => this.setState({ loanAmount: +e.target.value }),
+      onLoanTermChange: e => this.setState({ loanTerm: +e.target.value }),
+      toggleFaq0: () => this.setState(s => ({ faqOpen: s.faqOpen === 0 ? null : 0 })),
+      toggleFaq1: () => this.setState(s => ({ faqOpen: s.faqOpen === 1 ? null : 1 })),
+      toggleFaq2: () => this.setState(s => ({ faqOpen: s.faqOpen === 2 ? null : 2 })),
+      toggleFaq3: () => this.setState(s => ({ faqOpen: s.faqOpen === 3 ? null : 3 })),
+      toggleFaq4: () => this.setState(s => ({ faqOpen: s.faqOpen === 4 ? null : 4 })),
+      toggleFaq5: () => this.setState(s => ({ faqOpen: s.faqOpen === 5 ? null : 5 })),
+      toggleFaq6: () => this.setState(s => ({ faqOpen: s.faqOpen === 6 ? null : 6 })),
+      toggleFaq7: () => this.setState(s => ({ faqOpen: s.faqOpen === 7 ? null : 7 })),
+    };
+  }
+}
+
+</script>
+</body>
+</html>
