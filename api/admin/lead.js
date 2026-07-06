@@ -40,6 +40,7 @@ module.exports = async (req, res) => {
       const body = await readBody(req);
       const updates = {};
 
+      // Report-scenario fields (already editable pre-handoff)
       if (body.target_new_rate !== undefined) {
         const v = parseNumber(body.target_new_rate);
         if (v === null) return json(res, 400, { error: 'Invalid target new rate' });
@@ -59,6 +60,24 @@ module.exports = async (req, res) => {
         const v = parseNumber(body.legal_costs);
         if (v === null) return json(res, 400, { error: 'Invalid legal costs' });
         updates.legal_costs = v;
+      }
+
+      // New: client/loan fields, so admins can correct or refine the
+      // details captured from the calculator before generating a report.
+      if (body.loan_balance !== undefined) {
+        const v = parseNumber(body.loan_balance);
+        if (v === null) return json(res, 400, { error: 'Invalid loan balance' });
+        updates.loan_balance = v;
+      }
+      if (body.current_rate !== undefined) {
+        const v = parseNumber(body.current_rate);
+        if (v === null) return json(res, 400, { error: 'Invalid current rate' });
+        updates.current_rate = v;
+      }
+      if (body.years_remaining !== undefined) {
+        const v = parseNumber(body.years_remaining);
+        if (v === null) return json(res, 400, { error: 'Invalid years remaining' });
+        updates.years_remaining = v;
       }
 
       if (!Object.keys(updates).length) {
