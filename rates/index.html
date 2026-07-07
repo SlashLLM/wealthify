@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NZ Mortgage Rates — Compare every lender | Wealthify</title>
+<meta name="description" content="Every mortgage rate from every major NZ bank and non-bank lender, updated hourly. Search, filter, and compare in seconds.">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Plus Jakarta Sans',sans-serif;color:#1A2433;background:#fff;-webkit-font-smoothing:antialiased}
+  a{text-decoration:none;color:inherit}
+  button{font-family:inherit}
+  ::selection{background:rgba(22,193,114,.25)}
+
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
+  @keyframes fadein{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes slideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  .skel{background:linear-gradient(90deg,#F0F3F7 25%,#E4E9F0 37%,#F0F3F7 63%);background-size:400px 100%;animation:shimmer 1.4s infinite}
+
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:#D3DAE3;border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+
+  .pill{border:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:13px;padding:9px 16px;border-radius:100px;transition:all .15s;white-space:nowrap}
+  .pill:hover{transform:translateY(-1px)}
+
+  .card{transition:box-shadow .2s,transform .2s,border-color .2s}
+  .card:hover{box-shadow:0 12px 32px rgba(11,31,58,.1);transform:translateY(-2px)}
+
+  .chev{transition:transform .25s}
+  .chev.open{transform:rotate(180deg)}
+
+  .panel{overflow:hidden;transition:max-height .3s ease}
+
+  input[type=text]{font-family:inherit}
+  input[type=text]:focus{outline:none}
+
+  .cmp-btn{transition:all .15s}
+  .cmp-btn:hover{background:#0B1F3A !important;color:#fff !important}
+
+  @media (max-width:900px){
+    .grid-cards{grid-template-columns:1fr !important}
+    .lead-grid{grid-template-columns:1fr !important}
+    .hide-mobile{display:none !important}
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav style="position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid #E4E9F0">
+  <div style="max-width:1240px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;gap:24px">
+    <a href="../index.html" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+      <svg width="32" height="24" viewBox="0 0 34 26" fill="none">
+        <defs><linearGradient id="wg" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#16C172"></stop><stop offset="100%" stop-color="#0FB5BA"></stop></linearGradient></defs>
+        <rect x="0" y="13" width="5" height="13" rx="1.5" fill="url(#wg)"></rect>
+        <rect x="7" y="6" width="5" height="20" rx="1.5" fill="url(#wg)"></rect>
+        <rect x="14.5" y="9" width="5" height="17" rx="1.5" fill="url(#wg)"></rect>
+        <rect x="22" y="2" width="5" height="24" rx="1.5" fill="url(#wg)"></rect>
+        <rect x="29" y="0" width="5" height="26" rx="1.5" fill="url(#wg)"></rect>
+      </svg>
+      <span style="font-size:18px;font-weight:800;color:#0B1F3A;letter-spacing:-0.5px">Wealthify</span>
+    </a>
+    <div style="display:flex;gap:26px;align-items:center;flex:1;justify-content:center" class="hide-mobile">
+      <a href="../Mortgages.dc.html" style="font-size:14px;font-weight:600;color:#0B1F3A;opacity:0.65" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.65">Mortgages</a>
+      <a href="../Insurance.dc.html" style="font-size:14px;font-weight:600;color:#0B1F3A;opacity:0.65" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.65">Insurance</a>
+      <a href="../KiwiSaver.dc.html" style="font-size:14px;font-weight:600;color:#0B1F3A;opacity:0.65" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.65">KiwiSaver</a>
+      <a href="./" style="font-size:14px;font-weight:700;color:#16C172;padding-bottom:2px;border-bottom:2px solid #16C172">Rates</a>
+      <a href="../Tools.dc.html" style="font-size:14px;font-weight:600;color:#0B1F3A;opacity:0.65" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.65">Tools</a>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;flex-shrink:0">
+      <button style="padding:8px 18px;background:#16C172;border:none;color:white;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;transition:opacity .15s" onmouseover="this.style.opacity=.88" onmouseout="this.style.opacity=1">Book a free call</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section style="padding:128px 24px 0;background:#071929;position:relative;overflow:hidden">
+  <div style="position:absolute;top:-120px;right:-120px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(22,193,114,.16),transparent 70%);pointer-events:none"></div>
+  <div style="max-width:1240px;margin:0 auto;position:relative">
+    <div style="display:inline-flex;align-items:center;gap:8px;margin-bottom:22px;padding:6px 14px;background:rgba(22,193,114,0.12);border-radius:100px;border:1px solid rgba(22,193,114,0.2)">
+      <span style="width:6px;height:6px;border-radius:50%;background:#16C172;animation:pulse 2s infinite;display:inline-block"></span>
+      <span id="liveLabel" style="font-size:11.5px;font-weight:700;color:#16C172;letter-spacing:.04em">Live · updated hourly from interest.co.nz</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap">
+      <div>
+        <h1 style="font-size:clamp(38px,5vw,60px);font-weight:800;color:white;margin:0 0 16px;line-height:1.02;letter-spacing:-2.5px;max-width:680px">Every mortgage rate in NZ.<br>One page, no spin.</h1>
+        <p style="font-size:16.5px;color:rgba(255,255,255,0.45);margin:0;max-width:520px;line-height:1.7">Search, filter and compare <span id="heroInstCount">37</span> lenders side-by-side — then let us do the negotiating. Free, independent, no fees.</p>
+      </div>
+      <div style="display:flex;gap:28px;padding-bottom:6px" class="hide-mobile">
+        <div>
+          <div style="font-size:26px;font-weight:800;color:#16C172;letter-spacing:-1px;line-height:1" id="heroLowest">—</div>
+          <div style="font-size:11.5px;color:rgba(255,255,255,0.32);margin-top:6px">lowest 1yr rate found</div>
+        </div>
+        <div style="width:1px;background:rgba(255,255,255,0.1)"></div>
+        <div>
+          <div style="font-size:26px;font-weight:800;color:white;letter-spacing:-1px;line-height:1" id="heroProdCount">—</div>
+          <div style="font-size:11.5px;color:rgba(255,255,255,0.32);margin-top:6px">products tracked</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ LEADERBOARD ═══ -->
+<section style="background:#071929;padding:36px 24px 72px">
+  <div style="max-width:1240px;margin:0 auto">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:14px">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,0.4)">Best rates right now for</div>
+      <div id="leadTermPills" style="display:flex;gap:6px;flex-wrap:wrap"></div>
+    </div>
+    <div class="lead-grid" id="leaderboard" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px"></div>
+    <p style="font-size:12px;color:rgba(255,255,255,0.28);margin:16px 2px 0;line-height:1.6">Estimated monthly repayment shown on a $500,000 loan over 25 years, principal &amp; interest. Illustrative only — not financial advice.</p>
+  </div>
+</section>
+
+<!-- ═══ CONTROL BAR ═══ -->
+<div id="controlBar" style="position:sticky;top:64px;z-index:40;background:#fff;border-bottom:1px solid #E4E9F0;box-shadow:0 1px 0 rgba(0,0,0,.02)">
+  <div style="max-width:1240px;margin:0 auto;padding:16px 24px;display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+    <div style="position:relative;flex:1;min-width:220px;max-width:340px">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);pointer-events:none">
+        <circle cx="11" cy="11" r="7" stroke="#8B9AAD" stroke-width="2"></circle>
+        <path d="M21 21l-4.3-4.3" stroke="#8B9AAD" stroke-width="2" stroke-linecap="round"></path>
+      </svg>
+      <input id="searchInput" type="text" placeholder="Search lender or product…" style="width:100%;padding:11px 14px 11px 40px;border:1.5px solid #E4E9F0;border-radius:10px;font-size:14px;background:#F6F8FB;transition:border-color .15s" onfocus="this.style.borderColor='#16C172'" onblur="this.style.borderColor='#E4E9F0'">
+    </div>
+    <div id="termPills" style="display:flex;gap:6px;overflow-x:auto;flex:2;min-width:260px"></div>
+    <div style="display:flex;gap:10px;align-items:center;margin-left:auto">
+      <select id="sortSelect" style="padding:10px 32px 10px 14px;border:1.5px solid #E4E9F0;border-radius:10px;font-size:13px;font-weight:600;color:#0B1F3A;background:#F6F8FB;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2210%22 height=%226%22 viewBox=%220 0 10 6%22><path d=%22M1 1l4 4 4-4%22 stroke=%22%235B6B82%22 stroke-width=%221.5%22 fill=%22none%22/></svg>');background-repeat:no-repeat;background-position:right 12px center">
+        <option value="rate-asc">Rate: low to high</option>
+        <option value="rate-desc">Rate: high to low</option>
+        <option value="name-asc">Lender: A → Z</option>
+      </select>
+      <div style="display:flex;background:#F0F3F7;border-radius:9px;padding:3px;gap:2px">
+        <button id="viewCardBtn" style="border:none;border-radius:7px;padding:7px 12px;font-size:12.5px;font-weight:700;cursor:pointer;background:#0B1F3A;color:#fff">Cards</button>
+        <button id="viewTableBtn" style="border:none;border-radius:7px;padding:7px 12px;font-size:12.5px;font-weight:700;cursor:pointer;background:transparent;color:#5B6B82">Table</button>
+      </div>
+    </div>
+  </div>
+  <div id="resultMeta" style="max-width:1240px;margin:0 auto;padding:0 24px 12px;font-size:12.5px;color:#8B9AAD"></div>
+</div>
+
+<!-- ═══ RESULTS ═══ -->
+<section style="padding:32px 24px 60px;background:#fff">
+  <div style="max-width:1240px;margin:0 auto">
+    <div id="cardsView" class="grid-cards" style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px"></div>
+    <div id="tableView" style="display:none;border:1px solid #E4E9F0;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(11,31,58,.05)">
+      <div style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;font-size:13.5px" id="ratesTable"></table>
+      </div>
+    </div>
+    <div id="emptyState" style="display:none;text-align:center;padding:80px 20px;color:#8B9AAD">
+      <div style="font-size:15px;font-weight:600;color:#0B1F3A;margin-bottom:6px">No lenders match that search</div>
+      <div style="font-size:13.5px">Try a different term, or clear the search box.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTNOTE ═══ -->
+<section style="padding:0 24px 100px;background:#fff">
+  <div style="max-width:1240px;margin:0 auto;border-top:1px solid #E4E9F0;padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
+    <p style="font-size:12.5px;color:#B0BAC5;margin:0;max-width:640px;line-height:1.6" id="termsOfUse"></p>
+    <p style="font-size:12.5px;color:#B0BAC5;margin:0;white-space:nowrap" id="lastUpdatedFoot"></p>
+  </div>
+</section>
+
+<!-- ═══ COMPARE TRAY ═══ -->
+<div id="compareTray" style="position:fixed;left:0;right:0;bottom:-220px;z-index:90;background:#0B1F3A;box-shadow:0 -8px 32px rgba(0,0,0,.18);transition:bottom .3s ease;padding:20px 24px">
+  <div style="max-width:1240px;margin:0 auto">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4)">Comparing <span id="compareCount">0</span> of 3 · rate for <span id="compareTermLabel">1 year</span></div>
+      <button onclick="clearCompare()" style="background:none;border:none;color:rgba(255,255,255,.5);font-size:12.5px;font-weight:700;cursor:pointer">Clear all ✕</button>
+    </div>
+    <div id="compareRow" style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var STATE = {
+    data: [], rows: [], columns: [],
+    search: '', term: 12, sort: 'rate-asc', view: 'card',
+    expanded: {}, compare: []
+  };
+  var MONEY_PRINCIPAL = 500000, MONEY_MONTHS = 300;
+
+  function monthlyPayment(annualRatePct){
+    var r = (annualRatePct/100)/12;
+    if (!r) return MONEY_PRINCIPAL / MONEY_MONTHS;
+    var pow = Math.pow(1+r, MONEY_MONTHS);
+    return MONEY_PRINCIPAL * r * pow / (pow - 1);
+  }
+  function fmtMoney(n){ return '$' + Math.round(n).toLocaleString('en-NZ'); }
+  function fmtRate(n){ return (n === 0 ? '0.00' : n.toFixed(2)) + '%'; }
+  function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+
+  function columnLabel(termInMonths, term){
+    if (termInMonths === null) return 'Variable';
+    return term.replace(' months','mo').replace(' month','mo').replace(' years','yr').replace(' year','yr');
+  }
+
+  function buildColumns(data){
+    var seen = {};
+    data.forEach(function(inst){
+      inst.products.forEach(function(p){
+        p.rates.forEach(function(r){
+          var key = r.termInMonths === null ? 'null' : r.termInMonths;
+          if (!(key in seen)) seen[key] = { termInMonths: r.termInMonths, term: r.term };
+        });
+      });
+    });
+    var cols = Object.keys(seen).map(function(k){ return seen[k]; });
+    cols.sort(function(a,b){
+      var av = a.termInMonths === null ? -1 : a.termInMonths;
+      var bv = b.termInMonths === null ? -1 : b.termInMonths;
+      return av - bv;
+    });
+    return cols;
+  }
+
+  function bestRateForInstitution(inst, termInMonths){
+    var best = null;
+    inst.products.forEach(function(p){
+      p.rates.forEach(function(r){
+        if (r.termInMonths === termInMonths && r.rate > 0){
+          if (best === null || r.rate < best.rate) best = { rate: r.rate, productName: p.name };
+        }
+      });
+    });
+    return best;
+  }
+
+  function overallBestForTerm(data, termInMonths){
+    var results = [];
+    data.forEach(function(inst){
+      var b = bestRateForInstitution(inst, termInMonths);
+      if (b) results.push({ instName: inst.name, instId: inst.id, rate: b.rate, productName: b.productName });
+    });
+    results.sort(function(a,b){ return a.rate - b.rate; });
+    return results;
+  }
+
+  function renderTermPills(){
+    var wraps = [document.getElementById('termPills'), document.getElementById('leadTermPills')];
+    wraps.forEach(function(wrap, wIdx){
+      wrap.innerHTML = '';
+      STATE.columns.forEach(function(col){
+        var active = col.termInMonths === STATE.term;
+        var btn = document.createElement('button');
+        btn.className = 'pill';
+        btn.textContent = columnLabel(col.termInMonths, col.term);
+        btn.style.background = active ? '#16C172' : (wIdx === 1 ? 'rgba(255,255,255,.08)' : '#F0F3F7');
+        btn.style.color = active ? '#fff' : (wIdx === 1 ? 'rgba(255,255,255,.6)' : '#5B6B82');
+        btn.onclick = function(){ STATE.term = col.termInMonths; render(); };
+        wrap.appendChild(btn);
+      });
+    });
+  }
+
+  function renderLeaderboard(){
+    var best = overallBestForTerm(STATE.data, STATE.term).slice(0,3);
+    var wrap = document.getElementById('leaderboard');
+    wrap.innerHTML = '';
+    var medalColors = ['#16C172','#0FB5BA','#6B8CFF'];
+    var medalLabels = ['Best rate','2nd lowest','3rd lowest'];
+    if (!best.length){
+      wrap.innerHTML = '<div style="grid-column:1/-1;color:rgba(255,255,255,.4);font-size:14px;padding:20px 0">No lender currently offers this term.</div>';
+      return;
+    }
+    best.forEach(function(b, i){
+      var mp = monthlyPayment(b.rate);
+      var card = document.createElement('div');
+      card.style.cssText = 'background:'+(i===0?'linear-gradient(160deg,#0E9E5C,#0B7A46)':'#0F2740')+';border-radius:18px;padding:24px;position:relative;overflow:hidden;animation:slideUp .4s ease '+(i*0.05)+'s both;border:1px solid '+(i===0?'rgba(22,193,114,.4)':'rgba(255,255,255,.06)');
+      card.innerHTML =
+        '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">'+
+          '<span style="font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:'+(i===0?'rgba(255,255,255,.85)':medalColors[i])+'">'+medalLabels[i]+'</span>'+
+          (i===0 ? '<span style="background:rgba(255,255,255,.22);color:#fff;font-size:10px;font-weight:800;padding:3px 8px;border-radius:100px">★ TOP PICK</span>' : '')+
+        '</div>'+
+        '<div style="font-size:17px;font-weight:800;color:#fff;margin-bottom:2px;letter-spacing:-.3px">'+esc(b.instName)+'</div>'+
+        '<div style="font-size:12.5px;color:rgba(255,255,255,.55);margin-bottom:16px">'+esc(b.productName)+'</div>'+
+        '<div style="display:flex;align-items:baseline;gap:8px;margin-bottom:6px">'+
+          '<span style="font-size:38px;font-weight:800;color:#fff;letter-spacing:-1.5px;line-height:1">'+fmtRate(b.rate)+'</span>'+
+        '</div>'+
+        '<div style="font-size:12.5px;color:rgba(255,255,255,.5)">'+fmtMoney(mp)+'/mo on $500k · 25yrs</div>';
+      wrap.appendChild(card);
+    });
+  }
+
+  function matchesSearch(inst){
+    if (!STATE.search) return true;
+    var q = STATE.search.toLowerCase();
+    if (inst.name.toLowerCase().indexOf(q) !== -1) return true;
+    return inst.products.some(function(p){ return p.name.toLowerCase().indexOf(q) !== -1; });
+  }
+
+  function getFilteredSorted(){
+    var list = STATE.data.filter(matchesSearch).map(function(inst){
+      var best = bestRateForInstitution(inst, STATE.term);
+      return { inst: inst, best: best };
+    });
+    list.sort(function(a,b){
+      if (STATE.sort === 'name-asc') return a.inst.name.localeCompare(b.inst.name);
+      var ar = a.best ? a.best.rate : Infinity;
+      var br = b.best ? b.best.rate : Infinity;
+      if (ar === br) return a.inst.name.localeCompare(b.inst.name);
+      return STATE.sort === 'rate-desc' ? br - ar : ar - br;
+    });
+    return list;
+  }
+
+  function inCompare(instId){ return STATE.compare.some(function(c){ return c.instId === instId; }); }
+
+  function toggleCompare(inst, best){
+    if (inCompare(inst.id)){
+      STATE.compare = STATE.compare.filter(function(c){ return c.instId !== inst.id; });
+    } else {
+      if (STATE.compare.length >= 3) return;
+      STATE.compare.push({ instId: inst.id, instName: inst.name, best: best });
+    }
+    renderCompareTray();
+    renderCards();
+  }
+
+  window.clearCompare = function(){ STATE.compare = []; renderCompareTray(); renderCards(); };
+
+  function renderCompareTray(){
+    var tray = document.getElementById('compareTray');
+    var count = STATE.compare.length;
+    document.getElementById('compareCount').textContent = count;
+    var col = STATE.columns.filter(function(c){return c.termInMonths===STATE.term})[0];
+    document.getElementById('compareTermLabel').textContent = col ? columnLabel(col.termInMonths, col.term) : '';
+    tray.style.bottom = count > 0 ? '0' : '-220px';
+    var row = document.getElementById('compareRow');
+    row.innerHTML = '';
+    STATE.compare.forEach(function(c){
+      var div = document.createElement('div');
+      div.style.cssText = 'background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between';
+      var rateStr = c.best ? fmtRate(c.best.rate) : '—';
+      var mpStr = c.best ? fmtMoney(monthlyPayment(c.best.rate))+'/mo' : 'not offered';
+      div.innerHTML =
+        '<div><div style="font-size:13.5px;font-weight:700;color:#fff">'+esc(c.instName)+'</div>'+
+        '<div style="font-size:11.5px;color:rgba(255,255,255,.4);margin-top:2px">'+mpStr+'</div></div>'+
+        '<div style="display:flex;align-items:center;gap:10px">'+
+          '<span style="font-size:20px;font-weight:800;color:#16C172;letter-spacing:-.5px">'+rateStr+'</span>'+
+          '<button data-remove="'+esc(c.instId)+'" style="background:none;border:none;color:rgba(255,255,255,.35);cursor:pointer;font-size:15px;padding:0 2px">✕</button>'+
+        '</div>';
+      row.appendChild(div);
+    });
+    row.querySelectorAll('[data-remove]').forEach(function(btn){
+      btn.onclick = function(){
+        var id = btn.getAttribute('data-remove');
+        STATE.compare = STATE.compare.filter(function(c){ return c.instId !== id; });
+        renderCompareTray(); renderCards();
+      };
+    });
+  }
+
+  function productRatesRow(product){
+    var cellsByMonth = {};
+    product.rates.forEach(function(r){ cellsByMonth[r.termInMonths === null ? 'null' : r.termInMonths] = r.rate; });
+    return cellsByMonth;
+  }
+
+  function renderExpandedTable(inst){
+    var wrap = document.createElement('div');
+    wrap.style.cssText = 'margin-top:14px;border-top:1px solid #E4E9F0;padding-top:14px';
+    var table = document.createElement('div');
+    table.style.cssText = 'overflow-x:auto';
+    var minima = {};
+    STATE.columns.forEach(function(col){
+      var key = col.termInMonths === null ? 'null' : col.termInMonths;
+      var vals = [];
+      inst.products.forEach(function(p){
+        p.rates.forEach(function(r){ if ((r.termInMonths===null?'null':r.termInMonths)===key && r.rate>0) vals.push(r.rate); });
+      });
+      minima[key] = vals.length ? Math.min.apply(null, vals) : null;
+    });
+    var html = '<table style="border-collapse:collapse;width:100%;min-width:560px;font-size:12.5px">';
+    html += '<tr><td style="padding:6px 10px 6px 0;color:#8B9AAD;font-weight:700;font-size:10.5px;text-transform:uppercase;letter-spacing:.05em">Product</td>';
+    STATE.columns.forEach(function(col){
+      html += '<td style="padding:6px 10px;color:#8B9AAD;font-weight:700;font-size:10.5px;text-transform:uppercase;text-align:right">'+columnLabel(col.termInMonths,col.term)+'</td>';
+    });
+    html += '</tr>';
+    inst.products.forEach(function(p){
+      var cells = productRatesRow(p);
+      html += '<tr style="border-top:1px solid #F0F3F7"><td style="padding:8px 10px 8px 0;font-weight:600;color:#0B1F3A;white-space:nowrap">'+esc(p.name)+'</td>';
+      STATE.columns.forEach(function(col){
+        var key = col.termInMonths === null ? 'null' : col.termInMonths;
+        var v = cells[key];
+        if (v === undefined){
+          html += '<td style="padding:8px 10px;text-align:right;color:#D3DAE3">—</td>';
+        } else {
+          var isBest = minima[key] !== null && v === minima[key];
+          html += '<td style="padding:8px 10px;text-align:right;font-weight:'+(isBest?'800':'600')+';color:'+(isBest?'#0E9E5C':'#1A2433')+'">'+
+            (isBest ? '<span style="background:rgba(22,193,114,.12);border-radius:6px;padding:2px 7px">'+fmtRate(v)+'</span>' : fmtRate(v))+
+          '</td>';
+        }
+      });
+      html += '</tr>';
+    });
+    html += '</table>';
+    table.innerHTML = html;
+    wrap.appendChild(table);
+    return wrap;
+  }
+
+  function renderCards(){
+    var list = getFilteredSorted();
+    var wrap = document.getElementById('cardsView');
+    var empty = document.getElementById('emptyState');
+    document.getElementById('resultMeta').textContent = list.length + (list.length === 1 ? ' lender' : ' lenders') + ' · sorted by ' + (STATE.sort === 'name-asc' ? 'name' : (STATE.sort === 'rate-desc' ? 'rate (high to low)' : 'rate (low to high)'));
+    wrap.innerHTML = '';
+    empty.style.display = list.length ? 'none' : 'block';
+
+    list.forEach(function(item, idx){
+      var inst = item.inst, best = item.best;
+      var isExpanded = !!STATE.expanded[inst.id];
+      var isCompared = inCompare(inst.id);
+      var card = document.createElement('div');
+      card.className = 'card';
+      card.style.cssText = 'background:#fff;border:1.5px solid '+(isCompared?'#16C172':'#E4E9F0')+';border-radius:16px;padding:20px;animation:fadein .3s ease '+(Math.min(idx,10)*0.02)+'s both';
+      var rateBlock = best
+        ? '<span style="font-size:30px;font-weight:800;color:#0B1F3A;letter-spacing:-1px;line-height:1">'+fmtRate(best.rate)+'</span><div style="font-size:11.5px;color:#8B9AAD;margin-top:4px">'+fmtMoney(monthlyPayment(best.rate))+'/mo on $500k</div>'
+        : '<span style="font-size:20px;font-weight:700;color:#C4CDD6">Not offered</span>';
+      card.innerHTML =
+        '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:14px">'+
+          '<div>'+
+            '<div style="font-size:16px;font-weight:800;color:#0B1F3A;letter-spacing:-.3px">'+esc(inst.name)+'</div>'+
+            '<div style="font-size:12px;color:#8B9AAD;margin-top:3px">'+inst.products.length+' product'+(inst.products.length>1?'s':'')+(best?' · '+esc(best.productName):'')+'</div>'+
+          '</div>'+
+          '<button class="cmp-btn" data-cmp="'+esc(inst.id)+'" style="flex-shrink:0;border:1.5px solid '+(isCompared?'#16C172':'#E4E9F0')+';background:'+(isCompared?'#16C172':'#fff')+';color:'+(isCompared?'#fff':'#5B6B82')+';border-radius:8px;padding:6px 12px;font-size:11.5px;font-weight:700;cursor:pointer">'+(isCompared?'✓ Added':'+ Compare')+'</button>'+
+        '</div>'+
+        '<div style="margin-bottom:14px">'+rateBlock+'</div>'+
+        '<button data-expand="'+esc(inst.id)+'" style="width:100%;background:#F6F8FB;border:none;border-radius:9px;padding:9px;font-size:12.5px;font-weight:700;color:#5B6B82;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">'+
+          (isExpanded ? 'Hide all rates' : 'View all rates')+
+          '<svg class="chev '+(isExpanded?'open':'')+'" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="#5B6B82" stroke-width="1.6" fill="none"/></svg>'+
+        '</button>';
+      if (isExpanded) card.appendChild(renderExpandedTable(inst));
+      wrap.appendChild(card);
+    });
+
+    wrap.querySelectorAll('[data-expand]').forEach(function(btn){
+      btn.onclick = function(){
+        var id = btn.getAttribute('data-expand');
+        STATE.expanded[id] = !STATE.expanded[id];
+        renderCards();
+      };
+    });
+    wrap.querySelectorAll('[data-cmp]').forEach(function(btn){
+      btn.onclick = function(){
+        var id = btn.getAttribute('data-cmp');
+        var item = list.filter(function(l){ return l.inst.id === id; })[0];
+        if (item) toggleCompare(item.inst, item.best);
+      };
+    });
+  }
+
+  function renderTable(){
+    var list = getFilteredSorted();
+    document.getElementById('resultMeta').textContent = list.length + (list.length === 1 ? ' lender' : ' lenders') + ' · sorted by ' + (STATE.sort === 'name-asc' ? 'name' : (STATE.sort === 'rate-desc' ? 'rate (high to low)' : 'rate (low to high)'));
+    var el = document.getElementById('ratesTable');
+    var html = '<thead><tr style="background:#F6F8FB">'+
+      '<th style="text-align:left;padding:12px 16px;font-size:11px;font-weight:700;color:#8B9AAD;text-transform:uppercase;letter-spacing:.06em">Lender</th>'+
+      '<th style="text-align:left;padding:12px 16px;font-size:11px;font-weight:700;color:#8B9AAD;text-transform:uppercase;letter-spacing:.06em">Product</th>'+
+      '<th style="text-align:right;padding:12px 16px;font-size:11px;font-weight:700;color:#8B9AAD;text-transform:uppercase;letter-spacing:.06em">Rate</th>'+
+      '<th style="text-align:right;padding:12px 16px;font-size:11px;font-weight:700;color:#8B9AAD;text-transform:uppercase;letter-spacing:.06em">Est. /mo</th>'+
+      '<th></th>'+
+      '</tr></thead><tbody>';
+    if (!list.length){
+      el.innerHTML = html + '</tbody>';
+      document.getElementById('emptyState').style.display = 'block';
+      return;
+    }
+    document.getElementById('emptyState').style.display = 'none';
+    list.forEach(function(item){
+      var inst = item.inst, best = item.best;
+      var isCompared = inCompare(inst.id);
+      html += '<tr style="border-top:1px solid #F0F3F7">'+
+        '<td style="padding:12px 16px;font-weight:700;color:#0B1F3A">'+esc(inst.name)+'</td>'+
+        '<td style="padding:12px 16px;color:#5B6B82">'+(best ? esc(best.productName) : '—')+'</td>'+
+        '<td style="padding:12px 16px;text-align:right;font-weight:800;color:'+(best?'#0B1F3A':'#C4CDD6')+'">'+(best?fmtRate(best.rate):'Not offered')+'</td>'+
+        '<td style="padding:12px 16px;text-align:right;color:#8B9AAD">'+(best?fmtMoney(monthlyPayment(best.rate)):'—')+'</td>'+
+        '<td style="padding:12px 16px;text-align:right"><button data-cmp="'+esc(inst.id)+'" style="border:1.5px solid '+(isCompared?'#16C172':'#E4E9F0')+';background:'+(isCompared?'#16C172':'#fff')+';color:'+(isCompared?'#fff':'#5B6B82')+';border-radius:7px;padding:5px 10px;font-size:11px;font-weight:700;cursor:pointer">'+(isCompared?'✓':'+ Compare')+'</button></td>'+
+        '</tr>';
+    });
+    html += '</tbody>';
+    el.innerHTML = html;
+    el.querySelectorAll('[data-cmp]').forEach(function(btn){
+      btn.onclick = function(){
+        var id = btn.getAttribute('data-cmp');
+        var item = list.filter(function(l){ return l.inst.id === id; })[0];
+        if (item) toggleCompare(item.inst, item.best);
+      };
+    });
+  }
+
+  function render(){
+    renderTermPills();
+    renderLeaderboard();
+    if (STATE.view === 'card') { renderCards(); } else { renderTable(); }
+    renderCompareTray();
+  }
+
+  function init(json){
+    STATE.data = json.data;
+    STATE.columns = buildColumns(json.data);
+    STATE.term = STATE.columns.some(function(c){return c.termInMonths===12}) ? 12 : STATE.columns[0].termInMonths;
+
+    var totalProducts = 0;
+    json.data.forEach(function(i){ totalProducts += i.products.length; });
+    document.getElementById('heroInstCount').textContent = json.data.length;
+    document.getElementById('heroProdCount').textContent = totalProducts;
+    var lowest = overallBestForTerm(json.data, 12)[0];
+    document.getElementById('heroLowest').textContent = lowest ? fmtRate(lowest.rate) : '—';
+
+    var d = new Date(json.lastUpdated);
+    document.getElementById('liveLabel').textContent = 'Live · updated ' + d.toLocaleString('en-NZ', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' });
+    document.getElementById('lastUpdatedFoot').textContent = 'Last synced ' + d.toLocaleString('en-NZ', { day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+    document.getElementById('termsOfUse').textContent = json.termsOfUse || '';
+
+    document.getElementById('searchInput').addEventListener('input', function(e){ STATE.search = e.target.value; render(); });
+    document.getElementById('sortSelect').addEventListener('change', function(e){ STATE.sort = e.target.value; render(); });
+    document.getElementById('viewCardBtn').addEventListener('click', function(){ setView('card'); });
+    document.getElementById('viewTableBtn').addEventListener('click', function(){ setView('table'); });
+
+    render();
+  }
+
+  function setView(v){
+    STATE.view = v;
+    document.getElementById('cardsView').style.display = v === 'card' ? 'grid' : 'none';
+    document.getElementById('tableView').style.display = v === 'table' ? 'block' : 'none';
+    document.getElementById('viewCardBtn').style.background = v === 'card' ? '#0B1F3A' : 'transparent';
+    document.getElementById('viewCardBtn').style.color = v === 'card' ? '#fff' : '#5B6B82';
+    document.getElementById('viewTableBtn').style.background = v === 'table' ? '#0B1F3A' : 'transparent';
+    document.getElementById('viewTableBtn').style.color = v === 'table' ? '#fff' : '#5B6B82';
+    render();
+  }
+
+  function parseLenientJson(text){
+    var fixed = text.replace(/([{,]\s*)([A-Za-z_$][A-Za-z0-9_$]*)\s*:/g, '$1"$2":');
+    return JSON.parse(fixed);
+  }
+
+  fetch('/rates/rates.json').then(function(r){ return r.text(); }).then(parseLenientJson).then(init).catch(function(err){
+    document.getElementById('cardsView').innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px;color:#8B9AAD">Could not load rate data. Please refresh.</div>';
+    console.error(err);
+  });
+})();
+</script>
+
+</body>
+</html>

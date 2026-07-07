@@ -1,0 +1,2252 @@
+{
+    type: "MortgageRates",
+    data: [
+    {
+    id: "institution:anz",
+    name: "ANZ",
+    products: [
+    {
+    id: "product:anz:standard",
+    name: "Standard",
+    rates: [
+    {
+    id: "rate:anz:standard:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 5.79
+    },
+    {
+    id: "rate:anz:standard:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 5.29
+    },
+    {
+    id: "rate:anz:standard:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 5.25
+    },
+    {
+    id: "rate:anz:standard:18-months",
+    term: "18 months",
+    termInMonths: 18,
+    rate: 5.79
+    },
+    {
+    id: "rate:anz:standard:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 5.89
+    },
+    {
+    id: "rate:anz:standard:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 6.09
+    },
+    {
+    id: "rate:anz:standard:4-years",
+    term: "4 years",
+    termInMonths: 48,
+    rate: 6.39
+    },
+    {
+    id: "rate:anz:standard:5-years",
+    term: "5 years",
+    termInMonths: 60,
+    rate: 6.49
+    }
+    ]
+    },
+    {
+    id: "product:anz:special",
+    name: "Special",
+    rates: [
+    {
+    id: "rate:anz:special:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 4.69
+    },
+    {
+    id: "rate:anz:special:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 4.65
+    },
+    {
+    id: "rate:anz:special:18-months",
+    term: "18 months",
+    termInMonths: 18,
+    rate: 5.19
+    },
+    {
+    id: "rate:anz:special:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 5.29
+    },
+    {
+    id: "rate:anz:special:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 5.49
+    }
+    ]
+    },
+    {
+    id: "product:anz:reno-loan-up-to-50k",
+    name: "Reno loan - Up to $50K",
+    rates: [
+    {
+    id: "rate:anz:reno-loan-up-to-50k:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 2.5
+    }
+    ]
+    },
+    {
+    id: "product:anz:good-energy-up-to-80k",
+    name: "Good Energy - Up to $80K",
+    rates: [
+    {
+    id: "rate:anz:good-energy-up-to-80k:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 1
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:asb",
+    name: "ASB",
+    products: [
+    {
+    id: "product:asb:standard",
+    name: "Standard",
+    rates: [
+    {
+    id: "rate:asb:standard:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 5.79
+    },
+    {
+    id: "rate:asb:standard:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 4.69
+    },
+    {
+    id: "rate:asb:standard:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 4.65
+    },
+    {
+    id: "rate:asb:standard:18-months",
+    term: "18 months",
+    termInMonths: 18,
+    rate: 5.09
+    },
+    {
+    id: "rate:asb:standard:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 5.25
+    },
+    {
+    id: "rate:asb:standard:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 5.29
+    },
+    {
+    id: "rate:asb:standard:4-years",
+    term: "4 years",
+    termInMonths: 48,
+    rate: 5.49
+    },
+    {
+    id: "rate:asb:standard:5-years",
+    term: "5 years",
+    termInMonths: 60,
+    rate: 5.59
+    }
+    ]
+    },
+    {
+    id: "product:asb:better-homes-top-up",
+    name: "Better Homes Top Up",
+    rates: [
+    {
+    id: "rate:asb:better-homes-top-up:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 1
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:bnz",
+    name: "BNZ",
+    products: [
+    {
+    id: "product:bnz:totalmoney",
+    name: "TotalMoney",
+    rates: [
+    {
+    id: "rate:bnz:totalmoney:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 5.94
+    }
+    ]
+    },
+    {
+    id: "product:bnz:standard",
+    name: "Standard",
+    rates: [
+    {
+    id: "rate:bnz:standard:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 5.84
+    },
+    {
+    id: "rate:bnz:standard:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 4.69
+    },
+    {
+    id: "rate:bnz:standard:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 4.79
+    },
+    {
+    id: "rate:bnz:standard:18-months",
+    term: "18 months",
+    termInMonths: 18,
+    rate: 5.09
+    },
+    {
+    id: "rate:bnz:standard:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 5.29
+    },
+    {
+    id: "rate:bnz:standard:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 5.29
+    },
+    {
+    id: "rate:bnz:standard:4-years",
+    term: "4 years",
+    termInMonths: 48,
+    rate: 5.39
+    },
+    {
+    id: "rate:bnz:standard:5-years",
+    term: "5 years",
+    termInMonths: 60,
+    rate: 5.49
+    }
+    ]
+    },
+    {
+    id: "product:bnz:better-future-home-loan",
+    name: "Better Future Home Loan",
+    rates: [
+    {
+    id: "rate:bnz:better-future-home-loan:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 1
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:bank-of-baroda",
+    name: "Bank of Baroda",
+    products: [
+    {
+    id: "product:bank-of-baroda:standard",
+    name: "Standard",
+    rates: [
+    {
+    id: "rate:bank-of-baroda:standard:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 7.24
+    },
+    {
+    id: "rate:bank-of-baroda:standard:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 4.49
+    },
+    {
+    id: "rate:bank-of-baroda:standard:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 4.69
+    },
+    {
+    id: "rate:bank-of-baroda:standard:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 5.29
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:bank-of-china",
+    name: "Bank of China",
+    products: [
+    {
+    id: "product:bank-of-china:standard",
+    name: "Standard",
+    rates: [
+    {
+    id: "rate:bank-of-china:standard:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 7
+    },
+    {
+    id: "rate:bank-of-china:standard:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 5.38
+    },
+    {
+    id: "rate:bank-of-china:standard:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 5.58
+    },
+    {
+    id: "rate:bank-of-china:standard:18-months",
+    term: "18 months",
+    termInMonths: 18,
+    rate: 5.68
+    },
+    {
+    id: "rate:bank-of-china:standard:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 5.88
+    },
+    {
+    id: "rate:bank-of-china:standard:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 6.18
+    },
+    {
+    id: "rate:bank-of-china:standard:4-years",
+    term: "4 years",
+    termInMonths: 48,
+    rate: 6.48
+    },
+    {
+    id: "rate:bank-of-china:standard:5-years",
+    term: "5 years",
+    termInMonths: 60,
+    rate: 6.68
+    }
+    ]
+    },
+    {
+    id: "product:bank-of-china:special",
+    name: "Special",
+    rates: [
+    {
+    id: "rate:bank-of-china:special:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 5.1
+    },
+    {
+    id: "rate:bank-of-china:special:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 4.38
+    },
+    {
+    id: "rate:bank-of-china:special:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 4.58
+    },
+    {
+    id: "rate:bank-of-china:special:18-months",
+    term: "18 months",
+    termInMonths: 18,
+    rate: 4.68
+    },
+    {
+    id: "rate:bank-of-china:special:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 4.88
+    },
+    {
+    id: "rate:bank-of-china:special:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 5.18
+    },
+    {
+    id: "rate:bank-of-china:special:4-years",
+    term: "4 years",
+    termInMonths: 48,
+    rate: 5.48
+    },
+    {
+    id: "rate:bank-of-china:special:5-years",
+    term: "5 years",
+    termInMonths: 60,
+    rate: 5.68
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:china-construction-bank",
+    name: "China Construction Bank",
+    products: [
+    {
+    id: "product:china-construction-bank:special",
+    name: "Special",
+    rates: [
+    {
+    id: "rate:china-construction-bank:special:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 5.25
+    },
+    {
+    id: "rate:china-construction-bank:special:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 4.4
+    },
+    {
+    id: "rate:china-construction-bank:special:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 4.49
+    },
+    {
+    id: "rate:china-construction-bank:special:18-months",
+    term: "18 months",
+    termInMonths: 18,
+    rate: 4.49
+    },
+    {
+    id: "rate:china-construction-bank:special:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 4.54
+    },
+    {
+    id: "rate:china-construction-bank:special:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 4.9
+    },
+    {
+    id: "rate:china-construction-bank:special:4-years",
+    term: "4 years",
+    termInMonths: 48,
+    rate: 5.1
+    },
+    {
+    id: "rate:china-construction-bank:special:5-years",
+    term: "5 years",
+    termInMonths: 60,
+    rate: 5.2
+    }
+    ]
+    },
+    {
+    id: "product:china-construction-bank:standard",
+    name: "Standard",
+    rates: [
+    {
+    id: "rate:china-construction-bank:standard:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 5.4
+    },
+    {
+    id: "rate:china-construction-bank:standard:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 5.49
+    },
+    {
+    id: "rate:china-construction-bank:standard:18-months",
+    term: "18 months",
+    termInMonths: 18,
+    rate: 5.49
+    },
+    {
+    id: "rate:china-construction-bank:standard:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 5.54
+    },
+    {
+    id: "rate:china-construction-bank:standard:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 5.9
+    },
+    {
+    id: "rate:china-construction-bank:standard:4-years",
+    term: "4 years",
+    termInMonths: 48,
+    rate: 6.1
+    },
+    {
+    id: "rate:china-construction-bank:standard:5-years",
+    term: "5 years",
+    termInMonths: 60,
+    rate: 6.2
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:co-operative-bank",
+    name: "Co-operative Bank",
+    products: [
+    {
+    id: "product:co-operative-bank:standard",
+    name: "Standard",
+    rates: [
+    {
+    id: "rate:co-operative-bank:standard:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 4.99
+    },
+    {
+    id: "rate:co-operative-bank:standard:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 5.09
+    },
+    {
+    id: "rate:co-operative-bank:standard:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 5.19
+    },
+    {
+    id: "rate:co-operative-bank:standard:18-months",
+    term: "18 months",
+    termInMonths: 18,
+    rate: 5.59
+    },
+    {
+    id: "rate:co-operative-bank:standard:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 5.79
+    },
+    {
+    id: "rate:co-operative-bank:standard:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 5.99
+    },
+    {
+    id: "rate:co-operative-bank:standard:4-years",
+    term: "4 years",
+    termInMonths: 48,
+    rate: 6.19
+    },
+    {
+    id: "rate:co-operative-bank:standard:5-years",
+    term: "5 years",
+    termInMonths: 60,
+    rate: 6.29
+    }
+    ]
+    },
+    {
+    id: "product:co-operative-bank:owner-occupied",
+    name: "Owner Occupied",
+    rates: [
+    {
+    id: "rate:co-operative-bank:owner-occupied:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 4.99
+    },
+    {
+    id: "rate:co-operative-bank:owner-occupied:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 4.59
+    },
+    {
+    id: "rate:co-operative-bank:owner-occupied:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 4.69
+    },
+    {
+    id: "rate:co-operative-bank:owner-occupied:18-months",
+    term: "18 months",
+    termInMonths: 18,
+    rate: 5.09
+    },
+    {
+    id: "rate:co-operative-bank:owner-occupied:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 5.29
+    },
+    {
+    id: "rate:co-operative-bank:owner-occupied:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 5.49
+    },
+    {
+    id: "rate:co-operative-bank:owner-occupied:4-years",
+    term: "4 years",
+    termInMonths: 48,
+    rate: 5.69
+    },
+    {
+    id: "rate:co-operative-bank:owner-occupied:5-years",
+    term: "5 years",
+    termInMonths: 60,
+    rate: 5.79
+    }
+    ]
+    },
+    {
+    id: "product:co-operative-bank:first-home-buyer-special",
+    name: "First Home Buyer Special",
+    rates: [
+    {
+    id: "rate:co-operative-bank:first-home-buyer-special:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 4.49
+    },
+    {
+    id: "rate:co-operative-bank:first-home-buyer-special:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 4.59
+    },
+    {
+    id: "rate:co-operative-bank:first-home-buyer-special:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 5.19
+    },
+    {
+    id: "rate:co-operative-bank:first-home-buyer-special:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 5.39
+    },
+    {
+    id: "rate:co-operative-bank:first-home-buyer-special:4-years",
+    term: "4 years",
+    termInMonths: 48,
+    rate: 5.59
+    },
+    {
+    id: "rate:co-operative-bank:first-home-buyer-special:5-years",
+    term: "5 years",
+    termInMonths: 60,
+    rate: 5.69
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:heartland-bank",
+    name: "Heartland Bank",
+    products: [
+    {
+    id: "product:heartland-bank:residential",
+    name: "Residential",
+    rates: [
+    {
+    id: "rate:heartland-bank:residential:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 5.8
+    },
+    {
+    id: "rate:heartland-bank:residential:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 5.89
+    }
+    ]
+    },
+    {
+    id: "product:heartland-bank:reverse-mortgage",
+    name: "Reverse Mortgage",
+    rates: [
+    {
+    id: "rate:heartland-bank:reverse-mortgage:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 7.75
+    }
+    ]
+    },
+    {
+    id: "product:heartland-bank:village-access-loan",
+    name: "Village Access loan",
+    rates: [
+    {
+    id: "rate:heartland-bank:village-access-loan:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 8.45
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:icbc",
+    name: "ICBC",
+    products: [
+    {
+    id: "product:icbc:special",
+    name: "Special",
+    rates: [
+    {
+    id: "rate:icbc:special:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 5.39
+    },
+    {
+    id: "rate:icbc:special:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 4.39
+    },
+    {
+    id: "rate:icbc:special:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 4.49
+    },
+    {
+    id: "rate:icbc:special:18-months",
+    term: "18 months",
+    termInMonths: 18,
+    rate: 4.75
+    },
+    {
+    id: "rate:icbc:special:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 4.99
+    },
+    {
+    id: "rate:icbc:special:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 5.25
+    },
+    {
+    id: "rate:icbc:special:4-years",
+    term: "4 years",
+    termInMonths: 48,
+    rate: 5.45
+    },
+    {
+    id: "rate:icbc:special:5-years",
+    term: "5 years",
+    termInMonths: 60,
+    rate: 5.65
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:kiwibank",
+    name: "Kiwibank",
+    products: [
+    {
+    id: "product:kiwibank:standard",
+    name: "Standard",
+    rates: [
+    {
+    id: "rate:kiwibank:standard:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 5.75
+    },
+    {
+    id: "rate:kiwibank:standard:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 5.55
+    },
+    {
+    id: "rate:kiwibank:standard:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 5.65
+    },
+    {
+    id: "rate:kiwibank:standard:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 6.09
+    },
+    {
+    id: "rate:kiwibank:standard:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 6.19
+    },
+    {
+    id: "rate:kiwibank:standard:4-years",
+    term: "4 years",
+    termInMonths: 48,
+    rate: 6.29
+    },
+    {
+    id: "rate:kiwibank:standard:5-years",
+    term: "5 years",
+    termInMonths: 60,
+    rate: 6.39
+    }
+    ]
+    },
+    {
+    id: "product:kiwibank:special",
+    name: "Special",
+    rates: [
+    {
+    id: "rate:kiwibank:special:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 4.65
+    },
+    {
+    id: "rate:kiwibank:special:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 4.75
+    },
+    {
+    id: "rate:kiwibank:special:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 5.19
+    },
+    {
+    id: "rate:kiwibank:special:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 5.39
+    },
+    {
+    id: "rate:kiwibank:special:4-years",
+    term: "4 years",
+    termInMonths: 48,
+    rate: 5.59
+    },
+    {
+    id: "rate:kiwibank:special:5-years",
+    term: "5 years",
+    termInMonths: 60,
+    rate: 5.69
+    }
+    ]
+    },
+    {
+    id: "product:kiwibank:offset-mortgage",
+    name: "Offset Mortgage",
+    rates: [
+    {
+    id: "rate:kiwibank:offset-mortgage:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 5.75
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:kookmin",
+    name: "Kookmin",
+    products: [
+    {
+    id: "product:kookmin:standard",
+    name: "Standard",
+    rates: [
+    {
+    id: "rate:kookmin:standard:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 7.25
+    },
+    {
+    id: "rate:kookmin:standard:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 5.85
+    },
+    {
+    id: "rate:kookmin:standard:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 5.35
+    },
+    {
+    id: "rate:kookmin:standard:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 5.35
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:sbs-bank",
+    name: "SBS Bank",
+    products: [
+    {
+    id: "product:sbs-bank:residential",
+    name: "Residential",
+    rates: [
+    {
+    id: "rate:sbs-bank:residential:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 5.84
+    },
+    {
+    id: "rate:sbs-bank:residential:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 5.29
+    },
+    {
+    id: "rate:sbs-bank:residential:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 5.29
+    },
+    {
+    id: "rate:sbs-bank:residential:18-months",
+    term: "18 months",
+    termInMonths: 18,
+    rate: 5.55
+    },
+    {
+    id: "rate:sbs-bank:residential:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 5.89
+    },
+    {
+    id: "rate:sbs-bank:residential:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 5.89
+    },
+    {
+    id: "rate:sbs-bank:residential:4-years",
+    term: "4 years",
+    termInMonths: 48,
+    rate: 5.99
+    },
+    {
+    id: "rate:sbs-bank:residential:5-years",
+    term: "5 years",
+    termInMonths: 60,
+    rate: 6.09
+    }
+    ]
+    },
+    {
+    id: "product:sbs-bank:special",
+    name: "Special",
+    rates: [
+    {
+    id: "rate:sbs-bank:special:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 4.69
+    },
+    {
+    id: "rate:sbs-bank:special:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 4.69
+    },
+    {
+    id: "rate:sbs-bank:special:18-months",
+    term: "18 months",
+    termInMonths: 18,
+    rate: 4.95
+    },
+    {
+    id: "rate:sbs-bank:special:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 5.29
+    },
+    {
+    id: "rate:sbs-bank:special:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 5.29
+    },
+    {
+    id: "rate:sbs-bank:special:4-years",
+    term: "4 years",
+    termInMonths: 48,
+    rate: 5.39
+    },
+    {
+    id: "rate:sbs-bank:special:5-years",
+    term: "5 years",
+    termInMonths: 60,
+    rate: 5.49
+    }
+    ]
+    },
+    {
+    id: "product:sbs-bank:first-home-combo",
+    name: "First Home Combo",
+    rates: [
+    {
+    id: "rate:sbs-bank:first-home-combo:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 4.19
+    }
+    ]
+    },
+    {
+    id: "product:sbs-bank:construction-lending-for-fhb",
+    name: "Construction lending for FHB",
+    rates: [
+    {
+    id: "rate:sbs-bank:construction-lending-for-fhb:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 3.29
+    }
+    ]
+    },
+    {
+    id: "product:sbs-bank:unwind-reverse-equity",
+    name: "Unwind reverse equity",
+    rates: [
+    {
+    id: "rate:sbs-bank:unwind-reverse-equity:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 7.99
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:tsb-bank",
+    name: "TSB Bank",
+    products: [
+    {
+    id: "product:tsb-bank:standard",
+    name: "Standard",
+    rates: [
+    {
+    id: "rate:tsb-bank:standard:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 6.59
+    },
+    {
+    id: "rate:tsb-bank:standard:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 5.49
+    },
+    {
+    id: "rate:tsb-bank:standard:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 5.59
+    },
+    {
+    id: "rate:tsb-bank:standard:18-months",
+    term: "18 months",
+    termInMonths: 18,
+    rate: 5.99
+    },
+    {
+    id: "rate:tsb-bank:standard:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 6.05
+    },
+    {
+    id: "rate:tsb-bank:standard:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 6.39
+    },
+    {
+    id: "rate:tsb-bank:standard:4-years",
+    term: "4 years",
+    termInMonths: 48,
+    rate: 6.69
+    },
+    {
+    id: "rate:tsb-bank:standard:5-years",
+    term: "5 years",
+    termInMonths: 60,
+    rate: 6.79
+    }
+    ]
+    },
+    {
+    id: "product:tsb-bank:special",
+    name: "Special",
+    rates: [
+    {
+    id: "rate:tsb-bank:special:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 5.79
+    },
+    {
+    id: "rate:tsb-bank:special:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 4.69
+    },
+    {
+    id: "rate:tsb-bank:special:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 4.79
+    },
+    {
+    id: "rate:tsb-bank:special:18-months",
+    term: "18 months",
+    termInMonths: 18,
+    rate: 5.19
+    },
+    {
+    id: "rate:tsb-bank:special:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 5.25
+    },
+    {
+    id: "rate:tsb-bank:special:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 5.59
+    },
+    {
+    id: "rate:tsb-bank:special:4-years",
+    term: "4 years",
+    termInMonths: 48,
+    rate: 5.89
+    },
+    {
+    id: "rate:tsb-bank:special:5-years",
+    term: "5 years",
+    termInMonths: 60,
+    rate: 5.99
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:westpac",
+    name: "Westpac",
+    products: [
+    {
+    id: "product:westpac:standard",
+    name: "Standard",
+    rates: [
+    {
+    id: "rate:westpac:standard:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 5.89
+    },
+    {
+    id: "rate:westpac:standard:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 5.29
+    },
+    {
+    id: "rate:westpac:standard:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 5.39
+    },
+    {
+    id: "rate:westpac:standard:18-months",
+    term: "18 months",
+    termInMonths: 18,
+    rate: 5.69
+    },
+    {
+    id: "rate:westpac:standard:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 5.79
+    },
+    {
+    id: "rate:westpac:standard:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 5.89
+    },
+    {
+    id: "rate:westpac:standard:4-years",
+    term: "4 years",
+    termInMonths: 48,
+    rate: 5.99
+    },
+    {
+    id: "rate:westpac:standard:5-years",
+    term: "5 years",
+    termInMonths: 60,
+    rate: 6.09
+    }
+    ]
+    },
+    {
+    id: "product:westpac:special",
+    name: "Special",
+    rates: [
+    {
+    id: "rate:westpac:special:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 4.69
+    },
+    {
+    id: "rate:westpac:special:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 4.79
+    },
+    {
+    id: "rate:westpac:special:18-months",
+    term: "18 months",
+    termInMonths: 18,
+    rate: 5.09
+    },
+    {
+    id: "rate:westpac:special:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 5.19
+    },
+    {
+    id: "rate:westpac:special:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 5.29
+    },
+    {
+    id: "rate:westpac:special:4-years",
+    term: "4 years",
+    termInMonths: 48,
+    rate: 5.39
+    },
+    {
+    id: "rate:westpac:special:5-years",
+    term: "5 years",
+    termInMonths: 60,
+    rate: 5.49
+    }
+    ]
+    },
+    {
+    id: "product:westpac:greater-choices",
+    name: "Greater Choices",
+    rates: [
+    {
+    id: "rate:westpac:greater-choices:5-years",
+    term: "5 years",
+    termInMonths: 60,
+    rate: 0
+    }
+    ]
+    },
+    {
+    id: "product:westpac:choices-offset",
+    name: "Choices Offset",
+    rates: [
+    {
+    id: "rate:westpac:choices-offset:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 5.89
+    }
+    ]
+    },
+    {
+    id: "product:westpac:choices-everyday",
+    name: "Choices Everyday",
+    rates: [
+    {
+    id: "rate:westpac:choices-everyday:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 5.99
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:heretaunga-bldg-socy",
+    name: "Heretaunga Bldg Socy",
+    products: [
+    {
+    id: "product:heretaunga-bldg-socy:residential",
+    name: "Residential",
+    rates: [
+    {
+    id: "rate:heretaunga-bldg-socy:residential:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 6.5
+    },
+    {
+    id: "rate:heretaunga-bldg-socy:residential:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 5.75
+    },
+    {
+    id: "rate:heretaunga-bldg-socy:residential:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 6.05
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:nelson-bldg-society",
+    name: "Nelson Bldg Society",
+    products: [
+    {
+    id: "product:nelson-bldg-society:residential",
+    name: "Residential",
+    rates: [
+    {
+    id: "rate:nelson-bldg-society:residential:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 6.49
+    },
+    {
+    id: "rate:nelson-bldg-society:residential:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 5.39
+    },
+    {
+    id: "rate:nelson-bldg-society:residential:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 4.79
+    },
+    {
+    id: "rate:nelson-bldg-society:residential:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 5.29
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:wairarapa-bldg-society",
+    name: "Wairarapa Bldg Society",
+    products: [
+    {
+    id: "product:wairarapa-bldg-society:residential-standard",
+    name: "Residential Standard",
+    rates: [
+    {
+    id: "rate:wairarapa-bldg-society:residential-standard:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 6.15
+    },
+    {
+    id: "rate:wairarapa-bldg-society:residential-standard:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 4.95
+    },
+    {
+    id: "rate:wairarapa-bldg-society:residential-standard:18-months",
+    term: "18 months",
+    termInMonths: 18,
+    rate: 5.25
+    },
+    {
+    id: "rate:wairarapa-bldg-society:residential-standard:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 5.45
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:first-cu",
+    name: "First CU",
+    products: [
+    {
+    id: "product:first-cu:special",
+    name: "Special",
+    rates: [
+    {
+    id: "rate:first-cu:special:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 6.49
+    },
+    {
+    id: "rate:first-cu:special:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 5.09
+    },
+    {
+    id: "rate:first-cu:special:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 5.49
+    }
+    ]
+    },
+    {
+    id: "product:first-cu:standard",
+    name: "Standard",
+    rates: [
+    {
+    id: "rate:first-cu:standard:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 6.49
+    },
+    {
+    id: "rate:first-cu:standard:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 5.69
+    },
+    {
+    id: "rate:first-cu:standard:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 6.09
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:police-cu",
+    name: "Police CU",
+    products: [
+    {
+    id: "product:police-cu:standard",
+    name: "Standard",
+    rates: [
+    {
+    id: "rate:police-cu:standard:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 5.19
+    },
+    {
+    id: "rate:police-cu:standard:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 4.49
+    },
+    {
+    id: "rate:police-cu:standard:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 4.65
+    },
+    {
+    id: "rate:police-cu:standard:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 5.19
+    }
+    ]
+    },
+    {
+    id: "product:police-cu:shared-ownership",
+    name: "Shared Ownership",
+    rates: [
+    {
+    id: "rate:police-cu:shared-ownership:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 5.19
+    },
+    {
+    id: "rate:police-cu:shared-ownership:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 5.25
+    },
+    {
+    id: "rate:police-cu:shared-ownership:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 5.19
+    },
+    {
+    id: "rate:police-cu:shared-ownership:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 5.69
+    }
+    ]
+    },
+    {
+    id: "product:police-cu:reverse-mortgage",
+    name: "Reverse Mortgage",
+    rates: [
+    {
+    id: "rate:police-cu:reverse-mortgage:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 7.64
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:unitymoney",
+    name: "UnityMoney",
+    products: [
+    {
+    id: "product:unitymoney:special",
+    name: "Special",
+    rates: [
+    {
+    id: "rate:unitymoney:special:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 5.79
+    },
+    {
+    id: "rate:unitymoney:special:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 4.49
+    },
+    {
+    id: "rate:unitymoney:special:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 4.8
+    },
+    {
+    id: "rate:unitymoney:special:18-months",
+    term: "18 months",
+    termInMonths: 18,
+    rate: 4.99
+    },
+    {
+    id: "rate:unitymoney:special:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 5.29
+    }
+    ]
+    },
+    {
+    id: "product:unitymoney:standard",
+    name: "Standard",
+    rates: [
+    {
+    id: "rate:unitymoney:standard:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 5.29
+    },
+    {
+    id: "rate:unitymoney:standard:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 5.6
+    },
+    {
+    id: "rate:unitymoney:standard:18-months",
+    term: "18 months",
+    termInMonths: 18,
+    rate: 5.79
+    },
+    {
+    id: "rate:unitymoney:standard:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 6.09
+    }
+    ]
+    },
+    {
+    id: "product:unitymoney:first-home-buyer-special",
+    name: "First Home Buyer Special",
+    rates: [
+    {
+    id: "rate:unitymoney:first-home-buyer-special:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 4.09
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:kainga-ora-hnz",
+    name: "Kainga Ora - HNZ",
+    products: [
+    {
+    id: "product:kainga-ora-hnz:residential",
+    name: "Residential",
+    rates: [
+    {
+    id: "rate:kainga-ora-hnz:residential:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 5.79
+    },
+    {
+    id: "rate:kainga-ora-hnz:residential:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 4.65
+    },
+    {
+    id: "rate:kainga-ora-hnz:residential:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 5.09
+    },
+    {
+    id: "rate:kainga-ora-hnz:residential:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 5.39
+    },
+    {
+    id: "rate:kainga-ora-hnz:residential:5-years",
+    term: "5 years",
+    termInMonths: 60,
+    rate: 5.79
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:avanti-finance",
+    name: "Avanti Finance",
+    products: [
+    {
+    id: "product:avanti-finance:near-prime",
+    name: "Near Prime",
+    rates: [
+    {
+    id: "rate:avanti-finance:near-prime:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 6.35
+    }
+    ]
+    },
+    {
+    id: "product:avanti-finance:specialist",
+    name: "Specialist",
+    rates: [
+    {
+    id: "rate:avanti-finance:specialist:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 7.45
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:basecorp-finance",
+    name: "Basecorp Finance",
+    products: [
+    {
+    id: "product:basecorp-finance:standard-from",
+    name: "Standard, from",
+    rates: [
+    {
+    id: "rate:basecorp-finance:standard-from:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 6.35
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:cfml-loans",
+    name: "CFML Loans",
+    products: [
+    {
+    id: "product:cfml-loans:prime-80-loans",
+    name: "Prime 80 Loans",
+    rates: [
+    {
+    id: "rate:cfml-loans:prime-80-loans:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 6.05
+    }
+    ]
+    },
+    {
+    id: "product:cfml-loans:321-loans",
+    name: "321 Loans",
+    rates: [
+    {
+    id: "rate:cfml-loans:321-loans:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 3.95
+    }
+    ]
+    },
+    {
+    id: "product:cfml-loans:prime-loans",
+    name: "Prime Loans",
+    rates: [
+    {
+    id: "rate:cfml-loans:prime-loans:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 6.25
+    }
+    ]
+    },
+    {
+    id: "product:cfml-loans:standard-loans",
+    name: "Standard Loans",
+    rates: [
+    {
+    id: "rate:cfml-loans:standard-loans:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 6.95
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:first-mortgage-trust",
+    name: "First Mortgage Trust",
+    products: [
+    {
+    id: "product:first-mortgage-trust:standard-from",
+    name: "Standard - from",
+    rates: [
+    {
+    id: "rate:first-mortgage-trust:standard-from:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 6.95
+    }
+    ]
+    },
+    {
+    id: "product:first-mortgage-trust:development-from",
+    name: "Development - from",
+    rates: [
+    {
+    id: "rate:first-mortgage-trust:development-from:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 7.5
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:general-finance",
+    name: "General Finance",
+    products: [
+    {
+    id: "product:general-finance:short-term-bridging-1st-mortgages-from",
+    name: "Short term bridging 1st mortgages ....from",
+    rates: [
+    {
+    id: "rate:general-finance:short-term-bridging-1st-mortgages-from:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 6.99
+    },
+    {
+    id: "rate:general-finance:short-term-bridging-1st-mortgages-from:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 6.99
+    },
+    {
+    id: "rate:general-finance:short-term-bridging-1st-mortgages-from:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 6.99
+    },
+    {
+    id: "rate:general-finance:short-term-bridging-1st-mortgages-from:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 6.99
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:liberty-financial",
+    name: "Liberty Financial",
+    products: [
+    {
+    id: "product:liberty-financial:residential-less-than-70-lvr",
+    name: "Residential <70% LVR",
+    rates: [
+    {
+    id: "rate:liberty-financial:residential-less-than-70-lvr:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 5.99
+    },
+    {
+    id: "rate:liberty-financial:residential-less-than-70-lvr:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 5.9
+    },
+    {
+    id: "rate:liberty-financial:residential-less-than-70-lvr:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 5.7
+    },
+    {
+    id: "rate:liberty-financial:residential-less-than-70-lvr:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 5.65
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:midlands-mortgage-trust",
+    name: "Midlands Mortgage Trust",
+    products: [
+    {
+    id: "product:midlands-mortgage-trust:residential",
+    name: "Residential",
+    rates: [
+    {
+    id: "rate:midlands-mortgage-trust:residential:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 8.6
+    }
+    ]
+    },
+    {
+    id: "product:midlands-mortgage-trust:commercial",
+    name: "Commercial",
+    rates: [
+    {
+    id: "rate:midlands-mortgage-trust:commercial:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 8.85
+    }
+    ]
+    },
+    {
+    id: "product:midlands-mortgage-trust:rural",
+    name: "Rural",
+    rates: [
+    {
+    id: "rate:midlands-mortgage-trust:rural:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 8.7
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:paraloan",
+    name: "Paraloan",
+    products: [
+    {
+    id: "product:paraloan:for-people-with-physical-disabilitiesfrom",
+    name: "For people with physical disabilities....from",
+    rates: [
+    {
+    id: "rate:paraloan:for-people-with-physical-disabilitiesfrom:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 4
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:pepper-money",
+    name: "Pepper Money",
+    products: [
+    {
+    id: "product:pepper-money:prime",
+    name: "Prime",
+    rates: [
+    {
+    id: "rate:pepper-money:prime:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 6.54
+    }
+    ]
+    },
+    {
+    id: "product:pepper-money:near-prime",
+    name: "Near Prime",
+    rates: [
+    {
+    id: "rate:pepper-money:near-prime:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 6.85
+    }
+    ]
+    },
+    {
+    id: "product:pepper-money:specialist",
+    name: "Specialist",
+    rates: [
+    {
+    id: "rate:pepper-money:specialist:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 8.6
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:resimac",
+    name: "Resimac",
+    products: [
+    {
+    id: "product:resimac:prime-full-doc-less-than-80",
+    name: "Prime Full Doc < 80%",
+    rates: [
+    {
+    id: "rate:resimac:prime-full-doc-less-than-80:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 5.69
+    },
+    {
+    id: "rate:resimac:prime-full-doc-less-than-80:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 5.15
+    },
+    {
+    id: "rate:resimac:prime-full-doc-less-than-80:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 5.2
+    },
+    {
+    id: "rate:resimac:prime-full-doc-less-than-80:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 5.35
+    },
+    {
+    id: "rate:resimac:prime-full-doc-less-than-80:4-years",
+    term: "4 years",
+    termInMonths: 48,
+    rate: 5.55
+    },
+    {
+    id: "rate:resimac:prime-full-doc-less-than-80:5-years",
+    term: "5 years",
+    termInMonths: 60,
+    rate: 5.7
+    }
+    ]
+    },
+    {
+    id: "product:resimac:specialist-investment-less-than-70",
+    name: "Specialist Investment < 70%",
+    rates: [
+    {
+    id: "rate:resimac:specialist-investment-less-than-70:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 6.69
+    },
+    {
+    id: "rate:resimac:specialist-investment-less-than-70:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 5.75
+    },
+    {
+    id: "rate:resimac:specialist-investment-less-than-70:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 5.8
+    },
+    {
+    id: "rate:resimac:specialist-investment-less-than-70:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 5.95
+    },
+    {
+    id: "rate:resimac:specialist-investment-less-than-70:4-years",
+    term: "4 years",
+    termInMonths: 48,
+    rate: 6.15
+    },
+    {
+    id: "rate:resimac:specialist-investment-less-than-70:5-years",
+    term: "5 years",
+    termInMonths: 60,
+    rate: 6.3
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:simplicity",
+    name: "Simplicity",
+    products: [
+    {
+    id: "product:simplicity:member-home-loan",
+    name: "Member home loan",
+    rates: [
+    {
+    id: "rate:simplicity:member-home-loan:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 4.2
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:welcome",
+    name: "Welcome",
+    products: [
+    {
+    id: "product:welcome:short-term-first-mortgages-from",
+    name: "Short-term first mortgages from:",
+    rates: [
+    {
+    id: "rate:welcome:short-term-first-mortgages-from:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 6.75
+    },
+    {
+    id: "rate:welcome:short-term-first-mortgages-from:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 6.85
+    },
+    {
+    id: "rate:welcome:short-term-first-mortgages-from:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 6.95
+    },
+    {
+    id: "rate:welcome:short-term-first-mortgages-from:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 7.25
+    },
+    {
+    id: "rate:welcome:short-term-first-mortgages-from:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 7.25
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:xceda-finance",
+    name: "Xceda Finance",
+    products: [
+    {
+    id: "product:xceda-finance:short-term-bridge-mortgage-loans-from",
+    name: "Short-term Bridge Mortgage loans from",
+    rates: [
+    {
+    id: "rate:xceda-finance:short-term-bridge-mortgage-loans-from:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 7.5
+    },
+    {
+    id: "rate:xceda-finance:short-term-bridge-mortgage-loans-from:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 7.5
+    }
+    ]
+    }
+    ]
+    },
+    {
+    id: "institution:aia",
+    name: "AIA",
+    products: [
+    {
+    id: "product:aia:standard-go",
+    name: "Standard Go",
+    rates: [
+    {
+    id: "rate:aia:standard-go:variable-floating",
+    term: "Variable floating",
+    termInMonths: null,
+    rate: 5.89
+    },
+    {
+    id: "rate:aia:standard-go:6-months",
+    term: "6 months",
+    termInMonths: 6,
+    rate: 4.69
+    },
+    {
+    id: "rate:aia:standard-go:1-year",
+    term: "1 year",
+    termInMonths: 12,
+    rate: 4.65
+    },
+    {
+    id: "rate:aia:standard-go:18-months",
+    term: "18 months",
+    termInMonths: 18,
+    rate: 5.09
+    },
+    {
+    id: "rate:aia:standard-go:2-years",
+    term: "2 years",
+    termInMonths: 24,
+    rate: 5.25
+    },
+    {
+    id: "rate:aia:standard-go:3-years",
+    term: "3 years",
+    termInMonths: 36,
+    rate: 5.29
+    },
+    {
+    id: "rate:aia:standard-go:4-years",
+    term: "4 years",
+    termInMonths: 48,
+    rate: 5.49
+    },
+    {
+    id: "rate:aia:standard-go:5-years",
+    term: "5 years",
+    termInMonths: 60,
+    rate: 5.59
+    }
+    ]
+    }
+    ]
+    }
+    ],
+    lastUpdated: "2026-07-05T22:01:32.678Z",
+    termsOfUse: "Data is retrieved hourly from interest.co.nz. Please note that the information provided is not guaranteed to be accurate. For the most up-to-date and accurate rates, please check with the provider directly.",
+    timestamp: "2026-07-07T04:06:38.117Z"
+    }
