@@ -29,6 +29,7 @@ const adminLogoutHandler = require('../api/admin/logout');
 const adminLeadsHandler = require('../api/admin/leads');
 const adminLeadHandler = require('../api/admin/lead');
 const adminReportHandler = require('../api/admin/report');
+const adminMortgageRatesHandler = require('../api/admin/mortgage-rates');
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
@@ -89,6 +90,9 @@ const server = http.createServer(async (req, res) => {
   }
   if (url.pathname === '/api/admin/report') {
     return adminReportHandler(req, res);
+  }
+  if (url.pathname === '/api/admin/mortgage-rates') {
+    return adminMortgageRatesHandler(req, res);
   }
 
   const adminPath = url.pathname.replace(/\/+$/, '') || '/';

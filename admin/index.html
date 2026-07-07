@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
+<script src="/support.js"></script>
 </head>
 <body>
 <x-dc>
@@ -114,18 +114,31 @@
       <div style="flex:1;padding:12px 10px;overflow-y:auto">
         <div style="padding:0 8px;margin-bottom:5px;font-size:9px;font-weight:700;color:rgba(255,255,255,0.18);text-transform:uppercase;letter-spacing:.1em">Leads</div>
 
-        <div style="display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:8px;background:rgba(22,193,114,0.1);cursor:default;margin-bottom:2px">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <div onClick="{{ onNavLeads }}"
+          style="display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:8px;background:{{ navLeadsBg }};cursor:pointer;margin-bottom:2px;transition:background 0.15s"
+          style-hover="background:rgba(255,255,255,0.06)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{ navLeadsStroke }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
             <circle cx="9" cy="7" r="4"></circle>
             <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
             <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
           </svg>
-          <span style="font-size:13px;font-weight:700;color:#16C172;flex:1">Refinance Leads</span>
+          <span style="font-size:13px;font-weight:{{ navLeadsWeight }};color:{{ navLeadsColor }};flex:1">Refinance Leads</span>
           <span style="background:rgba(22,193,114,0.18);color:#16C172;font-size:10px;font-weight:800;padding:1px 7px;border-radius:20px;border:1px solid rgba(22,193,114,0.2)">{{ totalLeads }}</span>
         </div>
 
         <div style="margin:14px 0 5px;padding:0 8px;font-size:9px;font-weight:700;color:rgba(255,255,255,0.18);text-transform:uppercase;letter-spacing:.1em">Tools</div>
+
+        <div onClick="{{ onNavRates }}"
+          style="display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:8px;background:{{ navRatesBg }};cursor:pointer;margin-bottom:2px;transition:background 0.15s"
+          style-hover="background:rgba(255,255,255,0.06)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{ navRatesStroke }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"></line>
+            <line x1="12" y1="20" x2="12" y2="4"></line>
+            <line x1="6" y1="20" x2="6" y2="14"></line>
+          </svg>
+          <span style="font-size:13px;font-weight:{{ navRatesWeight }};color:{{ navRatesColor }};flex:1">Mortgage Rates</span>
+        </div>
 
         <div style="display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:8px;cursor:not-allowed;opacity:0.28">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -380,6 +393,155 @@
         </div>
       </sc-if>
 
+      <!-- ── RATES VIEW ── -->
+      <sc-if value="{{ showRates }}" hint-placeholder-val="{{ true }}">
+        <div style="animation:fadein 0.2s ease both">
+
+          <!-- Top bar -->
+          <div style="padding:24px 30px 18px;background:#F0F3F8;position:sticky;top:0;z-index:10;border-bottom:1px solid #E0E6EF">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+              <div>
+                <h1 style="font-size:19px;font-weight:800;color:#0B1F3A;margin:0;letter-spacing:-0.5px">Mortgage Rates</h1>
+                <p style="font-size:12.5px;color:#8B9AAD;margin:3px 0 0">{{ ratesSubtitle }}</p>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                <sc-if value="{{ ratesLastUpdatedFmt }}" hint-placeholder-val="{{ false }}">
+                  <span style="font-size:11.5px;color:#B0BAC5;white-space:nowrap">Updated {{ ratesLastUpdatedFmt }}</span>
+                </sc-if>
+                <button onClick="{{ onRefreshRates }}" disabled="{{ ratesLoading }}"
+                  style="display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 14px;background:white;border:1.5px solid #E4E9F0;border-radius:8px;font-size:12.5px;font-weight:700;color:#0B1F3A;cursor:pointer;transition:all 0.15s"
+                  style-hover="border-color:#C4CDD6;background:#FAFBFC">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                  {{ refreshBtnText }}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <sc-if value="{{ ratesError }}" hint-placeholder-val="{{ false }}">
+            <div style="margin:16px 30px 0;padding:12px 14px;background:rgba(214,69,69,0.07);border:1px solid rgba(214,69,69,0.15);border-radius:9px;color:#C84040;font-size:13px;font-weight:600">{{ ratesError }}</div>
+          </sc-if>
+
+          <!-- Filters -->
+          <div style="padding:16px 30px 0">
+            <div style="background:white;border-radius:14px;border:1px solid #E4E9F0;overflow:hidden">
+              <button type="button" onClick="{{ onToggleRatesFilters }}"
+                style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;border:none;background:transparent;cursor:pointer;text-align:left;transition:background 0.15s"
+                style-hover="background:#FAFBFC">
+                <div style="display:flex;align-items:center;gap:10px;min-width:0;flex:1;flex-wrap:wrap">
+                  <span style="font-size:12.5px;font-weight:800;color:#0B1F3A;letter-spacing:-0.2px">Filters</span>
+                  <sc-if value="{{ ratesFiltersCollapsed }}" hint-placeholder-val="{{ false }}">
+                    <span style="font-size:11.5px;font-weight:600;color:#8B9AAD">{{ ratesFilterSummary }}</span>
+                  </sc-if>
+                </div>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8B9AAD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                  style="flex-shrink:0;transform:{{ ratesFiltersChevronRotate }};transition:transform 0.2s">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+
+              <sc-if value="{{ ratesFiltersOpen }}" hint-placeholder-val="{{ false }}">
+                <div style="padding:0 20px 16px;border-top:1px solid #F0F3F8">
+                  <div style="font-size:9.5px;font-weight:700;color:#B0BAC5;text-transform:uppercase;letter-spacing:.08em;margin:14px 0 12px">Filter by institution</div>
+                  <label style="display:inline-flex;align-items:center;gap:8px;padding:6px 12px 6px 8px;border-radius:7px;background:#F6F8FB;border:1px solid #E4E9F0;cursor:pointer;margin:0 8px 8px 0;transition:background 0.1s"
+                    style-hover="background:#EEF1F6">
+                    <input type="checkbox" checked="{{ allInstitutionsChecked }}" onChange="{{ onToggleAllInstitutions }}" style="width:14px;height:14px;accent-color:#16C172;cursor:pointer">
+                    <span style="font-size:12.5px;font-weight:700;color:#0B1F3A">All institutions</span>
+                  </label>
+                  <div style="display:flex;flex-wrap:wrap;gap:0;max-height:120px;overflow-y:auto;padding-top:2px">
+                    <sc-for list="{{ institutionOptions }}" as="inst" hint-placeholder-count="8">
+                      <label style="display:inline-flex;align-items:center;gap:7px;padding:5px 11px 5px 7px;border-radius:7px;border:1px solid #E4E9F0;cursor:pointer;margin:0 6px 6px 0;transition:background 0.1s,border-color 0.1s"
+                        style-hover="background:#F8FAFC;border-color:#C4CDD6">
+                        <input type="checkbox" checked="{{ inst.checked }}" onChange="{{ inst.onChange }}" style="width:13px;height:13px;accent-color:#16C172;cursor:pointer">
+                        <span style="font-size:12px;font-weight:600;color:#5B6B82;white-space:nowrap">{{ inst.name }}</span>
+                      </label>
+                    </sc-for>
+                  </div>
+
+                  <div style="margin-top:16px;padding-top:16px;border-top:1px solid #F0F3F8">
+                    <div style="font-size:9.5px;font-weight:700;color:#B0BAC5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">Filter by term</div>
+                    <label style="display:inline-flex;align-items:center;gap:8px;padding:6px 12px 6px 8px;border-radius:7px;background:#F6F8FB;border:1px solid #E4E9F0;cursor:pointer;margin:0 8px 8px 0;transition:background 0.1s"
+                      style-hover="background:#EEF1F6">
+                      <input type="checkbox" checked="{{ allTermsChecked }}" onChange="{{ onToggleAllTerms }}" style="width:14px;height:14px;accent-color:#16C172;cursor:pointer">
+                      <span style="font-size:12.5px;font-weight:700;color:#0B1F3A">All terms</span>
+                    </label>
+                    <div style="display:flex;flex-wrap:wrap;gap:0;padding-top:2px">
+                      <sc-for list="{{ termOptions }}" as="termOpt" hint-placeholder-count="6">
+                        <label style="display:inline-flex;align-items:center;gap:7px;padding:5px 11px 5px 7px;border-radius:7px;border:1px solid #E4E9F0;cursor:pointer;margin:0 6px 6px 0;transition:background 0.1s,border-color 0.1s"
+                          style-hover="background:#F8FAFC;border-color:#C4CDD6">
+                          <input type="checkbox" checked="{{ termOpt.checked }}" onChange="{{ termOpt.onChange }}" style="width:13px;height:13px;accent-color:#16C172;cursor:pointer">
+                          <span style="font-size:12px;font-weight:600;color:#5B6B82;white-space:nowrap">{{ termOpt.label }}</span>
+                        </label>
+                      </sc-for>
+                    </div>
+                  </div>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+
+          <!-- Table -->
+          <div style="padding:16px 30px 40px">
+            <div style="background:white;border-radius:14px;border:1px solid #E4E9F0;overflow:hidden">
+              <sc-if value="{{ ratesLoading }}" hint-placeholder-val="{{ false }}">
+                <div style="padding:52px 24px;text-align:center">
+                  <div style="width:22px;height:22px;border:2px solid #E4E9F0;border-top-color:#16C172;border-radius:50%;animation:spin 0.75s linear infinite;margin:0 auto 13px"></div>
+                  <p style="font-size:14px;color:#8B9AAD;font-weight:600;margin:0">Loading mortgage rates…</p>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ showRatesTable }}" hint-placeholder-val="{{ false }}">
+                <div style="overflow-x:auto">
+                  <table style="width:100%;border-collapse:collapse;font-size:13px">
+                    <thead>
+                      <tr style="border-bottom:1px solid #F0F3F8">
+                        <th style="padding:12px 20px;text-align:left;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;white-space:nowrap;background:#FAFBFC">Institution</th>
+                        <th style="padding:12px 20px;text-align:left;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Product</th>
+                        <th style="padding:12px 20px;text-align:left;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Term</th>
+                        <th style="padding:12px 20px;text-align:right;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC;white-space:nowrap">
+                          <div style="display:inline-flex;align-items:center;justify-content:flex-end;gap:5px">
+                            <span>Rate</span>
+                            <button type="button" onClick="{{ onSortRatesAsc }}" title="Sort lowest rate first"
+                              style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;padding:0;border:1px solid {{ rateSortAscBorder }};border-radius:5px;background:{{ rateSortAscBg }};color:{{ rateSortAscColor }};cursor:pointer;font-size:11px;font-weight:800;line-height:1;transition:all 0.15s"
+                              style-hover="border-color:#16C172">↑</button>
+                            <button type="button" onClick="{{ onSortRatesDesc }}" title="Sort highest rate first"
+                              style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;padding:0;border:1px solid {{ rateSortDescBorder }};border-radius:5px;background:{{ rateSortDescBg }};color:{{ rateSortDescColor }};cursor:pointer;font-size:11px;font-weight:800;line-height:1;transition:all 0.15s"
+                              style-hover="border-color:#16C172">↓</button>
+                          </div>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <sc-for list="{{ displayRateRows }}" as="row" hint-placeholder-count="8">
+                        <tr style="border-bottom:1px solid #F6F8FB">
+                          <td style="padding:13px 20px;font-weight:700;color:#0B1F3A;white-space:nowrap">{{ row.institution }}</td>
+                          <td style="padding:13px 20px;color:#5B6B82">{{ row.product }}</td>
+                          <td style="padding:13px 20px;color:#5B6B82;white-space:nowrap">{{ row.term }}</td>
+                          <td style="padding:13px 20px;text-align:right;font-weight:700;color:#0B1F3A">{{ row.rateFmt }}</td>
+                        </tr>
+                      </sc-for>
+                    </tbody>
+                  </table>
+                </div>
+
+                <sc-if value="{{ ratesTableEmpty }}" hint-placeholder-val="{{ false }}">
+                  <div style="padding:40px 24px;text-align:center;border-top:1px solid #F6F8FB">
+                    <p style="font-size:14px;color:#8B9AAD;font-weight:600;margin:0">No rates match your filter</p>
+                    <p style="font-size:12.5px;color:#B0BAC5;margin:5px 0 0">Try different institution or term filters, or choose "All"</p>
+                  </div>
+                </sc-if>
+              </sc-if>
+
+              <sc-if value="{{ ratesTermsOfUse }}" hint-placeholder-val="{{ false }}">
+                <div style="padding:12px 20px;border-top:1px solid #F0F3F8;background:#FAFBFC">
+                  <p style="font-size:11px;color:#B0BAC5;margin:0;line-height:1.55">{{ ratesTermsOfUse }}</p>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
     </main>
   </div>
 </sc-if>
@@ -388,6 +550,7 @@
 class Component extends DCLogic {
   state = {
     view: 'init',
+    activeSection: 'leads',
     leads: [],
     currentLead: null,
     formLoading: false,
@@ -401,6 +564,16 @@ class Component extends DCLogic {
     optCashback: '0.90',
     optBreak: '0',
     optLegal: '1200',
+    ratesInstitutions: [],
+    ratesRows: [],
+    selectedInstitutions: [],
+    selectedTerms: [],
+    ratesLoading: false,
+    ratesError: '',
+    ratesLastUpdated: '',
+    ratesTermsOfUse: '',
+    ratesSort: 'default',
+    ratesFiltersOpen: true,
   };
 
   _clean(v) { return parseFloat(String(v).replace(/[^0-9.]/g, '')) || 0; }
@@ -436,8 +609,16 @@ class Component extends DCLogic {
       throw new Error('Unauthorized');
     }
     if (!res.ok) {
-      let msg = 'Request failed';
-      try { msg = (await res.json()).error || msg; } catch {}
+      let msg = 'Request failed (' + res.status + ')';
+      try {
+        const body = await res.json();
+        msg = body.error || msg;
+      } catch {
+        try {
+          const text = await res.text();
+          if (text) msg = text.slice(0, 200);
+        } catch {}
+      }
       throw new Error(msg);
     }
     if (opts.raw) return res;
@@ -446,7 +627,106 @@ class Component extends DCLogic {
 
   async _load() {
     const { leads } = await this._req('/api/admin/leads');
-    this.setState({ leads: leads || [], view: 'list' });
+    this.setState({ leads: leads || [], view: 'list', activeSection: 'leads' });
+  }
+
+  _flattenRates(institutions) {
+    const rows = [];
+    for (const inst of institutions) {
+      for (const product of inst.products || []) {
+        for (const rate of product.rates || []) {
+          rows.push({
+            institutionId: inst.id,
+            institution: inst.name,
+            product: product.name,
+            term: rate.term,
+            termInMonths: rate.termInMonths,
+            rate: rate.rate,
+            rateFmt: Number(rate.rate).toFixed(2) + '%',
+          });
+        }
+      }
+    }
+    rows.sort((a, b) => {
+      const instCmp = a.institution.localeCompare(b.institution);
+      if (instCmp !== 0) return instCmp;
+      const prodCmp = a.product.localeCompare(b.product);
+      if (prodCmp !== 0) return prodCmp;
+      const am = a.termInMonths;
+      const bm = b.termInMonths;
+      if (am == null && bm == null) return 0;
+      if (am == null) return -1;
+      if (bm == null) return 1;
+      return am - bm;
+    });
+    return rows;
+  }
+
+  async _loadRates(force = false) {
+    if (this.state.ratesLoading) return;
+    if (!force && this.state.ratesRows.length && !this.state.ratesError) return;
+    this.setState({ ratesLoading: true, ratesError: '' });
+    try {
+      const data = await this._req('/api/admin/mortgage-rates');
+      const institutions = (data.data || [])
+        .map(i => ({ id: i.id, name: i.name }))
+        .sort((a, b) => a.name.localeCompare(b.name));
+      const rows = this._flattenRates(data.data || []);
+      this.setState({
+        ratesInstitutions: institutions,
+        ratesRows: rows,
+        ratesLastUpdated: data.lastUpdated || '',
+        ratesTermsOfUse: data.termsOfUse || '',
+        ratesLoading: false,
+      });
+    } catch (err) {
+      this.setState({ ratesLoading: false, ratesError: err.message });
+    }
+  }
+
+  onNavLeads() {
+    this.setState({ view: 'list', activeSection: 'leads', currentLead: null, error: '' });
+  }
+
+  onNavRates() {
+    this.setState({ view: 'rates', activeSection: 'rates', currentLead: null, error: '' });
+    this._loadRates();
+  }
+
+  onRefreshRates() {
+    this._loadRates(true);
+  }
+
+  onToggleAllInstitutions() {
+    this.setState({ selectedInstitutions: [] });
+  }
+
+  onToggleAllTerms() {
+    this.setState({ selectedTerms: [] });
+  }
+
+  toggleInstitution(id) {
+    const sel = this.state.selectedInstitutions;
+    const next = sel.includes(id) ? sel.filter(x => x !== id) : [...sel, id];
+    this.setState({ selectedInstitutions: next });
+  }
+
+  toggleTerm(term) {
+    const sel = this.state.selectedTerms;
+    const next = sel.includes(term) ? sel.filter(x => x !== term) : [...sel, term];
+    this.setState({ selectedTerms: next });
+  }
+
+  onSortRatesAsc() {
+    this.setState({ ratesSort: 'asc' });
+  }
+
+  onSortRatesDesc() {
+    this.setState({ ratesSort: 'desc' });
+  }
+
+  onToggleRatesFilters() {
+    this.setState({ ratesFiltersOpen: !this.state.ratesFiltersOpen });
   }
 
   async login(pw) {
@@ -462,7 +742,21 @@ class Component extends DCLogic {
 
   async logout() {
     try { await this._req('/api/admin/logout', { method: 'POST' }); } catch {}
-    this.setState({ view: 'login', leads: [], currentLead: null, error: '' });
+    this.setState({
+      view: 'login',
+      activeSection: 'leads',
+      leads: [],
+      currentLead: null,
+      error: '',
+      ratesInstitutions: [],
+      ratesRows: [],
+      selectedInstitutions: [],
+      selectedTerms: [],
+      ratesError: '',
+      ratesLastUpdated: '',
+      ratesTermsOfUse: '',
+      ratesSort: 'default',
+    });
   }
 
   async openLead(id) {
@@ -471,6 +765,7 @@ class Component extends DCLogic {
       this.setState({
         currentLead: lead,
         view: 'detail',
+        activeSection: 'leads',
         error: '',
         optRate: String(lead.target_new_rate != null ? lead.target_new_rate : '4.79'),
         optCashback: String(lead.cashback_pct != null ? lead.cashback_pct : '0.90'),
@@ -522,7 +817,12 @@ class Component extends DCLogic {
   }
 
   renderVals() {
-    const { view, leads, currentLead, formLoading, loginError, search, saving, saveOk, generating, error, optRate, optCashback, optBreak, optLegal } = this.state;
+    const {
+      view, activeSection, leads, currentLead, formLoading, loginError, search,
+      saving, saveOk, generating, error, optRate, optCashback, optBreak, optLegal,
+      ratesInstitutions, ratesRows, selectedInstitutions, selectedTerms, ratesLoading, ratesError,
+      ratesLastUpdated, ratesTermsOfUse, ratesSort, ratesFiltersOpen,
+    } = this.state;
 
     const filtered = search
       ? leads.filter(l => {
@@ -587,12 +887,135 @@ class Component extends DCLogic {
       }
     }
 
+    let filteredRateRows = ratesRows;
+    if (selectedInstitutions.length > 0) {
+      filteredRateRows = filteredRateRows.filter(r => selectedInstitutions.includes(r.institutionId));
+    }
+    if (selectedTerms.length > 0) {
+      filteredRateRows = filteredRateRows.filter(r => selectedTerms.includes(r.term));
+    }
+
+    const termOptions = (() => {
+      const map = new Map();
+      for (const r of ratesRows) {
+        if (!map.has(r.term)) map.set(r.term, r.termInMonths);
+      }
+      return [...map.entries()]
+        .sort((a, b) => {
+          const am = a[1];
+          const bm = b[1];
+          if (am == null && bm == null) return a[0].localeCompare(b[0]);
+          if (am == null) return -1;
+          if (bm == null) return 1;
+          return am - bm;
+        })
+        .map(([term]) => ({
+          term,
+          label: term,
+          checked: selectedTerms.includes(term),
+          onChange: () => this.toggleTerm(term),
+        }));
+    })();
+
+    const displayRateRows = [...filteredRateRows];
+    if (ratesSort === 'asc') {
+      displayRateRows.sort((a, b) => a.rate - b.rate || a.institution.localeCompare(b.institution) || a.product.localeCompare(b.product));
+    } else if (ratesSort === 'desc') {
+      displayRateRows.sort((a, b) => b.rate - a.rate || a.institution.localeCompare(b.institution) || a.product.localeCompare(b.product));
+    }
+
+    const rateSortActive = (dir) => ratesSort === dir;
+    const rateSortBtnStyle = (dir) => rateSortActive(dir)
+      ? { bg: 'rgba(22,193,114,0.12)', border: 'rgba(22,193,114,0.35)', color: '#0E9E5C' }
+      : { bg: 'white', border: '#E4E9F0', color: '#B0BAC5' };
+    const ascStyle = rateSortBtnStyle('asc');
+    const descStyle = rateSortBtnStyle('desc');
+
+    const institutionOptions = ratesInstitutions.map(inst => ({
+      id: inst.id,
+      name: inst.name,
+      checked: selectedInstitutions.includes(inst.id),
+      onChange: () => this.toggleInstitution(inst.id),
+    }));
+
+    const ratesSubtitle = ratesInstitutions.length === 0
+      ? 'NZ lender rates from ratesapi.nz'
+      : (() => {
+          const parts = [`${displayRateRows.length} rates`];
+          parts.push(selectedInstitutions.length === 0
+            ? `all ${ratesInstitutions.length} institutions`
+            : `${selectedInstitutions.length} of ${ratesInstitutions.length} institutions`);
+          parts.push(selectedTerms.length === 0
+            ? `all ${termOptions.length} terms`
+            : `${selectedTerms.length} of ${termOptions.length} terms`);
+          return parts.join(' · ');
+        })();
+
+    const ratesLastUpdatedFmt = ratesLastUpdated
+      ? this.fmtDT(ratesLastUpdated)
+      : '';
+
+    const ratesFilterSummary = (() => {
+      const instPart = selectedInstitutions.length === 0
+        ? 'All institutions'
+        : `${selectedInstitutions.length} institution${selectedInstitutions.length === 1 ? '' : 's'}`;
+      const termPart = selectedTerms.length === 0
+        ? 'All terms'
+        : `${selectedTerms.length} term${selectedTerms.length === 1 ? '' : 's'}`;
+      return `${instPart} · ${termPart}`;
+    })();
+
+    const isLeadsActive = activeSection === 'leads';
+    const isRatesActive = activeSection === 'rates';
+
     return {
       showInit: view === 'init',
       showLogin: view === 'login',
-      showApp: view === 'list' || view === 'detail',
+      showApp: view === 'list' || view === 'detail' || view === 'rates',
       showList: view === 'list',
       showDetail: view === 'detail',
+      showRates: view === 'rates',
+
+      navLeadsBg: isLeadsActive ? 'rgba(22,193,114,0.1)' : 'transparent',
+      navLeadsColor: isLeadsActive ? '#16C172' : 'rgba(255,255,255,0.5)',
+      navLeadsWeight: isLeadsActive ? '700' : '600',
+      navLeadsStroke: isLeadsActive ? '#16C172' : 'rgba(255,255,255,0.45)',
+      navRatesBg: isRatesActive ? 'rgba(22,193,114,0.1)' : 'transparent',
+      navRatesColor: isRatesActive ? '#16C172' : 'rgba(255,255,255,0.5)',
+      navRatesWeight: isRatesActive ? '700' : '600',
+      navRatesStroke: isRatesActive ? '#16C172' : 'rgba(255,255,255,0.45)',
+      onNavLeads: () => this.onNavLeads(),
+      onNavRates: () => this.onNavRates(),
+
+      ratesSubtitle,
+      ratesLastUpdatedFmt,
+      ratesLoading,
+      ratesError,
+      ratesTermsOfUse,
+      refreshBtnText: ratesLoading ? 'Refreshing…' : 'Refresh',
+      onRefreshRates: () => this.onRefreshRates(),
+      ratesFiltersOpen,
+      ratesFiltersCollapsed: !ratesFiltersOpen,
+      ratesFiltersChevronRotate: ratesFiltersOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+      ratesFilterSummary,
+      onToggleRatesFilters: () => this.onToggleRatesFilters(),
+      allInstitutionsChecked: selectedInstitutions.length === 0,
+      onToggleAllInstitutions: () => this.onToggleAllInstitutions(),
+      institutionOptions,
+      allTermsChecked: selectedTerms.length === 0,
+      onToggleAllTerms: () => this.onToggleAllTerms(),
+      termOptions,
+      displayRateRows,
+      showRatesTable: !ratesLoading,
+      ratesTableEmpty: !ratesLoading && displayRateRows.length === 0,
+      onSortRatesAsc: () => this.onSortRatesAsc(),
+      onSortRatesDesc: () => this.onSortRatesDesc(),
+      rateSortAscBg: ascStyle.bg,
+      rateSortAscBorder: ascStyle.border,
+      rateSortAscColor: ascStyle.color,
+      rateSortDescBg: descStyle.bg,
+      rateSortDescBorder: descStyle.border,
+      rateSortDescColor: descStyle.color,
 
       onLogin: e => { e.preventDefault(); this.login(e.target.querySelector('input[type=password]').value); },
       loginBtnText: formLoading ? 'Signing in…' : 'Sign in →',
@@ -609,7 +1032,7 @@ class Component extends DCLogic {
       leadRows,
       isEmpty: leadRows.length === 0,
 
-      onBack: () => this.setState({ view: 'list', currentLead: null, error: '' }),
+      onBack: () => this.setState({ view: 'list', activeSection: 'leads', currentLead: null, error: '' }),
       detailEmail: currentLead ? currentLead.email : '',
       detailDate: currentLead ? this.fmtDT(currentLead.created_at) : '',
       detailSource: currentLead ? (currentLead.source || 'refinance-calculator') : '',
