@@ -3,8 +3,11 @@
   "trailingSlash": false,
   "functions": {
     "api/admin/report.js": {
-      "memory": 2048,
+      "memory": 3008,
       "maxDuration": 60
     }
+  },
+  "env": {
+    "LD_LIBRARY_PATH": "/usr/lib/x86_64-linux-gnu:/usr/lib/i386-linux-gnu:/usr/lib:/lib"
   }
 }

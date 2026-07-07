@@ -5,10 +5,8 @@
     "dev": "node scripts/dev-server.js"
   },
   "dependencies": {
-    "@sparticuz/chromium": "^132.0.0",
+    "@sparticuz/chromium-min": "^132.0.0",
     "puppeteer-core": "^24.0.0"
   },
-  "devDependencies": {
-    "puppeteer": "^23.11.1"
-  }
+  "devDependencies": {}
 }

@@ -16,35 +16,28 @@ function safeFilename(email) {
     .slice(0, 80);
 }
 
-// Reuse a single browser instance across warm invocations of this
-// serverless function — cuts the cost of repeated cold-start launches.
 let browserPromise = null;
 
 async function getBrowser() {
   if (browserPromise) return browserPromise;
 
   if (process.env.VERCEL) {
-    // Production (Vercel Linux runtime): prebuilt Chromium binary +
-    // the lightweight puppeteer-core driver.
-    const chromium = require('@sparticuz/chromium');
+    const chromium = require('@sparticuz/chromium-min');
     const puppeteer = require('puppeteer-core');
     browserPromise = puppeteer.launch({
       args: [
         ...chromium.args,
-        '--disable-dev-shm-usage',
         '--no-sandbox',
-        '--disable-gpu',
+        '--disable-setuid-sandbox',
       ],
       defaultViewport: chromium.defaultViewport,
       executablePath: await chromium.executablePath(),
-      headless: chromium.headless,
+      headless: true,
     });
   } else {
-    // Local dev (macOS/Windows/Linux desktop): full puppeteer package,
-    // which bundles its own Chromium. Install as a devDependency.
     const puppeteer = require('puppeteer');
     browserPromise = puppeteer.launch({
-      args: ['--disable-dev-shm-usage'],
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
   }
   return browserPromise;
@@ -74,14 +67,14 @@ module.exports = async (req, res) => {
     const browser = await getBrowser();
     page = await browser.newPage();
     await page.setContent(html, { waitUntil: 'networkidle0' });
-    const pdf = await page.pdf({ format: 'A4', printBackground: true });
+    const pdfBuffer = await page.pdf({ format: 'A4', printBackground: true });
 
     const filename = `wealthify-refinance-report-${safeFilename(lead.email)}.pdf`;
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
-    res.setHeader('Content-Length', pdf.length);
-    res.end(pdf);
+    res.setHeader('Content-Length', pdfBuffer.length);
+    res.end(pdfBuffer);
   } catch (err) {
     const status = err.status && err.status >= 400 && err.status < 600 ? err.status : 500;
     return json(res, status, { error: err.message || 'Server error' });
