@@ -29,7 +29,12 @@ async function getBrowser() {
     const chromium = require('@sparticuz/chromium');
     const puppeteer = require('puppeteer-core');
     browserPromise = puppeteer.launch({
-      args: chromium.args,
+      args: [
+        ...chromium.args,
+        '--disable-dev-shm-usage',
+        '--no-sandbox',
+        '--disable-gpu',
+      ],
       defaultViewport: chromium.defaultViewport,
       executablePath: await chromium.executablePath(),
       headless: chromium.headless,
@@ -38,7 +43,9 @@ async function getBrowser() {
     // Local dev (macOS/Windows/Linux desktop): full puppeteer package,
     // which bundles its own Chromium. Install as a devDependency.
     const puppeteer = require('puppeteer');
-    browserPromise = puppeteer.launch();
+    browserPromise = puppeteer.launch({
+      args: ['--disable-dev-shm-usage'],
+    });
   }
   return browserPromise;
 }
