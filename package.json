@@ -5,8 +5,7 @@
     "dev": "node scripts/dev-server.js"
   },
   "dependencies": {
-    "@sparticuz/chromium-min": "^132.0.0",
-    "puppeteer-core": "^24.0.0"
+    "pdfkit": "^0.13.0"
   },
   "devDependencies": {}
 }
