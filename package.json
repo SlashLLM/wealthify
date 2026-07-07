@@ -5,7 +5,7 @@
     "dev": "node scripts/dev-server.js"
   },
   "dependencies": {
-    "pdfkit": "^0.13.0"
-  },
-  "devDependencies": {}
+    "pdfkit": "^0.13.0",
+    "resend": "^6.17.1"
+  }
 }

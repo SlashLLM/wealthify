@@ -1,4 +1,5 @@
 const { supabaseRequest } = require('./_supabase');
+const { sendAdminLeadNotification, sendClientThankYou } = require('../lib/lead-emails');
 
 const DEFAULT_NEW_RATE = 4.79;
 const DEFAULT_CASH_PCT = 0.90;
@@ -192,6 +193,7 @@ module.exports = async (req, res) => {
       }
 
       await saveStep1({ email, phone, current_rate, years_remaining, loan_balance });
+      await sendAdminLeadNotification({ email, phone, current_rate, years_remaining, loan_balance });
       return json(res, 201, { ok: true });
     }
 
@@ -206,6 +208,15 @@ module.exports = async (req, res) => {
     }
 
     await saveStep2({
+      email,
+      phone,
+      property_address,
+      loan_balance,
+      current_rate,
+      years_remaining,
+    });
+
+    await sendClientThankYou({
       email,
       phone,
       property_address,
