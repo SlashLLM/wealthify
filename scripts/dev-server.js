@@ -24,6 +24,7 @@ function loadEnv() {
 loadEnv();
 
 const leadsHandler = require('../api/leads');
+const configHandler = require('../api/config');
 const adminLoginHandler = require('../api/admin/login');
 const adminLogoutHandler = require('../api/admin/logout');
 const adminLeadsHandler = require('../api/admin/leads');
@@ -74,6 +75,10 @@ const server = http.createServer(async (req, res) => {
 
   if (url.pathname === '/api/leads') {
     return leadsHandler(req, res);
+  }
+
+  if (url.pathname === '/api/config') {
+    return configHandler(req, res);
   }
 
   if (url.pathname === '/api/admin/login') {
