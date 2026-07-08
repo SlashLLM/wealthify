@@ -1,3 +1,5 @@
+const { resolveCalculatorRate } = require('../lib/calculator-rate');
+
 function json(res, status, body) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
@@ -21,10 +23,25 @@ module.exports = async (req, res) => {
     return json(res, 405, { error: 'Method not allowed' });
   }
 
-  const googlePlacesApiKey = String(process.env.GOOGLE_PLACES_API_KEY || '').trim();
-  if (!googlePlacesApiKey) {
-    return json(res, 503, { error: 'GOOGLE_PLACES_API_KEY is not configured' });
+  let calculatorNewRate;
+  let calculatorRateSource;
+  try {
+    const resolved = await resolveCalculatorRate();
+    calculatorNewRate = resolved.rate;
+    calculatorRateSource = resolved.source;
+  } catch {
+    calculatorNewRate = 4.79;
+    calculatorRateSource = 'fallback';
   }
 
-  return json(res, 200, { googlePlacesApiKey });
+  const googlePlacesApiKey = String(process.env.GOOGLE_PLACES_API_KEY || '').trim();
+  const body = {
+    calculatorNewRate,
+    calculatorRateSource,
+  };
+  if (googlePlacesApiKey) {
+    body.googlePlacesApiKey = googlePlacesApiKey;
+  }
+
+  return json(res, 200, body);
 };

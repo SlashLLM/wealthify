@@ -465,7 +465,7 @@ const fmt  = n => Math.abs(Math.round(n)).toLocaleString('en-NZ');
 const clean = v => parseFloat(String(v).replace(/[^0-9.]/g,'')) || 0;
 
 const CASH_CAP = 20000;
-const DEFAULT_NEW_RATE = 4.79;
+let calculatorNewRate = 4.79;
 const DEFAULT_CASH_PCT = 0.90;
 
 /* ── Finance helpers ── */
@@ -681,7 +681,7 @@ function recalc(){
   const bal   = clean($('balNum').value);
   const rate  = clean($('rateNum').value);
   const term  = Math.max(1,Math.round(clean($('termNum').value)));
-  const newR  = DEFAULT_NEW_RATE;
+  const newR  = calculatorNewRate;
   const cashP = DEFAULT_CASH_PCT;
 
   if(!bal||!rate||!term) return;
@@ -744,6 +744,25 @@ function leadApiUrl(){
 
 function configApiUrl(){
   return '/api/config';
+}
+
+let appConfigPromise = null;
+
+function loadAppConfig(){
+  if(appConfigPromise) return appConfigPromise;
+  appConfigPromise = (async ()=>{
+    try{
+      const res=await fetch(configApiUrl());
+      const data=await res.json();
+      if(res.ok && data.calculatorNewRate != null){
+        const n=Number(data.calculatorNewRate);
+        if(Number.isFinite(n) && n>0) calculatorNewRate = n;
+      }
+    }catch(err){
+      console.warn('Calculator rate unavailable:', err.message);
+    }
+  })();
+  return appConfigPromise;
 }
 
 let addressAutocompleteReady = false;
@@ -912,8 +931,8 @@ $('leadForm').addEventListener('submit',async e=>{
     $('gateFormWrap').style.display='none';
     $('gateFormStep2').style.display='block';
     $('gLoanBal').value=$('balNum').value;
+    await ensureAddressAutocomplete();
     $('gAddress').focus();
-    ensureAddressAutocomplete();
   }catch(err){
     showGateError('gateError',err.message||'Something went wrong. Please try again.');
   }finally{
@@ -989,7 +1008,7 @@ if(typeof ResizeObserver!=='undefined'){
 }
 
 /* ── Init ── */
-recalc();
+loadAppConfig().then(()=>recalc());
 window.addEventListener('load',()=>setTimeout(reportHeight,300));
 </script>
 </body>

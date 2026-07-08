@@ -424,6 +424,59 @@
             <div style="margin:16px 30px 0;padding:12px 14px;background:rgba(214,69,69,0.07);border:1px solid rgba(214,69,69,0.15);border-radius:9px;color:#C84040;font-size:13px;font-weight:600">{{ ratesError }}</div>
           </sc-if>
 
+          <!-- Calculator rate settings -->
+          <div style="padding:16px 30px 0">
+            <div style="background:white;border-radius:14px;border:1px solid #E4E9F0;padding:18px 20px">
+              <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap">
+                <div style="min-width:0;flex:1">
+                  <div style="font-size:12.5px;font-weight:800;color:#0B1F3A;letter-spacing:-0.2px">Refinance calculator rate</div>
+                  <p style="font-size:12px;color:#8B9AAD;margin:4px 0 0;line-height:1.5">Customers see this as the new rate in the refinance calculator. Auto mode uses the lowest Special 1 year rate from the rates table.</p>
+                </div>
+                <sc-if value="{{ calcRateSaveOk }}" hint-placeholder-val="{{ false }}">
+                  <span style="font-size:11.5px;font-weight:700;color:#0E9E5C;white-space:nowrap">Saved ✓</span>
+                </sc-if>
+              </div>
+
+              <sc-if value="{{ calcRateError }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top:12px;padding:10px 12px;background:rgba(214,69,69,0.07);border:1px solid rgba(214,69,69,0.15);border-radius:8px;color:#C84040;font-size:12.5px;font-weight:600">{{ calcRateError }}</div>
+              </sc-if>
+
+              <div style="margin-top:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                <label style="display:inline-flex;align-items:center;gap:9px;padding:7px 12px 7px 8px;border-radius:8px;background:#F6F8FB;border:1px solid #E4E9F0;cursor:pointer;transition:background 0.1s"
+                  style-hover="background:#EEF1F6">
+                  <input type="checkbox" checked="{{ calcRateManualEnabled }}" onChange="{{ onToggleCalcRateManual }}" disabled="{{ calcRateSaving }}" style="width:14px;height:14px;accent-color:#16C172;cursor:pointer">
+                  <span style="font-size:12.5px;font-weight:700;color:#0B1F3A">Set rate manually</span>
+                </label>
+                <sc-if value="{{ calcRateLoading }}" hint-placeholder-val="{{ false }}">
+                  <span style="font-size:11.5px;color:#B0BAC5;font-weight:600">Loading…</span>
+                </sc-if>
+              </div>
+
+              <sc-if value="{{ calcRateManualEnabled }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                  <label style="display:flex;align-items:center;gap:8px">
+                    <span style="font-size:12px;font-weight:600;color:#5B6B82;white-space:nowrap">Manual rate</span>
+                    <input type="text" value="{{ calcRateManualRate }}" onInput="{{ onCalcRateManualInput }}" onBlur="{{ onCalcRateManualBlur }}" disabled="{{ calcRateSaving }}"
+                      placeholder="4.79"
+                      style="width:88px;height:38px;padding:0 12px;border:1.5px solid #E4E9F0;border-radius:8px;font-size:13px;font-weight:700;color:#0B1F3A;background:white;transition:border-color 0.15s,box-shadow 0.15s"
+                      style-focus="border-color:#16C172;box-shadow:0 0 0 3px rgba(22,193,114,0.1)">
+                    <span style="font-size:12.5px;font-weight:700;color:#5B6B82">%</span>
+                  </label>
+                  <span style="font-size:12px;color:#8B9AAD">Customers will see {{ calcRateEffectiveFmt }} as the new rate.</span>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ calcRateAutoMode }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top:14px;padding:12px 14px;background:#F6F8FB;border:1px solid #E4E9F0;border-radius:8px">
+                  <div style="font-size:12.5px;font-weight:700;color:#0B1F3A">Using lowest Special 1 year rate: {{ calcRateEffectiveFmt }}</div>
+                  <sc-if value="{{ calcRateAutoDetailFmt }}" hint-placeholder-val="{{ false }}">
+                    <div style="font-size:12px;color:#8B9AAD;margin-top:4px">{{ calcRateAutoDetailFmt }}</div>
+                  </sc-if>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+
           <!-- Filters -->
           <div style="padding:16px 30px 0">
             <div style="background:white;border-radius:14px;border:1px solid #E4E9F0;overflow:hidden">
@@ -576,6 +629,15 @@ class Component extends DCLogic {
     ratesTermsOfUse: '',
     ratesSort: 'default',
     ratesFiltersOpen: true,
+    calcRateManualEnabled: false,
+    calcRateManualRate: '',
+    calcRateEffective: null,
+    calcRateAutoRate: null,
+    calcRateAutoDetail: null,
+    calcRateLoading: false,
+    calcRateSaving: false,
+    calcRateSaveOk: false,
+    calcRateError: '',
   };
 
   _clean(v) { return parseFloat(String(v).replace(/[^0-9.]/g, '')) || 0; }
@@ -664,6 +726,71 @@ class Component extends DCLogic {
     return rows;
   }
 
+  async _loadCalculatorRateSettings() {
+    this.setState({ calcRateLoading: true, calcRateError: '' });
+    try {
+      const data = await this._req('/api/admin/calculator-rate');
+      this.setState({
+        calcRateManualEnabled: !!data.manualEnabled,
+        calcRateManualRate: data.manualRate != null ? String(data.manualRate) : '',
+        calcRateEffective: data.effectiveRate,
+        calcRateAutoRate: data.autoRate,
+        calcRateAutoDetail: data.autoDetail || null,
+        calcRateLoading: false,
+      });
+    } catch (err) {
+      this.setState({ calcRateLoading: false, calcRateError: err.message });
+    }
+  }
+
+  async _saveCalculatorRateSettings(patch) {
+    this.setState({ calcRateSaving: true, calcRateError: '', calcRateSaveOk: false });
+    try {
+      const body = {};
+      if (patch.manualEnabled !== undefined) body.manualEnabled = patch.manualEnabled;
+      if (patch.manualRate !== undefined) body.manualRate = patch.manualRate;
+      const data = await this._req('/api/admin/calculator-rate', {
+        method: 'PATCH',
+        body: JSON.stringify(body),
+      });
+      this.setState({
+        calcRateManualEnabled: !!data.manualEnabled,
+        calcRateManualRate: data.manualRate != null ? String(data.manualRate) : this.state.calcRateManualRate,
+        calcRateEffective: data.effectiveRate,
+        calcRateAutoRate: data.autoRate,
+        calcRateAutoDetail: data.autoDetail || null,
+        calcRateSaving: false,
+        calcRateSaveOk: true,
+      });
+      setTimeout(() => this.setState({ calcRateSaveOk: false }), 2000);
+    } catch (err) {
+      this.setState({ calcRateSaving: false, calcRateError: err.message });
+    }
+  }
+
+  onToggleCalcRateManual() {
+    const next = !this.state.calcRateManualEnabled;
+    this.setState({ calcRateManualEnabled: next });
+    const patch = { manualEnabled: next };
+    if (next) {
+      const rate = this._clean(this.state.calcRateManualRate) || this.state.calcRateEffective || 4.79;
+      patch.manualRate = rate;
+      this.setState({ calcRateManualRate: String(rate) });
+    }
+    this._saveCalculatorRateSettings(patch);
+  }
+
+  onCalcRateManualInput(e) {
+    this.setState({ calcRateManualRate: e.target.value });
+  }
+
+  onCalcRateManualBlur() {
+    if (!this.state.calcRateManualEnabled) return;
+    const rate = this._clean(this.state.calcRateManualRate);
+    if (!rate) return;
+    this._saveCalculatorRateSettings({ manualEnabled: true, manualRate: rate });
+  }
+
   async _loadRates(force = false) {
     if (this.state.ratesLoading) return;
     if (!force && this.state.ratesRows.length && !this.state.ratesError) return;
@@ -693,10 +820,12 @@ class Component extends DCLogic {
   onNavRates() {
     this.setState({ view: 'rates', activeSection: 'rates', currentLead: null, error: '' });
     this._loadRates();
+    this._loadCalculatorRateSettings();
   }
 
   onRefreshRates() {
     this._loadRates(true);
+    this._loadCalculatorRateSettings();
   }
 
   onToggleAllInstitutions() {
@@ -758,6 +887,15 @@ class Component extends DCLogic {
       ratesLastUpdated: '',
       ratesTermsOfUse: '',
       ratesSort: 'default',
+      calcRateManualEnabled: false,
+      calcRateManualRate: '',
+      calcRateEffective: null,
+      calcRateAutoRate: null,
+      calcRateAutoDetail: null,
+      calcRateLoading: false,
+      calcRateSaving: false,
+      calcRateSaveOk: false,
+      calcRateError: '',
     });
   }
 
@@ -824,6 +962,8 @@ class Component extends DCLogic {
       saving, saveOk, generating, error, optRate, optCashback, optBreak, optLegal,
       ratesInstitutions, ratesRows, selectedInstitutions, selectedTerms, ratesLoading, ratesError,
       ratesLastUpdated, ratesTermsOfUse, ratesSort, ratesFiltersOpen,
+      calcRateManualEnabled, calcRateManualRate, calcRateEffective, calcRateAutoDetail,
+      calcRateLoading, calcRateSaving, calcRateSaveOk, calcRateError,
     } = this.state;
 
     const filtered = search
@@ -943,18 +1083,31 @@ class Component extends DCLogic {
       onChange: () => this.toggleInstitution(inst.id),
     }));
 
-    const ratesSubtitle = ratesInstitutions.length === 0
-      ? 'NZ lender rates from ratesapi.nz'
-      : (() => {
-          const parts = [`${displayRateRows.length} rates`];
-          parts.push(selectedInstitutions.length === 0
-            ? `all ${ratesInstitutions.length} institutions`
-            : `${selectedInstitutions.length} of ${ratesInstitutions.length} institutions`);
-          parts.push(selectedTerms.length === 0
-            ? `all ${termOptions.length} terms`
-            : `${selectedTerms.length} of ${termOptions.length} terms`);
-          return parts.join(' · ');
-        })();
+    const ratesSubtitle = (() => {
+      const calcPart = calcRateEffective != null
+        ? `Calculator new rate: ${Number(calcRateEffective).toFixed(2)}%`
+        : '';
+      if (ratesInstitutions.length === 0) {
+        return calcPart || 'NZ lender rates from ratesapi.nz';
+      }
+      const parts = [`${displayRateRows.length} rates`];
+      parts.push(selectedInstitutions.length === 0
+        ? `all ${ratesInstitutions.length} institutions`
+        : `${selectedInstitutions.length} of ${ratesInstitutions.length} institutions`);
+      parts.push(selectedTerms.length === 0
+        ? `all ${termOptions.length} terms`
+        : `${selectedTerms.length} of ${termOptions.length} terms`);
+      if (calcPart) parts.unshift(calcPart);
+      return parts.join(' · ');
+    })();
+
+    const calcRateEffectiveFmt = calcRateEffective != null
+      ? Number(calcRateEffective).toFixed(2) + '%'
+      : '—';
+    const calcRateAutoDetailFmt = calcRateAutoDetail
+      ? `${calcRateAutoDetail.institution} · ${calcRateAutoDetail.product} · ${calcRateAutoDetail.term}`
+      : '';
+    const calcRateAutoMode = !calcRateManualEnabled && !calcRateLoading;
 
     const ratesLastUpdatedFmt = ratesLastUpdated
       ? this.fmtDT(ratesLastUpdated)
@@ -1021,6 +1174,19 @@ class Component extends DCLogic {
       rateSortDescBg: descStyle.bg,
       rateSortDescBorder: descStyle.border,
       rateSortDescColor: descStyle.color,
+
+      calcRateManualEnabled,
+      calcRateManualRate,
+      calcRateEffectiveFmt,
+      calcRateAutoDetailFmt,
+      calcRateAutoMode,
+      calcRateLoading,
+      calcRateSaving,
+      calcRateSaveOk,
+      calcRateError,
+      onToggleCalcRateManual: () => this.onToggleCalcRateManual(),
+      onCalcRateManualInput: e => this.onCalcRateManualInput(e),
+      onCalcRateManualBlur: () => this.onCalcRateManualBlur(),
 
       onLogin: e => { e.preventDefault(); this.login(e.target.querySelector('input[type=password]').value); },
       loginBtnText: formLoading ? 'Signing in…' : 'Sign in →',

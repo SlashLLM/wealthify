@@ -96,6 +96,9 @@ const server = http.createServer(async (req, res) => {
   if (url.pathname === '/api/admin/mortgage-rates') {
     return loadHandler('../api/admin/mortgage-rates')(req, res);
   }
+  if (url.pathname === '/api/admin/calculator-rate') {
+    return loadHandler('../api/admin/calculator-rate')(req, res);
+  }
 
   const adminPath = url.pathname.replace(/\/+$/, '') || '/';
   if (adminPath === '/admin') {

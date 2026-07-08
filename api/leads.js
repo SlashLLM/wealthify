@@ -1,7 +1,8 @@
 const { supabaseRequest } = require('./_supabase');
 const { sendAdminLeadNotification, sendClientThankYou } = require('../lib/lead-emails');
+const { resolveCalculatorRate, FALLBACK_RATE } = require('../lib/calculator-rate');
 
-const DEFAULT_NEW_RATE = 4.79;
+const DEFAULT_NEW_RATE = FALLBACK_RATE;
 const DEFAULT_CASH_PCT = 0.90;
 const DEFAULT_BREAK_FEE = 0;
 const DEFAULT_LEGAL = 1200;
@@ -85,7 +86,16 @@ async function findIncompleteLead(email, phone) {
   return Array.isArray(data) && data[0] ? data[0].id : null;
 }
 
-async function saveStep1({ full_name, email, phone, current_rate, years_remaining, loan_balance }) {
+async function getTargetNewRate() {
+  try {
+    const resolved = await resolveCalculatorRate();
+    return resolved.rate;
+  } catch {
+    return DEFAULT_NEW_RATE;
+  }
+}
+
+async function saveStep1({ full_name, email, phone, current_rate, years_remaining, loan_balance, target_new_rate }) {
   const payload = {
     full_name,
     email,
@@ -93,7 +103,7 @@ async function saveStep1({ full_name, email, phone, current_rate, years_remainin
     current_rate,
     years_remaining,
     loan_balance,
-    target_new_rate: DEFAULT_NEW_RATE,
+    target_new_rate,
     cashback_pct: DEFAULT_CASH_PCT,
     break_fee: DEFAULT_BREAK_FEE,
     legal_costs: DEFAULT_LEGAL,
@@ -127,6 +137,7 @@ async function saveStep2({
   loan_balance,
   current_rate,
   years_remaining,
+  target_new_rate,
 }) {
   const existingId = await findIncompleteLead(email, phone);
   const payload = {
@@ -137,7 +148,7 @@ async function saveStep2({
     loan_balance,
     current_rate,
     years_remaining,
-    target_new_rate: DEFAULT_NEW_RATE,
+    target_new_rate,
     cashback_pct: DEFAULT_CASH_PCT,
     break_fee: DEFAULT_BREAK_FEE,
     legal_costs: DEFAULT_LEGAL,
@@ -197,13 +208,15 @@ module.exports = async (req, res) => {
       return json(res, 400, { error: 'Invalid years remaining' });
     }
 
+    const target_new_rate = await getTargetNewRate();
+
     if (step === 1) {
       const loan_balance = parseLoanBalance(body.loan_balance);
       if (loan_balance === null) {
         return json(res, 400, { error: 'Invalid loan balance' });
       }
 
-      await saveStep1({ full_name, email, phone, current_rate, years_remaining, loan_balance });
+      await saveStep1({ full_name, email, phone, current_rate, years_remaining, loan_balance, target_new_rate });
       await sendAdminLeadNotification({ full_name, email, phone, current_rate, years_remaining, loan_balance });
       return json(res, 201, { ok: true });
     }
@@ -226,6 +239,7 @@ module.exports = async (req, res) => {
       loan_balance,
       current_rate,
       years_remaining,
+      target_new_rate,
     });
 
     await sendClientThankYou({
