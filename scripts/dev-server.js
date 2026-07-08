@@ -23,13 +23,11 @@ function loadEnv() {
 
 loadEnv();
 
-const leadsHandler = require('../api/leads');
-const adminLoginHandler = require('../api/admin/login');
-const adminLogoutHandler = require('../api/admin/logout');
-const adminLeadsHandler = require('../api/admin/leads');
-const adminLeadHandler = require('../api/admin/lead');
-const adminReportHandler = require('../api/admin/report');
-const adminMortgageRatesHandler = require('../api/admin/mortgage-rates');
+function loadHandler(modulePath) {
+  const resolved = require.resolve(modulePath);
+  delete require.cache[resolved];
+  return require(resolved);
+}
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
@@ -73,26 +71,33 @@ const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://localhost:${port}`);
 
   if (url.pathname === '/api/leads') {
-    return leadsHandler(req, res);
+    return loadHandler('../api/leads')(req, res);
+  }
+
+  if (url.pathname === '/api/config') {
+    return loadHandler('../api/config')(req, res);
   }
 
   if (url.pathname === '/api/admin/login') {
-    return adminLoginHandler(req, res);
+    return loadHandler('../api/admin/login')(req, res);
   }
   if (url.pathname === '/api/admin/logout') {
-    return adminLogoutHandler(req, res);
+    return loadHandler('../api/admin/logout')(req, res);
   }
   if (url.pathname === '/api/admin/leads') {
-    return adminLeadsHandler(req, res);
+    return loadHandler('../api/admin/leads')(req, res);
   }
   if (url.pathname === '/api/admin/lead') {
-    return adminLeadHandler(req, res);
+    return loadHandler('../api/admin/lead')(req, res);
   }
   if (url.pathname === '/api/admin/report') {
-    return adminReportHandler(req, res);
+    return loadHandler('../api/admin/report')(req, res);
   }
   if (url.pathname === '/api/admin/mortgage-rates') {
-    return adminMortgageRatesHandler(req, res);
+    return loadHandler('../api/admin/mortgage-rates')(req, res);
+  }
+  if (url.pathname === '/api/admin/calculator-rate') {
+    return loadHandler('../api/admin/calculator-rate')(req, res);
   }
 
   const adminPath = url.pathname.replace(/\/+$/, '') || '/';

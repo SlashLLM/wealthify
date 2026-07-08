@@ -2,7 +2,7 @@ const { requireAdmin, unauthorized, readBody, json } = require('../_auth');
 const { supabaseRequest } = require('../_supabase');
 
 const SELECT_FIELDS =
-  'id,email,phone,property_address,loan_balance,current_rate,years_remaining,target_new_rate,cashback_pct,break_fee,legal_costs,source,created_at,updated_at';
+  'id,full_name,email,phone,property_address,loan_balance,current_rate,years_remaining,target_new_rate,cashback_pct,break_fee,legal_costs,source,created_at,updated_at';
 
 function parseNumber(value) {
   if (value === undefined || value === null || value === '') return null;
