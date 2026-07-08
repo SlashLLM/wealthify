@@ -766,7 +766,25 @@ function loadAppConfig(){
 }
 
 let addressAutocompleteReady = false;
+let addressInputListenerReady = false;
 let googlePlacesLoadPromise = null;
+const ADDRESS_AUTOCOMPLETE_MIN = 10;
+
+function loadGoogleMapsBootstrap(key){
+  return new Promise((resolve,reject)=>{
+    if(window.google?.maps?.importLibrary){
+      resolve();
+      return;
+    }
+    const cb='_wfyGmapsReady'+Date.now();
+    window[cb]=()=>{ delete window[cb]; resolve(); };
+    const script=document.createElement('script');
+    script.src=`https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(key)}&loading=async&callback=${cb}`;
+    script.async=true;
+    script.onerror=()=>{ delete window[cb]; reject(new Error('Failed to load Google Maps')); };
+    document.head.appendChild(script);
+  });
+}
 
 function loadGooglePlaces(){
   if(googlePlacesLoadPromise) return googlePlacesLoadPromise;
@@ -776,30 +794,23 @@ function loadGooglePlaces(){
     if(!res.ok) throw new Error(data.error||'Address lookup unavailable');
     const key=data.googlePlacesApiKey;
     if(!key) throw new Error('Address lookup unavailable');
-    if(window.google?.maps?.places) return;
-    await new Promise((resolve,reject)=>{
-      const script=document.createElement('script');
-      script.src=`https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(key)}&libraries=places&loading=async`;
-      script.async=true;
-      script.onload=resolve;
-      script.onerror=()=>reject(new Error('Failed to load Google Maps'));
-      document.head.appendChild(script);
-    });
-    await new Promise(resolve=>{
-      (function wait(){
-        if(window.google?.maps?.places) resolve();
-        else setTimeout(wait,50);
-      })();
-    });
+    await loadGoogleMapsBootstrap(key);
+    await google.maps.importLibrary('places');
   })();
   return googlePlacesLoadPromise;
+}
+
+function bumpPacZIndex(){
+  document.querySelectorAll('.pac-container').forEach(el=>{ el.style.zIndex='10000'; });
 }
 
 function initAddressAutocomplete(){
   if(addressAutocompleteReady) return;
   const input=$('gAddress');
-  if(!input||!window.google?.maps?.places) return;
-  const ac=new google.maps.places.Autocomplete(input,{
+  if(!input || input.value.trim().length < ADDRESS_AUTOCOMPLETE_MIN) return;
+  const Autocomplete=window.google?.maps?.places?.Autocomplete;
+  if(!Autocomplete) return;
+  const ac=new Autocomplete(input,{
     componentRestrictions:{country:'nz'},
     fields:['formatted_address'],
     types:['address'],
@@ -811,12 +822,30 @@ function initAddressAutocomplete(){
   addressAutocompleteReady=true;
 }
 
+function setupAddressAutocompleteInput(){
+  if(addressInputListenerReady) return;
+  const input=$('gAddress');
+  if(!input) return;
+  input.addEventListener('input',()=>{
+    if(!addressAutocompleteReady && input.value.trim().length >= ADDRESS_AUTOCOMPLETE_MIN){
+      initAddressAutocomplete();
+    }
+    bumpPacZIndex();
+  });
+  input.addEventListener('focus', bumpPacZIndex);
+  addressInputListenerReady=true;
+}
+
 async function ensureAddressAutocomplete(){
   try{
     await loadGooglePlaces();
-    initAddressAutocomplete();
+    setupAddressAutocompleteInput();
+    if($('gAddress').value.trim().length >= ADDRESS_AUTOCOMPLETE_MIN){
+      initAddressAutocomplete();
+    }
   }catch(err){
     console.warn('Address autocomplete unavailable:',err.message);
+    showGateError('gateErrorStep2','Address suggestions unavailable — you can still type your address manually.');
   }
 }
 
@@ -862,6 +891,7 @@ function openLeadModal(){
   $('leadModal').classList.add('open');
   $('leadModal').setAttribute('aria-hidden','false');
   $('gFullName').focus();
+  loadGooglePlaces().catch(()=>{});
   reportHeight();
 }
 
