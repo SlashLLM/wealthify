@@ -48,6 +48,10 @@ function validatePhone(phone) {
   return String(phone || '').replace(/\D/g, '').length >= 8;
 }
 
+function validateFullName(name) {
+  return String(name || '').trim().length >= 2;
+}
+
 function parseLoanBalance(value) {
   const n = parseFloat(String(value).replace(/[^0-9.]/g, ''));
   return Number.isFinite(n) && n > 0 ? n : null;
@@ -81,8 +85,9 @@ async function findIncompleteLead(email, phone) {
   return Array.isArray(data) && data[0] ? data[0].id : null;
 }
 
-async function saveStep1({ email, phone, current_rate, years_remaining, loan_balance }) {
+async function saveStep1({ full_name, email, phone, current_rate, years_remaining, loan_balance }) {
   const payload = {
+    full_name,
     email,
     phone,
     current_rate,
@@ -115,6 +120,7 @@ async function saveStep1({ email, phone, current_rate, years_remaining, loan_bal
 }
 
 async function saveStep2({
+  full_name,
   email,
   phone,
   property_address,
@@ -124,6 +130,7 @@ async function saveStep2({
 }) {
   const existingId = await findIncompleteLead(email, phone);
   const payload = {
+    full_name,
     email,
     phone,
     property_address,
@@ -170,9 +177,13 @@ module.exports = async (req, res) => {
     const step = resolveStep(body);
     const email = String(body.email || '').trim();
     const phone = String(body.phone || '').trim();
+    const full_name = String(body.full_name || '').trim();
     const current_rate = parseRate(body.current_rate);
     const years_remaining = parseYears(body.years_remaining);
 
+    if (!validateFullName(full_name)) {
+      return json(res, 400, { error: 'Full name is required' });
+    }
     if (!validateEmail(email)) {
       return json(res, 400, { error: 'Invalid email address' });
     }
@@ -192,8 +203,8 @@ module.exports = async (req, res) => {
         return json(res, 400, { error: 'Invalid loan balance' });
       }
 
-      await saveStep1({ email, phone, current_rate, years_remaining, loan_balance });
-      await sendAdminLeadNotification({ email, phone, current_rate, years_remaining, loan_balance });
+      await saveStep1({ full_name, email, phone, current_rate, years_remaining, loan_balance });
+      await sendAdminLeadNotification({ full_name, email, phone, current_rate, years_remaining, loan_balance });
       return json(res, 201, { ok: true });
     }
 
@@ -208,6 +219,7 @@ module.exports = async (req, res) => {
     }
 
     await saveStep2({
+      full_name,
       email,
       phone,
       property_address,

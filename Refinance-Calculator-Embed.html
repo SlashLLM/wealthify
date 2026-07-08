@@ -372,6 +372,10 @@ canvas{display:block;width:100%;height:210px;cursor:crosshair}
             <div class="gate-error" id="gateError"></div>
             <form id="leadForm" novalidate="">
               <div class="fld">
+                <label for="gFullName">Full name</label>
+                <input id="gFullName" type="text" placeholder="Jane Smith" autocomplete="name">
+              </div>
+              <div class="fld">
                 <label for="gEmail">Email address</label>
                 <input id="gEmail" type="email" placeholder="you@email.co.nz" autocomplete="email">
               </div>
@@ -838,7 +842,7 @@ function openLeadModal(){
   $('gLoanBal').value=$('balNum').value;
   $('leadModal').classList.add('open');
   $('leadModal').setAttribute('aria-hidden','false');
-  $('gEmail').focus();
+  $('gFullName').focus();
   reportHeight();
 }
 
@@ -861,14 +865,17 @@ document.addEventListener('keydown',e=>{
 $('leadForm').addEventListener('submit',async e=>{
   e.preventDefault();
   showGateError('gateError','');
-  const em=$('gEmail'), ph=$('gPhone');
+  const nm=$('gFullName'), em=$('gEmail'), ph=$('gPhone');
+  const full_name=nm.value.trim();
   const email=em.value.trim();
   const phone=ph.value.trim();
+  const nmOk=full_name.length>=2;
   const emOk=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const phOk=phone.replace(/\D/g,'').length>=8;
+  nm.classList.toggle('err',!nmOk);
   em.classList.toggle('err',!emOk);
   ph.classList.toggle('err',!phOk);
-  if(!emOk||!phOk) return;
+  if(!nmOk||!emOk||!phOk) return;
   if(!requireHttpOrigin('gateError')) return;
 
   const current_rate = clean($('rateNum').value);
@@ -889,6 +896,7 @@ $('leadForm').addEventListener('submit',async e=>{
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
         step:1,
+        full_name,
         email,
         phone,
         current_rate,
@@ -920,15 +928,17 @@ $('leadForm2').addEventListener('submit',async e=>{
   const addr=$('gAddress'), bal=$('gLoanBal');
   const property_address=addr.value.trim();
   const loan_balance=clean(bal.value);
+  const full_name=$('gFullName').value.trim();
   const email=$('gEmail').value.trim();
   const phone=$('gPhone').value.trim();
+  const nmOk=full_name.length>=2;
   const addrOk=property_address.length>0;
   const balOk=loan_balance>0;
   const emOk=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const phOk=phone.replace(/\D/g,'').length>=8;
   addr.classList.toggle('err',!addrOk);
   bal.classList.toggle('err',!balOk);
-  if(!addrOk||!balOk||!emOk||!phOk) return;
+  if(!nmOk||!addrOk||!balOk||!emOk||!phOk) return;
   if(!requireHttpOrigin('gateErrorStep2')) return;
 
   const btn=$('leadFormSubmit');
@@ -941,6 +951,7 @@ $('leadForm2').addEventListener('submit',async e=>{
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
         step:2,
+        full_name,
         email,
         phone,
         property_address,
