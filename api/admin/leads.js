@@ -2,7 +2,7 @@ const { requireAdmin, unauthorized, json } = require('../_auth');
 const { supabaseRequest } = require('../_supabase');
 
 const SELECT_FIELDS =
-  'id,full_name,email,phone,property_address,loan_balance,current_rate,years_remaining,target_new_rate,cashback_pct,break_fee,legal_costs,source,created_at,updated_at';
+  'id,full_name,email,phone,bank_name,property_address,loan_balance,current_rate,years_remaining,target_new_rate,cashback_pct,break_fee,legal_costs,source,created_at,updated_at';
 
 module.exports = async (req, res) => {
   if (req.method !== 'GET') {

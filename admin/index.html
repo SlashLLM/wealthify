@@ -228,6 +228,7 @@
                       <th style="padding:12px 20px;text-align:left;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Name</th>
                       <th style="padding:12px 20px;text-align:left;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Email</th>
                       <th style="padding:12px 20px;text-align:left;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Phone</th>
+                      <th style="padding:12px 20px;text-align:left;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Bank</th>
                       <th style="padding:12px 20px;text-align:right;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Balance</th>
                       <th style="padding:12px 20px;text-align:right;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Rate</th>
                       <th style="padding:12px 20px;text-align:center;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Status</th>
@@ -241,6 +242,7 @@
                         <td style="padding:13px 20px;font-weight:700;color:#0B1F3A">{{ row.fullName }}</td>
                         <td style="padding:13px 20px;color:#5B6B82">{{ row.email }}</td>
                         <td style="padding:13px 20px;color:#5B6B82;white-space:nowrap">{{ row.phone }}</td>
+                        <td style="padding:13px 20px;color:#5B6B82;white-space:nowrap">{{ row.bankName }}</td>
                         <td style="padding:13px 20px;text-align:right;font-weight:700;color:#0B1F3A">{{ row.balFmt }}</td>
                         <td style="padding:13px 20px;text-align:right;font-weight:600;color:#5B6B82">{{ row.rateFmt }}</td>
                         <td style="padding:13px 20px;text-align:center">
@@ -972,6 +974,7 @@ class Component extends DCLogic {
           return (l.full_name || '').toLowerCase().includes(q)
               || (l.email || '').toLowerCase().includes(q)
               || (l.phone || '').toLowerCase().includes(q)
+              || (l.bank_name || '').toLowerCase().includes(q)
               || (l.property_address || '').toLowerCase().includes(q);
         })
       : leads;
@@ -988,6 +991,7 @@ class Component extends DCLogic {
         fullName: l.full_name || '—',
         email: l.email,
         phone: l.phone,
+        bankName: l.bank_name || '—',
         dateFmt: this.fmtD(l.created_at),
         balFmt: this.fmt$(l.loan_balance),
         rateFmt: l.current_rate != null ? l.current_rate + '%' : '—',
@@ -1002,6 +1006,7 @@ class Component extends DCLogic {
       { label: 'Full name', value: currentLead.full_name || '—' },
       { label: 'Email', value: currentLead.email },
       { label: 'Phone', value: currentLead.phone },
+      { label: 'Current bank', value: currentLead.bank_name || '—' },
       { label: 'Address', value: currentLead.property_address || '—' },
       { label: 'Loan balance', value: this.fmt$(currentLead.loan_balance) },
       { label: 'Current rate', value: currentLead.current_rate != null ? currentLead.current_rate + '%' : '—' },
