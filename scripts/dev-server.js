@@ -112,6 +112,12 @@ const server = http.createServer(async (req, res) => {
 
   const filePath = resolveFile(url.pathname);
   if (!filePath || !fs.existsSync(filePath) || !fs.statSync(filePath).isFile()) {
+    const notFoundPage = path.join(root, '404.html');
+    if (fs.existsSync(notFoundPage)) {
+      res.writeHead(404, { 'Content-Type': MIME['.html'] });
+      fs.createReadStream(notFoundPage).pipe(res);
+      return;
+    }
     res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
     res.end('Not found');
     return;
