@@ -52,6 +52,15 @@ html,body{
   font-size:15px;font-weight:700;color:#0B1F3A;
   font-family:inherit;width:100%;min-width:0;
 }
+.input-box select{
+  border:none;background:transparent;outline:none;
+  font-size:15px;font-weight:700;color:#0B1F3A;
+  font-family:inherit;width:100%;min-width:0;cursor:pointer;
+  appearance:none;-webkit-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238B9AAD' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 0 center;padding-right:18px;
+}
+.input-box select:invalid{color:#8B9AAD}
 input[type=range]{
   -webkit-appearance:none;appearance:none;display:block;
   width:100%;height:5px;border-radius:5px;margin-top:9px;cursor:pointer;
@@ -180,6 +189,18 @@ canvas{display:block;width:100%;height:210px;cursor:crosshair}
 }
 .fld input:focus{border-color:#16C172;box-shadow:0 0 0 3px rgba(22,193,114,.11);background:#fff}
 .fld input.err{border-color:#E5484D;box-shadow:0 0 0 3px rgba(229,72,77,.09)}
+.fld select{
+  width:100%;height:42px;border:1.5px solid #E4E9F0;border-radius:8px;
+  padding:0 12px;font-size:14px;font-family:inherit;font-weight:500;
+  color:#0B1F3A;background:#F6F8FB;outline:none;cursor:pointer;
+  transition:border-color .15s,box-shadow .15s,background .15s;
+  appearance:none;-webkit-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238B9AAD' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;
+}
+.fld select:focus{border-color:#16C172;box-shadow:0 0 0 3px rgba(22,193,114,.11);background:#fff}
+.fld select.err{border-color:#E5484D;box-shadow:0 0 0 3px rgba(229,72,77,.09)}
+.fld select:invalid{color:#8B9AAD}
 .fld-address{position:relative}
 .pac-container{
   z-index:1100;border:1.5px solid #E4E9F0;border-radius:8px;
@@ -295,6 +316,18 @@ canvas{display:block;width:100%;height:210px;cursor:crosshair}
         <div class="range-ends"><span>1 yr</span><span>30 yrs</span></div>
       </div>
 
+      <div class="field">
+        <div class="fhead">
+          <label for="bankSelect">Current bank</label>
+          <span class="hint">lender</span>
+        </div>
+        <div class="input-box">
+          <select id="bankSelect">
+            <option value="" disabled selected>Select your bank</option>
+          </select>
+        </div>
+      </div>
+
     </div>
 
     <!-- ════════════════════════════ RIGHT: RESULTS ════════════════════════════ -->
@@ -395,6 +428,12 @@ canvas{display:block;width:100%;height:210px;cursor:crosshair}
             <p class="gate-sub">Tell us about your property so we can prepare your comparison.</p>
             <div class="gate-error" id="gateErrorStep2"></div>
             <form id="leadForm2" novalidate="">
+              <div class="fld">
+                <label for="gBank">Current bank</label>
+                <select id="gBank" required>
+                  <option value="" disabled selected>Select your bank</option>
+                </select>
+              </div>
               <div class="fld fld-address">
                 <label for="gAddress">Property address</label>
                 <input id="gAddress" type="text" placeholder="123 Example St, Auckland" autocomplete="off">
@@ -747,6 +786,29 @@ function configApiUrl(){
 }
 
 let appConfigPromise = null;
+let bankOptions = [];
+
+function buildBankOptionsHtml(){
+  return bankOptions.map(b=>`<option value="${b.name.replace(/"/g,'&quot;')}">${b.name}</option>`).join('');
+}
+
+function populateBankSelects(banks){
+  bankOptions = Array.isArray(banks) ? banks : [];
+  const opts = buildBankOptionsHtml();
+  const placeholder = '<option value="" disabled selected>Select your bank</option>';
+  const calcVal = $('bankSelect').value;
+  const gateVal = $('gBank').value;
+  $('bankSelect').innerHTML = placeholder + opts;
+  $('gBank').innerHTML = placeholder + opts;
+  if(calcVal && bankOptions.some(b=>b.name===calcVal)) $('bankSelect').value = calcVal;
+  if(gateVal && bankOptions.some(b=>b.name===gateVal)) $('gBank').value = gateVal;
+}
+
+function syncBankSelects(fromId){
+  const src = $(fromId);
+  const otherId = fromId === 'bankSelect' ? 'gBank' : 'bankSelect';
+  $(otherId).value = src.value;
+}
 
 function loadAppConfig(){
   if(appConfigPromise) return appConfigPromise;
@@ -757,6 +819,9 @@ function loadAppConfig(){
       if(res.ok && data.calculatorNewRate != null){
         const n=Number(data.calculatorNewRate);
         if(Number.isFinite(n) && n>0) calculatorNewRate = n;
+      }
+      if(res.ok && Array.isArray(data.banks)){
+        populateBankSelects(data.banks);
       }
     }catch(err){
       console.warn('Calculator rate unavailable:', err.message);
@@ -877,6 +942,7 @@ function resetLeadModal(){
   showGateError('gateErrorStep2','');
   $('leadForm').reset();
   $('leadForm2').reset();
+  $('gBank').value = $('bankSelect').value;
   $('leadFormNext').disabled=false;
   $('leadFormNext').textContent='Next';
   $('leadFormSubmit').disabled=false;
@@ -888,6 +954,7 @@ function resetLeadModal(){
 function openLeadModal(){
   resetLeadModal();
   $('gLoanBal').value=$('balNum').value;
+  $('gBank').value=$('bankSelect').value;
   $('leadModal').classList.add('open');
   $('leadModal').setAttribute('aria-hidden','false');
   $('gFullName').focus();
@@ -902,6 +969,11 @@ function closeLeadModal(){
 }
 
 $('openLeadModal').addEventListener('click',openLeadModal);
+
+$('bankSelect').addEventListener('change',()=>{
+  if($('gateFormStep2').style.display!=='none') syncBankSelects('bankSelect');
+});
+$('gBank').addEventListener('change',()=>syncBankSelects('gBank'));
 
 $('leadModal').addEventListener('click',e=>{
   if(e.target===$('leadModal')) closeLeadModal();
@@ -940,6 +1012,7 @@ $('leadForm').addEventListener('submit',async e=>{
   btn.textContent='Saving…';
 
   try{
+    const bank_name = $('bankSelect').value.trim() || undefined;
     const res=await fetch(leadApiUrl(),{
       method:'POST',
       headers:{'Content-Type':'application/json'},
@@ -951,6 +1024,7 @@ $('leadForm').addEventListener('submit',async e=>{
         current_rate,
         years_remaining,
         loan_balance,
+        ...(bank_name ? { bank_name } : {}),
       }),
     });
     const data=await res.json();
@@ -961,6 +1035,7 @@ $('leadForm').addEventListener('submit',async e=>{
     $('gateFormWrap').style.display='none';
     $('gateFormStep2').style.display='block';
     $('gLoanBal').value=$('balNum').value;
+    $('gBank').value=$('bankSelect').value;
     await ensureAddressAutocomplete();
     $('gAddress').focus();
   }catch(err){
@@ -974,20 +1049,23 @@ $('leadForm').addEventListener('submit',async e=>{
 $('leadForm2').addEventListener('submit',async e=>{
   e.preventDefault();
   showGateError('gateErrorStep2','');
-  const addr=$('gAddress'), bal=$('gLoanBal');
+  const addr=$('gAddress'), bal=$('gLoanBal'), bank=$('gBank');
   const property_address=addr.value.trim();
   const loan_balance=clean(bal.value);
+  const bank_name=bank.value.trim();
   const full_name=$('gFullName').value.trim();
   const email=$('gEmail').value.trim();
   const phone=$('gPhone').value.trim();
   const nmOk=full_name.length>=2;
   const addrOk=property_address.length>0;
   const balOk=loan_balance>0;
+  const bankOk=bank_name.length>0;
   const emOk=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const phOk=phone.replace(/\D/g,'').length>=8;
   addr.classList.toggle('err',!addrOk);
   bal.classList.toggle('err',!balOk);
-  if(!nmOk||!addrOk||!balOk||!emOk||!phOk) return;
+  bank.classList.toggle('err',!bankOk);
+  if(!nmOk||!addrOk||!balOk||!bankOk||!emOk||!phOk) return;
   if(!requireHttpOrigin('gateErrorStep2')) return;
 
   const btn=$('leadFormSubmit');
@@ -1005,6 +1083,7 @@ $('leadForm2').addEventListener('submit',async e=>{
         phone,
         property_address,
         loan_balance,
+        bank_name,
         current_rate: leadStep1Rate ?? clean($('rateNum').value),
         years_remaining: leadStep1Term ?? Math.max(1, Math.round(clean($('termNum').value))),
       }),

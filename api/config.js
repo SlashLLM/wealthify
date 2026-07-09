@@ -1,4 +1,4 @@
-const { resolveCalculatorRate } = require('../lib/calculator-rate');
+const { resolveCalculatorRate, fetchMortgageRates } = require('../lib/calculator-rate');
 
 function json(res, status, body) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -34,10 +34,22 @@ module.exports = async (req, res) => {
     calculatorRateSource = 'fallback';
   }
 
+  let banks = [];
+  try {
+    const rates = await fetchMortgageRates();
+    banks = (rates.data || [])
+      .map(inst => ({ id: inst.id, name: inst.name }))
+      .filter(b => b.id && b.name)
+      .sort((a, b) => a.name.localeCompare(b.name));
+  } catch {
+    banks = [];
+  }
+
   const googlePlacesApiKey = String(process.env.GOOGLE_PLACES_API_KEY || '').trim();
   const body = {
     calculatorNewRate,
     calculatorRateSource,
+    banks,
   };
   if (googlePlacesApiKey) {
     body.googlePlacesApiKey = googlePlacesApiKey;

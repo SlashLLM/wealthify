@@ -95,7 +95,12 @@ async function getTargetNewRate() {
   }
 }
 
-async function saveStep1({ full_name, email, phone, current_rate, years_remaining, loan_balance, target_new_rate }) {
+function parseBankName(value) {
+  const name = String(value || '').trim();
+  return name || null;
+}
+
+async function saveStep1({ full_name, email, phone, current_rate, years_remaining, loan_balance, target_new_rate, bank_name }) {
   const payload = {
     full_name,
     email,
@@ -110,6 +115,7 @@ async function saveStep1({ full_name, email, phone, current_rate, years_remainin
     source: 'refinance-calculator',
     updated_at: new Date().toISOString(),
   };
+  if (bank_name) payload.bank_name = bank_name;
 
   const existingId = await findIncompleteLead(email, phone);
   if (existingId) {
@@ -138,6 +144,7 @@ async function saveStep2({
   current_rate,
   years_remaining,
   target_new_rate,
+  bank_name,
 }) {
   const existingId = await findIncompleteLead(email, phone);
   const payload = {
@@ -149,6 +156,7 @@ async function saveStep2({
     current_rate,
     years_remaining,
     target_new_rate,
+    bank_name,
     cashback_pct: DEFAULT_CASH_PCT,
     break_fee: DEFAULT_BREAK_FEE,
     legal_costs: DEFAULT_LEGAL,
@@ -216,19 +224,24 @@ module.exports = async (req, res) => {
         return json(res, 400, { error: 'Invalid loan balance' });
       }
 
-      await saveStep1({ full_name, email, phone, current_rate, years_remaining, loan_balance, target_new_rate });
-      await sendAdminLeadNotification({ full_name, email, phone, current_rate, years_remaining, loan_balance });
+      const bank_name = parseBankName(body.bank_name);
+      await saveStep1({ full_name, email, phone, current_rate, years_remaining, loan_balance, target_new_rate, bank_name });
+      await sendAdminLeadNotification({ full_name, email, phone, current_rate, years_remaining, loan_balance, bank_name });
       return json(res, 201, { ok: true });
     }
 
     const property_address = String(body.property_address || '').trim();
     const loan_balance = parseLoanBalance(body.loan_balance);
+    const bank_name = parseBankName(body.bank_name);
 
     if (!property_address) {
       return json(res, 400, { error: 'Property address is required' });
     }
     if (loan_balance === null) {
       return json(res, 400, { error: 'Invalid loan balance' });
+    }
+    if (!bank_name) {
+      return json(res, 400, { error: 'Current bank is required' });
     }
 
     await saveStep2({
@@ -240,6 +253,7 @@ module.exports = async (req, res) => {
       current_rate,
       years_remaining,
       target_new_rate,
+      bank_name,
     });
 
     await sendClientThankYou({
