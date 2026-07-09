@@ -100,7 +100,7 @@ function parseBankName(value) {
   return name || null;
 }
 
-async function saveStep1({ full_name, email, phone, current_rate, years_remaining, loan_balance, target_new_rate, bank_name }) {
+async function saveStep1({ full_name, email, phone, current_rate, years_remaining, loan_balance, target_new_rate, bank_name, source }) {
   const payload = {
     full_name,
     email,
@@ -112,7 +112,7 @@ async function saveStep1({ full_name, email, phone, current_rate, years_remainin
     cashback_pct: DEFAULT_CASH_PCT,
     break_fee: DEFAULT_BREAK_FEE,
     legal_costs: DEFAULT_LEGAL,
-    source: 'refinance-calculator',
+    source: source || 'refinance-calculator',
     updated_at: new Date().toISOString(),
   };
   if (bank_name) payload.bank_name = bank_name;
@@ -145,6 +145,7 @@ async function saveStep2({
   years_remaining,
   target_new_rate,
   bank_name,
+  source,
 }) {
   const existingId = await findIncompleteLead(email, phone);
   const payload = {
@@ -160,7 +161,7 @@ async function saveStep2({
     cashback_pct: DEFAULT_CASH_PCT,
     break_fee: DEFAULT_BREAK_FEE,
     legal_costs: DEFAULT_LEGAL,
-    source: 'refinance-calculator',
+    source: source || 'refinance-calculator',
     updated_at: new Date().toISOString(),
   };
 
@@ -199,6 +200,7 @@ module.exports = async (req, res) => {
     const full_name = String(body.full_name || '').trim();
     const current_rate = parseRate(body.current_rate);
     const years_remaining = parseYears(body.years_remaining);
+    const source = String(body.source || '').trim() || 'refinance-calculator';
 
     if (!validateFullName(full_name)) {
       return json(res, 400, { error: 'Full name is required' });
@@ -225,8 +227,8 @@ module.exports = async (req, res) => {
       }
 
       const bank_name = parseBankName(body.bank_name);
-      await saveStep1({ full_name, email, phone, current_rate, years_remaining, loan_balance, target_new_rate, bank_name });
-      await sendAdminLeadNotification({ full_name, email, phone, current_rate, years_remaining, loan_balance, bank_name });
+      await saveStep1({ full_name, email, phone, current_rate, years_remaining, loan_balance, target_new_rate, bank_name, source });
+      await sendAdminLeadNotification({ full_name, email, phone, current_rate, years_remaining, loan_balance, bank_name, source });
       return json(res, 201, { ok: true });
     }
 
@@ -254,6 +256,7 @@ module.exports = async (req, res) => {
       years_remaining,
       target_new_rate,
       bank_name,
+      source,
     });
 
     await sendClientThankYou({
@@ -263,6 +266,7 @@ module.exports = async (req, res) => {
       loan_balance,
       current_rate,
       years_remaining,
+      source,
     });
 
     return json(res, 201, { ok: true });
