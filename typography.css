@@ -1,10 +1,11 @@
 /* Wealthify type scale — aligned to Vega's 18px body baseline */
 :root {
-  /* Display */
-  --text-hero: clamp(46px, 5.5vw, 70px);
-  --text-hero-md: clamp(40px, 5.5vw, 70px);      /* Mortgages, Insurance, KiwiSaver h1 */
-  --text-hero-tools: clamp(44px, 5vw, 68px);      /* Tools h1 */
-  --text-rates-hero: clamp(38px, 5vw, 60px);      /* rates/index.html h1 */
+  /* Display — mins tuned for ~320px phones so glyphs don't clip */
+  --text-hero: clamp(34px, 5.5vw, 70px);
+  --text-hero-md: clamp(32px, 5.5vw, 70px);      /* Mortgages, Insurance, KiwiSaver h1 */
+  --text-hero-tools: clamp(32px, 5vw, 68px);      /* Tools h1 */
+  --text-rates-hero: clamp(30px, 5vw, 60px);      /* rates/index.html h1 */
+  --hero-tracking: -3.5px;
   --text-h2: clamp(28px, 3.2vw, 50px);
   --text-h2-md: clamp(28px, 3vw, 42px);
   --text-h2-sm: clamp(26px, 3vw, 40px);

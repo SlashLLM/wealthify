@@ -8,7 +8,46 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
+/* Media / embed overflow guards (all viewports) */
+img, svg, video, iframe {
+  max-width: 100%;
+}
+.embed-frame,
+iframe.embed-frame {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Table scroll wrapper */
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+}
+
+/* Sticky bottom CTA — reserve space so content isn't covered */
+body.has-sticky-cta {
+  padding-bottom: 96px;
+}
+
 .show-mobile-only { display: none !important; }
+
+/* Hero title — uses --hero-tracking so mobile can relax negative spacing */
+.hero-title {
+  letter-spacing: var(--hero-tracking);
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+
+/* Stat / rate figures — shrink on narrow screens via media queries below */
+.stat-figure {
+  max-width: 100%;
+}
+
+/* Long pill badges — allow wrap on mobile */
+.badge-wrap {
+  max-width: 100%;
+}
 
 /* ── Site nav (desktop baseline) ── */
 .site-nav {
@@ -234,6 +273,7 @@ body.nav-open { overflow: hidden; }
     --text-body: 17px;
     --text-nav: 16px;
     --text-lead: 17px;
+    --hero-tracking: -2px;
   }
 
   html, body {
@@ -245,6 +285,50 @@ body.nav-open { overflow: hidden; }
 
   .site-nav__toggle { display: flex; }
   .site-nav.is-open .site-nav__drawer { display: block; }
+
+  /* Hero titles — relax tracking; beat inline letter-spacing */
+  .hero-title {
+    letter-spacing: var(--hero-tracking) !important;
+    text-wrap: balance;
+  }
+
+  /* Oversized inline stat numbers */
+  .stat-figure {
+    font-size: clamp(28px, 8vw, 36px) !important;
+    letter-spacing: -1px !important;
+  }
+
+  /* Long pill badges — wrap instead of overflow */
+  .badge-wrap {
+    white-space: normal !important;
+    text-align: center;
+    line-height: 1.4;
+    max-width: min(100%, 340px);
+  }
+
+  /* Category / card padding tighten */
+  .cat-card {
+    padding: 20px 16px !important;
+  }
+
+  /* Sticky CTA bars — full-width buttons */
+  .sticky-cta-bar {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .sticky-cta-bar > div:last-child {
+    width: 100% !important;
+    flex-shrink: 1 !important;
+  }
+  .sticky-cta-bar > div:last-child > a,
+  .sticky-cta-bar > div:last-child > button:first-child {
+    width: 100%;
+    justify-content: center;
+  }
+
+  body.has-sticky-cta {
+    padding-bottom: 120px;
+  }
 
   /* Layout collapse — !important needed to override inline styles */
   .hero-grid {
@@ -363,20 +447,6 @@ body.nav-open { overflow: hidden; }
     padding: 28px 16px !important;
   }
 
-  .sticky-cta-bar {
-    flex-direction: column !important;
-    align-items: stretch !important;
-  }
-  .sticky-cta-bar > div:last-child {
-    width: 100% !important;
-    flex-shrink: 1 !important;
-  }
-  .sticky-cta-bar > div:last-child > a,
-  .sticky-cta-bar > div:last-child > button:first-child {
-    width: 100%;
-    justify-content: center;
-  }
-
   /* Refinance embed */
   .chart-header {
     flex-direction: column !important;
@@ -488,6 +558,16 @@ body.nav-open { overflow: hidden; }
 @media (max-width: 480px) {
   :root {
     --section-padding-x: 16px;
+    --hero-tracking: -1.5px;
+  }
+
+  .hero-title {
+    letter-spacing: var(--hero-tracking) !important;
+  }
+
+  .stat-figure {
+    font-size: clamp(24px, 9vw, 32px) !important;
+    letter-spacing: -0.5px !important;
   }
 
   .grid-3.grid-3--cards {
@@ -501,6 +581,10 @@ body.nav-open { overflow: hidden; }
   }
   .site-nav__inner {
     padding: 0 16px;
+  }
+
+  body.has-sticky-cta {
+    padding-bottom: 140px;
   }
 }
 

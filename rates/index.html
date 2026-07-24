@@ -90,7 +90,7 @@
     </div>
     <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap">
       <div>
-        <h1 style="font-size:var(--text-rates-hero);font-weight:800;color:white;margin:0 0 16px;line-height:1.02;letter-spacing:-2.5px;max-width:680px">Every mortgage rate in NZ.<br>One page, no spin.</h1>
+        <h1 class="hero-title" style="font-size:var(--text-rates-hero);font-weight:800;color:white;margin:0 0 16px;line-height:1.02;letter-spacing:var(--hero-tracking);max-width:680px">Every mortgage rate in NZ.<br>One page, no spin.</h1>
         <p style="font-size:var(--text-body);color:rgba(255,255,255,0.45);margin:0;max-width:520px;line-height:1.7">Search, filter and compare <span id="heroInstCount">37</span> lenders side-by-side — then let us do the negotiating. Free, independent, no fees.</p>
       </div>
       <div style="display:flex;gap:28px;padding-bottom:6px" class="hide-mobile">
@@ -151,7 +151,7 @@
   <div style="max-width:1240px;margin:0 auto">
     <div id="cardsView" class="grid-cards" style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px"></div>
     <div id="tableView" style="display:none;border:1px solid #E4E9F0;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(11,31,58,.05)">
-      <div style="overflow-x:auto">
+      <div class="table-scroll" style="overflow-x:auto">
         <table style="width:100%;border-collapse:collapse;font-size:var(--text-tab)" id="ratesTable"></table>
       </div>
     </div>
@@ -166,7 +166,7 @@
 <section style="padding:0 24px 100px;background:#fff">
   <div style="max-width:1240px;margin:0 auto;border-top:1px solid #E4E9F0;padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
     <p style="font-size:var(--text-dense-sm);color:#B0BAC5;margin:0;max-width:640px;line-height:1.6" id="termsOfUse"></p>
-    <p style="font-size:var(--text-dense-sm);color:#B0BAC5;margin:0;white-space:nowrap" id="lastUpdatedFoot"></p>
+    <p style="font-size:var(--text-dense-sm);color:#B0BAC5;margin:0" id="lastUpdatedFoot"></p>
   </div>
 </section>
 
@@ -371,6 +371,7 @@
     var wrap = document.createElement('div');
     wrap.style.cssText = 'margin-top:14px;border-top:1px solid #E4E9F0;padding-top:14px';
     var table = document.createElement('div');
+    table.className = 'table-scroll';
     table.style.cssText = 'overflow-x:auto';
     var minima = {};
     STATE.columns.forEach(function(col){

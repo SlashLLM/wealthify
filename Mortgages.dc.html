@@ -62,9 +62,9 @@
   <div style="max-width:1200px;margin:0 auto;text-align:center">
     <div style="display:inline-flex;align-items:center;gap:8px;margin-bottom:24px;padding:6px 14px;background:rgba(22,193,114,0.12);border-radius:100px;border:1px solid rgba(22,193,114,0.2)">
       <span style="width:6px;height:6px;border-radius:50%;background:#16C172;animation:pulse 2s infinite;display:inline-block"></span>
-      <span style="font-size:var(--text-label);font-weight:700;color:#16C172;letter-spacing:.04em">FAP Licensed · Free Advice · Always</span>
+      <span class="badge-wrap" style="font-size:var(--text-label);font-weight:700;color:#16C172;letter-spacing:.04em">FAP Licensed · Free Advice · Always</span>
     </div>
-    <h1 style="font-size:var(--text-hero-md);font-weight:800;color:white;margin:0 0 18px;line-height:1;letter-spacing:-3.5px">Find your best<br>mortgage rate.</h1>
+    <h1 class="hero-title" style="font-size:var(--text-hero-md);font-weight:800;color:white;margin:0 0 18px;line-height:1;letter-spacing:var(--hero-tracking)">Find your best<br>mortgage rate.</h1>
     <p style="font-size:var(--text-body);color:rgba(255,255,255,0.42);margin:0 auto 20px;max-width:480px;line-height:1.7">We compare 20+ NZ lenders, negotiate the rate, and handle every step. No cost to you — ever.</p>
     <div class="stats-row" style="display:flex;gap:28px;justify-content:center;padding-bottom:48px;flex-wrap:wrap">
       <div><span style="font-size:var(--text-h3);font-weight:800;color:white;letter-spacing:-0.5px">$2.4B+</span><span style="font-size:var(--text-caption);color:rgba(255,255,255,0.3);margin-left:8px">settled</span></div>
@@ -83,12 +83,12 @@
     <div class="grid-4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
 
       <!-- First Home -->
-      <div onClick="{{ selectCat0 }}" style="cursor:pointer;border-radius:20px;padding:32px 28px;transition:all 0.25s;background:{{ cat0Bg }};border:{{ cat0Border }};box-shadow:{{ cat0Shadow }}" style-hover="transform:translateY(-4px)">
+      <div class="cat-card" onClick="{{ selectCat0 }}" style="cursor:pointer;border-radius:20px;padding:32px 28px;transition:all 0.25s;background:{{ cat0Bg }};border:{{ cat0Border }};box-shadow:{{ cat0Shadow }}" style-hover="transform:translateY(-4px)">
         <div style="width:52px;height:52px;border-radius:14px;background:rgba(22,193,114,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:20px">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 12L12 3L21 12V21H15V15H9V21H3V12Z" stroke="#16C172" stroke-width="1.8" stroke-linejoin="round"></path></svg>
         </div>
         <div style="font-size:20px;font-weight:800;color:{{ cat0Title }};letter-spacing:-0.5px;margin-bottom:6px;line-height:1.2">First Home<br>Buyer</div>
-        <div style="font-size:36px;font-weight:800;color:{{ cat0Stat }};letter-spacing:-2px;line-height:1;margin:16px 0 4px">5%</div>
+        <div class="stat-figure" style="font-size:36px;font-weight:800;color:{{ cat0Stat }};letter-spacing:-2px;line-height:1;margin:16px 0 4px">5%</div>
         <div style="font-size:12px;color:{{ cat0Muted }};font-weight:600;margin-bottom:16px">min. deposit</div>
         <div style="font-size:13px;color:{{ cat0Desc }};line-height:1.6">KiwiSaver withdrawal, First Home Grant, and pre-approval in days.</div>
         <div style="margin-top:20px;font-size:13px;font-weight:700;color:#16C172;display:flex;align-items:center;gap:5px">
@@ -98,12 +98,12 @@
       </div>
 
       <!-- Refinancing -->
-      <div onClick="{{ selectCat1 }}" style="cursor:pointer;border-radius:20px;padding:32px 28px;transition:all 0.25s;background:{{ cat1Bg }};border:{{ cat1Border }};box-shadow:{{ cat1Shadow }}" style-hover="transform:translateY(-4px)">
+      <div class="cat-card" onClick="{{ selectCat1 }}" style="cursor:pointer;border-radius:20px;padding:32px 28px;transition:all 0.25s;background:{{ cat1Bg }};border:{{ cat1Border }};box-shadow:{{ cat1Shadow }}" style-hover="transform:translateY(-4px)">
         <div style="width:52px;height:52px;border-radius:14px;background:rgba(15,181,186,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:20px">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M1 4V10H7" stroke="#0FB5BA" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><path d="M23 20V14H17" stroke="#0FB5BA" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10M23 14L18.36 18.36A9 9 0 0 1 3.51 15" stroke="#0FB5BA" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
         </div>
         <div style="font-size:20px;font-weight:800;color:{{ cat1Title }};letter-spacing:-0.5px;margin-bottom:6px;line-height:1.2">Refinancing<br>&amp; Refixing</div>
-        <div style="font-size:36px;font-weight:800;color:{{ cat1Stat }};letter-spacing:-2px;line-height:1;margin:16px 0 4px">$585</div>
+        <div class="stat-figure" style="font-size:36px;font-weight:800;color:{{ cat1Stat }};letter-spacing:-2px;line-height:1;margin:16px 0 4px">$585</div>
         <div style="font-size:12px;color:{{ cat1Muted }};font-weight:600;margin-bottom:16px">avg. monthly saving</div>
         <div style="font-size:13px;color:{{ cat1Desc }};line-height:1.6">Compare 20+ lenders at refix. We handle the switch — no break fee in most cases.</div>
         <div style="margin-top:20px;font-size:13px;font-weight:700;color:#16C172;display:flex;align-items:center;gap:5px">
@@ -113,12 +113,12 @@
       </div>
 
       <!-- Investment -->
-      <div onClick="{{ selectCat2 }}" style="cursor:pointer;border-radius:20px;padding:32px 28px;transition:all 0.25s;background:{{ cat2Bg }};border:{{ cat2Border }};box-shadow:{{ cat2Shadow }}" style-hover="transform:translateY(-4px)">
+      <div class="cat-card" onClick="{{ selectCat2 }}" style="cursor:pointer;border-radius:20px;padding:32px 28px;transition:all 0.25s;background:{{ cat2Bg }};border:{{ cat2Border }};box-shadow:{{ cat2Shadow }}" style-hover="transform:translateY(-4px)">
         <div style="width:52px;height:52px;border-radius:14px;background:rgba(232,176,75,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:20px">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="2" y="7" width="20" height="15" rx="2" stroke="#E8B04B" stroke-width="1.8"></rect><path d="M16 7V5a4 4 0 0 0-8 0v2" stroke="#E8B04B" stroke-width="1.8" stroke-linecap="round"></path><path d="M8 12H16M8 16H12" stroke="#E8B04B" stroke-width="1.8" stroke-linecap="round"></path></svg>
         </div>
         <div style="font-size:20px;font-weight:800;color:{{ cat2Title }};letter-spacing:-0.5px;margin-bottom:6px;line-height:1.2">Investment<br>Property</div>
-        <div style="font-size:36px;font-weight:800;color:{{ cat2Stat }};letter-spacing:-2px;line-height:1;margin:16px 0 4px">35%</div>
+        <div class="stat-figure" style="font-size:36px;font-weight:800;color:{{ cat2Stat }};letter-spacing:-2px;line-height:1;margin:16px 0 4px">35%</div>
         <div style="font-size:12px;color:{{ cat2Muted }};font-weight:600;margin-bottom:16px">min. deposit</div>
         <div style="font-size:13px;color:{{ cat2Desc }};line-height:1.6">LVR structuring, interest-only options, and multi-property portfolio expertise.</div>
         <div style="margin-top:20px;font-size:13px;font-weight:700;color:#16C172;display:flex;align-items:center;gap:5px">
@@ -128,12 +128,12 @@
       </div>
 
       <!-- New Build -->
-      <div onClick="{{ selectCat3 }}" style="cursor:pointer;border-radius:20px;padding:32px 28px;transition:all 0.25s;background:{{ cat3Bg }};border:{{ cat3Border }};box-shadow:{{ cat3Shadow }}" style-hover="transform:translateY(-4px)">
+      <div class="cat-card" onClick="{{ selectCat3 }}" style="cursor:pointer;border-radius:20px;padding:32px 28px;transition:all 0.25s;background:{{ cat3Bg }};border:{{ cat3Border }};box-shadow:{{ cat3Shadow }}" style-hover="transform:translateY(-4px)">
         <div style="width:52px;height:52px;border-radius:14px;background:rgba(11,31,58,0.15);display:flex;align-items:center;justify-content:center;margin-bottom:20px">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M2 20H22M4 20V10L12 4L20 10V20" stroke="#8B9AAD" stroke-width="1.8" stroke-linejoin="round"></path><rect x="9" y="14" width="6" height="6" rx="0.5" stroke="#8B9AAD" stroke-width="1.8"></rect><path d="M9 10H15" stroke="#8B9AAD" stroke-width="1.8" stroke-linecap="round"></path></svg>
         </div>
         <div style="font-size:20px;font-weight:800;color:{{ cat3Title }};letter-spacing:-0.5px;margin-bottom:6px;line-height:1.2">New Build<br>&amp; Construction</div>
-        <div style="font-size:36px;font-weight:800;color:{{ cat3Stat }};letter-spacing:-2px;line-height:1;margin:16px 0 4px">10%</div>
+        <div class="stat-figure" style="font-size:36px;font-weight:800;color:{{ cat3Stat }};letter-spacing:-2px;line-height:1;margin:16px 0 4px">10%</div>
         <div style="font-size:12px;color:{{ cat3Muted }};font-weight:600;margin-bottom:16px">min. deposit (eligible)</div>
         <div style="font-size:13px;color:{{ cat3Desc }};line-height:1.6">Staged drawdowns, build-specialist lenders, and LVR exemptions for new builds.</div>
         <div style="margin-top:20px;font-size:13px;font-weight:700;color:#16C172;display:flex;align-items:center;gap:5px">
