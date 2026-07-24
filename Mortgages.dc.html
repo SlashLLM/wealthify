@@ -9,9 +9,13 @@
 <x-dc>
 <helmet>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="./typography.css" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
   <style>
     *{box-sizing:border-box}
-    body{margin:0;font-family:'Plus Jakarta Sans',sans-serif;color:#1A2433;background:#fff}
+    body{margin:0;font-family:'Plus Jakarta Sans',sans-serif;font-size:var(--text-body);color:#1A2433;background:#fff}
     @keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
     a{text-decoration:none;color:inherit}
     input[type=range]{-webkit-appearance:none;appearance:none;background:transparent;width:100%;cursor:pointer;position:absolute;left:0;right:0;margin:0;padding:0}
@@ -22,28 +26,21 @@
 </helmet>
 
 <!-- ═══ NAV ═══ -->
-<nav style="position:fixed;top:0;left:0;right:0;z-index:100;transition:background 0.3s,box-shadow 0.3s;background:{{ navBg }};box-shadow:{{ navShadow }}">
+<nav class="{{ navClass }}" style="position:fixed;top:0;left:0;right:0;z-index:100;transition:background 0.3s,box-shadow 0.3s;background:{{ navBg }};box-shadow:{{ navShadow }}">
   <div style="max-width:1200px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;gap:24px">
-    <a href="./index.html" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
-      <svg width="32" height="24" viewBox="0 0 34 26" fill="none">
-        <defs><linearGradient id="wg" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#16C172"></stop><stop offset="100%" stop-color="#0FB5BA"></stop></linearGradient></defs>
-        <rect x="0" y="13" width="5" height="13" rx="1.5" fill="url(#wg)"></rect>
-        <rect x="7" y="6" width="5" height="20" rx="1.5" fill="url(#wg)"></rect>
-        <rect x="14.5" y="9" width="5" height="17" rx="1.5" fill="url(#wg)"></rect>
-        <rect x="22" y="2" width="5" height="24" rx="1.5" fill="url(#wg)"></rect>
-        <rect x="29" y="0" width="5" height="26" rx="1.5" fill="url(#wg)"></rect>
-      </svg>
-      <span style="font-size:18px;font-weight:800;color:{{ navTextColor }};letter-spacing:-0.5px;transition:color 0.3s">Wealthify</span>
+    <a href="./index.html" style="display:flex;align-items:center;flex-shrink:0">
+      <img src="/assets/brand/logo-black.svg" alt="Wealthify" class="brand-logo brand-logo--dark" height="28">
+      <img src="/assets/brand/logo-white.svg" alt="Wealthify" class="brand-logo brand-logo--light" height="28">
     </a>
     <div style="display:flex;gap:26px;align-items:center;flex:1;justify-content:center">
-      <a href="#" style="font-size:14px;font-weight:700;color:#16C172;padding-bottom:2px;border-bottom:2px solid #16C172">Mortgages</a>
-      <a href="./Insurance.dc.html" style="font-size:14px;font-weight:600;color:{{ navTextColor }};opacity:0.65" style-hover="opacity:1">Insurance</a>
-      <a href="./KiwiSaver.dc.html" style="font-size:14px;font-weight:600;color:{{ navTextColor }};opacity:0.65" style-hover="opacity:1">KiwiSaver</a>
-      <a href="./Refinance-Calculator-Embed.html" style="font-size:14px;font-weight:600;color:{{ navTextColor }};opacity:0.65" style-hover="opacity:1">Loans</a>
-      <a href="./Tools.dc.html" style="font-size:14px;font-weight:600;color:{{ navTextColor }};opacity:0.65" style-hover="opacity:1">Tools</a>
+      <a href="#" style="font-size:var(--text-nav);font-weight:700;color:#16C172;padding-bottom:2px;border-bottom:2px solid #16C172">Mortgages</a>
+      <a href="./Insurance.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navTextColor }};opacity:0.65" style-hover="opacity:1">Insurance</a>
+      <a href="./KiwiSaver.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navTextColor }};opacity:0.65" style-hover="opacity:1">KiwiSaver</a>
+      <a href="./Refinance-Calculator-Embed.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navTextColor }};opacity:0.65" style-hover="opacity:1">Loans</a>
+      <a href="./Tools.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navTextColor }};opacity:0.65" style-hover="opacity:1">Tools</a>
     </div>
     <div style="display:flex;gap:10px;align-items:center;flex-shrink:0">
-      <button style="padding:8px 18px;background:#16C172;border:none;color:white;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Book a free call</button>
+      <button style="padding:8px 18px;background:#16C172;border:none;color:white;border-radius:8px;font-size:var(--text-nav-cta);font-weight:700;cursor:pointer;font-family:inherit">Book a free call</button>
     </div>
   </div>
 </nav>
@@ -53,16 +50,16 @@
   <div style="max-width:1200px;margin:0 auto;text-align:center">
     <div style="display:inline-flex;align-items:center;gap:8px;margin-bottom:24px;padding:6px 14px;background:rgba(22,193,114,0.12);border-radius:100px;border:1px solid rgba(22,193,114,0.2)">
       <span style="width:6px;height:6px;border-radius:50%;background:#16C172;animation:pulse 2s infinite;display:inline-block"></span>
-      <span style="font-size:11.5px;font-weight:700;color:#16C172;letter-spacing:.04em">FAP Licensed · Free Advice · Always</span>
+      <span style="font-size:var(--text-label);font-weight:700;color:#16C172;letter-spacing:.04em">FAP Licensed · Free Advice · Always</span>
     </div>
-    <h1 style="font-size:clamp(40px,5.5vw,72px);font-weight:800;color:white;margin:0 0 18px;line-height:1;letter-spacing:-3.5px">Find your best<br>mortgage rate.</h1>
-    <p style="font-size:17px;color:rgba(255,255,255,0.42);margin:0 auto 20px;max-width:480px;line-height:1.7">We compare 20+ NZ lenders, negotiate the rate, and handle every step. No cost to you — ever.</p>
+    <h1 style="font-size:var(--text-hero-md);font-weight:800;color:white;margin:0 0 18px;line-height:1;letter-spacing:-3.5px">Find your best<br>mortgage rate.</h1>
+    <p style="font-size:var(--text-body);color:rgba(255,255,255,0.42);margin:0 auto 20px;max-width:480px;line-height:1.7">We compare 20+ NZ lenders, negotiate the rate, and handle every step. No cost to you — ever.</p>
     <div style="display:flex;gap:28px;justify-content:center;padding-bottom:48px">
-      <div><span style="font-size:22px;font-weight:800;color:white;letter-spacing:-0.5px">$2.4B+</span><span style="font-size:12px;color:rgba(255,255,255,0.3);margin-left:8px">settled</span></div>
+      <div><span style="font-size:var(--text-h3);font-weight:800;color:white;letter-spacing:-0.5px">$2.4B+</span><span style="font-size:var(--text-caption);color:rgba(255,255,255,0.3);margin-left:8px">settled</span></div>
       <div style="width:1px;background:rgba(255,255,255,0.1)"></div>
-      <div><span style="font-size:22px;font-weight:800;color:white;letter-spacing:-0.5px">1,500+</span><span style="font-size:12px;color:rgba(255,255,255,0.3);margin-left:8px">families</span></div>
+      <div><span style="font-size:var(--text-h3);font-weight:800;color:white;letter-spacing:-0.5px">1,500+</span><span style="font-size:var(--text-caption);color:rgba(255,255,255,0.3);margin-left:8px">families</span></div>
       <div style="width:1px;background:rgba(255,255,255,0.1)"></div>
-      <div><span style="font-size:22px;font-weight:800;color:#16C172;letter-spacing:-0.5px">4.9 ★</span><span style="font-size:12px;color:rgba(255,255,255,0.3);margin-left:8px">Google</span></div>
+      <div><span style="font-size:var(--text-h3);font-weight:800;color:#16C172;letter-spacing:-0.5px">4.9 ★</span><span style="font-size:var(--text-caption);color:rgba(255,255,255,0.3);margin-left:8px">Google</span></div>
     </div>
   </div>
 </section>
@@ -70,7 +67,7 @@
 <!-- ═══ CATEGORY GATEWAY — the centerpiece ═══ -->
 <section style="background:#071929;padding:0 24px 80px">
   <div style="max-width:1200px;margin:0 auto">
-    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:rgba(255,255,255,0.25);text-align:center;margin-bottom:28px">What's your situation?</div>
+    <div style="font-size:var(--text-micro);font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:rgba(255,255,255,0.25);text-align:center;margin-bottom:28px">What's your situation?</div>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
 
       <!-- First Home -->
@@ -153,9 +150,9 @@
 
       <!-- Left: Category content -->
       <div>
-        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#16C172;margin-bottom:12px">{{ catLabel }}</div>
-        <h2 style="font-size:clamp(28px,3.2vw,42px);font-weight:800;color:#0B1F3A;margin:0 0 20px;letter-spacing:-1.5px;line-height:1.1">{{ catHeadline }}</h2>
-        <p style="font-size:16px;color:#5B6B82;line-height:1.72;margin:0 0 36px">{{ catDescription }}</p>
+        <div style="font-size:var(--text-micro);font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#16C172;margin-bottom:12px">{{ catLabel }}</div>
+        <h2 style="font-size:var(--text-h2-md);font-weight:800;color:#0B1F3A;margin:0 0 20px;letter-spacing:-1.5px;line-height:1.1">{{ catHeadline }}</h2>
+        <p style="font-size:var(--text-lead);color:#5B6B82;line-height:1.72;margin:0 0 36px">{{ catDescription }}</p>
 
         <!-- Benefits -->
         <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:40px">
@@ -164,8 +161,8 @@
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
             </div>
             <div>
-              <div style="font-size:15px;font-weight:700;color:#0B1F3A;margin-bottom:3px">{{ b1Title }}</div>
-              <div style="font-size:13.5px;color:#5B6B82;line-height:1.55">{{ b1Desc }}</div>
+              <div style="font-size:var(--text-ui-md);font-weight:700;color:#0B1F3A;margin-bottom:3px">{{ b1Title }}</div>
+              <div style="font-size:var(--text-compact);color:#5B6B82;line-height:1.55">{{ b1Desc }}</div>
             </div>
           </div>
           <div style="display:flex;align-items:flex-start;gap:14px">
@@ -173,8 +170,8 @@
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
             </div>
             <div>
-              <div style="font-size:15px;font-weight:700;color:#0B1F3A;margin-bottom:3px">{{ b2Title }}</div>
-              <div style="font-size:13.5px;color:#5B6B82;line-height:1.55">{{ b2Desc }}</div>
+              <div style="font-size:var(--text-ui-md);font-weight:700;color:#0B1F3A;margin-bottom:3px">{{ b2Title }}</div>
+              <div style="font-size:var(--text-compact);color:#5B6B82;line-height:1.55">{{ b2Desc }}</div>
             </div>
           </div>
           <div style="display:flex;align-items:flex-start;gap:14px">
@@ -182,19 +179,19 @@
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
             </div>
             <div>
-              <div style="font-size:15px;font-weight:700;color:#0B1F3A;margin-bottom:3px">{{ b3Title }}</div>
-              <div style="font-size:13.5px;color:#5B6B82;line-height:1.55">{{ b3Desc }}</div>
+              <div style="font-size:var(--text-ui-md);font-weight:700;color:#0B1F3A;margin-bottom:3px">{{ b3Title }}</div>
+              <div style="font-size:var(--text-compact);color:#5B6B82;line-height:1.55">{{ b3Desc }}</div>
             </div>
           </div>
         </div>
 
         <!-- CTA block -->
         <div style="background:linear-gradient(135deg,#071929,#0f2d52);border-radius:18px;padding:32px">
-          <div style="font-size:22px;font-weight:800;color:white;letter-spacing:-0.5px;margin-bottom:8px;line-height:1.2">Talk to a mortgage adviser.</div>
-          <p style="font-size:14px;color:rgba(255,255,255,0.5);margin:0 0 22px;line-height:1.6">30 minutes. No cost. No obligation. We'll map out your options and tell you exactly where you stand.</p>
+          <div style="font-size:var(--text-h3);font-weight:800;color:white;letter-spacing:-0.5px;margin-bottom:8px;line-height:1.2">Talk to a mortgage adviser.</div>
+          <p style="font-size:var(--text-ui);color:rgba(255,255,255,0.5);margin:0 0 22px;line-height:1.6">30 minutes. No cost. No obligation. We'll map out your options and tell you exactly where you stand.</p>
           <div style="display:flex;gap:12px;flex-wrap:wrap">
-            <button style="padding:13px 24px;background:#16C172;border:none;color:white;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s" style-hover="opacity:0.88">Book a free call</button>
-            <button style="padding:13px 24px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.75);border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s" style-hover="background:rgba(255,255,255,0.12)">Call 0800 WEALTHIFY</button>
+            <button style="padding:13px 24px;background:#16C172;border:none;color:white;border-radius:10px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s" style-hover="opacity:0.88">Book a free call</button>
+            <button style="padding:13px 24px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.75);border-radius:10px;font-size:var(--text-ui);font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s" style-hover="background:rgba(255,255,255,0.12)">Call 0800 WEALTHIFY</button>
           </div>
         </div>
       </div>
@@ -202,7 +199,7 @@
       <!-- Right: Calculator -->
       <div>
         <div style="position:sticky;top:80px">
-          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#8B9AAD;margin-bottom:14px">{{ calcLabel }}</div>
+          <div style="font-size:var(--text-micro);font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#8B9AAD;margin-bottom:14px">{{ calcLabel }}</div>
           <div style="border:1px solid #E4E9F0;border-radius:18px;overflow:hidden;box-shadow:0 4px 24px rgba(11,31,58,0.06)">
             <x-import component-from-global-scope="MortgageCalc" from="./MortgageCalc.jsx" hint-size="100%,600px"></x-import>
           </div>
@@ -216,20 +213,20 @@
 <!-- ═══ LENDER STRIP ═══ -->
 <div style="background:white;border-top:1px solid #E4E9F0;border-bottom:1px solid #E4E9F0;padding:13px 24px">
   <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
-    <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#C4CDD6;white-space:nowrap;flex-shrink:0">We compare</span>
+    <span style="font-size:var(--text-tiny);font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#C4CDD6;white-space:nowrap;flex-shrink:0">We compare</span>
     <div style="width:1px;height:14px;background:#E4E9F0;flex-shrink:0"></div>
     <div style="display:flex;align-items:center;gap:28px;flex:1;flex-wrap:wrap">
-      <span style="font-size:12px;font-weight:800;color:#C4CDD6;letter-spacing:.06em">ANZ</span>
-      <span style="font-size:12px;font-weight:800;color:#C4CDD6;letter-spacing:.06em">ASB</span>
-      <span style="font-size:12px;font-weight:800;color:#C4CDD6;letter-spacing:.06em">BNZ</span>
-      <span style="font-size:12px;font-weight:800;color:#C4CDD6;letter-spacing:.06em">WESTPAC</span>
-      <span style="font-size:12px;font-weight:800;color:#C4CDD6;letter-spacing:.06em">KIWIBANK</span>
-      <span style="font-size:12px;font-weight:800;color:#C4CDD6;letter-spacing:.06em">SBS BANK</span>
-      <span style="font-size:11px;font-weight:600;color:#B0BAC5">+ 14 more lenders</span>
+      <span style="font-size:var(--text-dense-sm);font-weight:800;color:#C4CDD6;letter-spacing:.06em">ANZ</span>
+      <span style="font-size:var(--text-dense-sm);font-weight:800;color:#C4CDD6;letter-spacing:.06em">ASB</span>
+      <span style="font-size:var(--text-dense-sm);font-weight:800;color:#C4CDD6;letter-spacing:.06em">BNZ</span>
+      <span style="font-size:var(--text-dense-sm);font-weight:800;color:#C4CDD6;letter-spacing:.06em">WESTPAC</span>
+      <span style="font-size:var(--text-dense-sm);font-weight:800;color:#C4CDD6;letter-spacing:.06em">KIWIBANK</span>
+      <span style="font-size:var(--text-dense-sm);font-weight:800;color:#C4CDD6;letter-spacing:.06em">SBS BANK</span>
+      <span style="font-size:var(--text-micro);font-weight:600;color:#B0BAC5">+ 14 more lenders</span>
     </div>
     <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
       <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-      <span style="font-size:11px;font-weight:700;color:#0E9E5C">Free to you — always</span>
+      <span style="font-size:var(--text-micro);font-weight:700;color:#0E9E5C">Free to you — always</span>
     </div>
   </div>
 </div>
@@ -238,48 +235,48 @@
 <section style="padding:80px 24px;background:#F6F8FB">
   <div style="max-width:1100px;margin:0 auto">
     <div style="text-align:center;margin-bottom:56px">
-      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#5B6B82;margin-bottom:10px">The Process</div>
-      <h2 style="font-size:clamp(26px,3vw,40px);font-weight:800;color:#0B1F3A;margin:0;letter-spacing:-1.5px">From first call to keys in hand</h2>
+      <div style="font-size:var(--text-micro);font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#5B6B82;margin-bottom:10px">The Process</div>
+      <h2 style="font-size:var(--text-h2-sm);font-weight:800;color:#0B1F3A;margin:0;letter-spacing:-1.5px">From first call to keys in hand</h2>
     </div>
 
     <div style="position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:0">
       <div style="position:absolute;top:22px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,#16C172,#0FB5BA,#0B1F3A,#0B1F3A,#16C172);z-index:0;opacity:0.25"></div>
 
       <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12px;position:relative;z-index:1">
-        <div style="width:44px;height:44px;border-radius:50%;background:#16C172;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:white;box-shadow:0 0 0 6px rgba(22,193,114,0.1);margin-bottom:14px">1</div>
-        <div style="font-size:10px;font-weight:700;color:#16C172;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Day 1</div>
+        <div style="width:44px;height:44px;border-radius:50%;background:#16C172;display:flex;align-items:center;justify-content:center;font-size:var(--text-compact);font-weight:800;color:white;box-shadow:0 0 0 6px rgba(22,193,114,0.1);margin-bottom:14px">1</div>
+        <div style="font-size:var(--text-tiny);font-weight:700;color:#16C172;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Day 1</div>
         <div style="font-size:14px;font-weight:800;color:#0B1F3A;margin-bottom:8px;line-height:1.25">Free consultation</div>
-        <div style="font-size:12px;color:#8B9AAD;line-height:1.55">30 minutes. Tell us your goals and situation. Zero obligation.</div>
+        <div style="font-size:var(--text-caption);color:#8B9AAD;line-height:1.55">30 minutes. Tell us your goals and situation. Zero obligation.</div>
       </div>
 
       <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12px;position:relative;z-index:1">
-        <div style="width:44px;height:44px;border-radius:50%;background:#0FB5BA;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:white;box-shadow:0 0 0 6px rgba(15,181,186,0.1);margin-bottom:14px">2</div>
-        <div style="font-size:10px;font-weight:700;color:#0FB5BA;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Days 2–3</div>
+        <div style="width:44px;height:44px;border-radius:50%;background:#0FB5BA;display:flex;align-items:center;justify-content:center;font-size:var(--text-compact);font-weight:800;color:white;box-shadow:0 0 0 6px rgba(15,181,186,0.1);margin-bottom:14px">2</div>
+        <div style="font-size:var(--text-tiny);font-weight:700;color:#0FB5BA;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Days 2–3</div>
         <div style="font-size:14px;font-weight:800;color:#0B1F3A;margin-bottom:8px;line-height:1.25">We search the market</div>
-        <div style="font-size:12px;color:#8B9AAD;line-height:1.55">We compare 20+ lenders simultaneously and negotiate on your behalf.</div>
+        <div style="font-size:var(--text-caption);color:#8B9AAD;line-height:1.55">We compare 20+ lenders simultaneously and negotiate on your behalf.</div>
       </div>
 
       <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12px;position:relative;z-index:1">
-        <div style="width:44px;height:44px;border-radius:50%;background:#0B1F3A;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:white;box-shadow:0 0 0 6px rgba(11,31,58,0.08);margin-bottom:14px">3</div>
-        <div style="font-size:10px;font-weight:700;color:#5B6B82;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Day 4–5</div>
+        <div style="width:44px;height:44px;border-radius:50%;background:#0B1F3A;display:flex;align-items:center;justify-content:center;font-size:var(--text-compact);font-weight:800;color:white;box-shadow:0 0 0 6px rgba(11,31,58,0.08);margin-bottom:14px">3</div>
+        <div style="font-size:var(--text-tiny);font-weight:700;color:#5B6B82;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Day 4–5</div>
         <div style="font-size:14px;font-weight:800;color:#0B1F3A;margin-bottom:8px;line-height:1.25">Your options presented</div>
-        <div style="font-size:12px;color:#8B9AAD;line-height:1.55">Clear comparison of your best deals. You choose. No pressure.</div>
+        <div style="font-size:var(--text-caption);color:#8B9AAD;line-height:1.55">Clear comparison of your best deals. You choose. No pressure.</div>
       </div>
 
       <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12px;position:relative;z-index:1">
-        <div style="width:44px;height:44px;border-radius:50%;background:#0B1F3A;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:white;box-shadow:0 0 0 6px rgba(11,31,58,0.08);margin-bottom:14px">4</div>
-        <div style="font-size:10px;font-weight:700;color:#5B6B82;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Week 2</div>
+        <div style="width:44px;height:44px;border-radius:50%;background:#0B1F3A;display:flex;align-items:center;justify-content:center;font-size:var(--text-compact);font-weight:800;color:white;box-shadow:0 0 0 6px rgba(11,31,58,0.08);margin-bottom:14px">4</div>
+        <div style="font-size:var(--text-tiny);font-weight:700;color:#5B6B82;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Week 2</div>
         <div style="font-size:14px;font-weight:800;color:#0B1F3A;margin-bottom:8px;line-height:1.25">Application &amp; docs</div>
-        <div style="font-size:12px;color:#8B9AAD;line-height:1.55">We handle all paperwork and liaise with the lender directly.</div>
+        <div style="font-size:var(--text-caption);color:#8B9AAD;line-height:1.55">We handle all paperwork and liaise with the lender directly.</div>
       </div>
 
       <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12px;position:relative;z-index:1">
-        <div style="width:44px;height:44px;border-radius:50%;background:#16C172;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:white;box-shadow:0 0 0 6px rgba(22,193,114,0.1);margin-bottom:14px">
+        <div style="width:44px;height:44px;border-radius:50%;background:#16C172;display:flex;align-items:center;justify-content:center;font-size:var(--text-compact);font-weight:800;color:white;box-shadow:0 0 0 6px rgba(22,193,114,0.1);margin-bottom:14px">
           <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M4 10L8 14L16 6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
         </div>
-        <div style="font-size:10px;font-weight:700;color:#16C172;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Week 3–4</div>
+        <div style="font-size:var(--text-tiny);font-weight:700;color:#16C172;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Week 3–4</div>
         <div style="font-size:14px;font-weight:800;color:#0B1F3A;margin-bottom:8px;line-height:1.25">Approved &amp; settled</div>
-        <div style="font-size:12px;color:#8B9AAD;line-height:1.55">Formal approval, settlement, and keys in hand.</div>
+        <div style="font-size:var(--text-caption);color:#8B9AAD;line-height:1.55">Formal approval, settlement, and keys in hand.</div>
       </div>
     </div>
   </div>
@@ -290,14 +287,14 @@
   <div style="max-width:1000px;margin:0 auto">
     <div style="display:grid;grid-template-columns:320px 1fr;gap:64px;align-items:start">
       <div>
-        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#5B6B82;margin-bottom:12px">Preparation</div>
-        <h2 style="font-size:clamp(24px,3vw,34px);font-weight:800;color:#0B1F3A;margin:0 0 16px;letter-spacing:-1px;line-height:1.15">What you'll need to apply</h2>
+        <div style="font-size:var(--text-micro);font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#5B6B82;margin-bottom:12px">Preparation</div>
+        <h2 style="font-size:var(--text-h2-compact);font-weight:800;color:#0B1F3A;margin:0 0 16px;letter-spacing:-1px;line-height:1.15">What you'll need to apply</h2>
         <p style="font-size:14.5px;color:#5B6B82;line-height:1.7;margin:0 0 24px">Gather these ahead of your call and we'll move fast. Most clients are pre-approved within 48 hours.</p>
-        <button style="padding:12px 22px;background:#0B1F3A;border:none;color:white;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s" style-hover="opacity:0.85">Book a free call</button>
+        <button style="padding:12px 22px;background:#0B1F3A;border:none;color:white;border-radius:9px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s" style-hover="opacity:0.85">Book a free call</button>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
         <div style="background:#F6F8FB;border:1px solid #E4E9F0;border-radius:14px;padding:22px">
-          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#0E9E5C;margin-bottom:16px">All applicants</div>
+          <div style="font-size:var(--text-micro);font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#0E9E5C;margin-bottom:16px">All applicants</div>
           <div style="display:flex;flex-direction:column;gap:11px">
             <div style="display:flex;align-items:flex-start;gap:9px"><svg style="flex-shrink:0;margin-top:2px" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:13px;color:#1A2433;line-height:1.4">Passport or driver's licence</span></div>
             <div style="display:flex;align-items:flex-start;gap:9px"><svg style="flex-shrink:0;margin-top:2px" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:13px;color:#1A2433;line-height:1.4">Last 3 months payslips</span></div>
@@ -308,7 +305,7 @@
         </div>
         <div>
           <div style="background:#F6F8FB;border:1px solid #E4E9F0;border-radius:14px;padding:22px;margin-bottom:14px">
-            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#5B6B82;margin-bottom:16px">If self-employed</div>
+            <div style="font-size:var(--text-micro);font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#5B6B82;margin-bottom:16px">If self-employed</div>
             <div style="display:flex;flex-direction:column;gap:11px">
               <div style="display:flex;align-items:flex-start;gap:9px"><svg style="flex-shrink:0;margin-top:2px" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#0FB5BA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:13px;color:#1A2433;line-height:1.4">2 years financial statements</span></div>
               <div style="display:flex;align-items:flex-start;gap:9px"><svg style="flex-shrink:0;margin-top:2px" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#0FB5BA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:13px;color:#1A2433;line-height:1.4">2 years IR3 tax returns</span></div>
@@ -316,7 +313,7 @@
             </div>
           </div>
           <div style="background:rgba(22,193,114,0.06);border:1px solid rgba(22,193,114,0.2);border-radius:12px;padding:14px 16px">
-            <div style="font-size:12.5px;font-weight:600;color:#0B1F3A;line-height:1.55">If purchasing: have your Sale &amp; Purchase agreement ready once you have one.</div>
+            <div style="font-size:var(--text-dense-sm);font-weight:600;color:#0B1F3A;line-height:1.55">If purchasing: have your Sale &amp; Purchase agreement ready once you have one.</div>
           </div>
         </div>
       </div>
@@ -328,24 +325,24 @@
 <section style="padding:80px 24px;background:#F6F8FB">
   <div style="max-width:1100px;margin:0 auto">
     <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:40px;flex-wrap:wrap;gap:12px">
-      <h2 style="font-size:clamp(26px,3vw,38px);font-weight:800;color:#0B1F3A;margin:0;letter-spacing:-1px">What our clients say</h2>
-      <div style="display:flex;align-items:center;gap:6px"><span style="color:#E8B04B;font-size:13px;letter-spacing:2px">★★★★★</span><span style="font-size:13px;color:#5B6B82;font-weight:600">4.9 / 5 · 340+ Google reviews</span></div>
+      <h2 style="font-size:var(--text-h2-xs);font-weight:800;color:#0B1F3A;margin:0;letter-spacing:-1px">What our clients say</h2>
+      <div style="display:flex;align-items:center;gap:6px"><span style="color:#E8B04B;font-size:13px;letter-spacing:2px">★★★★★</span><span style="font-size:var(--text-compact);color:#5B6B82;font-weight:600">4.9 / 5 · 340+ Google reviews</span></div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
       <div style="background:white;border:1px solid #E4E9F0;border-radius:18px;padding:30px">
         <span style="color:#E8B04B;font-size:12px;letter-spacing:2px">★★★★★</span>
-        <p style="font-size:15px;color:#1A2433;line-height:1.68;margin:16px 0 22px;font-weight:500">"We were refixing and just about to sign with our bank. Wealthify found us a rate that saves $487 a month. For a 30-minute call, that's ridiculous value."</p>
-        <div><div style="font-size:14px;font-weight:700;color:#0B1F3A">Sarah &amp; Mike H.</div><div style="font-size:12px;color:#8B9AAD;margin-top:3px">Auckland · Refinancing</div></div>
+        <p style="font-size:var(--text-body);color:#1A2433;line-height:1.68;margin:16px 0 22px;font-weight:500">"We were refixing and just about to sign with our bank. Wealthify found us a rate that saves $487 a month. For a 30-minute call, that's ridiculous value."</p>
+        <div><div style="font-size:var(--text-ui);font-weight:700;color:#0B1F3A">Sarah &amp; Mike H.</div><div style="font-size:var(--text-caption);color:#8B9AAD;margin-top:3px">Auckland · Refinancing</div></div>
       </div>
       <div style="background:white;border:1px solid #E4E9F0;border-radius:18px;padding:30px">
         <span style="color:#E8B04B;font-size:12px;letter-spacing:2px">★★★★★</span>
-        <p style="font-size:15px;color:#1A2433;line-height:1.68;margin:16px 0 22px;font-weight:500">"As first home buyers we had no idea where to start. Wealthify explained everything clearly, got us pre-approved in two days, and we're in our home now."</p>
-        <div><div style="font-size:14px;font-weight:700;color:#0B1F3A">Marcus &amp; Talia R.</div><div style="font-size:12px;color:#8B9AAD;margin-top:3px">Wellington · First home</div></div>
+        <p style="font-size:var(--text-body);color:#1A2433;line-height:1.68;margin:16px 0 22px;font-weight:500">"As first home buyers we had no idea where to start. Wealthify explained everything clearly, got us pre-approved in two days, and we're in our home now."</p>
+        <div><div style="font-size:var(--text-ui);font-weight:700;color:#0B1F3A">Marcus &amp; Talia R.</div><div style="font-size:var(--text-caption);color:#8B9AAD;margin-top:3px">Wellington · First home</div></div>
       </div>
       <div style="background:white;border:1px solid #E4E9F0;border-radius:18px;padding:30px">
         <span style="color:#E8B04B;font-size:12px;letter-spacing:2px">★★★★★</span>
-        <p style="font-size:15px;color:#1A2433;line-height:1.68;margin:16px 0 22px;font-weight:500">"Self-employed for 6 years. Every bank turned me down. Wealthify found a lender who understood my financials and got the deal done in 3 weeks."</p>
-        <div><div style="font-size:14px;font-weight:700;color:#0B1F3A">Priya M.</div><div style="font-size:12px;color:#8B9AAD;margin-top:3px">Christchurch · Self-employed</div></div>
+        <p style="font-size:var(--text-body);color:#1A2433;line-height:1.68;margin:16px 0 22px;font-weight:500">"Self-employed for 6 years. Every bank turned me down. Wealthify found a lender who understood my financials and got the deal done in 3 weeks."</p>
+        <div><div style="font-size:var(--text-ui);font-weight:700;color:#0B1F3A">Priya M.</div><div style="font-size:var(--text-caption);color:#8B9AAD;margin-top:3px">Christchurch · Self-employed</div></div>
       </div>
     </div>
   </div>
@@ -355,19 +352,19 @@
 <section style="padding:80px 24px;background:white">
   <div style="max-width:720px;margin:0 auto">
     <div style="text-align:center;margin-bottom:44px">
-      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#5B6B82;margin-bottom:10px">FAQ</div>
-      <h2 style="font-size:clamp(24px,3vw,36px);font-weight:800;color:#0B1F3A;margin:0;letter-spacing:-1px">Questions we get a lot</h2>
+      <div style="font-size:var(--text-micro);font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#5B6B82;margin-bottom:10px">FAQ</div>
+      <h2 style="font-size:var(--text-h2-compact);font-weight:800;color:#0B1F3A;margin:0;letter-spacing:-1px">Questions we get a lot</h2>
     </div>
     <div style="background:#F6F8FB;border-radius:16px;border:1px solid #E4E9F0;overflow:hidden">
 
       <sc-for list="{{ faqItems }}" as="faq" hint-placeholder-count="6">
         <div style="border-bottom:1px solid #E4E9F0">
           <button onClick="{{ faq.toggle }}" style="width:100%;padding:20px 22px;background:none;border:none;display:flex;justify-content:space-between;align-items:center;cursor:pointer;text-align:left;font-family:inherit" style-hover="background:rgba(255,255,255,0.6)">
-            <span style="font-size:15px;font-weight:600;color:#0B1F3A;line-height:1.4;padding-right:16px">{{ faq.q }}</span>
+            <span style="font-size:var(--text-ui-md);font-weight:600;color:#0B1F3A;line-height:1.4;padding-right:16px">{{ faq.q }}</span>
             <span style="font-size:20px;color:#8B9AAD;font-weight:300;flex-shrink:0;width:20px;text-align:center;line-height:1">{{ faq.icon }}</span>
           </button>
           <sc-if value="{{ faq.open }}" hint-placeholder-val="{{ false }}">
-            <div style="padding:0 22px 18px;font-size:14px;color:#5B6B82;line-height:1.72">{{ faq.a }}</div>
+            <div style="padding:0 22px 18px;font-size:var(--text-compact);color:#5B6B82;line-height:1.72">{{ faq.a }}</div>
           </sc-if>
         </div>
       </sc-for>
@@ -379,12 +376,12 @@
 <!-- ═══ CTA ═══ -->
 <section style="padding:80px 24px;background:linear-gradient(135deg,#071929,#0f2d52)">
   <div style="max-width:580px;margin:0 auto;text-align:center">
-    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,0.35);margin-bottom:16px">Free · No obligation · FAP licensed</div>
-    <h2 style="font-size:clamp(28px,4vw,44px);font-weight:800;color:white;margin:0 0 16px;letter-spacing:-1.5px;line-height:1.1">Ready to find your best mortgage?</h2>
+    <div style="font-size:var(--text-micro);font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,0.35);margin-bottom:16px">Free · No obligation · FAP licensed</div>
+    <h2 style="font-size:var(--text-cta-banner);font-weight:800;color:white;margin:0 0 16px;letter-spacing:-1.5px;line-height:1.1">Ready to find your best mortgage?</h2>
     <p style="font-size:16px;color:rgba(255,255,255,0.55);margin:0 0 36px;line-height:1.7">A 30-minute call with a Wealthify adviser could save you tens of thousands. No jargon, no pressure.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-      <button style="padding:15px 30px;background:#16C172;border:none;color:white;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s" style-hover="opacity:0.9">Book a free call</button>
-      <button style="padding:15px 28px;border:1.5px solid rgba(255,255,255,0.2);background:transparent;color:rgba(255,255,255,0.75);border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s" style-hover="background:rgba(255,255,255,0.07);color:white">Call 0800 WEALTHIFY</button>
+      <button style="padding:15px 30px;background:#16C172;border:none;color:white;border-radius:10px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s" style-hover="opacity:0.9">Book a free call</button>
+      <button style="padding:15px 28px;border:1.5px solid rgba(255,255,255,0.2);background:transparent;color:rgba(255,255,255,0.75);border-radius:10px;font-size:var(--text-cta);font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s" style-hover="background:rgba(255,255,255,0.07);color:white">Call 0800 WEALTHIFY</button>
     </div>
   </div>
 </section>
@@ -395,35 +392,34 @@
     <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:44px">
       <div>
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
-          <svg width="30" height="22" viewBox="0 0 34 26" fill="none"><defs><linearGradient id="wgf" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#16C172"></stop><stop offset="100%" stop-color="#0FB5BA"></stop></linearGradient></defs><rect x="0" y="13" width="5" height="13" rx="1.5" fill="url(#wgf)"></rect><rect x="7" y="6" width="5" height="20" rx="1.5" fill="url(#wgf)"></rect><rect x="14.5" y="9" width="5" height="17" rx="1.5" fill="url(#wgf)"></rect><rect x="22" y="2" width="5" height="24" rx="1.5" fill="url(#wgf)"></rect><rect x="29" y="0" width="5" height="26" rx="1.5" fill="url(#wgf)"></rect></svg>
-          <span style="font-size:17px;font-weight:800;color:white;letter-spacing:-0.5px">Wealthify</span>
+          <img src="/assets/brand/logo-white.svg" alt="Wealthify" class="brand-logo brand-logo--sm" height="26">
         </div>
-        <p style="font-size:13px;color:rgba(255,255,255,0.4);line-height:1.7;margin:0 0 20px;max-width:260px">Independent NZ mortgage advisers. Plain English advice, no fees, ever.</p>
+        <p style="font-size:var(--text-compact);color:rgba(255,255,255,0.4);line-height:1.7;margin:0 0 20px;max-width:260px">Independent NZ mortgage advisers. Plain English advice, no fees, ever.</p>
       </div>
       <div>
-        <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px">Mortgages</div>
+        <div style="font-size:var(--text-micro);font-weight:700;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px">Mortgages</div>
         <div style="display:flex;flex-direction:column;gap:10px">
-          <a href="#" style="font-size:13px;color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">First Home</a>
-          <a href="#" style="font-size:13px;color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Refinancing</a>
-          <a href="#" style="font-size:13px;color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Investment</a>
-          <a href="#" style="font-size:13px;color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">New Build</a>
-        </div>
-      </div>
-      <div>
-        <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px">Services</div>
-        <div style="display:flex;flex-direction:column;gap:10px">
-          <a href="./Insurance.dc.html" style="font-size:13px;color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Insurance</a>
-          <a href="./KiwiSaver.dc.html" style="font-size:13px;color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">KiwiSaver</a>
-          <a href="#" style="font-size:13px;color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Personal Loans</a>
-          <a href="#" style="font-size:13px;color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Calculator</a>
+          <a href="#" style="font-size:var(--text-compact);color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">First Home</a>
+          <a href="#" style="font-size:var(--text-compact);color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Refinancing</a>
+          <a href="#" style="font-size:var(--text-compact);color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Investment</a>
+          <a href="#" style="font-size:var(--text-compact);color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">New Build</a>
         </div>
       </div>
       <div>
-        <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px">Legal</div>
+        <div style="font-size:var(--text-micro);font-weight:700;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px">Services</div>
         <div style="display:flex;flex-direction:column;gap:10px">
-          <a href="#" style="font-size:13px;color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Privacy Policy</a>
-          <a href="#" style="font-size:13px;color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Terms of Use</a>
-          <a href="#" style="font-size:13px;color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Disclosure Statement</a>
+          <a href="./Insurance.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Insurance</a>
+          <a href="./KiwiSaver.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">KiwiSaver</a>
+          <a href="#" style="font-size:var(--text-compact);color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Personal Loans</a>
+          <a href="#" style="font-size:var(--text-compact);color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Calculator</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:var(--text-micro);font-weight:700;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px">Legal</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <a href="#" style="font-size:var(--text-compact);color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Privacy Policy</a>
+          <a href="#" style="font-size:var(--text-compact);color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Terms of Use</a>
+          <a href="#" style="font-size:var(--text-compact);color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Disclosure Statement</a>
         </div>
       </div>
     </div>
@@ -556,6 +552,7 @@ class Component extends DCLogic {
       navShadow: scrolled ? '0 2px 20px rgba(0,0,0,0.08)' : 'none',
       navTextColor: scrolled ? '#0B1F3A' : 'white',
       navBtnBorder: scrolled ? '#E4E9F0' : 'rgba(255,255,255,0.3)',
+      navClass: scrolled ? '' : 'nav-on-dark',
 
       // Category cards
       cat0Bg: cs[0].bg, cat0Border: cs[0].border, cat0Shadow: cs[0].shadow,

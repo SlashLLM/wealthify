@@ -9,9 +9,13 @@
 <x-dc>
 <helmet>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="../typography.css" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
   <style>
     *{box-sizing:border-box}
-    html,body{margin:0;height:100%;font-family:'Plus Jakarta Sans',sans-serif;color:#1A2433;background:#071929}
+    html,body{margin:0;height:100%;font-family:'Plus Jakarta Sans',sans-serif;font-size:var(--text-body);color:#1A2433;background:#071929}
     input,button,textarea{font-family:inherit}
     a{text-decoration:none;color:inherit}
     ::placeholder{color:#8B9AAD}
@@ -27,14 +31,7 @@
 <!-- ── INIT LOADING ── -->
 <sc-if value="{{ showInit }}" hint-placeholder-val="{{ true }}">
   <div style="min-height:100vh;background:#071929;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:24px">
-    <svg width="38" height="30" viewBox="0 0 34 26" fill="none">
-      <defs><linearGradient id="ig" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#16C172"></stop><stop offset="100%" stop-color="#0FB5BA"></stop></linearGradient></defs>
-      <rect x="0" y="13" width="5" height="13" rx="1.5" fill="url(#ig)"></rect>
-      <rect x="7" y="6" width="5" height="20" rx="1.5" fill="url(#ig)"></rect>
-      <rect x="14.5" y="9" width="5" height="17" rx="1.5" fill="url(#ig)"></rect>
-      <rect x="22" y="2" width="5" height="24" rx="1.5" fill="url(#ig)"></rect>
-      <rect x="29" y="0" width="5" height="26" rx="1.5" fill="url(#ig)"></rect>
-    </svg>
+    <img src="/assets/brand/logo-white.svg" alt="Wealthify" class="brand-logo" height="32" style="height:32px">
     <div style="width:18px;height:18px;border:2px solid rgba(255,255,255,0.08);border-top-color:#16C172;border-radius:50%;animation:spin 0.75s linear infinite"></div>
   </div>
 </sc-if>
@@ -48,38 +45,30 @@
 
         <!-- Brand -->
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:30px">
-          <svg width="28" height="22" viewBox="0 0 34 26" fill="none">
-            <defs><linearGradient id="lg" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#16C172"></stop><stop offset="100%" stop-color="#0FB5BA"></stop></linearGradient></defs>
-            <rect x="0" y="13" width="5" height="13" rx="1.5" fill="url(#lg)"></rect>
-            <rect x="7" y="6" width="5" height="20" rx="1.5" fill="url(#lg)"></rect>
-            <rect x="14.5" y="9" width="5" height="17" rx="1.5" fill="url(#lg)"></rect>
-            <rect x="22" y="2" width="5" height="24" rx="1.5" fill="url(#lg)"></rect>
-            <rect x="29" y="0" width="5" height="26" rx="1.5" fill="url(#lg)"></rect>
-          </svg>
-          <span style="font-size:17px;font-weight:800;color:#071929;letter-spacing:-0.4px">Wealthify</span>
-          <span style="margin-left:auto;padding:4px 9px;background:#F0F3F8;border-radius:5px;font-size:9.5px;font-weight:700;color:#5B6B82;letter-spacing:.06em;text-transform:uppercase">Admin</span>
+          <img src="/assets/brand/logo-black.svg" alt="Wealthify" class="brand-logo" height="28">
+          <span style="margin-left:auto;padding:4px 9px;background:#F0F3F8;border-radius:5px;font-size:var(--text-tiny-sm);font-weight:700;color:#5B6B82;letter-spacing:.06em;text-transform:uppercase">Admin</span>
         </div>
 
-        <h1 style="font-size:20px;font-weight:800;color:#0B1F3A;margin:0 0 5px;letter-spacing:-0.4px">Welcome back</h1>
-        <p style="font-size:13px;color:#8B9AAD;margin:0 0 26px;line-height:1.5">Sign in to manage leads and generate reports.</p>
+        <h1 style="font-size:var(--text-h3);font-weight:800;color:#0B1F3A;margin:0 0 5px;letter-spacing:-0.4px">Welcome back</h1>
+        <p style="font-size:var(--text-compact);color:#8B9AAD;margin:0 0 26px;line-height:1.5">Sign in to manage leads and generate reports.</p>
 
         <form onSubmit="{{ onLogin }}">
           <div style="margin-bottom:16px">
-            <label style="display:block;font-size:10.5px;font-weight:700;color:#5B6B82;text-transform:uppercase;letter-spacing:.05em;margin-bottom:7px">Password</label>
+            <label style="display:block;font-size:var(--text-tiny-sm);font-weight:700;color:#5B6B82;text-transform:uppercase;letter-spacing:.05em;margin-bottom:7px">Password</label>
             <input type="password" autocomplete="current-password" required
-              style="width:100%;height:44px;padding:0 14px;border:1.5px solid #E4E9F0;border-radius:9px;font-size:14px;font-weight:500;color:#0B1F3A;background:#fff;transition:border-color 0.15s,box-shadow 0.15s"
+              style="width:100%;height:44px;padding:0 14px;border:1.5px solid #E4E9F0;border-radius:9px;font-size:var(--text-ui);font-weight:500;color:#0B1F3A;background:#fff;transition:border-color 0.15s,box-shadow 0.15s"
               style-focus="border-color:#16C172;box-shadow:0 0 0 3px rgba(22,193,114,0.12)">
           </div>
           <button type="submit" disabled="{{ loginBtnDisabled }}"
-            style="width:100%;height:46px;background:linear-gradient(135deg,#16C172,#0E9E5C);border:none;border-radius:9px;font-size:14px;font-weight:700;color:white;cursor:pointer;letter-spacing:-0.2px;transition:opacity 0.15s"
+            style="width:100%;height:46px;background:linear-gradient(135deg,#16C172,#0E9E5C);border:none;border-radius:9px;font-size:var(--text-cta);font-weight:700;color:white;cursor:pointer;letter-spacing:-0.2px;transition:opacity 0.15s"
             style-hover="opacity:0.88">{{ loginBtnText }}</button>
         </form>
 
         <sc-if value="{{ loginError }}" hint-placeholder-val="{{ false }}">
-          <div style="margin-top:13px;padding:11px 13px;background:rgba(214,69,69,0.07);border:1px solid rgba(214,69,69,0.15);border-radius:8px;color:#C84040;font-size:13px;font-weight:600">{{ loginError }}</div>
+          <div style="margin-top:13px;padding:11px 13px;background:rgba(214,69,69,0.07);border:1px solid rgba(214,69,69,0.15);border-radius:8px;color:#C84040;font-size:var(--text-dense);font-weight:600">{{ loginError }}</div>
         </sc-if>
       </div>
-      <p style="text-align:center;margin-top:18px;font-size:11px;color:rgba(255,255,255,0.18);font-weight:500">Wealthify · Internal use only</p>
+      <p style="text-align:center;margin-top:18px;font-size:var(--text-micro);color:rgba(255,255,255,0.18);font-weight:500">Wealthify · Internal use only</p>
     </div>
   </div>
 </sc-if>
@@ -94,15 +83,7 @@
       <!-- Logo -->
       <div style="padding:20px 18px 16px;border-bottom:1px solid rgba(255,255,255,0.05)">
         <div style="display:flex;align-items:center;gap:8px">
-          <svg width="24" height="19" viewBox="0 0 34 26" fill="none">
-            <defs><linearGradient id="sl" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#16C172"></stop><stop offset="100%" stop-color="#0FB5BA"></stop></linearGradient></defs>
-            <rect x="0" y="13" width="5" height="13" rx="1.5" fill="url(#sl)"></rect>
-            <rect x="7" y="6" width="5" height="20" rx="1.5" fill="url(#sl)"></rect>
-            <rect x="14.5" y="9" width="5" height="17" rx="1.5" fill="url(#sl)"></rect>
-            <rect x="22" y="2" width="5" height="24" rx="1.5" fill="url(#sl)"></rect>
-            <rect x="29" y="0" width="5" height="26" rx="1.5" fill="url(#sl)"></rect>
-          </svg>
-          <span style="font-size:15px;font-weight:800;color:white;letter-spacing:-0.4px">Wealthify</span>
+          <img src="/assets/brand/logo-white.svg" alt="Wealthify" class="brand-logo" height="22" style="height:22px">
         </div>
         <div style="display:inline-flex;align-items:center;gap:5px;margin-top:9px;padding:3px 8px;background:rgba(22,193,114,0.12);border:1px solid rgba(22,193,114,0.18);border-radius:4px">
           <div style="width:5px;height:5px;background:#16C172;border-radius:50%"></div>
@@ -123,8 +104,8 @@
             <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
             <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
           </svg>
-          <span style="font-size:13px;font-weight:{{ navLeadsWeight }};color:{{ navLeadsColor }};flex:1">Refinance Leads</span>
-          <span style="background:rgba(22,193,114,0.18);color:#16C172;font-size:10px;font-weight:800;padding:1px 7px;border-radius:20px;border:1px solid rgba(22,193,114,0.2)">{{ totalLeads }}</span>
+          <span style="font-size:var(--text-nav);font-weight:{{ navLeadsWeight }};color:{{ navLeadsColor }};flex:1">Refinance Leads</span>
+          <span style="background:rgba(22,193,114,0.18);color:#16C172;font-size:var(--text-tiny);font-weight:800;padding:1px 7px;border-radius:20px;border:1px solid rgba(22,193,114,0.2)">{{ totalLeads }}</span>
         </div>
 
         <div style="margin:14px 0 5px;padding:0 8px;font-size:9px;font-weight:700;color:rgba(255,255,255,0.18);text-transform:uppercase;letter-spacing:.1em">Tools</div>
@@ -137,7 +118,7 @@
             <line x1="12" y1="20" x2="12" y2="4"></line>
             <line x1="6" y1="20" x2="6" y2="14"></line>
           </svg>
-          <span style="font-size:13px;font-weight:{{ navRatesWeight }};color:{{ navRatesColor }};flex:1">Mortgage Rates</span>
+          <span style="font-size:var(--text-nav);font-weight:{{ navRatesWeight }};color:{{ navRatesColor }};flex:1">Mortgage Rates</span>
         </div>
 
         <div style="display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:8px;cursor:not-allowed;opacity:0.28">
@@ -147,7 +128,7 @@
             <line x1="16" y1="13" x2="8" y2="13"></line>
             <line x1="16" y1="17" x2="8" y2="17"></line>
           </svg>
-          <span style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.5)">PDF Reports</span>
+          <span style="font-size:var(--text-nav);font-weight:600;color:rgba(255,255,255,0.5)">PDF Reports</span>
           <span style="font-size:9px;font-weight:600;color:rgba(255,255,255,0.2);margin-left:auto">Soon</span>
         </div>
       </div>
@@ -162,7 +143,7 @@
             <polyline points="16 17 21 12 16 7"></polyline>
             <line x1="21" y1="12" x2="9" y2="12"></line>
           </svg>
-          <span style="font-size:12.5px;font-weight:600;color:rgba(255,255,255,0.25)">Log out</span>
+          <span style="font-size:var(--text-dense-sm);font-weight:600;color:rgba(255,255,255,0.25)">Log out</span>
         </button>
       </div>
     </aside>
@@ -178,8 +159,8 @@
           <div style="padding:24px 30px 18px;background:#F0F3F8;position:sticky;top:0;z-index:10;border-bottom:1px solid #E0E6EF">
             <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
               <div>
-                <h1 style="font-size:19px;font-weight:800;color:#0B1F3A;margin:0;letter-spacing:-0.5px">Refinance Leads</h1>
-                <p style="font-size:12.5px;color:#8B9AAD;margin:3px 0 0">{{ totalLeads }} total · {{ thisWeek }} new this week</p>
+                <h1 style="font-size:var(--text-ui-md);font-weight:800;color:#0B1F3A;margin:0;letter-spacing:-0.5px">Refinance Leads</h1>
+                <p style="font-size:var(--text-dense-sm);color:#8B9AAD;margin:3px 0 0">{{ totalLeads }} total · {{ thisWeek }} new this week</p>
               </div>
               <div style="position:relative">
                 <svg style="position:absolute;left:11px;top:50%;transform:translateY(-50%);pointer-events:none" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8B9AAD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -187,7 +168,7 @@
                   <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
                 <input type="search" placeholder="Search by name, email, phone or address…" value="{{ search }}" onInput="{{ onSearch }}"
-                  style="height:38px;padding:0 14px 0 34px;border:1.5px solid #E4E9F0;border-radius:8px;font-size:12.5px;color:#0B1F3A;background:white;width:290px;transition:border-color 0.15s,box-shadow 0.15s"
+                  style="height:38px;padding:0 14px 0 34px;border:1.5px solid #E4E9F0;border-radius:8px;font-size:var(--text-dense-sm);color:#0B1F3A;background:white;width:290px;transition:border-color 0.15s,box-shadow 0.15s"
                   style-focus="border-color:#16C172;box-shadow:0 0 0 3px rgba(22,193,114,0.1)">
               </div>
             </div>
@@ -196,24 +177,24 @@
           <!-- Stats row -->
           <div style="padding:20px 30px 0;display:grid;grid-template-columns:repeat(4,1fr);gap:13px">
             <div style="background:white;border-radius:12px;padding:18px 20px;border:1px solid #E4E9F0">
-              <div style="font-size:9.5px;font-weight:700;color:#B0BAC5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Total Leads</div>
+              <div style="font-size:var(--text-tiny-sm);font-weight:700;color:#B0BAC5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Total Leads</div>
               <div style="font-size:30px;font-weight:800;color:#0B1F3A;letter-spacing:-1.5px;line-height:1">{{ totalLeads }}</div>
-              <div style="font-size:10.5px;color:#C4CDD6;margin-top:6px">all time</div>
+              <div style="font-size:var(--text-tiny-sm);color:#C4CDD6;margin-top:6px">all time</div>
             </div>
             <div style="background:white;border-radius:12px;padding:18px 20px;border:1px solid #E4E9F0">
-              <div style="font-size:9.5px;font-weight:700;color:#B0BAC5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">This Week</div>
+              <div style="font-size:var(--text-tiny-sm);font-weight:700;color:#B0BAC5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">This Week</div>
               <div style="font-size:30px;font-weight:800;color:#16C172;letter-spacing:-1.5px;line-height:1">{{ thisWeek }}</div>
-              <div style="font-size:10.5px;color:#C4CDD6;margin-top:6px">last 7 days</div>
+              <div style="font-size:var(--text-tiny-sm);color:#C4CDD6;margin-top:6px">last 7 days</div>
             </div>
             <div style="background:white;border-radius:12px;padding:18px 20px;border:1px solid #E4E9F0">
-              <div style="font-size:9.5px;font-weight:700;color:#B0BAC5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Avg. Balance</div>
+              <div style="font-size:var(--text-tiny-sm);font-weight:700;color:#B0BAC5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Avg. Balance</div>
               <div style="font-size:24px;font-weight:800;color:#0B1F3A;letter-spacing:-1px;line-height:1">{{ avgBal }}</div>
-              <div style="font-size:10.5px;color:#C4CDD6;margin-top:6px">loan size</div>
+              <div style="font-size:var(--text-tiny-sm);color:#C4CDD6;margin-top:6px">loan size</div>
             </div>
             <div style="background:white;border-radius:12px;padding:18px 20px;border:1px solid #E4E9F0">
-              <div style="font-size:9.5px;font-weight:700;color:#B0BAC5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Full Data</div>
+              <div style="font-size:var(--text-tiny-sm);font-weight:700;color:#B0BAC5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Full Data</div>
               <div style="font-size:30px;font-weight:800;color:#0B1F3A;letter-spacing:-1.5px;line-height:1">{{ complete }}</div>
-              <div style="font-size:10.5px;color:#C4CDD6;margin-top:6px">address + balance</div>
+              <div style="font-size:var(--text-tiny-sm);color:#C4CDD6;margin-top:6px">address + balance</div>
             </div>
           </div>
 
@@ -221,24 +202,24 @@
           <div style="padding:16px 30px 40px">
             <div style="background:white;border-radius:14px;border:1px solid #E4E9F0;overflow:hidden">
               <div style="overflow-x:auto">
-                <table style="width:100%;border-collapse:collapse;font-size:13px">
+                <table style="width:100%;border-collapse:collapse;font-size:var(--text-dense)">
                   <thead>
                     <tr style="border-bottom:1px solid #F0F3F8">
-                      <th style="padding:12px 20px;text-align:left;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;white-space:nowrap;background:#FAFBFC">Date</th>
-                      <th style="padding:12px 20px;text-align:left;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Name</th>
-                      <th style="padding:12px 20px;text-align:left;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Email</th>
-                      <th style="padding:12px 20px;text-align:left;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Phone</th>
-                      <th style="padding:12px 20px;text-align:left;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Bank</th>
-                      <th style="padding:12px 20px;text-align:right;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Balance</th>
-                      <th style="padding:12px 20px;text-align:right;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Rate</th>
-                      <th style="padding:12px 20px;text-align:center;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Status</th>
+                      <th style="padding:12px 20px;text-align:left;font-size:var(--text-tiny-sm);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;white-space:nowrap;background:#FAFBFC">Date</th>
+                      <th style="padding:12px 20px;text-align:left;font-size:var(--text-tiny-sm);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Name</th>
+                      <th style="padding:12px 20px;text-align:left;font-size:var(--text-tiny-sm);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Email</th>
+                      <th style="padding:12px 20px;text-align:left;font-size:var(--text-tiny-sm);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Phone</th>
+                      <th style="padding:12px 20px;text-align:left;font-size:var(--text-tiny-sm);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Bank</th>
+                      <th style="padding:12px 20px;text-align:right;font-size:var(--text-tiny-sm);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Balance</th>
+                      <th style="padding:12px 20px;text-align:right;font-size:var(--text-tiny-sm);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Rate</th>
+                      <th style="padding:12px 20px;text-align:center;font-size:var(--text-tiny-sm);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Status</th>
                       <th style="padding:12px 14px;background:#FAFBFC;width:28px"></th>
                     </tr>
                   </thead>
                   <tbody>
                     <sc-for list="{{ leadRows }}" as="row" hint-placeholder-count="5">
                       <tr style="border-bottom:1px solid #F6F8FB;cursor:pointer;transition:background 0.1s" style-hover="background:#F8FAFC" onClick="{{ row.onClick }}">
-                        <td style="padding:13px 20px;font-size:12px;color:#8B9AAD;white-space:nowrap">{{ row.dateFmt }}</td>
+                        <td style="padding:13px 20px;font-size:var(--text-caption);color:#8B9AAD;white-space:nowrap">{{ row.dateFmt }}</td>
                         <td style="padding:13px 20px;font-weight:700;color:#0B1F3A">{{ row.fullName }}</td>
                         <td style="padding:13px 20px;color:#5B6B82">{{ row.email }}</td>
                         <td style="padding:13px 20px;color:#5B6B82;white-space:nowrap">{{ row.phone }}</td>
@@ -246,7 +227,7 @@
                         <td style="padding:13px 20px;text-align:right;font-weight:700;color:#0B1F3A">{{ row.balFmt }}</td>
                         <td style="padding:13px 20px;text-align:right;font-weight:600;color:#5B6B82">{{ row.rateFmt }}</td>
                         <td style="padding:13px 20px;text-align:center">
-                          <span style="display:inline-block;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:700;background:{{ row.statusBg }};color:{{ row.statusColor }}">{{ row.statusLabel }}</span>
+                          <span style="display:inline-block;padding:3px 9px;border-radius:20px;font-size:var(--text-tiny);font-weight:700;background:{{ row.statusBg }};color:{{ row.statusColor }}">{{ row.statusLabel }}</span>
                         </td>
                         <td style="padding:13px 14px;text-align:right;color:#D0D6E2">
                           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
@@ -265,8 +246,8 @@
                     <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
                     <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                   </svg>
-                  <p style="font-size:14px;color:#8B9AAD;font-weight:600;margin:0">No leads found</p>
-                  <p style="font-size:12.5px;color:#B0BAC5;margin:5px 0 0">Try a different search, or check back later</p>
+                  <p style="font-size:var(--text-compact);color:#8B9AAD;font-weight:600;margin:0">No leads found</p>
+                  <p style="font-size:var(--text-dense-sm);color:#B0BAC5;margin:5px 0 0">Try a different search, or check back later</p>
                 </div>
               </sc-if>
             </div>
@@ -280,7 +261,7 @@
 
           <!-- Back -->
           <button onClick="{{ onBack }}"
-            style="display:inline-flex;align-items:center;gap:6px;padding:7px 12px;background:white;border:1.5px solid #E4E9F0;border-radius:8px;font-size:12.5px;font-weight:600;color:#5B6B82;cursor:pointer;margin-bottom:20px;transition:all 0.15s"
+            style="display:inline-flex;align-items:center;gap:6px;padding:7px 12px;background:white;border:1.5px solid #E4E9F0;border-radius:8px;font-size:var(--text-dense-sm);font-weight:600;color:#5B6B82;cursor:pointer;margin-bottom:20px;transition:all 0.15s"
             style-hover="border-color:#C4CDD6;color:#0B1F3A">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
             All leads
@@ -290,19 +271,19 @@
           <div style="background:white;border-radius:14px;padding:22px 26px;border:1px solid #E4E9F0;margin-bottom:16px">
             <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap">
               <div>
-                <div style="font-size:9.5px;font-weight:700;color:#B0BAC5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px">Lead</div>
-                <h2 style="font-size:19px;font-weight:800;color:#0B1F3A;margin:0 0 8px;letter-spacing:-0.4px">{{ detailEmail }}</h2>
+                <div style="font-size:var(--text-tiny-sm);font-weight:700;color:#B0BAC5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px">Lead</div>
+                <h2 style="font-size:var(--text-ui-md);font-weight:800;color:#0B1F3A;margin:0 0 8px;letter-spacing:-0.4px">{{ detailEmail }}</h2>
                 <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-                  <span style="font-size:12px;color:#8B9AAD">Submitted {{ detailDate }}</span>
+                  <span style="font-size:var(--text-caption);color:#8B9AAD">Submitted {{ detailDate }}</span>
                   <span style="padding:3px 8px;background:rgba(22,193,114,0.08);border:1px solid rgba(22,193,114,0.15);border-radius:5px;font-size:9px;font-weight:700;color:#0E9E5C;letter-spacing:.04em;text-transform:uppercase">{{ detailSource }}</span>
                 </div>
               </div>
               <div style="display:flex;align-items:center;gap:9px">
                 <button onClick="{{ onSave }}" disabled="{{ saveBtnDisabled }}"
-                  style="display:inline-flex;align-items:center;gap:6px;padding:9px 15px;background:white;border:1.5px solid #E4E9F0;border-radius:8px;font-size:12.5px;font-weight:700;color:#0B1F3A;cursor:pointer;white-space:nowrap;transition:all 0.15s"
+                  style="display:inline-flex;align-items:center;gap:6px;padding:9px 15px;background:white;border:1.5px solid #E4E9F0;border-radius:8px;font-size:var(--text-dense-sm);font-weight:700;color:#0B1F3A;cursor:pointer;white-space:nowrap;transition:all 0.15s"
                   style-hover="border-color:#C4CDD6;background:#FAFBFC">{{ saveBtnText }}</button>
                 <button onClick="{{ onGenPDF }}" disabled="{{ genBtnDisabled }}"
-                  style="display:inline-flex;align-items:center;gap:7px;padding:9px 16px;background:linear-gradient(135deg,#16C172,#0E9E5C);border:none;border-radius:8px;font-size:12.5px;font-weight:700;color:white;cursor:pointer;white-space:nowrap;transition:opacity 0.15s"
+                  style="display:inline-flex;align-items:center;gap:7px;padding:9px 16px;background:linear-gradient(135deg,#16C172,#0E9E5C);border:none;border-radius:8px;font-size:var(--text-dense-sm);font-weight:700;color:white;cursor:pointer;white-space:nowrap;transition:opacity 0.15s"
                   style-hover="opacity:0.88">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                   {{ genBtnText }}
@@ -316,11 +297,11 @@
 
             <!-- Client info -->
             <div style="background:white;border-radius:14px;padding:20px 24px;border:1px solid #E4E9F0">
-              <h3 style="font-size:12.5px;font-weight:800;color:#0B1F3A;margin:0 0 14px;letter-spacing:-0.2px">Client Information</h3>
+              <h3 style="font-size:var(--text-dense-sm);font-weight:800;color:#0B1F3A;margin:0 0 14px;letter-spacing:-0.2px">Client Information</h3>
               <sc-for list="{{ clientFields }}" as="field" hint-placeholder-count="6">
                 <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:10px 0;border-bottom:1px solid #F6F8FB">
-                  <span style="font-size:11.5px;font-weight:600;color:#8B9AAD;white-space:nowrap;flex-shrink:0">{{ field.label }}</span>
-                  <span style="font-size:13.5px;font-weight:700;color:#0B1F3A;text-align:right;word-break:break-all">{{ field.value }}</span>
+                  <span style="font-size:var(--text-label);font-weight:600;color:#8B9AAD;white-space:nowrap;flex-shrink:0">{{ field.label }}</span>
+                  <span style="font-size:var(--text-tab);font-weight:700;color:#0B1F3A;text-align:right;word-break:break-all">{{ field.value }}</span>
                 </div>
               </sc-for>
             </div>
@@ -334,20 +315,20 @@
                   <div style="font-size:9px;font-weight:700;color:rgba(255,255,255,0.28);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px">Live savings estimate</div>
                   <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
                     <div>
-                      <div style="font-size:10px;color:rgba(255,255,255,0.3);margin-bottom:4px">Monthly saving</div>
-                      <div style="font-size:21px;font-weight:800;color:#16C172;letter-spacing:-1px;line-height:1">{{ savingsEst.moSave }}</div>
+                      <div style="font-size:var(--text-tiny);color:rgba(255,255,255,0.3);margin-bottom:4px">Monthly saving</div>
+                      <div style="font-size:var(--text-stat-md);font-weight:800;color:#16C172;letter-spacing:-1px;line-height:1">{{ savingsEst.moSave }}</div>
                     </div>
                     <div>
-                      <div style="font-size:10px;color:rgba(255,255,255,0.3);margin-bottom:4px">Cashback</div>
-                      <div style="font-size:21px;font-weight:800;color:white;letter-spacing:-1px;line-height:1">{{ savingsEst.cb }}</div>
+                      <div style="font-size:var(--text-tiny);color:rgba(255,255,255,0.3);margin-bottom:4px">Cashback</div>
+                      <div style="font-size:var(--text-stat-md);font-weight:800;color:white;letter-spacing:-1px;line-height:1">{{ savingsEst.cb }}</div>
                     </div>
                     <div>
-                      <div style="font-size:10px;color:rgba(255,255,255,0.3);margin-bottom:4px">Total costs</div>
-                      <div style="font-size:15px;font-weight:700;color:rgba(255,255,255,0.45);letter-spacing:-0.5px">{{ savingsEst.costs }}</div>
+                      <div style="font-size:var(--text-tiny);color:rgba(255,255,255,0.3);margin-bottom:4px">Total costs</div>
+                      <div style="font-size:var(--text-ui-md);font-weight:700;color:rgba(255,255,255,0.45);letter-spacing:-0.5px">{{ savingsEst.costs }}</div>
                     </div>
                     <div>
-                      <div style="font-size:10px;color:rgba(255,255,255,0.3);margin-bottom:4px">Net year 1</div>
-                      <div style="font-size:15px;font-weight:700;color:#16C172;letter-spacing:-0.5px">{{ savingsEst.net1yr }}</div>
+                      <div style="font-size:var(--text-tiny);color:rgba(255,255,255,0.3);margin-bottom:4px">Net year 1</div>
+                      <div style="font-size:var(--text-ui-md);font-weight:700;color:#16C172;letter-spacing:-0.5px">{{ savingsEst.net1yr }}</div>
                     </div>
                   </div>
                 </div>
@@ -355,36 +336,36 @@
 
               <!-- Options form -->
               <div style="background:white;border-radius:14px;padding:20px 24px;border:1px solid #E4E9F0">
-                <h3 style="font-size:12.5px;font-weight:800;color:#0B1F3A;margin:0 0 4px;letter-spacing:-0.2px">Refinance Options</h3>
-                <p style="font-size:11.5px;color:#8B9AAD;margin:0 0 16px;line-height:1.5">Set parameters for the PDF report. Savings update live above.</p>
+                <h3 style="font-size:var(--text-dense-sm);font-weight:800;color:#0B1F3A;margin:0 0 4px;letter-spacing:-0.2px">Refinance Options</h3>
+                <p style="font-size:var(--text-label);color:#8B9AAD;margin:0 0 16px;line-height:1.5">Set parameters for the PDF report. Savings update live above.</p>
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:13px">
                   <div>
-                    <label style="display:block;font-size:9.5px;font-weight:700;color:#5B6B82;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">New rate (%)</label>
+                    <label style="display:block;font-size:var(--text-tiny-sm);font-weight:700;color:#5B6B82;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">New rate (%)</label>
                     <input type="text" inputmode="decimal" value="{{ optRate }}" onInput="{{ onOptRate }}"
-                      style="width:100%;height:40px;padding:0 11px;border:1.5px solid #E4E9F0;border-radius:7px;font-size:14px;font-weight:700;color:#0B1F3A;transition:border-color 0.15s"
+                      style="width:100%;height:40px;padding:0 11px;border:1.5px solid #E4E9F0;border-radius:7px;font-size:var(--text-ui);font-weight:700;color:#0B1F3A;transition:border-color 0.15s"
                       style-focus="border-color:#16C172;box-shadow:0 0 0 3px rgba(22,193,114,0.1)">
-                    <div style="font-size:9.5px;color:#C4CDD6;margin-top:3px">NZ Jun 2026: 4.49–4.79%</div>
+                    <div style="font-size:var(--text-tiny-sm);color:#C4CDD6;margin-top:3px">NZ Jun 2026: 4.49–4.79%</div>
                   </div>
                   <div>
-                    <label style="display:block;font-size:9.5px;font-weight:700;color:#5B6B82;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Cashback (%)</label>
+                    <label style="display:block;font-size:var(--text-tiny-sm);font-weight:700;color:#5B6B82;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Cashback (%)</label>
                     <input type="text" inputmode="decimal" value="{{ optCashback }}" onInput="{{ onOptCashback }}"
-                      style="width:100%;height:40px;padding:0 11px;border:1.5px solid #E4E9F0;border-radius:7px;font-size:14px;font-weight:700;color:#0B1F3A;transition:border-color 0.15s"
+                      style="width:100%;height:40px;padding:0 11px;border:1.5px solid #E4E9F0;border-radius:7px;font-size:var(--text-ui);font-weight:700;color:#0B1F3A;transition:border-color 0.15s"
                       style-focus="border-color:#16C172;box-shadow:0 0 0 3px rgba(22,193,114,0.1)">
-                    <div style="font-size:9.5px;color:#C4CDD6;margin-top:3px">Typically 0.85–1.25%</div>
+                    <div style="font-size:var(--text-tiny-sm);color:#C4CDD6;margin-top:3px">Typically 0.85–1.25%</div>
                   </div>
                   <div>
-                    <label style="display:block;font-size:9.5px;font-weight:700;color:#5B6B82;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Break fee ($)</label>
+                    <label style="display:block;font-size:var(--text-tiny-sm);font-weight:700;color:#5B6B82;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Break fee ($)</label>
                     <input type="text" inputmode="numeric" value="{{ optBreak }}" onInput="{{ onOptBreak }}"
-                      style="width:100%;height:40px;padding:0 11px;border:1.5px solid #E4E9F0;border-radius:7px;font-size:14px;font-weight:700;color:#0B1F3A;transition:border-color 0.15s"
+                      style="width:100%;height:40px;padding:0 11px;border:1.5px solid #E4E9F0;border-radius:7px;font-size:var(--text-ui);font-weight:700;color:#0B1F3A;transition:border-color 0.15s"
                       style-focus="border-color:#16C172;box-shadow:0 0 0 3px rgba(22,193,114,0.1)">
-                    <div style="font-size:9.5px;color:#C4CDD6;margin-top:3px">Near $0 at rollover</div>
+                    <div style="font-size:var(--text-tiny-sm);color:#C4CDD6;margin-top:3px">Near $0 at rollover</div>
                   </div>
                   <div>
-                    <label style="display:block;font-size:9.5px;font-weight:700;color:#5B6B82;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Legal costs ($)</label>
+                    <label style="display:block;font-size:var(--text-tiny-sm);font-weight:700;color:#5B6B82;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Legal costs ($)</label>
                     <input type="text" inputmode="numeric" value="{{ optLegal }}" onInput="{{ onOptLegal }}"
-                      style="width:100%;height:40px;padding:0 11px;border:1.5px solid #E4E9F0;border-radius:7px;font-size:14px;font-weight:700;color:#0B1F3A;transition:border-color 0.15s"
+                      style="width:100%;height:40px;padding:0 11px;border:1.5px solid #E4E9F0;border-radius:7px;font-size:var(--text-ui);font-weight:700;color:#0B1F3A;transition:border-color 0.15s"
                       style-focus="border-color:#16C172;box-shadow:0 0 0 3px rgba(22,193,114,0.1)">
-                    <div style="font-size:9.5px;color:#C4CDD6;margin-top:3px">Typical NZ: $800–$1,500</div>
+                    <div style="font-size:var(--text-tiny-sm);color:#C4CDD6;margin-top:3px">Typical NZ: $800–$1,500</div>
                   </div>
                 </div>
               </div>
@@ -392,7 +373,7 @@
           </div>
 
           <sc-if value="{{ error }}" hint-placeholder-val="{{ false }}">
-            <div style="margin-top:14px;padding:12px 14px;background:rgba(214,69,69,0.07);border:1px solid rgba(214,69,69,0.15);border-radius:9px;color:#C84040;font-size:13px;font-weight:600">{{ error }}</div>
+            <div style="margin-top:14px;padding:12px 14px;background:rgba(214,69,69,0.07);border:1px solid rgba(214,69,69,0.15);border-radius:9px;color:#C84040;font-size:var(--text-dense);font-weight:600">{{ error }}</div>
           </sc-if>
         </div>
       </sc-if>
@@ -405,15 +386,15 @@
           <div style="padding:24px 30px 18px;background:#F0F3F8;position:sticky;top:0;z-index:10;border-bottom:1px solid #E0E6EF">
             <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
               <div>
-                <h1 style="font-size:19px;font-weight:800;color:#0B1F3A;margin:0;letter-spacing:-0.5px">Mortgage Rates</h1>
-                <p style="font-size:12.5px;color:#8B9AAD;margin:3px 0 0">{{ ratesSubtitle }}</p>
+                <h1 style="font-size:var(--text-ui-md);font-weight:800;color:#0B1F3A;margin:0;letter-spacing:-0.5px">Mortgage Rates</h1>
+                <p style="font-size:var(--text-dense-sm);color:#8B9AAD;margin:3px 0 0">{{ ratesSubtitle }}</p>
               </div>
               <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
                 <sc-if value="{{ ratesLastUpdatedFmt }}" hint-placeholder-val="{{ false }}">
-                  <span style="font-size:11.5px;color:#B0BAC5;white-space:nowrap">Updated {{ ratesLastUpdatedFmt }}</span>
+                  <span style="font-size:var(--text-label);color:#B0BAC5;white-space:nowrap">Updated {{ ratesLastUpdatedFmt }}</span>
                 </sc-if>
                 <button onClick="{{ onRefreshRates }}" disabled="{{ ratesLoading }}"
-                  style="display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 14px;background:white;border:1.5px solid #E4E9F0;border-radius:8px;font-size:12.5px;font-weight:700;color:#0B1F3A;cursor:pointer;transition:all 0.15s"
+                  style="display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 14px;background:white;border:1.5px solid #E4E9F0;border-radius:8px;font-size:var(--text-dense-sm);font-weight:700;color:#0B1F3A;cursor:pointer;transition:all 0.15s"
                   style-hover="border-color:#C4CDD6;background:#FAFBFC">
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
                   {{ refreshBtnText }}
@@ -423,7 +404,7 @@
           </div>
 
           <sc-if value="{{ ratesError }}" hint-placeholder-val="{{ false }}">
-            <div style="margin:16px 30px 0;padding:12px 14px;background:rgba(214,69,69,0.07);border:1px solid rgba(214,69,69,0.15);border-radius:9px;color:#C84040;font-size:13px;font-weight:600">{{ ratesError }}</div>
+            <div style="margin:16px 30px 0;padding:12px 14px;background:rgba(214,69,69,0.07);border:1px solid rgba(214,69,69,0.15);border-radius:9px;color:#C84040;font-size:var(--text-dense);font-weight:600">{{ ratesError }}</div>
           </sc-if>
 
           <!-- Calculator rate settings -->
@@ -431,48 +412,48 @@
             <div style="background:white;border-radius:14px;border:1px solid #E4E9F0;padding:18px 20px">
               <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap">
                 <div style="min-width:0;flex:1">
-                  <div style="font-size:12.5px;font-weight:800;color:#0B1F3A;letter-spacing:-0.2px">Refinance calculator rate</div>
-                  <p style="font-size:12px;color:#8B9AAD;margin:4px 0 0;line-height:1.5">Customers see this as the new rate in the refinance calculator. Auto mode uses the lowest Special 1 year rate from the rates table.</p>
+                  <div style="font-size:var(--text-dense-sm);font-weight:800;color:#0B1F3A;letter-spacing:-0.2px">Refinance calculator rate</div>
+                  <p style="font-size:var(--text-caption);color:#8B9AAD;margin:4px 0 0;line-height:1.5">Customers see this as the new rate in the refinance calculator. Auto mode uses the lowest Special 1 year rate from the rates table.</p>
                 </div>
                 <sc-if value="{{ calcRateSaveOk }}" hint-placeholder-val="{{ false }}">
-                  <span style="font-size:11.5px;font-weight:700;color:#0E9E5C;white-space:nowrap">Saved ✓</span>
+                  <span style="font-size:var(--text-label);font-weight:700;color:#0E9E5C;white-space:nowrap">Saved ✓</span>
                 </sc-if>
               </div>
 
               <sc-if value="{{ calcRateError }}" hint-placeholder-val="{{ false }}">
-                <div style="margin-top:12px;padding:10px 12px;background:rgba(214,69,69,0.07);border:1px solid rgba(214,69,69,0.15);border-radius:8px;color:#C84040;font-size:12.5px;font-weight:600">{{ calcRateError }}</div>
+                <div style="margin-top:12px;padding:10px 12px;background:rgba(214,69,69,0.07);border:1px solid rgba(214,69,69,0.15);border-radius:8px;color:#C84040;font-size:var(--text-dense-sm);font-weight:600">{{ calcRateError }}</div>
               </sc-if>
 
               <div style="margin-top:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
                 <label style="display:inline-flex;align-items:center;gap:9px;padding:7px 12px 7px 8px;border-radius:8px;background:#F6F8FB;border:1px solid #E4E9F0;cursor:pointer;transition:background 0.1s"
                   style-hover="background:#EEF1F6">
                   <input type="checkbox" checked="{{ calcRateManualEnabled }}" onChange="{{ onToggleCalcRateManual }}" disabled="{{ calcRateSaving }}" style="width:14px;height:14px;accent-color:#16C172;cursor:pointer">
-                  <span style="font-size:12.5px;font-weight:700;color:#0B1F3A">Set rate manually</span>
+                  <span style="font-size:var(--text-dense-sm);font-weight:700;color:#0B1F3A">Set rate manually</span>
                 </label>
                 <sc-if value="{{ calcRateLoading }}" hint-placeholder-val="{{ false }}">
-                  <span style="font-size:11.5px;color:#B0BAC5;font-weight:600">Loading…</span>
+                  <span style="font-size:var(--text-label);color:#B0BAC5;font-weight:600">Loading…</span>
                 </sc-if>
               </div>
 
               <sc-if value="{{ calcRateManualEnabled }}" hint-placeholder-val="{{ false }}">
                 <div style="margin-top:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
                   <label style="display:flex;align-items:center;gap:8px">
-                    <span style="font-size:12px;font-weight:600;color:#5B6B82;white-space:nowrap">Manual rate</span>
+                    <span style="font-size:var(--text-dense-sm);font-weight:600;color:#5B6B82;white-space:nowrap">Manual rate</span>
                     <input type="text" value="{{ calcRateManualRate }}" onInput="{{ onCalcRateManualInput }}" onBlur="{{ onCalcRateManualBlur }}" disabled="{{ calcRateSaving }}"
                       placeholder="4.79"
-                      style="width:88px;height:38px;padding:0 12px;border:1.5px solid #E4E9F0;border-radius:8px;font-size:13px;font-weight:700;color:#0B1F3A;background:white;transition:border-color 0.15s,box-shadow 0.15s"
+                      style="width:88px;height:38px;padding:0 12px;border:1.5px solid #E4E9F0;border-radius:8px;font-size:var(--text-dense);font-weight:700;color:#0B1F3A;background:white;transition:border-color 0.15s,box-shadow 0.15s"
                       style-focus="border-color:#16C172;box-shadow:0 0 0 3px rgba(22,193,114,0.1)">
-                    <span style="font-size:12.5px;font-weight:700;color:#5B6B82">%</span>
+                    <span style="font-size:var(--text-dense-sm);font-weight:700;color:#5B6B82">%</span>
                   </label>
-                  <span style="font-size:12px;color:#8B9AAD">Customers will see {{ calcRateEffectiveFmt }} as the new rate.</span>
+                  <span style="font-size:var(--text-caption);color:#8B9AAD">Customers will see {{ calcRateEffectiveFmt }} as the new rate.</span>
                 </div>
               </sc-if>
 
               <sc-if value="{{ calcRateAutoMode }}" hint-placeholder-val="{{ false }}">
                 <div style="margin-top:14px;padding:12px 14px;background:#F6F8FB;border:1px solid #E4E9F0;border-radius:8px">
-                  <div style="font-size:12.5px;font-weight:700;color:#0B1F3A">Using lowest Special 1 year rate: {{ calcRateEffectiveFmt }}</div>
+                  <div style="font-size:var(--text-dense-sm);font-weight:700;color:#0B1F3A">Using lowest Special 1 year rate: {{ calcRateEffectiveFmt }}</div>
                   <sc-if value="{{ calcRateAutoDetailFmt }}" hint-placeholder-val="{{ false }}">
-                    <div style="font-size:12px;color:#8B9AAD;margin-top:4px">{{ calcRateAutoDetailFmt }}</div>
+                    <div style="font-size:var(--text-caption);color:#8B9AAD;margin-top:4px">{{ calcRateAutoDetailFmt }}</div>
                   </sc-if>
                 </div>
               </sc-if>
@@ -486,9 +467,9 @@
                 style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;border:none;background:transparent;cursor:pointer;text-align:left;transition:background 0.15s"
                 style-hover="background:#FAFBFC">
                 <div style="display:flex;align-items:center;gap:10px;min-width:0;flex:1;flex-wrap:wrap">
-                  <span style="font-size:12.5px;font-weight:800;color:#0B1F3A;letter-spacing:-0.2px">Filters</span>
+                  <span style="font-size:var(--text-dense-sm);font-weight:800;color:#0B1F3A;letter-spacing:-0.2px">Filters</span>
                   <sc-if value="{{ ratesFiltersCollapsed }}" hint-placeholder-val="{{ false }}">
-                    <span style="font-size:11.5px;font-weight:600;color:#8B9AAD">{{ ratesFilterSummary }}</span>
+                    <span style="font-size:var(--text-label);font-weight:600;color:#8B9AAD">{{ ratesFilterSummary }}</span>
                   </sc-if>
                 </div>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8B9AAD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
@@ -499,35 +480,35 @@
 
               <sc-if value="{{ ratesFiltersOpen }}" hint-placeholder-val="{{ false }}">
                 <div style="padding:0 20px 16px;border-top:1px solid #F0F3F8">
-                  <div style="font-size:9.5px;font-weight:700;color:#B0BAC5;text-transform:uppercase;letter-spacing:.08em;margin:14px 0 12px">Filter by institution</div>
+                  <div style="font-size:var(--text-tiny-sm);font-weight:700;color:#B0BAC5;text-transform:uppercase;letter-spacing:.08em;margin:14px 0 12px">Filter by institution</div>
                   <label style="display:inline-flex;align-items:center;gap:8px;padding:6px 12px 6px 8px;border-radius:7px;background:#F6F8FB;border:1px solid #E4E9F0;cursor:pointer;margin:0 8px 8px 0;transition:background 0.1s"
                     style-hover="background:#EEF1F6">
                     <input type="checkbox" checked="{{ allInstitutionsChecked }}" onChange="{{ onToggleAllInstitutions }}" style="width:14px;height:14px;accent-color:#16C172;cursor:pointer">
-                    <span style="font-size:12.5px;font-weight:700;color:#0B1F3A">All institutions</span>
+                    <span style="font-size:var(--text-dense-sm);font-weight:700;color:#0B1F3A">All institutions</span>
                   </label>
                   <div style="display:flex;flex-wrap:wrap;gap:0;max-height:120px;overflow-y:auto;padding-top:2px">
                     <sc-for list="{{ institutionOptions }}" as="inst" hint-placeholder-count="8">
                       <label style="display:inline-flex;align-items:center;gap:7px;padding:5px 11px 5px 7px;border-radius:7px;border:1px solid #E4E9F0;cursor:pointer;margin:0 6px 6px 0;transition:background 0.1s,border-color 0.1s"
                         style-hover="background:#F8FAFC;border-color:#C4CDD6">
                         <input type="checkbox" checked="{{ inst.checked }}" onChange="{{ inst.onChange }}" style="width:13px;height:13px;accent-color:#16C172;cursor:pointer">
-                        <span style="font-size:12px;font-weight:600;color:#5B6B82;white-space:nowrap">{{ inst.name }}</span>
+                        <span style="font-size:var(--text-dense-sm);font-weight:600;color:#5B6B82;white-space:nowrap">{{ inst.name }}</span>
                       </label>
                     </sc-for>
                   </div>
 
                   <div style="margin-top:16px;padding-top:16px;border-top:1px solid #F0F3F8">
-                    <div style="font-size:9.5px;font-weight:700;color:#B0BAC5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">Filter by term</div>
+                    <div style="font-size:var(--text-tiny-sm);font-weight:700;color:#B0BAC5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">Filter by term</div>
                     <label style="display:inline-flex;align-items:center;gap:8px;padding:6px 12px 6px 8px;border-radius:7px;background:#F6F8FB;border:1px solid #E4E9F0;cursor:pointer;margin:0 8px 8px 0;transition:background 0.1s"
                       style-hover="background:#EEF1F6">
                       <input type="checkbox" checked="{{ allTermsChecked }}" onChange="{{ onToggleAllTerms }}" style="width:14px;height:14px;accent-color:#16C172;cursor:pointer">
-                      <span style="font-size:12.5px;font-weight:700;color:#0B1F3A">All terms</span>
+                      <span style="font-size:var(--text-dense-sm);font-weight:700;color:#0B1F3A">All terms</span>
                     </label>
                     <div style="display:flex;flex-wrap:wrap;gap:0;padding-top:2px">
                       <sc-for list="{{ termOptions }}" as="termOpt" hint-placeholder-count="6">
                         <label style="display:inline-flex;align-items:center;gap:7px;padding:5px 11px 5px 7px;border-radius:7px;border:1px solid #E4E9F0;cursor:pointer;margin:0 6px 6px 0;transition:background 0.1s,border-color 0.1s"
                           style-hover="background:#F8FAFC;border-color:#C4CDD6">
                           <input type="checkbox" checked="{{ termOpt.checked }}" onChange="{{ termOpt.onChange }}" style="width:13px;height:13px;accent-color:#16C172;cursor:pointer">
-                          <span style="font-size:12px;font-weight:600;color:#5B6B82;white-space:nowrap">{{ termOpt.label }}</span>
+                          <span style="font-size:var(--text-dense-sm);font-weight:600;color:#5B6B82;white-space:nowrap">{{ termOpt.label }}</span>
                         </label>
                       </sc-for>
                     </div>
@@ -543,19 +524,19 @@
               <sc-if value="{{ ratesLoading }}" hint-placeholder-val="{{ false }}">
                 <div style="padding:52px 24px;text-align:center">
                   <div style="width:22px;height:22px;border:2px solid #E4E9F0;border-top-color:#16C172;border-radius:50%;animation:spin 0.75s linear infinite;margin:0 auto 13px"></div>
-                  <p style="font-size:14px;color:#8B9AAD;font-weight:600;margin:0">Loading mortgage rates…</p>
+                  <p style="font-size:var(--text-compact);color:#8B9AAD;font-weight:600;margin:0">Loading mortgage rates…</p>
                 </div>
               </sc-if>
 
               <sc-if value="{{ showRatesTable }}" hint-placeholder-val="{{ false }}">
                 <div style="overflow-x:auto">
-                  <table style="width:100%;border-collapse:collapse;font-size:13px">
+                  <table style="width:100%;border-collapse:collapse;font-size:var(--text-dense)">
                     <thead>
                       <tr style="border-bottom:1px solid #F0F3F8">
-                        <th style="padding:12px 20px;text-align:left;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;white-space:nowrap;background:#FAFBFC">Institution</th>
-                        <th style="padding:12px 20px;text-align:left;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Product</th>
-                        <th style="padding:12px 20px;text-align:left;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Term</th>
-                        <th style="padding:12px 20px;text-align:right;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC;white-space:nowrap">
+                        <th style="padding:12px 20px;text-align:left;font-size:var(--text-tiny-sm);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;white-space:nowrap;background:#FAFBFC">Institution</th>
+                        <th style="padding:12px 20px;text-align:left;font-size:var(--text-tiny-sm);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Product</th>
+                        <th style="padding:12px 20px;text-align:left;font-size:var(--text-tiny-sm);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Term</th>
+                        <th style="padding:12px 20px;text-align:right;font-size:var(--text-tiny-sm);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC;white-space:nowrap">
                           <div style="display:inline-flex;align-items:center;justify-content:flex-end;gap:5px">
                             <span>Rate</span>
                             <button type="button" onClick="{{ onSortRatesAsc }}" title="Sort lowest rate first"
@@ -583,8 +564,8 @@
 
                 <sc-if value="{{ ratesTableEmpty }}" hint-placeholder-val="{{ false }}">
                   <div style="padding:40px 24px;text-align:center;border-top:1px solid #F6F8FB">
-                    <p style="font-size:14px;color:#8B9AAD;font-weight:600;margin:0">No rates match your filter</p>
-                    <p style="font-size:12.5px;color:#B0BAC5;margin:5px 0 0">Try different institution or term filters, or choose "All"</p>
+                    <p style="font-size:var(--text-compact);color:#8B9AAD;font-weight:600;margin:0">No rates match your filter</p>
+                    <p style="font-size:var(--text-dense-sm);color:#B0BAC5;margin:5px 0 0">Try different institution or term filters, or choose "All"</p>
                   </div>
                 </sc-if>
               </sc-if>

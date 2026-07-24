@@ -7,12 +7,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="./typography.css" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{
   font-family:'Plus Jakarta Sans',system-ui,sans-serif;
   background:#fff;color:#1A2433;
-  -webkit-font-smoothing:antialiased;font-size:15px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;font-size:var(--text-body);line-height:1.5;
 }
 
 /* ── Layout ── */
@@ -26,7 +30,7 @@ html,body{
 
 /* ── Section label ── */
 .sec-label{
-  font-size:10.5px;font-weight:700;text-transform:uppercase;
+  font-size:var(--text-tiny-sm);font-weight:700;text-transform:uppercase;
   letter-spacing:.12em;color:#5B6B82;margin-bottom:16px;
 }
 
@@ -34,8 +38,8 @@ html,body{
 .field{margin-bottom:18px}
 .field:last-child{margin-bottom:0}
 .fhead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px}
-.fhead label{font-size:13px;font-weight:700;color:#0B1F3A}
-.fhead .hint{font-size:11px;color:#8B9AAD}
+.fhead label{font-size:var(--text-dense);font-weight:700;color:#0B1F3A}
+.fhead .hint{font-size:var(--text-micro);color:#8B9AAD}
 .input-box{
   display:flex;align-items:center;gap:6px;
   height:44px;border:1.5px solid #E4E9F0;border-radius:10px;
@@ -46,15 +50,15 @@ html,body{
   border-color:#16C172;background:#fff;
   box-shadow:0 0 0 3px rgba(22,193,114,.11);
 }
-.pfx,.sfx{font-size:13px;font-weight:600;color:#8B9AAD;flex-shrink:0;user-select:none}
+.pfx,.sfx{font-size:var(--text-dense);font-weight:600;color:#8B9AAD;flex-shrink:0;user-select:none}
 .input-box input{
   border:none;background:transparent;outline:none;
-  font-size:15px;font-weight:700;color:#0B1F3A;
+  font-size:var(--text-ui-md);font-weight:700;color:#0B1F3A;
   font-family:inherit;width:100%;min-width:0;
 }
 .input-box select{
   border:none;background:transparent;outline:none;
-  font-size:15px;font-weight:700;color:#0B1F3A;
+  font-size:var(--text-ui-md);font-weight:700;color:#0B1F3A;
   font-family:inherit;width:100%;min-width:0;cursor:pointer;
   appearance:none;-webkit-appearance:none;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238B9AAD' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
@@ -75,40 +79,40 @@ input[type=range]::-moz-range-thumb{
   width:20px;height:20px;border-radius:50%;background:#fff;
   border:2.5px solid #16C172;box-shadow:0 2px 8px rgba(22,193,114,.3);
 }
-.range-ends{display:flex;justify-content:space-between;margin-top:5px;font-size:10.5px;color:#8B9AAD}
+.range-ends{display:flex;justify-content:space-between;margin-top:5px;font-size:var(--text-tiny-sm);color:#8B9AAD}
 
 /* ── Results: primary metric ── */
 .primary-metric{margin-bottom:16px}
-.pm-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#5B6B82;margin-bottom:5px}
+.pm-label{font-size:var(--text-tiny-sm);font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#5B6B82;margin-bottom:5px}
 .pm-number{
   display:flex;align-items:baseline;gap:0;
   font-size:52px;font-weight:800;color:#16C172;
   letter-spacing:-2.5px;line-height:1;
 }
 .pm-number .pm-pre{font-size:30px;font-weight:800;color:#0E9E5C;line-height:1;align-self:flex-start;padding-top:4px}
-.pm-number .pm-unit{font-size:18px;font-weight:600;color:#8B9AAD;letter-spacing:0;margin-left:3px;align-self:flex-end;padding-bottom:6px}
-.pm-sub{font-size:13px;color:#5B6B82;margin-top:7px;line-height:1.45}
+.pm-number .pm-unit{font-size:var(--text-body);font-weight:600;color:#8B9AAD;letter-spacing:0;margin-left:3px;align-self:flex-end;padding-bottom:6px}
+.pm-sub{font-size:var(--text-dense);color:#5B6B82;margin-top:7px;line-height:1.45}
 
 /* ── Results: secondary stats ── */
 .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px}
 .stat{background:#F6F8FB;border:1px solid #E4E9F0;border-radius:10px;padding:13px 14px}
-.stat-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#5B6B82;margin-bottom:5px}
-.stat-value{font-size:21px;font-weight:800;color:#0B1F3A;letter-spacing:-.5px}
+.stat-label{font-size:var(--text-tiny);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#5B6B82;margin-bottom:5px}
+.stat-value{font-size:var(--text-stat-md);font-weight:800;color:#0B1F3A;letter-spacing:-.5px}
 .stat-value.green{color:#0E9E5C}
 .stat-value.gold{color:#B8781E}
 
 /* ── Chart ── */
 .chart-section{margin-bottom:22px}
 .chart-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;gap:12px}
-.chart-title{font-size:11.5px;font-weight:600;color:#5B6B82;line-height:1.4}
+.chart-title{font-size:var(--text-label);font-weight:600;color:#5B6B82;line-height:1.4}
 .chart-legend{display:flex;gap:14px;flex-shrink:0}
-.leg{display:flex;align-items:center;gap:5px;font-size:10.5px;color:#5B6B82;font-weight:500;white-space:nowrap}
+.leg{display:flex;align-items:center;gap:5px;font-size:var(--text-tiny-sm);color:#5B6B82;font-weight:500;white-space:nowrap}
 .leg-line{width:16px;height:2.5px;border-radius:2px}
 .chart-outer{position:relative}
 canvas{display:block;width:100%;height:210px;cursor:crosshair}
 .ch-tooltip{
   position:absolute;background:#0B1F3A;color:#fff;border-radius:7px;
-  padding:6px 11px;font-size:11.5px;font-weight:600;
+  padding:6px 11px;font-size:var(--text-label);font-weight:600;
   pointer-events:none;transform:translateX(-50%) translateY(-100%);
   white-space:nowrap;display:none;top:10px;
   box-shadow:0 4px 14px rgba(11,31,58,.25);
@@ -123,7 +127,7 @@ canvas{display:block;width:100%;height:210px;cursor:crosshair}
   display:none;align-items:center;gap:8px;margin-bottom:14px;
   background:rgba(22,193,114,.07);border:1px solid rgba(22,193,114,.22);
   border-radius:9px;padding:11px 14px;
-  font-size:13px;font-weight:600;color:#0E9E5C;
+  font-size:var(--text-dense);font-weight:600;color:#0E9E5C;
 }
 .sent-banner.show{display:flex}
 .contact-cta{
@@ -136,7 +140,7 @@ canvas{display:block;width:100%;height:210px;cursor:crosshair}
   width:100%;max-width:420px;height:52px;padding:0 28px;
   background:linear-gradient(135deg,#16C172 0%,#0E9E5C 100%);
   border:none;border-radius:10px;
-  font-family:inherit;font-size:15px;font-weight:800;color:#fff;cursor:pointer;
+  font-family:inherit;font-size:var(--text-ui-md);font-weight:800;color:#fff;cursor:pointer;
   letter-spacing:-.2px;
   box-shadow:0 8px 24px rgba(22,193,114,.35);
   transition:transform .15s,box-shadow .15s,background .15s;
@@ -148,7 +152,7 @@ canvas{display:block;width:100%;height:210px;cursor:crosshair}
   background:linear-gradient(135deg,#0E9E5C 0%,#0B8A52 100%);
 }
 .contact-cta-sub{
-  margin-top:12px;font-size:13px;color:#5B6B82;line-height:1.5;
+  margin-top:12px;font-size:var(--text-dense);color:#5B6B82;line-height:1.5;
 }
 @keyframes ctaPulse{
   0%,100%{box-shadow:0 8px 24px rgba(22,193,114,.35)}
@@ -168,11 +172,11 @@ canvas{display:block;width:100%;height:210px;cursor:crosshair}
   padding:22px;width:100%;max-width:400px;
   box-shadow:0 16px 44px rgba(11,31,58,.10);
 }
-.gate h4{font-size:16px;font-weight:800;color:#0B1F3A;letter-spacing:-.3px;margin-bottom:5px}
-.gate-sub{font-size:13px;color:#5B6B82;margin-bottom:14px;line-height:1.5}
+.gate h4{font-size:var(--text-ui);font-weight:800;color:#0B1F3A;letter-spacing:-.3px;margin-bottom:5px}
+.gate-sub{font-size:var(--text-dense);color:#5B6B82;margin-bottom:14px;line-height:1.5}
 .gate-items{margin-bottom:16px}
 .gate-item{
-  font-size:12.5px;font-weight:500;color:#1A2433;
+  font-size:var(--text-dense-sm);font-weight:500;color:#1A2433;
   padding:4px 0 4px 20px;position:relative;
 }
 .gate-item::before{
@@ -180,10 +184,10 @@ canvas{display:block;width:100%;height:210px;cursor:crosshair}
   width:10px;height:10px;border-radius:50%;background:#16C172;
 }
 .fld{margin-bottom:10px}
-.fld label{display:block;font-size:12px;font-weight:700;color:#0B1F3A;margin-bottom:4px}
+.fld label{display:block;font-size:var(--text-dense-sm);font-weight:700;color:#0B1F3A;margin-bottom:4px}
 .fld input{
   width:100%;height:42px;border:1.5px solid #E4E9F0;border-radius:8px;
-  padding:0 12px;font-size:14px;font-family:inherit;font-weight:500;
+  padding:0 12px;font-size:var(--text-ui);font-family:inherit;font-weight:500;
   color:#0B1F3A;background:#F6F8FB;outline:none;
   transition:border-color .15s,box-shadow .15s,background .15s;
 }
@@ -191,7 +195,7 @@ canvas{display:block;width:100%;height:210px;cursor:crosshair}
 .fld input.err{border-color:#E5484D;box-shadow:0 0 0 3px rgba(229,72,77,.09)}
 .fld select{
   width:100%;height:42px;border:1.5px solid #E4E9F0;border-radius:8px;
-  padding:0 12px;font-size:14px;font-family:inherit;font-weight:500;
+  padding:0 12px;font-size:var(--text-ui);font-family:inherit;font-weight:500;
   color:#0B1F3A;background:#F6F8FB;outline:none;cursor:pointer;
   transition:border-color .15s,box-shadow .15s,background .15s;
   appearance:none;-webkit-appearance:none;
@@ -208,7 +212,7 @@ canvas{display:block;width:100%;height:210px;cursor:crosshair}
   font-family:'Plus Jakarta Sans',system-ui,sans-serif;
 }
 .pac-item{
-  padding:8px 12px;font-size:13px;color:#1A2433;cursor:pointer;
+  padding:8px 12px;font-size:var(--text-dense);color:#1A2433;cursor:pointer;
   border-top:1px solid #E4E9F0;line-height:1.4;
 }
 .pac-item:first-child{border-top:none}
@@ -218,7 +222,7 @@ canvas{display:block;width:100%;height:210px;cursor:crosshair}
 .pac-matched{font-weight:700}
 .gate-btn{
   width:100%;height:46px;background:#16C172;border:none;border-radius:8px;
-  font-family:inherit;font-size:14px;font-weight:700;color:#fff;cursor:pointer;
+  font-family:inherit;font-size:var(--text-ui);font-weight:700;color:#fff;cursor:pointer;
   letter-spacing:-.1px;transition:background .15s;
 }
 .gate-btn:hover:not(:disabled){background:#0E9E5C}
@@ -226,30 +230,30 @@ canvas{display:block;width:100%;height:210px;cursor:crosshair}
 .gate-error{
   display:none;margin-bottom:10px;padding:9px 12px;
   background:rgba(229,72,77,.08);border:1px solid rgba(229,72,77,.25);
-  border-radius:8px;font-size:12.5px;font-weight:600;color:#C53030;
+  border-radius:8px;font-size:var(--text-dense-sm);font-weight:600;color:#C53030;
 }
 .gate-error.show{display:block}
 .gate-trust{
   display:flex;align-items:flex-start;gap:6px;margin-top:10px;
-  font-size:11px;color:#8B9AAD;line-height:1.5;
+  font-size:var(--text-micro);color:#8B9AAD;line-height:1.5;
 }
 
 /* ── Booking CTA ── */
 .booking{display:none;background:#0B1F3A;border-radius:12px;padding:22px;color:#fff;text-align:center;margin-top:14px}
 .booking.show{display:block}
-.booking h4{font-size:17px;font-weight:800;margin-bottom:7px;letter-spacing:-.3px}
-.booking p{font-size:13px;color:rgba(255,255,255,.55);margin-bottom:16px;line-height:1.5;max-width:440px;margin-left:auto;margin-right:auto}
+.booking h4{font-size:var(--text-ui-md);font-weight:800;margin-bottom:7px;letter-spacing:-.3px}
+.booking p{font-size:var(--text-dense);color:rgba(255,255,255,.55);margin-bottom:16px;line-height:1.5;max-width:440px;margin-left:auto;margin-right:auto}
 .book-btn{
   display:inline-flex;align-items:center;gap:8px;
   height:44px;padding:0 24px;background:#16C172;border:none;
-  border-radius:8px;font-family:inherit;font-size:14px;font-weight:700;
+  border-radius:8px;font-family:inherit;font-size:var(--text-ui);font-weight:700;
   color:#fff;cursor:pointer;transition:background .15s;
 }
 .book-btn:hover{background:#0E9E5C}
 
 /* ── Disclaimer ── */
 .disclaimer{
-  font-size:11px;color:#8B9AAD;line-height:1.6;
+  font-size:var(--text-micro);color:#8B9AAD;line-height:1.6;
   margin-top:16px;padding:13px 15px;background:#F6F8FB;border-radius:10px;
 }
 
@@ -269,7 +273,7 @@ canvas{display:block;width:100%;height:210px;cursor:crosshair}
 </head>
 <body>
 <div class="wrap">
-  <a href="./index.html" style="display:inline-block;margin-bottom:16px;font-size:14px;font-weight:600;color:#16C172;text-decoration:none">← Back to Wealthify</a>
+  <a href="./index.html" style="display:inline-block;margin-bottom:16px;font-size:var(--text-ui);font-weight:600;color:#16C172;text-decoration:none">← Back to Wealthify</a>
   <div class="calc-grid">
 
     <!-- ═══════════════════════════ LEFT: INPUTS ═══════════════════════════ -->
@@ -453,28 +457,28 @@ canvas{display:block;width:100%;height:210px;cursor:crosshair}
             <div style="width:52px;height:52px;border-radius:50%;background:rgba(22,193,114,.1);display:flex;align-items:center;justify-content:center;margin:0 auto 16px">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16C172" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
             </div>
-            <h4 style="font-size:17px;font-weight:800;color:#0B1F3A;margin-bottom:8px;letter-spacing:-.3px">Thank you for your submission</h4>
-            <p style="font-size:13.5px;color:#5B6B82;line-height:1.6;margin-bottom:20px">One of our licensed advisers will be in touch shortly to walk you through your personalised lender comparison and answer any questions.</p>
+            <h4 style="font-size:var(--text-ui-md);font-weight:800;color:#0B1F3A;margin-bottom:8px;letter-spacing:-.3px">Thank you for your submission</h4>
+            <p style="font-size:var(--text-compact);color:#5B6B82;line-height:1.6;margin-bottom:20px">One of our licensed advisers will be in touch shortly to walk you through your personalised lender comparison and answer any questions.</p>
             <div style="background:#F6F8FB;border:1px solid #E4E9F0;border-radius:10px;padding:14px 16px;text-align:left">
-              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#8B9AAD;margin-bottom:10px">What happens next</div>
+              <div style="font-size:var(--text-micro);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#8B9AAD;margin-bottom:10px">What happens next</div>
               <div style="display:flex;flex-direction:column;gap:8px">
                 <div style="display:flex;align-items:flex-start;gap:9px">
                   <div style="width:18px;height:18px;border-radius:50%;background:#16C172;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
                     <svg width="9" height="9" viewBox="0 0 16 16" fill="none"><path d="M3 8.5 L6.5 12 L13 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   </div>
-                  <span style="font-size:12.5px;color:#1A2433;font-weight:500;line-height:1.4">We prepare your personalised lender comparison</span>
+                  <span style="font-size:var(--text-dense-sm);color:#1A2433;font-weight:500;line-height:1.4">We prepare your personalised lender comparison</span>
                 </div>
                 <div style="display:flex;align-items:flex-start;gap:9px">
                   <div style="width:18px;height:18px;border-radius:50%;background:#0FB5BA;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
                     <svg width="9" height="9" viewBox="0 0 16 16" fill="none"><path d="M3 8.5 L6.5 12 L13 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   </div>
-                  <span style="font-size:12.5px;color:#1A2433;font-weight:500;line-height:1.4">An adviser will reach out within one business day</span>
+                  <span style="font-size:var(--text-dense-sm);color:#1A2433;font-weight:500;line-height:1.4">An adviser will reach out within one business day</span>
                 </div>
                 <div style="display:flex;align-items:flex-start;gap:9px">
                   <div style="width:18px;height:18px;border-radius:50%;background:#0B1F3A;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
                     <svg width="9" height="9" viewBox="0 0 16 16" fill="none"><path d="M3 8.5 L6.5 12 L13 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   </div>
-                  <span style="font-size:12.5px;color:#1A2433;font-weight:500;line-height:1.4">No obligation — free advice, always</span>
+                  <span style="font-size:var(--text-dense-sm);color:#1A2433;font-weight:500;line-height:1.4">No obligation — free advice, always</span>
                 </div>
               </div>
             </div>

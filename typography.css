@@ -1,0 +1,54 @@
+/* Wealthify type scale — aligned to Vega's 18px body baseline */
+:root {
+  /* Display */
+  --text-hero: clamp(46px, 5.5vw, 70px);
+  --text-hero-md: clamp(40px, 5.5vw, 70px);      /* Mortgages, Insurance, KiwiSaver h1 */
+  --text-hero-tools: clamp(44px, 5vw, 68px);      /* Tools h1 */
+  --text-rates-hero: clamp(38px, 5vw, 60px);      /* rates/index.html h1 */
+  --text-h2: clamp(28px, 3.2vw, 50px);
+  --text-h2-md: clamp(28px, 3vw, 42px);
+  --text-h2-sm: clamp(26px, 3vw, 40px);
+  --text-h2-xs: clamp(26px, 3vw, 38px);
+  --text-h2-lg: clamp(28px, 3.5vw, 50px);         /* Tools calculator section titles */
+  --text-h2-compact: clamp(24px, 3vw, 36px);      /* FAQ / smaller sections */
+  --text-callout: clamp(18px, 2.2vw, 24px);       /* In-page promo banners */
+  --text-cta-banner: clamp(26px, 4vw, 42px);      /* Bottom CTA headings on dc pages */
+  --text-h3: 22px;
+  --text-display: 56px;
+  --text-quote: clamp(18px, 2vw, 24px);
+  --text-stat: clamp(24px, 2.4vw, 28px);
+  --text-stat-md: 21px;
+
+  /* Body & UI */
+  --text-body: 18px;
+  --text-lead: 18px;
+  --text-ui: 16px;
+  --text-ui-md: 17px;
+  --text-compact: 14px;
+  --text-tab: 15px;
+
+  /* Navigation & actions */
+  --text-nav: 17px;
+  --text-nav-brand: 18px;
+  --text-nav-cta: 16px;
+  --text-cta: 17px;
+
+  /* Supporting */
+  --text-eyebrow: 12px;
+  --text-caption: 12px;
+  --text-label: 11px;
+  --text-micro: 11px;
+
+  /* Dense UI — calculator widgets, rate cards */
+  --text-dense: 13px;
+  --text-dense-sm: 12px;
+  --text-tiny: 10px;
+  --text-tiny-sm: 10.5px;
+}
+
+/* Brand logo — light/dark swap for scroll-aware nav */
+.brand-logo { height: 28px; width: auto; display: block; }
+.brand-logo--sm { height: 26px; }
+.brand-logo--light { display: none; }
+.nav-on-dark .brand-logo--dark { display: none; }
+.nav-on-dark .brand-logo--light { display: block; }
