@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preload" as="image" href="./assets/video/hero-bg-poster.webp" fetchpriority="high">
+<link rel="preload" as="video" href="./assets/video/hero-bg.webm" type="video/webm" fetchpriority="high">
+<link rel="preload" as="video" href="./assets/video/hero-bg.mp4" type="video/mp4">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -11,6 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
   <link href="./typography.css" rel="stylesheet">
   <link href="./responsive.css" rel="stylesheet">
+  <link rel="preload" as="image" href="./assets/video/hero-bg-poster.webp" fetchpriority="high">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
@@ -25,8 +29,9 @@
     @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
     @keyframes tabFill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
     a{text-decoration:none;color:inherit}
-    .hero-section{position:relative;overflow:hidden;background:#071929}
-    .hero-bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(1.2) saturate(1.08)}
+    .hero-section{position:relative;overflow:hidden;background:#071929 url(./assets/video/hero-bg-poster.webp) center/cover no-repeat}
+    .hero-bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(1.2) saturate(1.08);opacity:0;transition:opacity .45s ease}
+    .hero-bg-video.is-playing{opacity:1}
     .hero-overlay{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(105deg,rgba(7,25,41,0.5) 0%,rgba(7,25,41,0.28) 42%,rgba(7,25,41,0.15) 100%),radial-gradient(ellipse 80% 60% at 72% 38%,rgba(22,193,114,0.06),transparent 70%)}
     @media (prefers-reduced-motion:reduce){
       .hero-bg-video{display:none}
@@ -67,7 +72,10 @@
 
 <!-- HERO -->
 <section class="hero-section" style="min-height:100vh;padding:100px 24px 80px;display:flex;align-items:center">
-  <video class="hero-bg-video" id="hero-bg-video" autoplay muted loop playsinline preload="auto" src="./assets/video/hero-bg.mp4" aria-hidden="true"></video>
+  <video class="hero-bg-video" id="hero-bg-video" autoplay muted loop playsinline preload="auto" poster="./assets/video/hero-bg-poster.webp" fetchpriority="high" aria-hidden="true">
+    <source src="./assets/video/hero-bg.webm" type="video/webm">
+    <source src="./assets/video/hero-bg.mp4" type="video/mp4">
+  </video>
   <div class="hero-overlay" aria-hidden="true"></div>
   <div class="hero-grid" style="max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 440px;gap:80px;align-items:center;position:relative;z-index:2">
 
@@ -943,10 +951,13 @@ class Component extends DCLogic {
     video.defaultMuted = true;
     video.muted = true;
     video.playsInline = true;
-    const tryPlay = () => video.play().catch(() => {});
+    const fadeIn = () => video.classList.add('is-playing');
+    const tryPlay = () => video.play().then(fadeIn).catch(() => {});
+    if (video.readyState === 0) video.load();
     tryPlay();
     video.addEventListener('loadeddata', tryPlay, { once: true });
     video.addEventListener('canplay', tryPlay, { once: true });
+    video.addEventListener('playing', fadeIn, { once: true });
     document.addEventListener('visibilitychange', () => {
       if (!document.hidden && video.paused) tryPlay();
     });
