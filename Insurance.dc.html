@@ -10,6 +10,7 @@
 <helmet>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="./typography.css" rel="stylesheet">
+  <link href="./responsive.css" rel="stylesheet">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
@@ -22,21 +23,32 @@
 </helmet>
 
 <!-- ═══ NAV ═══ -->
-<nav class="{{ navClass }}" style="position:fixed;top:0;left:0;right:0;z-index:100;transition:background 0.3s,box-shadow 0.3s;background:{{ navBg }};box-shadow:{{ navShadow }}">
-  <div style="max-width:1200px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;gap:24px">
-    <a href="./index.html" style="display:flex;align-items:center;flex-shrink:0">
+<nav class="site-nav {{ navClass }}" style="transition:background 0.3s,box-shadow 0.3s;background:{{ navBg }};box-shadow:{{ navShadow }}">
+  <div class="site-nav__inner">
+    <a href="./index.html" class="site-nav__brand">
       <img src="/assets/brand/logo-black.svg" alt="Wealthify" class="brand-logo brand-logo--dark" height="28">
       <img src="/assets/brand/logo-white.svg" alt="Wealthify" class="brand-logo brand-logo--light" height="28">
     </a>
-    <div style="display:flex;gap:26px;align-items:center;flex:1;justify-content:center">
+    <div class="site-nav__links hide-mobile">
       <a href="./Mortgages.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navTextColor }};opacity:0.65">Mortgages</a>
       <a href="#" style="font-size:var(--text-nav);font-weight:700;color:#16C172;padding-bottom:2px;border-bottom:2px solid #16C172">Insurance</a>
       <a href="./KiwiSaver.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navTextColor }};opacity:0.65">KiwiSaver</a>
       <a href="./Refinance-Calculator-Embed.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navTextColor }};opacity:0.65">Loans</a>
       <a href="./Tools.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navTextColor }};opacity:0.65">Tools</a>
     </div>
-    <div style="display:flex;gap:10px;align-items:center;flex-shrink:0">
-      <button style="padding:8px 18px;background:#16C172;border:none;color:white;border-radius:8px;font-size:var(--text-nav-cta);font-weight:700;cursor:pointer;font-family:inherit">Book a free call</button>
+    <div class="site-nav__actions">
+      <button class="hide-mobile" style="padding:8px 18px;background:#16C172;border:none;color:white;border-radius:8px;font-size:var(--text-nav-cta);font-weight:700;cursor:pointer;font-family:inherit">Book a free call</button>
+      <button type="button" class="show-mobile-only site-nav__toggle" data-nav-toggle aria-expanded="false" aria-label="Open menu"><span class="site-nav__toggle-icon" aria-hidden="true"></span></button>
+    </div>
+  </div>
+  <div class="site-nav__drawer" data-nav-drawer hidden>
+    <div class="site-nav__drawer-panel">
+      <a href="./Mortgages.dc.html">Mortgages</a>
+      <a href="#" class="is-active">Insurance</a>
+      <a href="./KiwiSaver.dc.html">KiwiSaver</a>
+      <a href="./Refinance-Calculator-Embed.html">Loans</a>
+      <a href="./Tools.dc.html">Tools</a>
+      <button type="button" class="site-nav__drawer-cta">Book a free call</button>
     </div>
   </div>
 </nav>
@@ -50,7 +62,7 @@
     </div>
     <h1 style="font-size:var(--text-hero-md);font-weight:800;color:white;margin:0 0 18px;line-height:1.02;letter-spacing:-3.5px">Protect everything<br>you've worked for.</h1>
     <p style="font-size:var(--text-body);color:rgba(255,255,255,0.42);margin:0 auto 32px;max-width:500px;line-height:1.7">The mortgage is sorted. Now protect the income that pays it — and the family that depends on it.</p>
-    <div style="display:flex;gap:12px;justify-content:center;margin-bottom:40px;flex-wrap:wrap">
+    <div class="cta-band" style="display:flex;gap:12px;justify-content:center;margin-bottom:40px;flex-wrap:wrap">
       <button style="padding:14px 28px;background:#16C172;border:none;color:white;border-radius:10px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s" style-hover="opacity:0.88">Get a free insurance review</button>
       <button onClick="{{ scrollToCovers }}" style="padding:14px 24px;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);border-radius:10px;font-size:var(--text-cta);font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s" style-hover="background:rgba(255,255,255,0.12);color:white">Explore cover types ↓</button>
     </div>
@@ -68,7 +80,7 @@
 <section style="background:#071929;padding:0 24px 80px">
   <div style="max-width:1200px;margin:0 auto">
     <div style="font-size:var(--text-micro);font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:rgba(255,255,255,0.2);text-align:center;margin-bottom:28px">The questions worth asking yourself</div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+    <div class="grid-3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
 
       <!-- Card 1 -->
       <div style="border-radius:20px;padding:32px;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07)">
@@ -127,7 +139,7 @@
       <p style="font-size:var(--text-lead);color:#8B9AAD;margin:0 auto;max-width:480px;line-height:1.6">We compare AIA, Fidelity Life, NIB and more to find the right policy at the best price.</p>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+    <div class="grid-3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
 
       <!-- Life Cover -->
       <div style="border-radius:20px;padding:28px;background:white;border:1px solid #E4E9F0;cursor:pointer;transition:all 0.25s" style-hover="transform:translateY(-5px);border-color:#16C172;box-shadow:0 12px 36px rgba(22,193,114,0.12)">
@@ -286,8 +298,8 @@
       <h2 style="font-size:var(--text-h2-sm);font-weight:800;color:#0B1F3A;margin:0;letter-spacing:-1.5px">Covered in as little as a week</h2>
     </div>
 
-    <div style="position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:0">
-      <div style="position:absolute;top:22px;left:17%;right:17%;height:2px;background:linear-gradient(90deg,#16C172,#16C172);z-index:0;opacity:0.25"></div>
+    <div class="grid-3" style="position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:0">
+      <div class="steps-connector" style="position:absolute;top:22px;left:17%;right:17%;height:2px;background:linear-gradient(90deg,#16C172,#16C172);z-index:0;opacity:0.25"></div>
 
       <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 28px;position:relative;z-index:1">
         <div style="width:44px;height:44px;border-radius:50%;background:#16C172;display:flex;align-items:center;justify-content:center;font-size:var(--text-compact);font-weight:800;color:white;box-shadow:0 0 0 6px rgba(22,193,114,0.1);margin-bottom:14px">1</div>
@@ -322,7 +334,7 @@
       <div style="font-size:var(--text-micro);font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#5B6B82;margin-bottom:10px">Client stories</div>
       <h2 style="font-size:var(--text-h2-compact);font-weight:800;color:#0B1F3A;margin:0;letter-spacing:-1px">Real outcomes for real families</h2>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+    <div class="grid-3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
 
       <div style="border-radius:18px;padding:28px;background:white;border:1px solid #E4E9F0;display:flex;flex-direction:column">
         <div style="font-size:var(--text-ui);color:#1A2433;line-height:1.72;font-weight:500;flex:1">"Our bank quoted $1,100/year for life cover. Wealthify found the same amount for $520 — same insurer, better structure."</div>
@@ -415,7 +427,7 @@
     <div style="font-size:var(--text-micro);font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,0.35);margin-bottom:16px">Free · No obligation · FAP licensed</div>
     <h2 style="font-size:var(--text-cta-banner);font-weight:800;color:white;margin:0 0 16px;letter-spacing:-1.5px;line-height:1.12">Your mortgage protects the house. Insurance protects the life inside it.</h2>
     <p style="font-size:var(--text-lead);color:rgba(255,255,255,0.5);margin:0 0 36px;line-height:1.7">A free 30-minute review. No jargon, no pressure. Just clarity on what cover you actually need.</p>
-    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <div class="cta-band" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
       <button style="padding:15px 30px;background:#16C172;border:none;color:white;border-radius:10px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s" style-hover="opacity:0.9">Book a free insurance review</button>
       <button style="padding:15px 28px;border:1.5px solid rgba(255,255,255,0.2);background:transparent;color:rgba(255,255,255,0.7);border-radius:10px;font-size:var(--text-cta);font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s" style-hover="background:rgba(255,255,255,0.07);color:white">Call 0800 WEALTHIFY</button>
     </div>
@@ -425,7 +437,7 @@
 <!-- ═══ FOOTER ═══ -->
 <footer style="background:#0B1F3A;padding:56px 24px 24px">
   <div style="max-width:1200px;margin:0 auto">
-    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:44px">
+    <div class="footer-grid" style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:44px">
       <div>
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
           <img src="/assets/brand/logo-white.svg" alt="Wealthify" class="brand-logo brand-logo--sm" height="26">
@@ -561,5 +573,6 @@ class Component extends DCLogic {
   }
 }
 </script>
+<script src="./nav.js"></script>
 </body>
 </html>

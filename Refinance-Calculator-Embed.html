@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="./typography.css" rel="stylesheet">
+<link href="./responsive.css" rel="stylesheet">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
@@ -258,14 +259,14 @@ canvas{display:block;width:100%;height:210px;cursor:crosshair}
 }
 
 /* ── Responsive ── */
-@media(max-width:720px){
+@media(max-width:768px){
   .calc-grid{grid-template-columns:1fr}
   .stats-grid{grid-template-columns:1fr}
   .pm-number{font-size:42px}
   .pm-number .pm-pre{font-size:24px}
   canvas{height:180px}
 }
-@media(max-width:440px){
+@media(max-width:480px){
   .wrap{padding:18px 16px 16px}
   .pm-number{font-size:36px}
 }

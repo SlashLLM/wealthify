@@ -902,7 +902,7 @@ function MortgageCalc(){
            `Scenarios are similar — try adjusting the What-If rate or term`}
         </div>
       )}
-      <div style={{display:'grid',gridTemplateColumns:'minmax(240px,2fr) minmax(280px,3fr)'}}>
+      <div className="mortgage-calc-grid" style={{display:'grid',gridTemplateColumns:'minmax(240px,2fr) minmax(280px,3fr)'}}>
         <div style={{borderRight:`1px solid ${C.border}`}}><Inputs s={s} set={set}/></div>
         <div style={{overflowY:'auto',maxHeight:660}}>
           <Results res={res} s={s} base={base}/>
@@ -913,7 +913,7 @@ function MortgageCalc(){
         <p style={{fontSize:11,color:C.muted,margin:0,flex:1,lineHeight:1.4}}>
           Estimates only. Not financial advice. Consult a licensed NZ financial adviser for personalised guidance.
         </p>
-        <div style={{display:'flex',gap:8,flexShrink:0}}>
+        <div className="mortgage-calc-actions" style={{display:'flex',gap:8,flexShrink:0}}>
           <button 
             onClick={openModal}
             style={{padding:'8px 14px',borderRadius:8,border:`1px solid ${C.border}`,background:'white',color:C.navy,fontSize:12,fontWeight:600,cursor:'pointer'}}
