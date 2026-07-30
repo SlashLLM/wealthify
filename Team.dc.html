@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Our team | Wealthify</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="./typography.css" rel="stylesheet">
+  <link href="./responsive.css" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'Plus Jakarta Sans',sans-serif;font-size:var(--text-body);color:#1A2433;background:#fff}
+    a{text-decoration:none;color:inherit}
+    @keyframes fadein{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+    .team-row{display:grid;grid-template-columns:400px 1fr;gap:60px;align-items:start;max-width:1080px;margin:0 auto}
+    .team-row--flip{grid-template-columns:1fr 400px}
+    .team-row--flip .team-photo{order:2}
+    .team-photo{width:100%;border-radius:20px;overflow:hidden;background:#F0F3F7;box-shadow:0 24px 60px rgba(11,31,58,0.12)}
+    .team-photo img{width:100%;height:auto;display:block}
+    .team-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+    .team-chip{font-size:var(--text-caption);font-weight:600;color:#5B6B82;background:#fff;border:1px solid #E4E9F0;border-radius:100px;padding:6px 13px}
+    .team-bio p{font-size:var(--text-compact);color:#5B6B82;line-height:1.8;margin:0 0 15px}
+    .team-cta{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;background:#16C172;color:#fff;border-radius:10px;font-size:var(--text-cta);font-weight:700;transition:opacity .15s}
+    .team-cta:hover{opacity:.88}
+    @media (max-width:900px){
+      .team-row,
+      .team-row--flip{grid-template-columns:1fr;gap:28px}
+      .team-row--flip .team-photo{order:0}
+      .team-photo{max-width:340px}
+    }
+  </style>
+</helmet>
+
+<!-- ═══ NAV ═══ -->
+<nav class="site-nav {{ navClass }}" style="transition:background 0.3s,box-shadow 0.3s;background:{{ navBg }};box-shadow:{{ navShadow }}">
+  <div class="site-nav__inner">
+    <a href="./index.html" class="site-nav__brand">
+      <img src="/assets/brand/logo-green.svg" alt="Wealthify" class="brand-logo" height="28">
+    </a>
+    <div class="site-nav__links hide-mobile">
+      <a href="./Mortgages.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navColor }};opacity:0.8;transition:opacity 0.15s,color 0.3s" style-hover="opacity:1">Mortgages</a>
+      <a href="./Insurance.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navColor }};opacity:0.8;transition:opacity 0.15s,color 0.3s" style-hover="opacity:1">Insurance</a>
+      <a href="./KiwiSaver.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navColor }};opacity:0.8;transition:opacity 0.15s,color 0.3s" style-hover="opacity:1">KiwiSaver</a>
+      <a href="./Tools.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navColor }};opacity:0.8;transition:opacity 0.15s,color 0.3s" style-hover="opacity:1">Tools</a>
+      <a href="#" style="font-size:var(--text-nav);font-weight:700;color:#16C172;padding-bottom:2px;border-bottom:2px solid #16C172">Our Team</a>
+      <a href="./Contact.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navColor }};opacity:0.8;transition:opacity 0.15s,color 0.3s" style-hover="opacity:1">Contact</a>
+    </div>
+    <div class="site-nav__actions">
+      <a href="./Contact.dc.html" class="hide-mobile" style="padding:8px 18px;background:#16C172;color:white;border-radius:8px;font-size:var(--text-nav-cta);font-weight:700;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center">Book a free call</a>
+      <button type="button" class="show-mobile-only site-nav__toggle" data-nav-toggle aria-expanded="false" aria-label="Open menu"><span class="site-nav__toggle-icon" aria-hidden="true"></span></button>
+    </div>
+  </div>
+  <div class="site-nav__drawer" data-nav-drawer hidden>
+    <div class="site-nav__drawer-panel">
+      <a href="./Mortgages.dc.html">Mortgages</a>
+      <a href="./Insurance.dc.html">Insurance</a>
+      <a href="./KiwiSaver.dc.html">KiwiSaver</a>
+      <a href="./Refinance-Calculator-Embed.html">Loans</a>
+      <a href="./Tools.dc.html">Tools</a>
+      <a href="#" class="is-active">Our Team</a>
+      <a href="./Contact.dc.html">Contact</a>
+      <a href="./Contact.dc.html" class="site-nav__drawer-cta">Book a free call</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section style="padding:126px 24px 84px;background:#071929;position:relative;overflow:hidden">
+  <div style="position:absolute;top:-160px;left:50%;transform:translateX(-50%);width:760px;height:420px;background:radial-gradient(ellipse,rgba(22,193,114,.13),transparent 70%);pointer-events:none"></div>
+  <div style="max-width:760px;margin:0 auto;text-align:center;position:relative">
+    <div style="display:inline-flex;align-items:center;gap:8px;margin-bottom:22px;padding:6px 14px;background:rgba(22,193,114,0.12);border-radius:100px;border:1px solid rgba(22,193,114,0.2)">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="#16C172" fill-opacity="0.2" stroke="#16C172" stroke-width="1.8" stroke-linejoin="round"></path><path d="M9 12l2 2 4-4" stroke="#16C172" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <span style="font-size:var(--text-label);font-weight:700;color:#16C172;letter-spacing:.04em">Licensed NZ Financial Advisers · FAP</span>
+    </div>
+    <h1 class="hero-title" style="font-size:var(--text-hero-md);font-weight:800;color:white;margin:0 0 18px;line-height:1.05;letter-spacing:var(--hero-tracking)">The Wealthify team.</h1>
+    <p style="font-size:var(--text-body);color:rgba(255,255,255,0.5);margin:0 auto;line-height:1.7;max-width:520px">Real advisers, not a call centre. Between us we cover mortgages, insurance, KiwiSaver and investing — and you deal with the same person from first chat to settlement.</p>
+    <div class="stats-row" style="display:flex;gap:28px;justify-content:center;flex-wrap:wrap;margin-top:44px">
+      <div><span style="font-size:var(--text-h3);font-weight:800;color:white;letter-spacing:-0.5px">10+</span><span style="font-size:var(--text-caption);color:rgba(255,255,255,0.3);margin-left:8px">years' experience</span></div>
+      <div style="width:1px;background:rgba(255,255,255,0.1)"></div>
+      <div><span style="font-size:var(--text-h3);font-weight:800;color:white;letter-spacing:-0.5px">20+</span><span style="font-size:var(--text-caption);color:rgba(255,255,255,0.3);margin-left:8px">lenders</span></div>
+      <div style="width:1px;background:rgba(255,255,255,0.1)"></div>
+      <div><span style="font-size:var(--text-h3);font-weight:800;color:#16C172;letter-spacing:-0.5px">5 ★</span><span style="font-size:var(--text-caption);color:rgba(255,255,255,0.3);margin-left:8px">Google</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ AMOL PRAKASH ═══ -->
+<section style="padding:84px 24px;background:#fff">
+  <div class="team-row">
+    <div class="team-photo">
+      <img src="/assets/team/amol-prakash-portrait.webp" alt="Amol Prakash, Financial Adviser at Wealthify" width="760" height="950" loading="lazy">
+    </div>
+    <div>
+      <div style="font-size:var(--text-micro);font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#16C172;margin-bottom:12px">Financial Adviser · Dunedin</div>
+      <h2 style="font-size:var(--text-h2-xs);font-weight:800;color:#0B1F3A;margin:0 0 12px;letter-spacing:-1px;line-height:1.12">Amol Prakash</h2>
+      <p style="font-size:var(--text-lead);color:#1A2433;font-weight:600;line-height:1.6;margin:0 0 24px;max-width:520px">Bringing industry knowledge and expertise to your financial journey.</p>
+      <div class="team-chips">
+        <span class="team-chip">Master's in Business &amp; Finance</span>
+        <span class="team-chip">15+ years across banking &amp; finance</span>
+        <span class="team-chip">Property &amp; construction background</span>
+      </div>
+      <div class="team-bio">
+        <p>With a Master's degree in Business and Finance, Amol brings over 15 years of experience across banking, financial services, and the construction industry. That practical grounding, plus a deep understanding of the property and finance landscape, makes him a trusted guide for clients planning their next financial step.</p>
+        <p>Amol believes the best advice starts with listening. By understanding each client's story he can offer genuinely personalised solutions — whether that is buying a first home, planning for children's education, investing for the future, restructuring loans, or protecting valuable assets.</p>
+        <p>Known for his calm, thoughtful approach, Amol has a real desire to help people reach their financial goals with confidence. Based in Dunedin, he is proud to support individuals and families through some of life's biggest decisions — always with care, clarity, and expertise.</p>
+      </div>
+      <a href="./Contact.dc.html?adviser=amol-prakash" class="team-cta">Contact Amol
+        <svg width="15" height="15" viewBox="0 0 20 20" fill="none"><path d="M4 10h11M11 5.5L15.5 10 11 14.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SHWETA BHATIA ═══ -->
+<section style="padding:84px 24px;background:#F6F8FB;border-top:1px solid #E4E9F0;border-bottom:1px solid #E4E9F0">
+  <div class="team-row team-row--flip">
+    <div class="team-photo">
+      <img src="/assets/team/shweta-bhatia-portrait.webp" alt="Shweta Bhatia, Mortgage Adviser at Wealthify" width="760" height="950" loading="lazy">
+    </div>
+    <div>
+      <div style="font-size:var(--text-micro);font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#16C172;margin-bottom:12px">Mortgage Adviser · South Island</div>
+      <h2 style="font-size:var(--text-h2-xs);font-weight:800;color:#0B1F3A;margin:0 0 12px;letter-spacing:-1px;line-height:1.12">Shweta Bhatia</h2>
+      <p style="font-size:var(--text-lead);color:#1A2433;font-weight:600;line-height:1.6;margin:0 0 24px;max-width:520px">Empowering you to step into your own home with confidence.</p>
+      <div class="team-chips">
+        <span class="team-chip">Real estate &amp; legal background</span>
+        <span class="team-chip">Access to 20+ lenders</span>
+        <span class="team-chip">First-home buyers to investors</span>
+      </div>
+      <div class="team-bio">
+        <p>With a background in real estate and the legal sector, Shweta brings valuable insight into the property process. She works with a wide range of clients — from first-home buyers to seasoned investors — offering clear, practical guidance at every stage of the lending journey.</p>
+        <p>Shweta believes buying a home should feel empowering, not overwhelming. With access to more than 20 lenders, she takes the time to understand each client's situation and tailors solutions that suit both their immediate needs and their long-term goals.</p>
+        <p>Known for her friendly nature and attention to detail, she matches clients with the right options while keeping communication open and the process transparent. She is passionate about supporting people through key financial decisions and helping them move forward with clarity.</p>
+        <p>Shweta has a strong connection to her community and enjoys giving back, whether through local events or simply being there when someone needs a hand. Based in the South Island, she loves exploring the region's natural beauty — a regular reminder of why home matters so much.</p>
+      </div>
+      <a href="./Contact.dc.html?adviser=shweta-bhatia" class="team-cta">Contact Shweta
+        <svg width="15" height="15" viewBox="0 0 20 20" fill="none"><path d="M4 10h11M11 5.5L15.5 10 11 14.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ JEESON JOSEPH ═══ -->
+<section style="padding:84px 24px">
+  <div class="team-row">
+    <div class="team-photo">
+      <img src="/assets/team/jeeson-joseph-portrait.webp" alt="Jeeson Joseph, Mortgage Adviser at Wealthify" width="760" height="950" loading="lazy">
+    </div>
+    <div>
+      <div style="font-size:var(--text-micro);font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#16C172;margin-bottom:12px">Mortgage Adviser · New Zealand wide</div>
+      <h2 style="font-size:var(--text-h2-xs);font-weight:800;color:#0B1F3A;margin:0 0 12px;letter-spacing:-1px;line-height:1.12">Jeeson Joseph</h2>
+      <p style="font-size:var(--text-lead);color:#1A2433;font-weight:600;line-height:1.6;margin:0 0 24px;max-width:520px">Building stronger financial foundations through informed lending advice.</p>
+      <div class="team-chips">
+        <span class="team-chip">Data-driven loan structuring</span>
+        <span class="team-chip">Entrepreneurial background</span>
+        <span class="team-chip">First homes · investment · refinancing</span>
+      </div>
+      <div class="team-bio">
+        <p>With a strong entrepreneurial background in digital marketing, Jeeson brings a modern, analytical perspective to financial services. Building and scaling businesses sharpened his strengths in market analysis, strategic planning, negotiation, and data-driven decision-making — exactly what careful loan structuring calls for.</p>
+        <p>Before stepping into an adviser role, Jeeson spent over 18 months as a mortgage administrator, working closely with advisers, lenders, and clients. That grounding gave him hands-on experience of the lending process and a deep understanding of what makes a home loan application succeed.</p>
+        <p>As a Mortgage Adviser at Wealthify, Jeeson is dedicated to helping individuals and families make confident, well-informed property decisions. Whether you are buying your first home, investing, or refinancing, he provides clear guidance aligned with your long-term financial goals.</p>
+        <p>He believes in building lasting relationships through transparency, responsiveness, and genuine care. His focus is not just on securing a loan, but on helping clients create strong financial foundations for the future.</p>
+      </div>
+      <a href="./Contact.dc.html?adviser=jeeson-joseph" class="team-cta">Contact Jeeson
+        <svg width="15" height="15" viewBox="0 0 20 20" fill="none"><path d="M4 10h11M11 5.5L15.5 10 11 14.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA BAND ═══ -->
+<section style="padding:72px 24px;background:linear-gradient(135deg,#0B1F3A,#162d5a)">
+  <div style="max-width:600px;margin:0 auto;text-align:center">
+    <h2 style="font-size:var(--text-h2-xs);font-weight:800;color:white;margin:0 0 14px;letter-spacing:-1px">Not sure who to talk to?</h2>
+    <p style="font-size:var(--text-lead);color:rgba(255,255,255,0.62);margin:0 0 32px;line-height:1.65">Send us a message and we will point you to the right adviser for your situation. Free, no obligation, no jargon.</p>
+    <div class="cta-band" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="./Contact.dc.html" style="padding:14px 28px;background:#16C172;color:white;border-radius:10px;font-size:var(--text-cta);font-weight:700;display:inline-flex;align-items:center;justify-content:center;transition:opacity 0.15s" style-hover="opacity:0.9">Get in touch</a>
+      <a href="./Tools.dc.html" style="padding:14px 28px;background:transparent;border:1.5px solid rgba(255,255,255,0.3);color:white;border-radius:10px;font-size:var(--text-cta);font-weight:600;display:inline-flex;align-items:center;justify-content:center;transition:background 0.15s" style-hover="background:rgba(255,255,255,0.08)">Try our calculators</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer style="background:#0B1F3A;padding:56px 24px 24px">
+  <div style="max-width:1200px;margin:0 auto">
+    <div class="footer-grid" style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:44px">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+          <img src="/assets/brand/logo-green.svg" alt="Wealthify" class="brand-logo brand-logo--sm" height="26">
+        </div>
+        <p style="font-size:var(--text-compact);color:rgba(255,255,255,0.45);line-height:1.7;margin:0 0 20px;max-width:260px">Helping Kiwis get ahead with their finances. Independent advice </p>
+      </div>
+      <div>
+        <div style="font-size:var(--text-micro);font-weight:700;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px">Services</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <a href="./Mortgages.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.55);transition:color 0.15s" style-hover="color:white">Mortgages</a>
+          <a href="./Insurance.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.55);transition:color 0.15s" style-hover="color:white">Insurance</a>
+          <a href="./KiwiSaver.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.55);transition:color 0.15s" style-hover="color:white">KiwiSaver</a>
+          <a href="./Refinance-Calculator-Embed.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.55);transition:color 0.15s" style-hover="color:white">Loans</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:var(--text-micro);font-weight:700;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px">Company</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <a href="./Team.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.55);transition:color 0.15s" style-hover="color:white">Our Team</a>
+          <a href="./Tools.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.55);transition:color 0.15s" style-hover="color:white">Tools</a>
+          <a href="./Contact.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.55);transition:color 0.15s" style-hover="color:white">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:var(--text-micro);font-weight:700;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px">Legal</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <a href="#" style="font-size:var(--text-compact);color:rgba(255,255,255,0.55);transition:color 0.15s" style-hover="color:white">Privacy Policy</a>
+          <a href="#" style="font-size:var(--text-compact);color:rgba(255,255,255,0.55);transition:color 0.15s" style-hover="color:white">Terms of Use</a>
+          <a href="#" style="font-size:var(--text-compact);color:rgba(255,255,255,0.55);transition:color 0.15s" style-hover="color:white">Disclosure</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+      <p style="font-size:var(--text-micro);color:rgba(255,255,255,0.35);margin:0;line-height:1.5;max-width:560px">Wealthify Limited is a NZ Financial Advice Provider (FAP). This site is for information purposes only and does not constitute financial advice.</p>
+      <p style="font-size:var(--text-micro);color:rgba(255,255,255,0.35);margin:0">© 2026 Wealthify Limited</p>
+    </div>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { scrolled: false };
+
+  componentDidMount() {
+    this._onScroll = () => this.setState({ scrolled: window.scrollY > 60 });
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this._onScroll);
+  }
+
+  renderVals() {
+    const { scrolled } = this.state;
+    return {
+      navBg: scrolled ? 'white' : 'transparent',
+      navShadow: scrolled ? '0 2px 20px rgba(0,0,0,0.08)' : 'none',
+      navColor: scrolled ? '#0B1F3A' : 'white',
+      navClass: scrolled ? '' : 'nav-on-dark'
+    };
+  }
+}
+</script>
+<script src="./nav.js"></script>
+</body>
+</html>

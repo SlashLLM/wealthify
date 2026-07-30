@@ -80,6 +80,10 @@ const server = http.createServer(async (req, res) => {
     return loadHandler('../api/config')(req, res);
   }
 
+  if (url.pathname === '/api/contact') {
+    return loadHandler('../api/contact')(req, res);
+  }
+
   if (url.pathname === '/api/admin/login') {
     return loadHandler('../api/admin/login')(req, res);
   }
