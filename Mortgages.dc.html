@@ -30,18 +30,18 @@
 <nav class="site-nav {{ navClass }}" style="transition:background 0.3s,box-shadow 0.3s;background:{{ navBg }};box-shadow:{{ navShadow }}">
   <div class="site-nav__inner">
     <a href="./index.html" class="site-nav__brand">
-      <img src="/assets/brand/logo-black.svg" alt="Wealthify" class="brand-logo brand-logo--dark" height="28">
-      <img src="/assets/brand/logo-white.svg" alt="Wealthify" class="brand-logo brand-logo--light" height="28">
+      <img src="/assets/brand/logo-green.svg" alt="Wealthify" class="brand-logo" height="28">
     </a>
     <div class="site-nav__links hide-mobile">
       <a href="#" style="font-size:var(--text-nav);font-weight:700;color:#16C172;padding-bottom:2px;border-bottom:2px solid #16C172">Mortgages</a>
       <a href="./Insurance.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navTextColor }};opacity:0.65" style-hover="opacity:1">Insurance</a>
       <a href="./KiwiSaver.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navTextColor }};opacity:0.65" style-hover="opacity:1">KiwiSaver</a>
-      <a href="./Refinance-Calculator-Embed.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navTextColor }};opacity:0.65" style-hover="opacity:1">Loans</a>
       <a href="./Tools.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navTextColor }};opacity:0.65" style-hover="opacity:1">Tools</a>
+      <a href="./Team.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navTextColor }};opacity:0.65" style-hover="opacity:1">Our Team</a>
+      <a href="./Contact.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navTextColor }};opacity:0.65" style-hover="opacity:1">Contact</a>
     </div>
     <div class="site-nav__actions">
-      <button class="hide-mobile" style="padding:8px 18px;background:#16C172;border:none;color:white;border-radius:8px;font-size:var(--text-nav-cta);font-weight:700;cursor:pointer;font-family:inherit">Book a free call</button>
+      <a href="./Contact.dc.html" class="hide-mobile" style="padding:8px 18px;background:#16C172;border:none;color:white;border-radius:8px;font-size:var(--text-nav-cta);font-weight:700;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;justify-content:center">Book a free call</a>
       <button type="button" class="show-mobile-only site-nav__toggle" data-nav-toggle aria-expanded="false" aria-label="Open menu"><span class="site-nav__toggle-icon" aria-hidden="true"></span></button>
     </div>
   </div>
@@ -52,13 +52,15 @@
       <a href="./KiwiSaver.dc.html">KiwiSaver</a>
       <a href="./Refinance-Calculator-Embed.html">Loans</a>
       <a href="./Tools.dc.html">Tools</a>
-      <button type="button" class="site-nav__drawer-cta">Book a free call</button>
+      <a href="./Team.dc.html">Our Team</a>
+      <a href="./Contact.dc.html">Contact</a>
+      <a href="./Contact.dc.html" class="site-nav__drawer-cta">Book a free call</a>
     </div>
   </div>
 </nav>
 
 <!-- ═══ HERO — compact, punchy ═══ -->
-<section style="padding:120px 24px 0;background:#071929">
+<section style="padding:120px 24px 48px;background:#071929">
   <div style="max-width:1200px;margin:0 auto;text-align:center">
     <div style="display:inline-flex;align-items:center;gap:8px;margin-bottom:24px;padding:6px 14px;background:rgba(22,193,114,0.12);border-radius:100px;border:1px solid rgba(22,193,114,0.2)">
       <span style="width:6px;height:6px;border-radius:50%;background:#16C172;animation:pulse 2s infinite;display:inline-block"></span>
@@ -66,13 +68,6 @@
     </div>
     <h1 class="hero-title" style="font-size:var(--text-hero-md);font-weight:800;color:white;margin:0 0 18px;line-height:1;letter-spacing:var(--hero-tracking)">Find your best<br>mortgage rate.</h1>
     <p style="font-size:var(--text-body);color:rgba(255,255,255,0.42);margin:0 auto 20px;max-width:480px;line-height:1.7">We compare 20+ NZ lenders, negotiate the rate, and handle every step. No cost to you — ever.</p>
-    <div class="stats-row" style="display:flex;gap:28px;justify-content:center;padding-bottom:48px;flex-wrap:wrap">
-      <div><span style="font-size:var(--text-h3);font-weight:800;color:white;letter-spacing:-0.5px">$2.4B+</span><span style="font-size:var(--text-caption);color:rgba(255,255,255,0.3);margin-left:8px">settled</span></div>
-      <div style="width:1px;background:rgba(255,255,255,0.1)"></div>
-      <div><span style="font-size:var(--text-h3);font-weight:800;color:white;letter-spacing:-0.5px">1,500+</span><span style="font-size:var(--text-caption);color:rgba(255,255,255,0.3);margin-left:8px">families</span></div>
-      <div style="width:1px;background:rgba(255,255,255,0.1)"></div>
-      <div><span style="font-size:var(--text-h3);font-weight:800;color:#16C172;letter-spacing:-0.5px">4.9 ★</span><span style="font-size:var(--text-caption);color:rgba(255,255,255,0.3);margin-left:8px">Google</span></div>
-    </div>
   </div>
 </section>
 
@@ -90,7 +85,7 @@
         <div style="font-size:20px;font-weight:800;color:{{ cat0Title }};letter-spacing:-0.5px;margin-bottom:6px;line-height:1.2">First Home<br>Buyer</div>
         <div class="stat-figure" style="font-size:36px;font-weight:800;color:{{ cat0Stat }};letter-spacing:-2px;line-height:1;margin:16px 0 4px">5%</div>
         <div style="font-size:12px;color:{{ cat0Muted }};font-weight:600;margin-bottom:16px">min. deposit</div>
-        <div style="font-size:13px;color:{{ cat0Desc }};line-height:1.6">KiwiSaver withdrawal, First Home Grant, and pre-approval in days.</div>
+        <div style="font-size:13px;color:{{ cat0Desc }};line-height:1.6">KiwiSaver withdrawal and pre-approval in days.</div>
         <div style="margin-top:20px;font-size:13px;font-weight:700;color:#16C172;display:flex;align-items:center;gap:5px">
           Learn more
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 4L10 8L6 12" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
@@ -118,7 +113,7 @@
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="2" y="7" width="20" height="15" rx="2" stroke="#E8B04B" stroke-width="1.8"></rect><path d="M16 7V5a4 4 0 0 0-8 0v2" stroke="#E8B04B" stroke-width="1.8" stroke-linecap="round"></path><path d="M8 12H16M8 16H12" stroke="#E8B04B" stroke-width="1.8" stroke-linecap="round"></path></svg>
         </div>
         <div style="font-size:20px;font-weight:800;color:{{ cat2Title }};letter-spacing:-0.5px;margin-bottom:6px;line-height:1.2">Investment<br>Property</div>
-        <div class="stat-figure" style="font-size:36px;font-weight:800;color:{{ cat2Stat }};letter-spacing:-2px;line-height:1;margin:16px 0 4px">35%</div>
+        <div class="stat-figure" style="font-size:36px;font-weight:800;color:{{ cat2Stat }};letter-spacing:-2px;line-height:1;margin:16px 0 4px">10%</div>
         <div style="font-size:12px;color:{{ cat2Muted }};font-weight:600;margin-bottom:16px">min. deposit</div>
         <div style="font-size:13px;color:{{ cat2Desc }};line-height:1.6">LVR structuring, interest-only options, and multi-property portfolio expertise.</div>
         <div style="margin-top:20px;font-size:13px;font-weight:700;color:#16C172;display:flex;align-items:center;gap:5px">
@@ -202,8 +197,8 @@
           <div style="font-size:var(--text-h3);font-weight:800;color:white;letter-spacing:-0.5px;margin-bottom:8px;line-height:1.2">Talk to a mortgage adviser.</div>
           <p style="font-size:var(--text-ui);color:rgba(255,255,255,0.5);margin:0 0 22px;line-height:1.6">30 minutes. No cost. No obligation. We'll map out your options and tell you exactly where you stand.</p>
           <div class="cta-band" style="display:flex;gap:12px;flex-wrap:wrap">
-            <button style="padding:13px 24px;background:#16C172;border:none;color:white;border-radius:10px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s" style-hover="opacity:0.88">Book a free call</button>
-            <button style="padding:13px 24px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.75);border-radius:10px;font-size:var(--text-ui);font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s" style-hover="background:rgba(255,255,255,0.12)">Call 0800 WEALTHIFY</button>
+            <a href="./Contact.dc.html" style="padding:13px 24px;background:#16C172;border:none;color:white;border-radius:10px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s;display:inline-flex;align-items:center;justify-content:center" style-hover="opacity:0.88">Book a free call</a>
+            <a href="tel:0220614584" style="padding:13px 24px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.75);border-radius:10px;font-size:var(--text-ui);font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s;display:inline-flex;align-items:center;justify-content:center" style-hover="background:rgba(255,255,255,0.12)">Call Wealthify 022 061 4584</a>
           </div>
         </div>
       </div>
@@ -236,10 +231,6 @@
       <span style="font-size:var(--text-dense-sm);font-weight:800;color:#C4CDD6;letter-spacing:.06em">SBS BANK</span>
       <span style="font-size:var(--text-micro);font-weight:600;color:#B0BAC5">+ 14 more lenders</span>
     </div>
-    <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
-      <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8L6 11L13 4" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-      <span style="font-size:var(--text-micro);font-weight:700;color:#0E9E5C">Free to you — always</span>
-    </div>
   </div>
 </div>
 
@@ -256,28 +247,24 @@
 
       <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12px;position:relative;z-index:1">
         <div style="width:44px;height:44px;border-radius:50%;background:#16C172;display:flex;align-items:center;justify-content:center;font-size:var(--text-compact);font-weight:800;color:white;box-shadow:0 0 0 6px rgba(22,193,114,0.1);margin-bottom:14px">1</div>
-        <div style="font-size:var(--text-tiny);font-weight:700;color:#16C172;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Day 1</div>
         <div style="font-size:14px;font-weight:800;color:#0B1F3A;margin-bottom:8px;line-height:1.25">Free consultation</div>
         <div style="font-size:var(--text-caption);color:#8B9AAD;line-height:1.55">30 minutes. Tell us your goals and situation. Zero obligation.</div>
       </div>
 
       <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12px;position:relative;z-index:1">
         <div style="width:44px;height:44px;border-radius:50%;background:#0FB5BA;display:flex;align-items:center;justify-content:center;font-size:var(--text-compact);font-weight:800;color:white;box-shadow:0 0 0 6px rgba(15,181,186,0.1);margin-bottom:14px">2</div>
-        <div style="font-size:var(--text-tiny);font-weight:700;color:#0FB5BA;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Days 2–3</div>
         <div style="font-size:14px;font-weight:800;color:#0B1F3A;margin-bottom:8px;line-height:1.25">We search the market</div>
         <div style="font-size:var(--text-caption);color:#8B9AAD;line-height:1.55">We compare 20+ lenders simultaneously and negotiate on your behalf.</div>
       </div>
 
       <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12px;position:relative;z-index:1">
         <div style="width:44px;height:44px;border-radius:50%;background:#0B1F3A;display:flex;align-items:center;justify-content:center;font-size:var(--text-compact);font-weight:800;color:white;box-shadow:0 0 0 6px rgba(11,31,58,0.08);margin-bottom:14px">3</div>
-        <div style="font-size:var(--text-tiny);font-weight:700;color:#5B6B82;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Day 4–5</div>
         <div style="font-size:14px;font-weight:800;color:#0B1F3A;margin-bottom:8px;line-height:1.25">Your options presented</div>
         <div style="font-size:var(--text-caption);color:#8B9AAD;line-height:1.55">Clear comparison of your best deals. You choose. No pressure.</div>
       </div>
 
       <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12px;position:relative;z-index:1">
         <div style="width:44px;height:44px;border-radius:50%;background:#0B1F3A;display:flex;align-items:center;justify-content:center;font-size:var(--text-compact);font-weight:800;color:white;box-shadow:0 0 0 6px rgba(11,31,58,0.08);margin-bottom:14px">4</div>
-        <div style="font-size:var(--text-tiny);font-weight:700;color:#5B6B82;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Week 2</div>
         <div style="font-size:14px;font-weight:800;color:#0B1F3A;margin-bottom:8px;line-height:1.25">Application &amp; docs</div>
         <div style="font-size:var(--text-caption);color:#8B9AAD;line-height:1.55">We handle all paperwork and liaise with the lender directly.</div>
       </div>
@@ -286,7 +273,6 @@
         <div style="width:44px;height:44px;border-radius:50%;background:#16C172;display:flex;align-items:center;justify-content:center;font-size:var(--text-compact);font-weight:800;color:white;box-shadow:0 0 0 6px rgba(22,193,114,0.1);margin-bottom:14px">
           <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M4 10L8 14L16 6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
         </div>
-        <div style="font-size:var(--text-tiny);font-weight:700;color:#16C172;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Week 3–4</div>
         <div style="font-size:14px;font-weight:800;color:#0B1F3A;margin-bottom:8px;line-height:1.25">Approved &amp; settled</div>
         <div style="font-size:var(--text-caption);color:#8B9AAD;line-height:1.55">Formal approval, settlement, and keys in hand.</div>
       </div>
@@ -302,7 +288,7 @@
         <div style="font-size:var(--text-micro);font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#5B6B82;margin-bottom:12px">Preparation</div>
         <h2 style="font-size:var(--text-h2-compact);font-weight:800;color:#0B1F3A;margin:0 0 16px;letter-spacing:-1px;line-height:1.15">What you'll need to apply</h2>
         <p style="font-size:14.5px;color:#5B6B82;line-height:1.7;margin:0 0 24px">Gather these ahead of your call and we'll move fast. Most clients are pre-approved within 48 hours.</p>
-        <button style="padding:12px 22px;background:#0B1F3A;border:none;color:white;border-radius:9px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s" style-hover="opacity:0.85">Book a free call</button>
+        <a href="./Contact.dc.html" style="padding:12px 22px;background:#0B1F3A;border:none;color:white;border-radius:9px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s;display:inline-flex;align-items:center;justify-content:center" style-hover="opacity:0.85">Book a free call</a>
       </div>
       <div class="grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
         <div style="background:#F6F8FB;border:1px solid #E4E9F0;border-radius:14px;padding:22px">
@@ -338,7 +324,7 @@
   <div style="max-width:1100px;margin:0 auto">
     <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:40px;flex-wrap:wrap;gap:12px">
       <h2 style="font-size:var(--text-h2-xs);font-weight:800;color:#0B1F3A;margin:0;letter-spacing:-1px">What our clients say</h2>
-      <div style="display:flex;align-items:center;gap:6px"><span style="color:#E8B04B;font-size:13px;letter-spacing:2px">★★★★★</span><span style="font-size:var(--text-compact);color:#5B6B82;font-weight:600">4.9 / 5 · 340+ Google reviews</span></div>
+      <div style="display:flex;align-items:center;gap:6px"><span style="color:#E8B04B;font-size:13px;letter-spacing:2px">★★★★★</span><span style="font-size:var(--text-compact);color:#5B6B82;font-weight:600">5 / 5 · Google reviews</span></div>
     </div>
     <div class="grid-3" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
       <div style="background:white;border:1px solid #E4E9F0;border-radius:18px;padding:30px">
@@ -392,8 +378,8 @@
     <h2 style="font-size:var(--text-cta-banner);font-weight:800;color:white;margin:0 0 16px;letter-spacing:-1.5px;line-height:1.1">Ready to find your best mortgage?</h2>
     <p style="font-size:16px;color:rgba(255,255,255,0.55);margin:0 0 36px;line-height:1.7">A 30-minute call with a Wealthify adviser could save you tens of thousands. No jargon, no pressure.</p>
     <div class="cta-band" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-      <button style="padding:15px 30px;background:#16C172;border:none;color:white;border-radius:10px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s" style-hover="opacity:0.9">Book a free call</button>
-      <button style="padding:15px 28px;border:1.5px solid rgba(255,255,255,0.2);background:transparent;color:rgba(255,255,255,0.75);border-radius:10px;font-size:var(--text-cta);font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s" style-hover="background:rgba(255,255,255,0.07);color:white">Call 0800 WEALTHIFY</button>
+      <a href="./Contact.dc.html" style="padding:15px 30px;background:#16C172;border:none;color:white;border-radius:10px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s;display:inline-flex;align-items:center;justify-content:center" style-hover="opacity:0.9">Book a free call</a>
+      <a href="tel:0220614584" style="padding:15px 28px;border:1.5px solid rgba(255,255,255,0.2);background:transparent;color:rgba(255,255,255,0.75);border-radius:10px;font-size:var(--text-cta);font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s;display:inline-flex;align-items:center;justify-content:center" style-hover="background:rgba(255,255,255,0.07);color:white">Call Wealthify 022 061 4584</a>
     </div>
   </div>
 </section>
@@ -404,9 +390,9 @@
     <div class="footer-grid" style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:44px">
       <div>
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
-          <img src="/assets/brand/logo-white.svg" alt="Wealthify" class="brand-logo brand-logo--sm" height="26">
+          <img src="/assets/brand/logo-green.svg" alt="Wealthify" class="brand-logo brand-logo--sm" height="26">
         </div>
-        <p style="font-size:var(--text-compact);color:rgba(255,255,255,0.4);line-height:1.7;margin:0 0 20px;max-width:260px">Independent NZ mortgage advisers. Plain English advice, no fees, ever.</p>
+        <p style="font-size:var(--text-compact);color:rgba(255,255,255,0.4);line-height:1.7;margin:0 0 20px;max-width:260px">Independent NZ mortgage advisers. </p>
       </div>
       <div>
         <div style="font-size:var(--text-micro);font-weight:700;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px">Mortgages</div>
@@ -422,8 +408,10 @@
         <div style="display:flex;flex-direction:column;gap:10px">
           <a href="./Insurance.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Insurance</a>
           <a href="./KiwiSaver.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">KiwiSaver</a>
-          <a href="#" style="font-size:var(--text-compact);color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Personal Loans</a>
-          <a href="#" style="font-size:var(--text-compact);color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Calculator</a>
+          <a href="./Refinance-Calculator-Embed.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Personal Loans</a>
+          <a href="./Tools.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Calculators</a>
+          <a href="./Team.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Our Team</a>
+          <a href="./Contact.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.5);transition:color 0.15s" style-hover="color:white">Contact</a>
         </div>
       </div>
       <div>
@@ -471,7 +459,7 @@ class Component extends DCLogic {
         description: 'We guide first home buyers through every step — from understanding what you can borrow, to negotiating your best rate and managing the paperwork. No cost, no jargon, no surprises.',
         calcLabel: 'How much can you borrow?',
         benefits: [
-          { title: 'KiwiSaver + First Home Grant', desc: 'Withdraw your KiwiSaver balance towards your deposit and access up to $10,000 per person through the First Home Grant. We check your full eligibility.' },
+          { title: 'KiwiSaver', desc: 'Withdraw your KiwiSaver balance towards your deposit. We check your full eligibility.' },
           { title: 'Pre-approval in days, not weeks', desc: 'We submit to the right lender first time. Most of our first home buyer clients have pre-approval within 48 hours of submitting documents.' },
           { title: 'We negotiate your rate down', desc: 'Banks quote their carded rate. We negotiate below it — across 20+ lenders — so you start your homeownership paying less from day one.' },
         ],
@@ -535,8 +523,8 @@ class Component extends DCLogic {
     // ── FAQ ──
     const faqData = [
       { q: 'What\'s the difference between fixed and floating rates?', a: 'Fixed rates lock your rate for a set term (1–5 years), giving certainty. Floating rates move with the market — more flexibility but less predictability. Most Kiwis fix for 1–3 years. We help you choose the right mix.' },
-      { q: 'How much deposit do I need?', a: 'Owner-occupiers typically need 20%. First home buyers may qualify for 5–10% through first home schemes. Investment properties require 35–40%. KiwiSaver and the First Home Grant can help.' },
-      { q: 'Can I use my KiwiSaver as a deposit?', a: 'Yes — if you\'ve been contributing for 3+ years, you can withdraw most of your balance for your first home. You may also qualify for the First Home Grant (up to $10,000 per person).' },
+      { q: 'How much deposit do I need?', a: 'Owner-occupiers typically need 20%. First home buyers may qualify for 5–10% through first home schemes. Investment properties require 35–40%. Your KiwiSaver can help.' },
+      { q: 'Can I use my KiwiSaver as a deposit?', a: 'Yes — if you\'ve been contributing for 3+ years, you can withdraw most of your balance for your first home. We check your full eligibility before you apply.' },
       { q: 'Will using a broker affect my credit score?', a: 'No — our initial assessment uses a soft credit check which doesn\'t affect your score. A formal inquiry only happens when you submit to a chosen lender, with your approval.' },
       { q: 'I\'m self-employed. Can I get a mortgage?', a: 'Absolutely. You\'ll need 2 years of financials and tax returns. We work with lenders who understand variable income — something banks\' front-line staff often don\'t.' },
       { q: 'What happens when my fixed rate expires?', a: 'Your bank sends a refix notice. Most people accept without comparing — costing them thousands. Contact us 4–6 weeks before expiry and we\'ll compare every lender.' },

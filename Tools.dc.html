@@ -31,17 +31,18 @@
 <nav class="site-nav {{ navClass }}" style="transition:background 0.3s,box-shadow 0.3s;background:{{ navBg }};box-shadow:{{ navShadow }}">
   <div class="site-nav__inner">
     <a href="./index.html" class="site-nav__brand">
-      <img src="/assets/brand/logo-black.svg" alt="Wealthify" class="brand-logo brand-logo--dark" height="28">
-      <img src="/assets/brand/logo-white.svg" alt="Wealthify" class="brand-logo brand-logo--light" height="28">
+      <img src="/assets/brand/logo-green.svg" alt="Wealthify" class="brand-logo" height="28">
     </a>
     <div class="site-nav__links hide-mobile">
       <a href="./Mortgages.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navTextColor }};opacity:0.65;transition:opacity 0.15s" style-hover="opacity:1">Mortgages</a>
       <a href="./Insurance.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navTextColor }};opacity:0.65;transition:opacity 0.15s" style-hover="opacity:1">Insurance</a>
       <a href="./KiwiSaver.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navTextColor }};opacity:0.65;transition:opacity 0.15s" style-hover="opacity:1">KiwiSaver</a>
       <a href="#" style="font-size:var(--text-nav);font-weight:700;color:#16C172;padding-bottom:2px;border-bottom:2px solid #16C172">Tools</a>
+      <a href="./Team.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navTextColor }};opacity:0.65;transition:opacity 0.15s" style-hover="opacity:1">Our Team</a>
+      <a href="./Contact.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navTextColor }};opacity:0.65;transition:opacity 0.15s" style-hover="opacity:1">Contact</a>
     </div>
     <div class="site-nav__actions">
-      <button class="hide-mobile" style="padding:8px 18px;background:#16C172;border:none;color:white;border-radius:8px;font-size:var(--text-nav-cta);font-weight:700;cursor:pointer;font-family:inherit">Book a free call</button>
+      <a href="./Contact.dc.html" class="hide-mobile" style="padding:8px 18px;background:#16C172;border:none;color:white;border-radius:8px;font-size:var(--text-nav-cta);font-weight:700;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;justify-content:center">Book a free call</a>
       <button type="button" class="show-mobile-only site-nav__toggle" data-nav-toggle aria-expanded="false" aria-label="Open menu"><span class="site-nav__toggle-icon" aria-hidden="true"></span></button>
     </div>
   </div>
@@ -52,7 +53,9 @@
       <a href="./KiwiSaver.dc.html">KiwiSaver</a>
       <a href="./Refinance-Calculator-Embed.html">Loans</a>
       <a href="#" class="is-active">Tools</a>
-      <button type="button" class="site-nav__drawer-cta">Book a free call</button>
+      <a href="./Team.dc.html">Our Team</a>
+      <a href="./Contact.dc.html">Contact</a>
+      <a href="./Contact.dc.html" class="site-nav__drawer-cta">Book a free call</a>
     </div>
   </div>
 </nav>
@@ -378,7 +381,7 @@
     <h2 style="font-size:var(--text-h2-sm);font-weight:800;color:white;margin:0 0 14px;letter-spacing:-1px;line-height:1.1">Numbers don't lie.<br>Advisers make them work.</h2>
     <p style="font-size:16px;color:rgba(255,255,255,0.55);margin:0 0 36px;line-height:1.7;max-width:480px;margin-left:auto;margin-right:auto">The calculators show the potential. A Wealthify adviser makes it real — free 30-minute call, no obligation, no jargon.</p>
     <div class="cta-band" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-      <button style="padding:14px 28px;background:#16C172;border:none;color:white;border-radius:10px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s" style-hover="opacity:0.9">Book a free call</button>
+      <a href="./Contact.dc.html" style="padding:14px 28px;background:#16C172;border:none;color:white;border-radius:10px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s;display:inline-flex;align-items:center;justify-content:center" style-hover="opacity:0.9">Book a free call</a>
       <a href="./index.html" style="display:inline-flex;align-items:center;padding:14px 28px;border:1.5px solid rgba(255,255,255,0.25);background:transparent;color:rgba(255,255,255,0.75);border-radius:10px;font-size:var(--text-cta);font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s" style-hover="background:rgba(255,255,255,0.07);color:white">Explore our services</a>
     </div>
   </div>
@@ -390,9 +393,9 @@
     <div class="footer-grid" style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:44px">
       <div>
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
-          <img src="/assets/brand/logo-white.svg" alt="Wealthify" class="brand-logo brand-logo--sm" height="26">
+          <img src="/assets/brand/logo-green.svg" alt="Wealthify" class="brand-logo brand-logo--sm" height="26">
         </div>
-        <p style="font-size:var(--text-compact);color:rgba(255,255,255,0.4);line-height:1.7;margin:0;max-width:260px">Independent NZ financial advisers. Plain English advice, no fees, ever.</p>
+        <p style="font-size:var(--text-compact);color:rgba(255,255,255,0.4);line-height:1.7;margin:0;max-width:260px">Independent NZ financial advisers. </p>
       </div>
       <div>
         <div style="font-size:var(--text-micro);font-weight:700;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px">Mortgages</div>
@@ -409,6 +412,8 @@
           <a href="./Insurance.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.5)" style-hover="color:white">Insurance</a>
           <a href="./KiwiSaver.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.5)" style-hover="color:white">KiwiSaver</a>
           <a href="./Refinance-Calculator-Embed.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.5)" style-hover="color:white">Loans</a>
+          <a href="./Team.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.5)" style-hover="color:white">Our Team</a>
+          <a href="./Contact.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.5)" style-hover="color:white">Contact</a>
           <a href="#" style="font-size:13px;color:#16C172;font-weight:600">Tools</a>
         </div>
       </div>

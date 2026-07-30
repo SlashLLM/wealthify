@@ -78,6 +78,22 @@ body.has-sticky-cta {
   flex: 1;
   justify-content: center;
 }
+.site-nav__links a { white-space: nowrap; }
+/* Six nav items plus the CTA get tight below ~1080px — links carry an inline
+   font-size:var(--text-nav), so scale the variable rather than fighting specificity. */
+@media (max-width: 1080px) {
+  .site-nav__links {
+    --text-nav: 15px;
+    gap: 16px;
+  }
+}
+@media (max-width: 940px) {
+  .site-nav__inner { gap: 14px; }
+  .site-nav__links {
+    --text-nav: 14px;
+    gap: 12px;
+  }
+}
 .site-nav__actions {
   display: flex;
   gap: 10px;
@@ -194,6 +210,17 @@ body.has-sticky-cta {
   touch-action: manipulation;
 }
 .site-nav__drawer-cta:hover { opacity: 0.88; }
+/* Anchor form of the drawer CTA — beats the generic `.site-nav__drawer a` rules */
+.site-nav__drawer a.site-nav__drawer-cta {
+  justify-content: center;
+  color: #fff;
+  background: #16C172;
+}
+.site-nav__drawer a.site-nav__drawer-cta:hover,
+.site-nav__drawer a.site-nav__drawer-cta:focus-visible {
+  background: #16C172;
+  opacity: 0.88;
+}
 
 body.nav-open { overflow: hidden; }
 
