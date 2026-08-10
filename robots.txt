@@ -1,0 +1,11 @@
+# wealthify.co.nz — robots.txt
+User-agent: *
+Allow: /
+
+# Private areas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /uploads/
+
+# Sitemap
+Sitemap: https://wealthify.co.nz/sitemap.xml
