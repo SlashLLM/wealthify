@@ -500,9 +500,9 @@ function MortgageCalc(){
         >
           {modalStep === 1 && (
             <div>
-              <h4 style={{ fontSize: 17, fontWeight: 800, color: '#0B1F3A', letterSpacing: '-0.3px', margin: '0 0 5px 0' }}>
+              <h3 style={{ fontSize: 17, fontWeight: 800, color: '#0B1F3A', letterSpacing: '-0.3px', margin: '0 0 5px 0' }}>
                 See which bank saves you the most
-              </h4>
+              </h3>
               <p style={{ fontSize: 13, color: '#5B6B82', marginBottom: 14, marginTop: 0, lineHeight: 1.5 }}>
                 Unlock your personalised lender comparison — no obligation.
               </p>
@@ -667,9 +667,9 @@ function MortgageCalc(){
 
           {modalStep === 2 && (
             <div>
-              <h4 style={{ fontSize: 17, fontWeight: 800, color: '#0B1F3A', letterSpacing: '-0.3px', margin: '0 0 5px 0' }}>
+              <h3 style={{ fontSize: 17, fontWeight: 800, color: '#0B1F3A', letterSpacing: '-0.3px', margin: '0 0 5px 0' }}>
                 Almost there
-              </h4>
+              </h3>
               <p style={{ fontSize: 13, color: '#5B6B82', marginBottom: 14, marginTop: 0, lineHeight: 1.5 }}>
                 Tell us about your property so we can prepare your comparison.
               </p>
@@ -830,9 +830,9 @@ function MortgageCalc(){
                   <path d="M20 6 9 17l-5-5"/>
                 </svg>
               </div>
-              <h4 style={{ fontSize: 17, fontWeight: 800, color: '#0B1F3A', margin: '0 0 8px 0', letterSpacing: '-0.3px' }}>
+              <h3 style={{ fontSize: 17, fontWeight: 800, color: '#0B1F3A', margin: '0 0 8px 0', letterSpacing: '-0.3px' }}>
                 Thank you for your submission
-              </h4>
+              </h3>
               <p style={{ fontSize: 13.5, color: '#5B6B82', lineHeight: 1.6, margin: '0 0 20px 0' }}>
                 One of our licensed advisers will be in touch shortly to walk you through your personalised lender comparison and answer any questions.
               </p>

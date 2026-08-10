@@ -6,6 +6,7 @@ const ADVISERS = {
   'amol-prakash': 'Amol Prakash',
   'shweta-bhatia': 'Shweta Bhatia',
   'jeeson-joseph': 'Jeeson Joseph',
+  'vinod-anthony': 'Vinod Pudushery Anthony',
 };
 
 const MAX_MESSAGE = 4000;

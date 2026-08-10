@@ -8,6 +8,8 @@
 <body class="has-sticky-cta">
 <x-dc>
 <helmet>
+  <title>KiwiSaver Advice NZ | Wealthify</title>
+  <meta name="description" content="Your KiwiSaver could be costing you thousands in hidden fees. Get a free fund review and see if switching could grow your retirement savings faster.">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="./typography.css" rel="stylesheet">
   <link href="./responsive.css" rel="stylesheet">
@@ -29,12 +31,13 @@
 <nav class="site-nav {{ navClass }}" style="transition:background 0.3s,box-shadow 0.3s;background:{{ navBg }};box-shadow:{{ navShadow }}">
   <div class="site-nav__inner">
     <a href="./index.html" class="site-nav__brand">
-      <img src="/assets/brand/logo-green.svg" alt="Wealthify" class="brand-logo" height="28">
+      <img src="/assets/brand/logo-green.svg" alt="Wealthify" class="brand-logo" height="34">
     </a>
     <div class="site-nav__links hide-mobile">
       <a href="./Mortgages.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navTextColor }};opacity:0.65">Mortgages</a>
       <a href="./Insurance.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navTextColor }};opacity:0.65">Insurance</a>
       <a href="#" style="font-size:var(--text-nav);font-weight:700;color:#16C172;padding-bottom:2px;border-bottom:2px solid #16C172">KiwiSaver</a>
+      <a href="./Loans.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navTextColor }};opacity:0.65">Loans</a>
       <a href="./Tools.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navTextColor }};opacity:0.65">Tools</a>
       <a href="./Team.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navTextColor }};opacity:0.65">Our Team</a>
       <a href="./Contact.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navTextColor }};opacity:0.65">Contact</a>
@@ -49,7 +52,7 @@
       <a href="./Mortgages.dc.html">Mortgages</a>
       <a href="./Insurance.dc.html">Insurance</a>
       <a href="#" class="is-active">KiwiSaver</a>
-      <a href="./Refinance-Calculator-Embed.html">Loans</a>
+      <a href="./Loans.dc.html">Loans</a>
       <a href="./Tools.dc.html">Tools</a>
       <a href="./Team.dc.html">Our Team</a>
       <a href="./Contact.dc.html">Contact</a>
@@ -65,10 +68,10 @@
       <span style="width:6px;height:6px;border-radius:50%;background:#16C172;animation:pulse 2s infinite;display:inline-block"></span>
       <span style="font-size:var(--text-label);font-weight:700;color:#16C172;letter-spacing:.04em">Govt-registered · Independent · Free advice · Always</span>
     </div>
-    <h1 class="hero-title" style="font-size:var(--text-hero-md);font-weight:800;color:white;margin:0 0 18px;line-height:1.02;letter-spacing:var(--hero-tracking)">Your KiwiSaver is<br>probably costing you<br><span style="color:#16C172">thousands.</span></h1>
+    <h1 class="hero-title" style="font-size:var(--text-hero-md);font-weight:800;color:white;margin:0 0 18px;line-height:1.02;letter-spacing:var(--hero-tracking)">KiwiSaver advice —<br>yours is probably costing you<br><span style="color:#16C172">thousands.</span></h1>
     <p style="font-size:var(--text-body);color:rgba(255,255,255,0.42);margin:0 auto 32px;max-width:520px;line-height:1.7">68% of Kiwis are in the wrong fund type. The difference between conservative and growth isn't small — it's your retirement.</p>
     <div class="cta-band" style="display:flex;gap:12px;justify-content:center;margin-bottom:40px;flex-wrap:wrap">
-      <button style="padding:14px 28px;background:#16C172;border:none;color:white;border-radius:10px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s" style-hover="opacity:0.88">Get a free KiwiSaver review</button>
+      <a href="./Contact.dc.html" style="padding:14px 28px;background:#16C172;border:none;color:white;border-radius:10px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s;display:inline-flex;align-items:center;justify-content:center" style-hover="opacity:0.88">Get a free KiwiSaver review</a>
       <button onClick="{{ scrollToCalc }}" style="padding:14px 24px;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);border-radius:10px;font-size:var(--text-cta);font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s" style-hover="background:rgba(255,255,255,0.12);color:white">See how much you could have ↓</button>
     </div>
     <div style="display:flex;gap:28px;justify-content:center;padding-bottom:52px;flex-wrap:wrap">
@@ -225,7 +228,7 @@
             <div style="font-size:28px;font-weight:800;color:white;letter-spacing:-1px">{{ gapResult }}</div>
             <div style="font-size:var(--text-caption);color:rgba(255,255,255,0.7);margin-top:5px">≈ {{ gapMonthly }} more per month in retirement</div>
           </div>
-          <button style="padding:12px 20px;background:white;border:none;color:#0B1F3A;border-radius:9px;font-size:var(--text-nav-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s" style-hover="opacity:0.9">Get a free review →</button>
+          <a href="./Contact.dc.html" style="padding:12px 20px;background:white;border:none;color:#0B1F3A;border-radius:9px;font-size:var(--text-nav-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s;display:inline-flex;align-items:center;justify-content:center" style-hover="opacity:0.9">Get a free review →</a>
         </div>
 
       </div>
@@ -436,8 +439,8 @@
 <!-- ═══ FIRST HOME CROSS-SELL ═══ -->
 <section style="padding:60px 24px;background:linear-gradient(130deg,#071929 0%,#0a2845 100%)">
   <div style="max-width:1100px;margin:0 auto">
-    <div style="display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap">
-      <div style="display:flex;align-items:center;gap:22px">
+    <div class="cross-sell-inner" style="display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap">
+      <div class="cross-sell-header" style="display:flex;align-items:center;gap:22px">
         <div style="width:60px;height:60px;border-radius:16px;background:rgba(22,193,114,0.12);border:1px solid rgba(22,193,114,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
             <path d="M3 12L12 3L21 12V21H15V15H9V21H3V12Z" stroke="#16C172" stroke-width="1.8" stroke-linejoin="round"></path>
@@ -448,7 +451,7 @@
           <div style="font-size:var(--text-callout);font-weight:800;color:white;letter-spacing:-0.5px;line-height:1.25">Your KiwiSaver <span style="color:#16C172">IS</span> your deposit.<br>Use it to get on the ladder.</div>
         </div>
       </div>
-      <div style="display:flex;gap:12px;flex-wrap:wrap;flex-shrink:0">
+      <div class="cross-sell-buttons" style="display:flex;gap:12px;flex-wrap:wrap;flex-shrink:0">
         <a href="./Mortgages.dc.html" style="display:inline-block;padding:13px 26px;background:#16C172;border:none;color:white;border-radius:10px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s" style-hover="opacity:0.88">Explore first home mortgages</a>
         <button style="padding:13px 22px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.65);border-radius:10px;font-size:var(--text-ui);font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s" style-hover="background:rgba(255,255,255,0.1);color:white">How withdrawal works</button>
       </div>
@@ -507,7 +510,7 @@
     <h2 style="font-size:var(--text-cta-banner);font-weight:800;color:white;margin:0 0 16px;letter-spacing:-1.5px;line-height:1.12">Most Kiwis leave $180K on the table.<br><span style="color:#16C172">Don't be one of them.</span></h2>
     <p style="font-size:var(--text-lead);color:rgba(255,255,255,0.5);margin:0 0 36px;line-height:1.7">A free KiwiSaver review takes 30 minutes. We'll tell you exactly what fund you should be in, which provider has the lowest fees, and whether you're claiming your $521 govt contribution.</p>
     <div class="cta-band" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-      <button style="padding:15px 30px;background:#16C172;border:none;color:white;border-radius:10px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s" style-hover="opacity:0.9">Get a free KiwiSaver review</button>
+      <a href="./Contact.dc.html" style="padding:15px 30px;background:#16C172;border:none;color:white;border-radius:10px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s;display:inline-flex;align-items:center;justify-content:center" style-hover="opacity:0.9">Get a free KiwiSaver review</a>
       <a href="tel:0220614584" style="padding:15px 28px;border:1.5px solid rgba(255,255,255,0.2);background:transparent;color:rgba(255,255,255,0.7);border-radius:10px;font-size:var(--text-cta);font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s;display:inline-flex;align-items:center;justify-content:center" style-hover="background:rgba(255,255,255,0.07);color:white">Call Wealthify 022 061 4584</a>
     </div>
   </div>
@@ -537,7 +540,7 @@
         <div style="display:flex;flex-direction:column;gap:10px">
           <a href="./Insurance.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.5)" style-hover="color:white">Insurance</a>
           <a href="#" style="font-size:13px;color:#16C172;font-weight:600">KiwiSaver</a>
-          <a href="./Refinance-Calculator-Embed.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.5)" style-hover="color:white">Personal Loans</a>
+          <a href="./Loans.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.5)" style-hover="color:white">Personal Loans</a>
           <a href="./Tools.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.5)" style-hover="color:white">Calculators</a>
           <a href="./Team.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.5)" style-hover="color:white">Our Team</a>
           <a href="./Contact.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.5)" style-hover="color:white">Contact</a>
@@ -567,7 +570,7 @@
       <div style="font-size:12px;color:rgba(255,255,255,0.38);margin-top:2px">Independent · 30 minutes · We compare 10+ providers</div>
     </div>
     <div style="display:flex;gap:10px;align-items:center;flex-shrink:0">
-      <button style="padding:10px 22px;background:#16C172;border:none;color:white;border-radius:8px;font-size:var(--text-nav-cta);font-weight:700;cursor:pointer;font-family:inherit">Get a free review</button>
+      <a href="./Contact.dc.html" style="padding:10px 22px;background:#16C172;border:none;color:white;border-radius:8px;font-size:var(--text-nav-cta);font-weight:700;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;justify-content:center">Get a free review</a>
       <button onClick="{{ dismissSticky }}" style="padding:8px 10px;background:transparent;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:22px;line-height:1;font-family:inherit" style-hover="color:rgba(255,255,255,0.65)">×</button>
     </div>
   </div>

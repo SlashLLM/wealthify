@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://wealthify.co.nz/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Mortgages -->
+  <url>
+    <loc>https://wealthify.co.nz/Mortgages.dc.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Insurance -->
+  <url>
+    <loc>https://wealthify.co.nz/Insurance.dc.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- KiwiSaver -->
+  <url>
+    <loc>https://wealthify.co.nz/KiwiSaver.dc.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  <!-- Loans -->
+  <url>
+    <loc>https://wealthify.co.nz/Loans.dc.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Tools / Calculators -->
+  <url>
+    <loc>https://wealthify.co.nz/Tools.dc.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Refinance Calculator -->
+  <url>
+    <loc>https://wealthify.co.nz/Refinance-Calculator-Embed.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- NZ Mortgage Rates -->
+  <url>
+    <loc>https://wealthify.co.nz/rates</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Team -->
+  <url>
+    <loc>https://wealthify.co.nz/Team.dc.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Contact -->
+  <url>
+    <loc>https://wealthify.co.nz/Contact.dc.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+</urlset>
