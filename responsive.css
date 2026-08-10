@@ -357,6 +357,29 @@ body.nav-open { overflow: hidden; }
     padding-bottom: 120px;
   }
 
+  /* Cross-sell banners — mobile optimization */
+  .cross-sell-inner {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 20px !important;
+  }
+  .cross-sell-header {
+    gap: 14px !important;
+  }
+  .cross-sell-buttons {
+    width: 100% !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+  }
+  .cross-sell-buttons > a,
+  .cross-sell-buttons > button {
+    width: 100% !important;
+    text-align: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+  }
+
   /* Layout collapse — !important needed to override inline styles */
   .hero-grid {
     grid-template-columns: 1fr !important;

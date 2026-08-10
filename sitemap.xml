@@ -27,6 +27,11 @@
     <loc>https://wealthify.co.nz/KiwiSaver.dc.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+  <!-- Loans -->
+  <url>
+    <loc>https://wealthify.co.nz/Loans.dc.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
 
   <!-- Tools / Calculators -->

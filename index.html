@@ -3,9 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preload" as="image" href="./assets/video/hero-bg-poster.webp" fetchpriority="high">
-<link rel="preload" as="video" href="./assets/video/hero-bg.webm" type="video/webm" fetchpriority="high">
-<link rel="preload" as="video" href="./assets/video/hero-bg.mp4" type="video/mp4">
+<link rel="preload" as="image" href="./assets/hero/hero-bg-static.png" fetchpriority="high">
 <title>Stop Overpaying Your Bank | Wealthify</title>
 <meta name="description" content="Wealthify compares 20+ NZ lenders to find your best mortgage rate. See how much you could save — get a free, no-obligation assessment today.">
 <script src="./support.js"></script>
@@ -16,7 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
   <link href="./typography.css" rel="stylesheet">
   <link href="./responsive.css" rel="stylesheet">
-  <link rel="preload" as="image" href="./assets/video/hero-bg-poster.webp" fetchpriority="high">
+  <link rel="preload" as="image" href="./assets/hero/hero-bg-static.png" fetchpriority="high">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
@@ -31,13 +29,8 @@
     @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
     @keyframes tabFill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
     a{text-decoration:none;color:inherit}
-    .hero-section{position:relative;overflow:hidden;background:#071929 url(./assets/video/hero-bg-poster.webp) center/cover no-repeat}
-    .hero-bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(1.2) saturate(1.08);opacity:0;transition:opacity .45s ease}
-    .hero-bg-video.is-playing{opacity:1}
-    .hero-overlay{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(105deg,rgba(7,25,41,0.5) 0%,rgba(7,25,41,0.28) 42%,rgba(7,25,41,0.15) 100%),radial-gradient(ellipse 80% 60% at 72% 38%,rgba(22,193,114,0.06),transparent 70%)}
-    @media (prefers-reduced-motion:reduce){
-      .hero-bg-video{display:none}
-    }
+    .hero-section{position:relative;overflow:hidden;background:#071929 url(./assets/hero/hero-bg-static.png) center/cover no-repeat}
+    .hero-overlay{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(105deg,rgba(7,25,41,0.65) 0%,rgba(7,25,41,0.4) 42%,rgba(7,25,41,0.25) 100%),radial-gradient(ellipse 80% 60% at 72% 38%,rgba(22,193,114,0.08),transparent 70%)}
   </style>
 </helmet>
 
@@ -51,6 +44,7 @@
       <a href="./Mortgages.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navColor }};opacity:0.8;transition:opacity 0.15s,color 0.3s" style-hover="opacity:1">Mortgages</a>
       <a href="./Insurance.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navColor }};opacity:0.8;transition:opacity 0.15s,color 0.3s" style-hover="opacity:1">Insurance</a>
       <a href="./KiwiSaver.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navColor }};opacity:0.8;transition:opacity 0.15s,color 0.3s" style-hover="opacity:1">KiwiSaver</a>
+      <a href="./Loans.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navColor }};opacity:0.8;transition:opacity 0.15s,color 0.3s" style-hover="opacity:1">Loans</a>
       <a href="./Tools.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navColor }};opacity:0.8;transition:opacity 0.15s,color 0.3s" style-hover="opacity:1">Tools</a>
       <a href="./Team.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navColor }};opacity:0.8;transition:opacity 0.15s,color 0.3s" style-hover="opacity:1">Our Team</a>
       <a href="./Contact.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navColor }};opacity:0.8;transition:opacity 0.15s,color 0.3s" style-hover="opacity:1">Contact</a>
@@ -65,7 +59,7 @@
       <a href="./Mortgages.dc.html">Mortgages</a>
       <a href="./Insurance.dc.html">Insurance</a>
       <a href="./KiwiSaver.dc.html">KiwiSaver</a>
-      <a href="./Refinance-Calculator-Embed.html">Loans</a>
+      <a href="./Loans.dc.html">Loans</a>
       <a href="./Tools.dc.html">Tools</a>
       <a href="./Team.dc.html">Our Team</a>
       <a href="./Contact.dc.html">Contact</a>
@@ -76,10 +70,6 @@
 
 <!-- HERO -->
 <section class="hero-section" style="min-height:100vh;padding:100px 24px 80px;display:flex;align-items:center">
-  <video class="hero-bg-video" id="hero-bg-video" autoplay muted loop playsinline preload="auto" poster="./assets/video/hero-bg-poster.webp" fetchpriority="high" aria-hidden="true">
-    <source src="./assets/video/hero-bg.webm" type="video/webm">
-    <source src="./assets/video/hero-bg.mp4" type="video/mp4">
-  </video>
   <div class="hero-overlay" aria-hidden="true"></div>
   <div class="hero-grid" style="max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 440px;gap:80px;align-items:center;position:relative;z-index:2">
 
@@ -307,7 +297,7 @@
                 <span style="font-size:var(--text-ui);color:#1A2433;font-weight:500">Full paperwork &amp; bank negotiation handled</span>
               </div>
             </div>
-            <button style="padding:12px 24px;background:#0B1F3A;border:none;color:white;border-radius:9px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s" style-hover="opacity:0.88">Find my best rate →</button>
+            <a href="./Mortgages.dc.html" style="display:inline-block;padding:12px 24px;background:#0B1F3A;border:none;color:white;border-radius:9px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s;text-decoration:none" style-hover="opacity:0.88">Find my best rate →</a>
           </div>
           <div style="display:flex;justify-content:center">
             <div style="width:100%;max-width:320px;box-shadow:0 8px 32px rgba(11,31,58,0.08);border-radius:14px;overflow:hidden;background:white;border:1px solid #E4E9F0">
@@ -364,7 +354,7 @@
                 <span style="font-size:var(--text-ui);color:#1A2433;font-weight:500">Annual reviews to keep cover current</span>
               </div>
             </div>
-            <button style="padding:12px 24px;background:#0B1F3A;border:none;color:white;border-radius:9px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s" style-hover="opacity:0.88">Review my cover →</button>
+            <a href="./Insurance.dc.html" style="display:inline-block;padding:12px 24px;background:#0B1F3A;border:none;color:white;border-radius:9px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s;text-decoration:none" style-hover="opacity:0.88">Review my cover →</a>
           </div>
           <div style="display:flex;justify-content:center">
             <div class="grid-3 grid-3--cards" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;width:100%;max-width:340px">
@@ -424,7 +414,7 @@
                 <span style="font-size:var(--text-ui);color:#1A2433;font-weight:500">We handle the switch paperwork</span>
               </div>
             </div>
-            <button style="padding:12px 24px;background:#0B1F3A;border:none;color:white;border-radius:9px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s" style-hover="opacity:0.88">Review my KiwiSaver →</button>
+            <a href="./KiwiSaver.dc.html" style="display:inline-block;padding:12px 24px;background:#0B1F3A;border:none;color:white;border-radius:9px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s;text-decoration:none" style-hover="opacity:0.88">Review my KiwiSaver →</a>
           </div>
           <div style="display:flex;justify-content:center">
             <div style="width:100%;max-width:320px;background:white;border:1px solid #E4E9F0;border-radius:14px;padding:22px;box-shadow:0 8px 32px rgba(11,31,58,0.08)">
@@ -483,7 +473,7 @@
                 <span style="font-size:var(--text-ui);color:#1A2433;font-weight:500">Fast turnaround, minimal paperwork</span>
               </div>
             </div>
-            <button style="padding:12px 24px;background:#0B1F3A;border:none;color:white;border-radius:9px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s" style-hover="opacity:0.88">Get a loan quote →</button>
+            <a href="./Loans.dc.html" style="display:inline-block;padding:12px 24px;background:#0B1F3A;border:none;color:white;border-radius:9px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s;text-decoration:none" style-hover="opacity:0.88">Get a loan quote →</a>
           </div>
           <div style="display:flex;justify-content:center">
             <div style="width:100%;max-width:300px">
@@ -556,7 +546,7 @@
                 <span style="font-size:var(--text-ui);color:#1A2433;font-weight:500">Start from as little as $1,000</span>
               </div>
             </div>
-            <button style="padding:12px 24px;background:#0B1F3A;border:none;color:white;border-radius:9px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s" style-hover="opacity:0.88">Build my portfolio →</button>
+            <a href="./KiwiSaver.dc.html" style="display:inline-block;padding:12px 24px;background:#0B1F3A;border:none;color:white;border-radius:9px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s;text-decoration:none" style-hover="opacity:0.88">Build my portfolio →</a>
           </div>
           <div style="display:flex;justify-content:center">
             <div style="width:100%;max-width:320px;background:white;border:1px solid #E4E9F0;border-radius:14px;padding:22px;box-shadow:0 8px 32px rgba(11,31,58,0.08)">
@@ -844,7 +834,7 @@
           <a href="./Mortgages.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.55);transition:color 0.15s" style-hover="color:white">Mortgages</a>
           <a href="./Insurance.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.55);transition:color 0.15s" style-hover="color:white">Insurance</a>
           <a href="./KiwiSaver.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.55);transition:color 0.15s" style-hover="color:white">KiwiSaver</a>
-          <a href="./Refinance-Calculator-Embed.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.55);transition:color 0.15s" style-hover="color:white">Loans</a>
+          <a href="./Loans.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.55);transition:color 0.15s" style-hover="color:white">Loans</a>
           <a href="./KiwiSaver.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.55);transition:color 0.15s" style-hover="color:white">Investing</a>
         </div>
       </div>
@@ -915,27 +905,6 @@ class Component extends DCLogic {
     }, 120);
 
     this._startTabTimer();
-    this._playHeroVideo();
-  }
-
-  _playHeroVideo() {
-    const video = document.getElementById('hero-bg-video');
-    if (!video) return;
-    video.defaultMuted = true;
-    video.muted = true;
-    video.playsInline = true;
-    video.defaultPlaybackRate = 1.5;
-    video.playbackRate = 1.5;
-    const fadeIn = () => video.classList.add('is-playing');
-    const tryPlay = () => video.play().then(fadeIn).catch(() => {});
-    if (video.readyState === 0) video.load();
-    tryPlay();
-    video.addEventListener('loadeddata', tryPlay, { once: true });
-    video.addEventListener('canplay', tryPlay, { once: true });
-    video.addEventListener('playing', fadeIn, { once: true });
-    document.addEventListener('visibilitychange', () => {
-      if (!document.hidden && video.paused) tryPlay();
-    });
   }
 
   _startTabTimer() {
