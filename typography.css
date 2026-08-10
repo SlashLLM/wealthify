@@ -48,5 +48,6 @@
 }
 
 /* Brand logo — single green mark, unchanged across nav scroll states */
-.brand-logo { height: 34px; width: auto; display: block; }
-.brand-logo--sm { height: 26px; }
+.brand-logo { height: 34px; width: 148px; aspect-ratio: 148/34; display: block; }
+.brand-logo--sm { height: 26px; width: 113px; aspect-ratio: 113/26; }
+
