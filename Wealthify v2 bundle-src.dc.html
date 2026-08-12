@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-NZ">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,7 +21,9 @@
 <body>
 <x-dc>
 <helmet>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="./typography.css" rel="stylesheet">
   <link href="./responsive.css" rel="stylesheet">
   <style>
@@ -42,8 +44,8 @@
 <nav class="site-nav {{ navClass }}" style="transition:background 0.3s,box-shadow 0.3s;background:{{ navBg }};box-shadow:{{ navShadow }}">
   <div class="site-nav__inner">
     <a href="#" class="site-nav__brand">
-      <img src="/assets/brand/logo-black.svg" alt="Wealthify" class="brand-logo brand-logo--dark" height="28">
-      <img src="/assets/brand/logo-white.svg" alt="Wealthify" class="brand-logo brand-logo--light" height="28">
+      <img src="/assets/brand/logo-black.svg" alt="Wealthify" class="brand-logo brand-logo--dark" width="121" height="28">
+      <img src="/assets/brand/logo-white.svg" alt="Wealthify" class="brand-logo brand-logo--light" width="121" height="28">
     </a>
     <div class="site-nav__links hide-mobile">
       <a href="./Mortgages.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navColor }};opacity:0.8;transition:opacity 0.15s,color 0.3s" style-hover="opacity:1">Mortgages</a>
@@ -69,8 +71,10 @@
   </div>
 </nav>
 
+<main id="main-content">
+
 <!-- HERO -->
-<section class="hero-section" style="min-height:100vh;background:#071929;padding:100px 24px 80px;display:flex;align-items:center">
+<section class="hero-section" style="min-height:100vh;padding:100px 24px 80px;display:flex;align-items:center">
   <div class="hero-grid" style="max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 440px;gap:80px;align-items:center">
 
     <div>
@@ -754,6 +758,8 @@
   </div>
 </section>
 
+</main>
+
 <!-- FOOTER -->
 <footer style="background:#0B1F3A;padding:56px 24px 24px">
   <div style="max-width:1200px;margin:0 auto">
@@ -933,6 +939,6 @@ class Component extends DCLogic {
   }
 }
 </script>
-<script src="./nav.js"></script>
+<script src="./nav.js" defer></script>
 </body>
 </html>

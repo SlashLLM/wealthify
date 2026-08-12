@@ -130,11 +130,25 @@ const server = http.createServer(async (req, res) => {
   }
 
   const ext = path.extname(filePath).toLowerCase();
-  res.writeHead(200, { 'Content-Type': MIME[ext] || 'application/octet-stream' });
+  const headers = { 'Content-Type': MIME[ext] || 'application/octet-stream' };
+  if (['.css', '.js', '.webp', '.png', '.jpg', '.jpeg', '.svg', '.woff2', '.ico'].includes(ext)) {
+    headers['Cache-Control'] = 'public, max-age=31536000, immutable';
+  }
+  res.writeHead(200, headers);
   fs.createReadStream(filePath).pipe(res);
 });
 
-server.listen(port, () => {
+server.on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`Port ${port} was busy on default interface. Trying 127.0.0.1...`);
+    server.listen(port, '127.0.0.1');
+  } else {
+    console.error('Dev server error:', err);
+  }
+});
+
+server.listen(port, '0.0.0.0', () => {
   console.log(`Wealthify dev server running at http://localhost:${port}`);
   console.log('Open that URL in your browser — do not open HTML files directly.');
 });
+

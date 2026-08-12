@@ -1653,6 +1653,11 @@
   hideRawTemplate();
   loadReactUmd().then(init).catch((err) => {
     console.error("[dc] failed to load React or boot:", err);
-    throw err;
+    document.querySelectorAll("style").forEach((s) => {
+      if (s.textContent && s.textContent.includes("x-dc{display:none!important}")) {
+        s.remove();
+      }
+    });
   });
 })();
+

@@ -1,20 +1,63 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-NZ">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preload" as="image" href="./assets/hero/hero-bg-static.png" fetchpriority="high">
+<link rel="canonical" href="https://wealthify.co.nz/">
+<link rel="preload" as="image" href="./assets/hero/hero-bg-static.webp" type="image/webp" fetchpriority="high">
 <title>Stop Overpaying Your Bank | Wealthify</title>
 <meta name="description" content="Wealthify compares 20+ NZ lenders to find your best mortgage rate. See how much you could save — get a free, no-obligation assessment today.">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Wealthify">
+<meta property="og:title" content="Stop Overpaying Your Bank | Wealthify">
+<meta property="og:description" content="Wealthify compares 20+ NZ lenders to find your best mortgage rate. See how much you could save — get a free, no-obligation assessment today.">
+<meta property="og:url" content="https://wealthify.co.nz/">
+<meta property="og:image" content="https://wealthify.co.nz/assets/brand/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:alt" content="Wealthify - Compare NZ Mortgage Rates &amp; Save">
+<meta property="og:locale" content="en_NZ">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Stop Overpaying Your Bank | Wealthify">
+<meta name="twitter:description" content="Wealthify compares 20+ NZ lenders to find your best mortgage rate. See how much you could save — get a free, no-obligation assessment today.">
+<meta name="twitter:image" content="https://wealthify.co.nz/assets/brand/og-image.png">
+<meta name="twitter:image:alt" content="Wealthify - Compare NZ Mortgage Rates &amp; Save">
+
 <script src="./support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <title>Stop Overpaying Your Bank | Wealthify</title>
+  <meta name="description" content="Wealthify compares 20+ NZ lenders to find your best mortgage rate. See how much you could save — get a free, no-obligation assessment today.">
+  <link rel="canonical" href="https://wealthify.co.nz/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Wealthify">
+  <meta property="og:title" content="Stop Overpaying Your Bank | Wealthify">
+  <meta property="og:description" content="Wealthify compares 20+ NZ lenders to find your best mortgage rate. See how much you could save — get a free, no-obligation assessment today.">
+  <meta property="og:url" content="https://wealthify.co.nz/">
+  <meta property="og:image" content="https://wealthify.co.nz/assets/brand/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:alt" content="Wealthify - Compare NZ Mortgage Rates &amp; Save">
+  <meta property="og:locale" content="en_NZ">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Stop Overpaying Your Bank | Wealthify">
+  <meta name="twitter:description" content="Wealthify compares 20+ NZ lenders to find your best mortgage rate. See how much you could save — get a free, no-obligation assessment today.">
+  <meta name="twitter:image" content="https://wealthify.co.nz/assets/brand/og-image.png">
+  <meta name="twitter:image:alt" content="Wealthify - Compare NZ Mortgage Rates &amp; Save">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="./typography.css" rel="stylesheet">
   <link href="./responsive.css" rel="stylesheet">
-  <link rel="preload" as="image" href="./assets/hero/hero-bg-static.png" fetchpriority="high">
+  <link rel="preload" as="image" href="./assets/hero/hero-bg-static.webp" type="image/webp" fetchpriority="high">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
@@ -29,7 +72,7 @@
     @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
     @keyframes tabFill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
     a{text-decoration:none;color:inherit}
-    .hero-section{position:relative;overflow:hidden;background:#071929 url(./assets/hero/hero-bg-static.png) center/cover no-repeat}
+    .hero-section{position:relative;overflow:hidden;background:#071929 url(./assets/hero/hero-bg-static.webp) center/cover no-repeat}
     .hero-overlay{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(105deg,rgba(7,25,41,0.65) 0%,rgba(7,25,41,0.4) 42%,rgba(7,25,41,0.25) 100%),radial-gradient(ellipse 80% 60% at 72% 38%,rgba(22,193,114,0.08),transparent 70%)}
   </style>
 </helmet>
@@ -38,7 +81,7 @@
 <nav class="site-nav {{ navClass }}" style="transition:background 0.3s,box-shadow 0.3s;background:{{ navBg }};box-shadow:{{ navShadow }}">
   <div class="site-nav__inner">
     <a href="#" class="site-nav__brand">
-      <img src="/assets/brand/logo-green.svg" alt="Wealthify" class="brand-logo" height="34">
+      <img src="/assets/brand/logo-green.svg" alt="Wealthify" class="brand-logo" width="148" height="34">
     </a>
     <div class="site-nav__links hide-mobile">
       <a href="./Mortgages.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navColor }};opacity:0.8;transition:opacity 0.15s,color 0.3s" style-hover="opacity:1">Mortgages</a>
@@ -68,6 +111,8 @@
   </div>
 </nav>
 
+<main id="main-content">
+
 <!-- HERO -->
 <section class="hero-section" style="min-height:100vh;padding:100px 24px 80px;display:flex;align-items:center">
   <div class="hero-overlay" aria-hidden="true"></div>
@@ -76,25 +121,25 @@
     <div>
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:32px">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="#16C172" fill-opacity="0.2" stroke="#16C172" stroke-width="1.8" stroke-linejoin="round"></path><path d="M9 12l2 2 4-4" stroke="#16C172" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-        <span style="font-size:var(--text-eyebrow);font-weight:600;color:rgba(255,255,255,0.4);letter-spacing:.06em">Licensed NZ Financial Advisers · FAP</span>
+        <span style="font-size:var(--text-eyebrow);font-weight:600;color:rgba(255,255,255,0.78);letter-spacing:.06em">Licensed NZ Financial Advisers · FAP</span>
       </div>
       <h1 class="hero-title" style="font-size:var(--text-hero);font-weight:800;color:white;margin:0 0 26px;line-height:1;letter-spacing:var(--hero-tracking);text-wrap:pretty">NZ mortgage advisers<br>who save you thousands.</h1>
-      <p style="font-size:var(--text-body);color:rgba(255,255,255,0.52);margin:0 0 40px;line-height:1.7;max-width:430px">Independent advice from licensed NZ advisers. We compare 20+ lenders, negotiate hard, and handle everything — no fees, ever.</p>
+      <p style="font-size:var(--text-body);color:rgba(255,255,255,0.85);margin:0 0 40px;line-height:1.7;max-width:430px">Independent advice from licensed NZ advisers. We compare 20+ lenders, negotiate hard, and handle everything — no fees, ever.</p>
       <div class="cta-row" style="display:flex;align-items:center;gap:20px;margin-bottom:64px">
         <button onClick="{{ scrollToCalc }}" style="padding:15px 28px;background:#16C172;border:none;color:white;border-radius:10px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:-.2px;transition:opacity 0.15s" style-hover="opacity:0.88">See what I could save →</button>
-        <a href="./Contact.dc.html" style="font-size:var(--text-ui);font-weight:600;color:rgba(255,255,255,0.4);transition:color 0.2s" style-hover="color:rgba(255,255,255,0.75)">Book a free call</a>
+        <a href="./Contact.dc.html" style="font-size:var(--text-ui);font-weight:600;color:rgba(255,255,255,0.78);transition:color 0.2s" style-hover="color:rgba(255,255,255,1)">Book a free call</a>
       </div>
-      <div class="stats-row" style="display:flex;gap:40px;padding-top:32px;border-top:1px solid rgba(255,255,255,0.07)">
+      <div class="stats-row" style="display:flex;gap:40px;padding-top:32px;border-top:1px solid rgba(255,255,255,0.12)">
         <div>
           <div style="font-size:var(--text-stat);font-weight:800;color:white;letter-spacing:-1.5px;line-height:1">10+</div>
-          <div style="font-size:var(--text-label);color:rgba(255,255,255,0.32);margin-top:7px">years of combined experience</div>
+          <div style="font-size:var(--text-label);color:rgba(255,255,255,0.72);margin-top:7px">years of combined experience</div>
         </div>
         <div>
           <div style="font-size:var(--text-h3);font-weight:800;color:white;letter-spacing:-0.5px;line-height:1.25">Helped families<br>across NZ</div>
         </div>
         <div>
           <div style="font-size:var(--text-stat);font-weight:800;color:#16C172;letter-spacing:-1.5px;line-height:1">5 ★</div>
-          <div style="font-size:var(--text-label);color:rgba(255,255,255,0.32);margin-top:7px">Google rating</div>
+          <div style="font-size:var(--text-label);color:rgba(255,255,255,0.72);margin-top:7px">Google rating</div>
         </div>
       </div>
     </div>
@@ -102,16 +147,16 @@
     <div>
       <div style="background:white;border-radius:20px;padding:28px;box-shadow:0 0 0 1px rgba(255,255,255,0.07),0 32px 80px rgba(0,0,0,0.5)">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:18px;border-bottom:1px solid #F0F3F7">
-          <span style="font-size:var(--text-tiny-sm);font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#8B9AAD">Rate comparison · Jul 2026</span>
-          <span style="font-size:var(--text-tiny-sm);color:#C4CDD6;font-weight:500">Estimate</span>
+          <span style="font-size:var(--text-tiny-sm);font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#475467">Rate comparison · Jul 2026</span>
+          <span style="font-size:var(--text-tiny-sm);color:#475467;font-weight:500">Estimate</span>
         </div>
         <div style="background:#F6F8FB;border-radius:10px;padding:18px 20px;margin-bottom:4px">
-          <div style="font-size:var(--text-tiny);font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#B0BAC5;margin-bottom:10px">Your current bank</div>
+          <div style="font-size:var(--text-tiny);font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#475467;margin-bottom:10px">Your current bank</div>
           <div style="display:flex;align-items:baseline;justify-content:space-between">
-            <span class="stat-figure" style="font-size:40px;font-weight:800;color:#C4CDD6;letter-spacing:-2px;line-height:1">6.49%</span>
+            <span class="stat-figure" style="font-size:40px;font-weight:800;color:#64748B;letter-spacing:-2px;line-height:1">6.49%</span>
             <div style="text-align:right">
-              <div style="font-size:var(--text-dense);font-weight:600;color:#B0BAC5">$3,425/mo</div>
-              <div style="font-size:var(--text-tiny-sm);color:#C4CDD6;margin-top:3px">$500k · 25 yrs</div>
+              <div style="font-size:var(--text-dense);font-weight:600;color:#334155">$3,425/mo</div>
+              <div style="font-size:var(--text-tiny-sm);color:#475467;margin-top:3px">$500k · 25 yrs</div>
             </div>
           </div>
         </div>
@@ -123,26 +168,26 @@
           <div style="display:flex;align-items:baseline;justify-content:space-between">
             <span class="stat-figure" style="font-size:40px;font-weight:800;color:#16C172;letter-spacing:-2px;line-height:1">4.65%</span>
             <div style="text-align:right">
-              <div style="font-size:var(--text-dense);font-weight:600;color:#5B6B82">$2,832/mo</div>
-              <div style="font-size:var(--text-tiny-sm);color:#8B9AAD;margin-top:3px">same balance &amp; term</div>
+              <div style="font-size:var(--text-dense);font-weight:600;color:#334155">$2,832/mo</div>
+              <div style="font-size:var(--text-tiny-sm);color:#475467;margin-top:3px">same balance &amp; term</div>
             </div>
           </div>
         </div>
         <div style="background:#16C172;border-radius:10px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between">
           <div>
-            <div style="font-size:var(--text-tiny-sm);font-weight:700;color:rgba(255,255,255,0.75);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px">Monthly saving</div>
-            <div style="font-size:var(--text-tiny-sm);color:rgba(255,255,255,0.5)">back in your pocket</div>
+            <div style="font-size:var(--text-tiny-sm);font-weight:700;color:rgba(255,255,255,0.92);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px">Monthly saving</div>
+            <div style="font-size:var(--text-tiny-sm);color:rgba(255,255,255,0.92)">back in your pocket</div>
           </div>
           <div style="font-size:30px;font-weight:800;color:white;letter-spacing:-1.5px;line-height:1">$593<span style="font-size:var(--text-compact);font-weight:600;letter-spacing:0">/mo</span></div>
         </div>
         <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 2px 0">
-          <span style="font-size:var(--text-caption);color:#8B9AAD;font-weight:500">Total interest saved · 25 yrs</span>
+          <span style="font-size:var(--text-caption);color:#475467;font-weight:500">Total interest saved · 25 yrs</span>
           <span style="font-size:19px;font-weight:800;color:#0B1F3A;letter-spacing:-0.5px">$42,000+</span>
         </div>
       </div>
       <div style="display:flex;align-items:center;gap:7px;margin-top:14px;padding:0 4px">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="#16C172" fill-opacity="0.12" stroke="#16C172" stroke-width="1.7" stroke-linejoin="round"></path><path d="M9 12l2 2 4-4" stroke="#16C172" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-        <span style="font-size:var(--text-micro);color:rgba(255,255,255,0.28);font-weight:500">FAP licensed · Estimates only, not financial advice</span>
+        <span style="font-size:var(--text-micro);color:rgba(255,255,255,0.72);font-weight:500">FAP licensed · Estimates only, not financial advice</span>
       </div>
     </div>
 
@@ -161,59 +206,59 @@
       <div style="display:flex;align-items:center;height:70px;animation:ticker 42s linear infinite;width:max-content">
         <!-- ── SET 1 ── -->
         <div style="padding:0 36px;display:flex;align-items:center;flex-shrink:0">
-          <img src="/assets/lenders/anz.svg" alt="ANZ" style="height:24px;width:auto;display:block" loading="lazy">
+          <img src="/assets/lenders/anz.svg" alt="ANZ" style="height:24px;width:auto;display:block" width="72" height="24" loading="lazy" decoding="async">
         </div>
         <div style="padding:0 36px;display:flex;align-items:center;flex-shrink:0">
-          <img src="/assets/lenders/asb.svg" alt="ASB" style="height:22px;width:auto;display:block" loading="lazy">
+          <img src="/assets/lenders/asb.svg" alt="ASB" style="height:22px;width:auto;display:block" width="91" height="22" loading="lazy" decoding="async">
         </div>
         <div style="padding:0 36px;display:flex;align-items:center;flex-shrink:0">
-          <img src="/assets/lenders/bnz.svg" alt="BNZ" style="height:27px;width:auto;display:block" loading="lazy">
+          <img src="/assets/lenders/bnz.svg" alt="BNZ" style="height:27px;width:auto;display:block" width="55" height="27" loading="lazy" decoding="async">
         </div>
         <div style="padding:0 36px;display:flex;align-items:center;flex-shrink:0">
-          <img src="/assets/lenders/kiwibank.svg" alt="Kiwibank" style="height:42px;width:auto;display:block" loading="lazy">
+          <img src="/assets/lenders/kiwibank.svg" alt="Kiwibank" style="height:42px;width:auto;display:block" width="42" height="42" loading="lazy" decoding="async">
         </div>
         <div style="padding:0 36px;display:flex;align-items:center;flex-shrink:0">
-          <img src="/assets/lenders/westpac.webp" alt="Westpac" style="height:34px;width:auto;display:block" loading="lazy">
+          <img src="/assets/lenders/westpac.webp" alt="Westpac" style="height:34px;width:auto;display:block" width="34" height="34" loading="lazy" decoding="async">
         </div>
         <div style="padding:0 36px;display:flex;align-items:center;flex-shrink:0">
-          <img src="/assets/lenders/tsb.svg" alt="TSB" style="height:24px;width:auto;display:block" loading="lazy">
+          <img src="/assets/lenders/tsb.svg" alt="TSB" style="height:24px;width:auto;display:block" width="82" height="24" loading="lazy" decoding="async">
         </div>
         <div style="padding:0 36px;display:flex;align-items:center;flex-shrink:0">
-          <img src="/assets/lenders/sbs.svg" alt="SBS Bank" style="height:36px;width:auto;display:block" loading="lazy">
+          <img src="/assets/lenders/sbs.svg" alt="SBS Bank" style="height:36px;width:auto;display:block" width="49" height="36" loading="lazy" decoding="async">
         </div>
         <div style="padding:0 36px;display:flex;align-items:center;flex-shrink:0">
-          <img src="/assets/lenders/cooperative-bank.svg" alt="The Co-operative Bank" style="height:32px;width:auto;display:block" loading="lazy">
+          <img src="/assets/lenders/cooperative-bank.svg" alt="The Co-operative Bank" style="height:32px;width:auto;display:block" width="62" height="32" loading="lazy" decoding="async">
         </div>
         <div style="padding:0 36px;display:flex;align-items:center;flex-shrink:0">
-          <img src="/assets/lenders/aia.png" alt="AIA" style="height:34px;width:auto;display:block;filter:invert(1)" loading="lazy">
+          <img src="/assets/lenders/aia.webp" alt="AIA" style="height:34px;width:auto;display:block;filter:invert(1)" width="34" height="34" loading="lazy" decoding="async">
         </div>
         <!-- ── SET 2 (duplicate for seamless loop) ── -->
         <div style="padding:0 36px;display:flex;align-items:center;flex-shrink:0">
-          <img src="/assets/lenders/anz.svg" alt="ANZ" style="height:24px;width:auto;display:block" loading="lazy">
+          <img src="/assets/lenders/anz.svg" alt="ANZ" style="height:24px;width:auto;display:block" width="72" height="24" loading="lazy" decoding="async">
         </div>
         <div style="padding:0 36px;display:flex;align-items:center;flex-shrink:0">
-          <img src="/assets/lenders/asb.svg" alt="ASB" style="height:22px;width:auto;display:block" loading="lazy">
+          <img src="/assets/lenders/asb.svg" alt="ASB" style="height:22px;width:auto;display:block" width="91" height="22" loading="lazy" decoding="async">
         </div>
         <div style="padding:0 36px;display:flex;align-items:center;flex-shrink:0">
-          <img src="/assets/lenders/bnz.svg" alt="BNZ" style="height:27px;width:auto;display:block" loading="lazy">
+          <img src="/assets/lenders/bnz.svg" alt="BNZ" style="height:27px;width:auto;display:block" width="55" height="27" loading="lazy" decoding="async">
         </div>
         <div style="padding:0 36px;display:flex;align-items:center;flex-shrink:0">
-          <img src="/assets/lenders/kiwibank.svg" alt="Kiwibank" style="height:42px;width:auto;display:block" loading="lazy">
+          <img src="/assets/lenders/kiwibank.svg" alt="Kiwibank" style="height:42px;width:auto;display:block" width="42" height="42" loading="lazy" decoding="async">
         </div>
         <div style="padding:0 36px;display:flex;align-items:center;flex-shrink:0">
-          <img src="/assets/lenders/westpac.webp" alt="Westpac" style="height:34px;width:auto;display:block" loading="lazy">
+          <img src="/assets/lenders/westpac.webp" alt="Westpac" style="height:34px;width:auto;display:block" width="34" height="34" loading="lazy" decoding="async">
         </div>
         <div style="padding:0 36px;display:flex;align-items:center;flex-shrink:0">
-          <img src="/assets/lenders/tsb.svg" alt="TSB" style="height:24px;width:auto;display:block" loading="lazy">
+          <img src="/assets/lenders/tsb.svg" alt="TSB" style="height:24px;width:auto;display:block" width="82" height="24" loading="lazy" decoding="async">
         </div>
         <div style="padding:0 36px;display:flex;align-items:center;flex-shrink:0">
-          <img src="/assets/lenders/sbs.svg" alt="SBS Bank" style="height:36px;width:auto;display:block" loading="lazy">
+          <img src="/assets/lenders/sbs.svg" alt="SBS Bank" style="height:36px;width:auto;display:block" width="49" height="36" loading="lazy" decoding="async">
         </div>
         <div style="padding:0 36px;display:flex;align-items:center;flex-shrink:0">
-          <img src="/assets/lenders/cooperative-bank.svg" alt="The Co-operative Bank" style="height:32px;width:auto;display:block" loading="lazy">
+          <img src="/assets/lenders/cooperative-bank.svg" alt="The Co-operative Bank" style="height:32px;width:auto;display:block" width="62" height="32" loading="lazy" decoding="async">
         </div>
         <div style="padding:0 36px;display:flex;align-items:center;flex-shrink:0">
-          <img src="/assets/lenders/aia.png" alt="AIA" style="height:34px;width:auto;display:block;filter:invert(1)" loading="lazy">
+          <img src="/assets/lenders/aia.webp" alt="AIA" style="height:34px;width:auto;display:block;filter:invert(1)" width="34" height="34" loading="lazy" decoding="async">
         </div>
       </div>
     </div>
@@ -807,13 +852,15 @@
   </div>
 </section>
 
+</main>
+
 <!-- FOOTER -->
 <footer style="background:#0B1F3A;padding:56px 24px 24px">
   <div style="max-width:1200px;margin:0 auto">
     <div class="footer-grid" style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:44px">
       <div>
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
-          <img src="/assets/brand/logo-green.svg" alt="Wealthify" class="brand-logo brand-logo--sm" height="26">
+          <img src="/assets/brand/logo-green.svg" alt="Wealthify" class="brand-logo brand-logo--sm" width="113" height="26" loading="lazy" decoding="async">
         </div>
         <p style="font-size:var(--text-compact);color:rgba(255,255,255,0.45);line-height:1.7;margin:0 0 20px;max-width:260px">Helping Kiwis get ahead with their finances. Independent advice </p>
         <div style="display:flex;gap:10px">
