@@ -738,15 +738,33 @@
       return {};
     }
   };
+  if (typeof window !== "undefined") {
+    window.StreamableLogic = StreamableLogic;
+    window.DCLogic = StreamableLogic;
+  }
   function evalDcLogic(src) {
-    //! nosemgrep: eval-and-function-constructor
-    const fn = new Function(
-      "DCLogic",
-      "StreamableLogic",
-      "React",
-      src + '\n;return (typeof Component!=="undefined"&&Component)||undefined;'
-    );
-    return fn(StreamableLogic, StreamableLogic, getReact());
+    return new Promise((resolveLogic, rejectLogic) => {
+      const modId = "__dc_logic_" + Math.random().toString(36).slice(2);
+      const wrapped = `(function(){ try { var DCLogic = window.StreamableLogic, StreamableLogic = window.StreamableLogic, React = window.React;\n${src}\n; window['${modId}'] = (typeof Component !== "undefined" && Component) || undefined; } catch(e){ console.error(e); } })();`;
+      const blob = new Blob([wrapped], { type: "text/javascript" });
+      const blobUrl = URL.createObjectURL(blob);
+      const s = document.createElement("script");
+      s.src = blobUrl;
+      s.onload = () => {
+        URL.revokeObjectURL(blobUrl);
+        s.remove();
+        const Cls = window[modId];
+        delete window[modId];
+        resolveLogic(Cls);
+      };
+      s.onerror = (err) => {
+        URL.revokeObjectURL(blobUrl);
+        s.remove();
+        delete window[modId];
+        rejectLogic(err);
+      };
+      document.head.appendChild(s);
+    });
   }
 
   // src/component.ts
@@ -1081,20 +1099,35 @@
       const p = ready.then(() => fetch(url)).then((r) => {
         if (!r.ok) throw new Error("HTTP " + r.status);
         return r.text();
-      }).then((src) => {
+      }).then(async (src) => {
         const code = kind === "jsx" ? window.Babel.transform(src, {
           filename: url,
           presets: ["react", "typescript"]
         }).code : src;
         const module = { exports: {} };
         const before = new Set(Object.keys(window));
-        //! nosemgrep: eval-and-function-constructor
-        new Function("React", "module", "exports", "require", code)(
-          getReact(),
-          module,
-          module.exports,
-          () => ({})
-        );
+        await new Promise((resMod, rejMod) => {
+          const modId = "__dc_mod_" + Math.random().toString(36).slice(2);
+          window[modId] = module;
+          const wrapped = `(function(){ try { (function(React, module, exports, require){\n${code}\n})(window.React, window['${modId}'], window['${modId}'].exports, function(){ return {}; }); } catch(e){ console.error(e); } })();`;
+          const blob = new Blob([wrapped], { type: "text/javascript" });
+          const blobUrl = URL.createObjectURL(blob);
+          const s = document.createElement("script");
+          s.src = blobUrl;
+          s.onload = () => {
+            URL.revokeObjectURL(blobUrl);
+            s.remove();
+            delete window[modId];
+            resMod();
+          };
+          s.onerror = (err) => {
+            URL.revokeObjectURL(blobUrl);
+            s.remove();
+            delete window[modId];
+            rejMod(err);
+          };
+          document.head.appendChild(s);
+        });
         const globals = {};
         for (const k of Object.keys(window)) {
           if (!before.has(k) && typeof window[k] === "function") {
@@ -1474,11 +1507,11 @@
       }
       registry.bump(name);
     }
-    function updateJs(name, src) {
+    async function updateJs(name, src) {
       const r = registry.get(name);
       const seq = r.jsSeq = (r.jsSeq || 0) + 1;
       try {
-        const Cls = evalDcLogic(src);
+        const Cls = await evalDcLogic(src);
         if (r.jsSeq !== seq) return;
         if (typeof Cls !== "function") {
           r.logicError = name + ".dc.html: <script data-dc-script> must define `class Component extends DCLogic`";

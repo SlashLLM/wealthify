@@ -1,9 +1,26 @@
 const { resolveCalculatorRate, fetchMortgageRates } = require('../lib/calculator-rate');
 
-function json(res, status, body) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+function setCorsHeaders(req, res, methods = 'GET, OPTIONS') {
+  const origin = req.headers && req.headers.origin;
+  if (origin) {
+    try {
+      const parsed = new URL(origin);
+      const isLocalhost = parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1';
+      const isAllowedDomain = parsed.hostname.endsWith('wealthify.co.nz') || parsed.hostname.endsWith('vercel.app');
+      if (isLocalhost || isAllowedDomain) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+        res.setHeader('Vary', 'Origin');
+      }
+    } catch {
+      // ignore invalid origin header
+    }
+  }
+  res.setHeader('Access-Control-Allow-Methods', methods);
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+}
+
+function json(req, res, status, body) {
+  setCorsHeaders(req, res, 'GET, OPTIONS');
   res.statusCode = status;
   res.setHeader('Content-Type', 'application/json');
   res.end(JSON.stringify(body));
@@ -11,16 +28,14 @@ function json(res, status, body) {
 
 module.exports = async (req, res) => {
   if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    setCorsHeaders(req, res, 'GET, OPTIONS');
     res.statusCode = 204;
     res.end();
     return;
   }
 
   if (req.method !== 'GET') {
-    return json(res, 405, { error: 'Method not allowed' });
+    return json(req, res, 405, { error: 'Method not allowed' });
   }
 
   let calculatorNewRate;
@@ -55,5 +70,5 @@ module.exports = async (req, res) => {
     body.googlePlacesApiKey = googlePlacesApiKey;
   }
 
-  return json(res, 200, body);
+  return json(req, res, 200, body);
 };

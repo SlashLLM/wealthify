@@ -14,19 +14,34 @@ const RATE_LIMIT_WINDOW_MS = 60 * 1000;
 const RATE_LIMIT_MAX = 3;
 const recentSubmissions = new Map();
 
-function json(res, status, body) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+function setCorsHeaders(req, res, methods = 'POST, OPTIONS') {
+  const origin = req.headers && req.headers.origin;
+  if (origin) {
+    try {
+      const parsed = new URL(origin);
+      const isLocalhost = parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1';
+      const isAllowedDomain = parsed.hostname.endsWith('wealthify.co.nz') || parsed.hostname.endsWith('vercel.app');
+      if (isLocalhost || isAllowedDomain) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+        res.setHeader('Vary', 'Origin');
+      }
+    } catch {
+      // ignore invalid origin
+    }
+  }
+  res.setHeader('Access-Control-Allow-Methods', methods);
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+}
+
+function json(req, res, status, body) {
+  setCorsHeaders(req, res, 'POST, OPTIONS');
   res.statusCode = status;
   res.setHeader('Content-Type', 'application/json');
   res.end(JSON.stringify(body));
 }
 
-function empty(res, status) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+function empty(req, res, status) {
+  setCorsHeaders(req, res, 'POST, OPTIONS');
   res.statusCode = status;
   res.end();
 }
@@ -82,12 +97,12 @@ function isRateLimited(ip) {
 
 module.exports = async (req, res) => {
   if (req.method === 'OPTIONS') {
-    return empty(res, 204);
+    return empty(req, res, 204);
   }
 
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
-    return json(res, 405, { error: 'Method not allowed' });
+    return json(req, res, 405, { error: 'Method not allowed' });
   }
 
   try {
@@ -95,7 +110,7 @@ module.exports = async (req, res) => {
 
     // Honeypot: real people never fill this in.
     if (String(body.company || '').trim()) {
-      return json(res, 200, { ok: true });
+      return json(req, res, 200, { ok: true });
     }
 
     const full_name = String(body.full_name || '').trim();
@@ -107,29 +122,29 @@ module.exports = async (req, res) => {
     const adviser_name = ADVISERS[adviserSlug] || null;
 
     if (!validateFullName(full_name)) {
-      return json(res, 400, { error: 'Please enter your full name' });
+      return json(req, res, 400, { error: 'Please enter your full name' });
     }
     if (!validateEmail(email)) {
-      return json(res, 400, { error: 'Please enter a valid email address' });
+      return json(req, res, 400, { error: 'Please enter a valid email address' });
     }
     if (!validatePhone(phone)) {
-      return json(res, 400, { error: 'Please enter a valid mobile number' });
+      return json(req, res, 400, { error: 'Please enter a valid mobile number' });
     }
     if (!enquiry_type) {
-      return json(res, 400, { error: 'Please choose what your enquiry is about' });
+      return json(req, res, 400, { error: 'Please choose what your enquiry is about' });
     }
     if (message.length < 10) {
-      return json(res, 400, { error: 'Please tell us a little more so we can help' });
+      return json(req, res, 400, { error: 'Please tell us a little more so we can help' });
     }
     if (message.length > MAX_MESSAGE) {
-      return json(res, 400, { error: 'Your message is too long' });
+      return json(req, res, 400, { error: 'Your message is too long' });
     }
     if (body.consent !== true) {
-      return json(res, 400, { error: 'Please agree to be contacted about your enquiry' });
+      return json(req, res, 400, { error: 'Please agree to be contacted about your enquiry' });
     }
 
     if (isRateLimited(clientIp(req))) {
-      return json(res, 429, { error: 'Too many submissions. Please try again shortly.' });
+      return json(req, res, 429, { error: 'Too many submissions. Please try again shortly.' });
     }
 
     const enquiry = { full_name, email, phone, enquiry_type, message, adviser_name };
@@ -137,9 +152,9 @@ module.exports = async (req, res) => {
     await sendAdminContactNotification(enquiry);
     await sendContactAcknowledgement(enquiry);
 
-    return json(res, 201, { ok: true });
+    return json(req, res, 201, { ok: true });
   } catch (err) {
     const status = err.status && err.status >= 400 && err.status < 600 ? err.status : 500;
-    return json(res, status, { error: err.message || 'Server error' });
+    return json(req, res, status, { error: err.message || 'Server error' });
   }
 };

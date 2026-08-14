@@ -69,7 +69,17 @@ function resolveFile(urlPath) {
   return filePath;
 }
 
+const SECURITY_HEADERS = {
+  'Content-Security-Policy': "default-src 'self'; script-src 'self' blob: https://unpkg.com https://cdn.jsdelivr.net https://maps.googleapis.com; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://images.unsplash.com https://cdn.jsdelivr.net https://maps.googleapis.com https://maps.gstatic.com; connect-src 'self' https://iaqquovppuvxmhwhnxso.supabase.co https://api.resend.com https://maps.googleapis.com; frame-src 'self'; worker-src 'self' blob:; media-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';",
+  'X-Frame-Options': 'SAMEORIGIN',
+  'X-Content-Type-Options': 'nosniff',
+  'Referrer-Policy': 'strict-origin-when-cross-origin'
+};
+
 const server = http.createServer(async (req, res) => {
+  for (const [key, value] of Object.entries(SECURITY_HEADERS)) {
+    res.setHeader(key, value);
+  }
   const url = new URL(req.url, `http://localhost:${port}`);
 
   if (url.pathname === '/api/leads') {
@@ -110,7 +120,7 @@ const server = http.createServer(async (req, res) => {
   if (adminPath === '/admin') {
     const adminIndex = path.join(root, 'admin', 'index.html');
     if (fs.existsSync(adminIndex)) {
-      res.writeHead(200, { 'Content-Type': MIME['.html'] });
+      res.writeHead(200, Object.assign({ 'Content-Type': MIME['.html'] }, SECURITY_HEADERS));
       fs.createReadStream(adminIndex).pipe(res);
       return;
     }
@@ -120,19 +130,21 @@ const server = http.createServer(async (req, res) => {
   if (!filePath || !fs.existsSync(filePath) || !fs.statSync(filePath).isFile()) {
     const notFoundPage = path.join(root, '404.html');
     if (fs.existsSync(notFoundPage)) {
-      res.writeHead(404, { 'Content-Type': MIME['.html'] });
+      res.writeHead(404, Object.assign({ 'Content-Type': MIME['.html'] }, SECURITY_HEADERS));
       fs.createReadStream(notFoundPage).pipe(res);
       return;
     }
-    res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+    res.writeHead(404, Object.assign({ 'Content-Type': 'text/plain; charset=utf-8' }, SECURITY_HEADERS));
     res.end('Not found');
     return;
   }
 
   const ext = path.extname(filePath).toLowerCase();
-  const headers = { 'Content-Type': MIME[ext] || 'application/octet-stream' };
-  if (['.css', '.js', '.webp', '.png', '.jpg', '.jpeg', '.svg', '.woff2', '.ico'].includes(ext)) {
+  const headers = Object.assign({ 'Content-Type': MIME[ext] || 'application/octet-stream' }, SECURITY_HEADERS);
+  if (['.css', '.webp', '.png', '.jpg', '.jpeg', '.svg', '.woff2', '.ico'].includes(ext)) {
     headers['Cache-Control'] = 'public, max-age=31536000, immutable';
+  } else if (ext === '.js') {
+    headers['Cache-Control'] = 'no-cache, no-store, must-revalidate';
   }
   res.writeHead(200, headers);
   fs.createReadStream(filePath).pipe(res);
