@@ -7,19 +7,34 @@ const DEFAULT_CASH_PCT = 0.90;
 const DEFAULT_BREAK_FEE = 0;
 const DEFAULT_LEGAL = 1200;
 
-function json(res, status, body) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+function setCorsHeaders(req, res, methods = 'POST, OPTIONS') {
+  const origin = req.headers && req.headers.origin;
+  if (origin) {
+    try {
+      const parsed = new URL(origin);
+      const isLocalhost = parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1';
+      const isAllowedDomain = parsed.hostname.endsWith('wealthify.co.nz') || parsed.hostname.endsWith('vercel.app');
+      if (isLocalhost || isAllowedDomain) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+        res.setHeader('Vary', 'Origin');
+      }
+    } catch {
+      // ignore invalid origin
+    }
+  }
+  res.setHeader('Access-Control-Allow-Methods', methods);
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+}
+
+function json(req, res, status, body) {
+  setCorsHeaders(req, res, 'POST, OPTIONS');
   res.statusCode = status;
   res.setHeader('Content-Type', 'application/json');
   res.end(JSON.stringify(body));
 }
 
-function empty(res, status) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+function empty(req, res, status) {
+  setCorsHeaders(req, res, 'POST, OPTIONS');
   res.statusCode = status;
   res.end();
 }
@@ -184,12 +199,12 @@ async function saveStep2({
 
 module.exports = async (req, res) => {
   if (req.method === 'OPTIONS') {
-    return empty(res, 204);
+    return empty(req, res, 204);
   }
 
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
-    return json(res, 405, { error: 'Method not allowed' });
+    return json(req, res, 405, { error: 'Method not allowed' });
   }
 
   try {
@@ -203,19 +218,19 @@ module.exports = async (req, res) => {
     const source = String(body.source || '').trim() || 'refinance-calculator';
 
     if (!validateFullName(full_name)) {
-      return json(res, 400, { error: 'Full name is required' });
+      return json(req, res, 400, { error: 'Full name is required' });
     }
     if (!validateEmail(email)) {
-      return json(res, 400, { error: 'Invalid email address' });
+      return json(req, res, 400, { error: 'Invalid email address' });
     }
     if (!validatePhone(phone)) {
-      return json(res, 400, { error: 'Invalid mobile number' });
+      return json(req, res, 400, { error: 'Invalid mobile number' });
     }
     if (current_rate === null) {
-      return json(res, 400, { error: 'Invalid current rate' });
+      return json(req, res, 400, { error: 'Invalid current rate' });
     }
     if (years_remaining === null) {
-      return json(res, 400, { error: 'Invalid years remaining' });
+      return json(req, res, 400, { error: 'Invalid years remaining' });
     }
 
     const target_new_rate = await getTargetNewRate();
@@ -223,13 +238,13 @@ module.exports = async (req, res) => {
     if (step === 1) {
       const loan_balance = parseLoanBalance(body.loan_balance);
       if (loan_balance === null) {
-        return json(res, 400, { error: 'Invalid loan balance' });
+        return json(req, res, 400, { error: 'Invalid loan balance' });
       }
 
       const bank_name = parseBankName(body.bank_name);
       await saveStep1({ full_name, email, phone, current_rate, years_remaining, loan_balance, target_new_rate, bank_name, source });
       await sendAdminLeadNotification({ full_name, email, phone, current_rate, years_remaining, loan_balance, bank_name, source });
-      return json(res, 201, { ok: true });
+      return json(req, res, 201, { ok: true });
     }
 
     const property_address = String(body.property_address || '').trim();
@@ -237,13 +252,13 @@ module.exports = async (req, res) => {
     const bank_name = parseBankName(body.bank_name);
 
     if (!property_address) {
-      return json(res, 400, { error: 'Property address is required' });
+      return json(req, res, 400, { error: 'Property address is required' });
     }
     if (loan_balance === null) {
-      return json(res, 400, { error: 'Invalid loan balance' });
+      return json(req, res, 400, { error: 'Invalid loan balance' });
     }
     if (!bank_name) {
-      return json(res, 400, { error: 'Current bank is required' });
+      return json(req, res, 400, { error: 'Current bank is required' });
     }
 
     await saveStep2({
@@ -269,9 +284,9 @@ module.exports = async (req, res) => {
       source,
     });
 
-    return json(res, 201, { ok: true });
+    return json(req, res, 201, { ok: true });
   } catch (err) {
     const status = err.status && err.status >= 400 && err.status < 600 ? err.status : 500;
-    return json(res, status, { error: err.message || 'Server error' });
+    return json(req, res, status, { error: err.message || 'Server error' });
   }
 };
