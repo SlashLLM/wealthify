@@ -41,6 +41,8 @@ const MIME = {
   '.webp': 'image/webp',
   '.ico': 'image/x-icon',
   '.woff2': 'font/woff2',
+  '.pdf': 'application/pdf',
+  '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
   '.mp4': 'video/mp4',
   '.webm': 'video/webm',
 };
@@ -141,8 +143,14 @@ const server = http.createServer(async (req, res) => {
 
   const ext = path.extname(filePath).toLowerCase();
   const headers = Object.assign({ 'Content-Type': MIME[ext] || 'application/octet-stream' }, SECURITY_HEADERS);
+  if (ext === '.pdf') {
+    headers['Content-Disposition'] = 'inline; filename="' + path.basename(filePath) + '"';
+    // Chrome renders a top-level PDF through its plugin viewer, which the site's
+    // object-src 'none' blocks -- the browser then falls back to downloading it.
+    headers['Content-Security-Policy'] = "default-src 'self'; object-src 'self'; frame-ancestors 'self'";
+  }
   if (['.css', '.webp', '.png', '.jpg', '.jpeg', '.svg', '.woff2', '.ico'].includes(ext)) {
-    headers['Cache-Control'] = 'public, max-age=31536000, immutable';
+    headers['Cache-Control'] = 'no-cache, must-revalidate';
   } else if (ext === '.js') {
     headers['Cache-Control'] = 'no-cache, no-store, must-revalidate';
   }
