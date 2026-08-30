@@ -74,6 +74,9 @@
     .team-bio p{font-size:var(--text-compact);color:#5B6B82;line-height:1.8;margin:0 0 15px}
     .team-cta{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;background:#16C172;color:#fff;border-radius:10px;font-size:var(--text-cta);font-weight:700;transition:opacity .15s}
     .team-cta:hover{opacity:.88}
+    .team-actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+    .team-contact-link{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;background:#fff;border:1px solid #D7DEE8;border-radius:10px;font-size:var(--text-cta);font-weight:700;color:#0B1F3A;white-space:nowrap;transition:border-color .15s,background .15s}
+    .team-contact-link:hover{border-color:#16C172;background:#F2FBF6}
     @media (max-width:900px){
       .team-row,
       .team-row--flip{grid-template-columns:1fr;gap:28px}
@@ -125,16 +128,14 @@
   <div style="max-width:760px;margin:0 auto;text-align:center;position:relative">
     <div style="display:inline-flex;align-items:center;gap:8px;margin-bottom:22px;padding:6px 14px;background:rgba(22,193,114,0.12);border-radius:100px;border:1px solid rgba(22,193,114,0.2)">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="#16C172" fill-opacity="0.2" stroke="#16C172" stroke-width="1.8" stroke-linejoin="round"></path><path d="M9 12l2 2 4-4" stroke="#16C172" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-      <span style="font-size:var(--text-label);font-weight:700;color:#16C172;letter-spacing:.04em">A licensed Financial Advice Provider (FAP) · Free Advice, Always</span>
+      <span style="font-size:var(--text-label);font-weight:700;color:#16C172;letter-spacing:.04em">A licensed Financial Advice Provider (FAP) · Free Advice</span>
     </div>
     <h1 class="hero-title" style="font-size:var(--text-hero-md);font-weight:800;color:white;margin:0 0 18px;line-height:1.05;letter-spacing:var(--hero-tracking)">The Wealthify team.</h1>
-    <p style="font-size:var(--text-body);color:rgba(255,255,255,0.5);margin:0 auto;line-height:1.7;max-width:520px">Real advisers, not a call centre. Between us we cover mortgages, insurance, KiwiSaver and investing — and you deal with the same person from first chat to settlement.</p>
+    <p style="font-size:var(--text-body);color:rgba(255,255,255,0.5);margin:0 auto;line-height:1.7;max-width:520px">If you're not sure where to start, that's exactly why we're here.</p>
     <div class="stats-row" style="display:flex;gap:28px;justify-content:center;flex-wrap:wrap;margin-top:44px">
       <div><span style="font-size:var(--text-h3);font-weight:800;color:white;letter-spacing:-0.5px">10+</span><span style="font-size:var(--text-caption);color:rgba(255,255,255,0.3);margin-left:8px">years' experience</span></div>
       <div style="width:1px;background:rgba(255,255,255,0.1)"></div>
       <div><span style="font-size:var(--text-h3);font-weight:800;color:white;letter-spacing:-0.5px">20+</span><span style="font-size:var(--text-caption);color:rgba(255,255,255,0.3);margin-left:8px">lenders</span></div>
-      <div style="width:1px;background:rgba(255,255,255,0.1)"></div>
-      <div><span style="font-size:var(--text-h3);font-weight:800;color:#16C172;letter-spacing:-0.5px">5 ★</span><span style="font-size:var(--text-caption);color:rgba(255,255,255,0.3);margin-left:8px">Google</span></div>
     </div>
   </div>
 </section>
@@ -143,25 +144,30 @@
 <section style="padding:84px 24px;background:#fff">
   <div class="team-row">
     <div class="team-photo">
-      <img src="/assets/team/amol-prakash-portrait.webp" alt="Amol Prakash, Financial Adviser at Wealthify" width="760" height="950" loading="lazy" decoding="async">
+      <img src="/assets/team/amol-prakash-portrait.webp" alt="Amol Prakash, Director and Mortgage Adviser at Wealthify" width="760" height="950" loading="lazy" decoding="async">
     </div>
     <div>
-      <div style="font-size:var(--text-micro);font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#16C172;margin-bottom:12px">Financial Adviser · Dunedin</div>
+      <div style="font-size:var(--text-micro);font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#16C172;margin-bottom:12px">Director · Mortgage Adviser · New Zealand Wide</div>
       <h2 style="font-size:var(--text-h2-xs);font-weight:800;color:#0B1F3A;margin:0 0 12px;letter-spacing:-1px;line-height:1.12">Amol Prakash</h2>
       <p style="font-size:var(--text-lead);color:#1A2433;font-weight:600;line-height:1.6;margin:0 0 24px;max-width:520px">Bringing industry knowledge and expertise to your financial journey.</p>
       <div class="team-chips">
         <span class="team-chip">Master's in Business &amp; Finance</span>
         <span class="team-chip">15+ years across banking &amp; finance</span>
         <span class="team-chip">Property &amp; construction background</span>
+        <span class="team-chip">Speaks in English, Malayalam and Hindi</span>
       </div>
       <div class="team-bio">
         <p>With a Master's degree in Business and Finance, Amol brings over 15 years of experience across banking, financial services, and the construction industry. That practical grounding, plus a deep understanding of the property and finance landscape, makes him a trusted guide for clients planning their next financial step.</p>
-        <p>Amol believes the best advice starts with listening. By understanding each client's story he can offer genuinely personalised solutions — whether that is buying a first home, planning for children's education, investing for the future, restructuring loans, or protecting valuable assets.</p>
+        <p>Amol believes the best advice starts with listening. By understanding each client's story he can help guide genuinely personalised solutions — whether that is buying a first home, planning for children's education, investing for the future, restructuring loans, or protecting valuable assets.</p>
         <p>Known for his calm, thoughtful approach, Amol has a real desire to help people reach their financial goals with confidence. Based in Dunedin, he is proud to support individuals and families through some of life's biggest decisions — always with care, clarity, and expertise.</p>
       </div>
-      <a href="./Contact.dc.html?adviser=amol-prakash" class="team-cta">Contact Amol
-        <svg width="15" height="15" viewBox="0 0 20 20" fill="none"><path d="M4 10h11M11 5.5L15.5 10 11 14.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-      </a>
+      <div class="team-actions">
+        <a href="./Contact.dc.html?adviser=amol-prakash" class="team-cta">Contact Amol
+          <svg width="15" height="15" viewBox="0 0 20 20" fill="none"><path d="M4 10h11M11 5.5L15.5 10 11 14.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </a>
+        <a href="tel:0220614584" class="team-contact-link" aria-label="Call Amol on 022 061 4584"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 2.5h3l1.5 4L6.5 8a9 9 0 0 0 5.5 5.5l1.5-2 4 1.5v3a1.5 1.5 0 0 1-1.7 1.5C8.3 16.8 3.2 11.7 2.5 4.2A1.5 1.5 0 0 1 4 2.5z" stroke="#16C172" stroke-width="1.6" stroke-linejoin="round"></path></svg><span>022 061 4584</span></a>
+        <a href="mailto:amol@wealthify.co.nz" class="team-contact-link" aria-label="Email Amol at amol@wealthify.co.nz"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="1.5" y="4" width="17" height="12" rx="2" stroke="#16C172" stroke-width="1.6"></rect><path d="M2 5.5L10 11L18 5.5" stroke="#16C172" stroke-width="1.6" stroke-linecap="round"></path></svg><span>amol@wealthify.co.nz</span></a>
+      </div>
     </div>
   </div>
 </section>
@@ -170,16 +176,16 @@
 <section style="padding:84px 24px;background:#F6F8FB;border-top:1px solid #E4E9F0;border-bottom:1px solid #E4E9F0">
   <div class="team-row team-row--flip">
     <div class="team-photo">
-      <img src="/assets/team/shweta-bhatia-portrait.webp" alt="Shweta Bhatia, Mortgage Adviser at Wealthify" width="760" height="950" loading="lazy" decoding="async">
+      <img src="/assets/team/shweta-bhatia-portrait.webp" alt="Shweta Karne, Mortgage Adviser at Wealthify" width="760" height="950" loading="lazy" decoding="async">
     </div>
     <div>
-      <div style="font-size:var(--text-micro);font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#16C172;margin-bottom:12px">Mortgage Adviser · South Island</div>
-      <h2 style="font-size:var(--text-h2-xs);font-weight:800;color:#0B1F3A;margin:0 0 12px;letter-spacing:-1px;line-height:1.12">Shweta Bhatia</h2>
+      <div style="font-size:var(--text-micro);font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#16C172;margin-bottom:12px">Director · Mortgage Adviser · New Zealand Wide</div>
+      <h2 style="font-size:var(--text-h2-xs);font-weight:800;color:#0B1F3A;margin:0 0 12px;letter-spacing:-1px;line-height:1.12">Shweta Karne</h2>
       <p style="font-size:var(--text-lead);color:#1A2433;font-weight:600;line-height:1.6;margin:0 0 24px;max-width:520px">Empowering you to step into your own home with confidence.</p>
       <div class="team-chips">
         <span class="team-chip">Real estate &amp; legal background</span>
-        <span class="team-chip">Access to 20+ lenders</span>
-        <span class="team-chip">First-home buyers to investors</span>
+        <span class="team-chip">Builds real relationships, not just files</span>
+        <span class="team-chip">Speaks in English, Marathi and Hindi</span>
       </div>
       <div class="team-bio">
         <p>With a background in real estate and the legal sector, Shweta brings valuable insight into the property process. She works with a wide range of clients — from first-home buyers to seasoned investors — offering clear, practical guidance at every stage of the lending journey.</p>
@@ -187,9 +193,13 @@
         <p>Known for her friendly nature and attention to detail, she matches clients with the right options while keeping communication open and the process transparent. She is passionate about supporting people through key financial decisions and helping them move forward with clarity.</p>
         <p>Shweta has a strong connection to her community and enjoys giving back, whether through local events or simply being there when someone needs a hand. Based in the South Island, she loves exploring the region's natural beauty — a regular reminder of why home matters so much.</p>
       </div>
-      <a href="./Contact.dc.html?adviser=shweta-bhatia" class="team-cta">Contact Shweta
-        <svg width="15" height="15" viewBox="0 0 20 20" fill="none"><path d="M4 10h11M11 5.5L15.5 10 11 14.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-      </a>
+      <div class="team-actions">
+        <a href="./Contact.dc.html?adviser=shweta-karne" class="team-cta">Contact Shweta
+          <svg width="15" height="15" viewBox="0 0 20 20" fill="none"><path d="M4 10h11M11 5.5L15.5 10 11 14.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </a>
+        <a href="tel:0273646236" class="team-contact-link" aria-label="Call Shweta on 027 364 6236"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 2.5h3l1.5 4L6.5 8a9 9 0 0 0 5.5 5.5l1.5-2 4 1.5v3a1.5 1.5 0 0 1-1.7 1.5C8.3 16.8 3.2 11.7 2.5 4.2A1.5 1.5 0 0 1 4 2.5z" stroke="#16C172" stroke-width="1.6" stroke-linejoin="round"></path></svg><span>027 364 6236</span></a>
+        <a href="mailto:shweta@wealthify.co.nz" class="team-contact-link" aria-label="Email Shweta at shweta@wealthify.co.nz"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="1.5" y="4" width="17" height="12" rx="2" stroke="#16C172" stroke-width="1.6"></rect><path d="M2 5.5L10 11L18 5.5" stroke="#16C172" stroke-width="1.6" stroke-linecap="round"></path></svg><span>shweta@wealthify.co.nz</span></a>
+      </div>
     </div>
   </div>
 </section>
@@ -201,13 +211,13 @@
       <img src="/assets/team/jeeson-joseph-portrait.webp" alt="Jeeson Joseph, Mortgage Adviser at Wealthify" width="760" height="950" loading="lazy" decoding="async">
     </div>
     <div>
-      <div style="font-size:var(--text-micro);font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#16C172;margin-bottom:12px">Mortgage Adviser · New Zealand wide</div>
+      <div style="font-size:var(--text-micro);font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#16C172;margin-bottom:12px">Director · Mortgage Adviser · New Zealand Wide</div>
       <h2 style="font-size:var(--text-h2-xs);font-weight:800;color:#0B1F3A;margin:0 0 12px;letter-spacing:-1px;line-height:1.12">Jeeson Joseph</h2>
       <p style="font-size:var(--text-lead);color:#1A2433;font-weight:600;line-height:1.6;margin:0 0 24px;max-width:520px">Building stronger financial foundations through informed lending advice.</p>
       <div class="team-chips">
         <span class="team-chip">Data-driven loan structuring</span>
         <span class="team-chip">Entrepreneurial background</span>
-        <span class="team-chip">First homes · investment · refinancing</span>
+        <span class="team-chip">Enjoys untangling complex situations</span>
       </div>
       <div class="team-bio">
         <p>With a strong entrepreneurial background in digital marketing, Jeeson brings a modern, analytical perspective to financial services. Building and scaling businesses sharpened his strengths in market analysis, strategic planning, negotiation, and data-driven decision-making — exactly what careful loan structuring calls for.</p>
@@ -215,9 +225,13 @@
         <p>As a Mortgage Adviser at Wealthify, Jeeson is dedicated to helping individuals and families make confident, well-informed property decisions. Whether you are buying your first home, investing, or refinancing, he provides clear guidance aligned with your long-term financial goals.</p>
         <p>He believes in building lasting relationships through transparency, responsiveness, and genuine care. His focus is not just on securing a loan, but on helping clients create strong financial foundations for the future.</p>
       </div>
-      <a href="./Contact.dc.html?adviser=jeeson-joseph" class="team-cta">Contact Jeeson
-        <svg width="15" height="15" viewBox="0 0 20 20" fill="none"><path d="M4 10h11M11 5.5L15.5 10 11 14.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-      </a>
+      <div class="team-actions">
+        <a href="./Contact.dc.html?adviser=jeeson-joseph" class="team-cta">Contact Jeeson
+          <svg width="15" height="15" viewBox="0 0 20 20" fill="none"><path d="M4 10h11M11 5.5L15.5 10 11 14.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </a>
+        <a href="tel:0212545091" class="team-contact-link" aria-label="Call Jeeson on 021 254 5091"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 2.5h3l1.5 4L6.5 8a9 9 0 0 0 5.5 5.5l1.5-2 4 1.5v3a1.5 1.5 0 0 1-1.7 1.5C8.3 16.8 3.2 11.7 2.5 4.2A1.5 1.5 0 0 1 4 2.5z" stroke="#16C172" stroke-width="1.6" stroke-linejoin="round"></path></svg><span>021 254 5091</span></a>
+        <a href="mailto:jeeson@wealthify.co.nz" class="team-contact-link" aria-label="Email Jeeson at jeeson@wealthify.co.nz"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="1.5" y="4" width="17" height="12" rx="2" stroke="#16C172" stroke-width="1.6"></rect><path d="M2 5.5L10 11L18 5.5" stroke="#16C172" stroke-width="1.6" stroke-linecap="round"></path></svg><span>jeeson@wealthify.co.nz</span></a>
+      </div>
     </div>
   </div>
 </section>
@@ -226,26 +240,30 @@
 <section style="padding:84px 24px;background:#F6F8FB">
   <div class="team-row team-row--flip">
     <div class="team-photo">
-      <img src="/assets/team/vinod-anthony-portrait.webp" alt="Vinod Pudushery Anthony, Financial Adviser at Wealthify" width="760" height="950" loading="lazy" decoding="async">
+      <img src="/assets/team/vinod-anthony-portrait.webp" alt="Vinod Pudushery Anthony, Mortgage Adviser at Wealthify" width="760" height="950" loading="lazy" decoding="async">
     </div>
     <div>
-      <div style="font-size:var(--text-micro);font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#16C172;margin-bottom:12px">Financial Adviser · Dunedin</div>
+      <div style="font-size:var(--text-micro);font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#16C172;margin-bottom:12px">Mortgage Adviser · New Zealand Wide</div>
       <h2 style="font-size:var(--text-h2-xs);font-weight:800;color:#0B1F3A;margin:0 0 12px;letter-spacing:-1px;line-height:1.12">Vinod Pudushery Anthony</h2>
       <p style="font-size:var(--text-lead);color:#1A2433;font-weight:600;line-height:1.6;margin:0 0 24px;max-width:520px">Clear, practical, and tailored financial advice for your home and lending journey.</p>
       <div class="team-chips">
         <span class="team-chip">Master of Social Work &amp; Level 5 NZ Certificate</span>
         <span class="team-chip">Mortgage, leadership &amp; HR background</span>
-        <span class="team-chip">Multilingual · English, Malayalam, Hindi, Kannada &amp; Tamil</span>
+        <span class="team-chip">Fluent in English, Malayalam, Hindi, Kannada and Tamil</span>
       </div>
       <div class="team-bio">
         <p>Vinod has called Dunedin home for more than 12 years and brings a diverse background in financial services, business leadership, and people management to his role at Wealthify.</p>
         <p>He holds a Master of Social Work and the New Zealand Certificate in Financial Services (Level 5). Before becoming a Financial Adviser, Vinod gained hands-on industry experience as a Mortgage Support Officer. He has also worked as a company director and Human Resources Manager, giving him a broad understanding of business, employment, and the financial challenges faced by individuals and families.</p>
-        <p>Vinod can assist with first-home purchases, refinancing, investment properties, construction lending, and a wide range of mortgage needs. He believes financial advice should be clear, practical, and tailored to each client. By taking the time to understand their circumstances and goals, Vinod helps clients explore suitable options and supports them throughout the journey — from the first conversation through to approval and settlement.</p>
+        <p>Vinod can assist with first-home purchases, refinancing, investment properties, and construction lending. He believes financial advice should be clear, practical, and tailored to each client. By taking the time to understand their circumstances and goals, Vinod helps clients explore suitable options and supports them throughout the journey — from the first conversation through to approval and settlement.</p>
         <p>Friendly, approachable, and committed to excellent service, Vinod is passionate about helping people make informed financial decisions and move forward with confidence. Vinod speaks English, Malayalam, Hindi, Kannada, and Tamil, enabling him to connect with and support clients from diverse communities.</p>
       </div>
-      <a href="./Contact.dc.html?adviser=vinod-anthony" class="team-cta">Contact Vinod
-        <svg width="15" height="15" viewBox="0 0 20 20" fill="none"><path d="M4 10h11M11 5.5L15.5 10 11 14.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-      </a>
+      <div class="team-actions">
+        <a href="./Contact.dc.html?adviser=vinod-anthony" class="team-cta">Contact Vinod
+          <svg width="15" height="15" viewBox="0 0 20 20" fill="none"><path d="M4 10h11M11 5.5L15.5 10 11 14.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </a>
+        <a href="tel:0220795613" class="team-contact-link" aria-label="Call Vinod on 022 079 5613"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 2.5h3l1.5 4L6.5 8a9 9 0 0 0 5.5 5.5l1.5-2 4 1.5v3a1.5 1.5 0 0 1-1.7 1.5C8.3 16.8 3.2 11.7 2.5 4.2A1.5 1.5 0 0 1 4 2.5z" stroke="#16C172" stroke-width="1.6" stroke-linejoin="round"></path></svg><span>022 079 5613</span></a>
+        <a href="mailto:vinod@wealthify.co.nz" class="team-contact-link" aria-label="Email Vinod at vinod@wealthify.co.nz"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="1.5" y="4" width="17" height="12" rx="2" stroke="#16C172" stroke-width="1.6"></rect><path d="M2 5.5L10 11L18 5.5" stroke="#16C172" stroke-width="1.6" stroke-linecap="round"></path></svg><span>vinod@wealthify.co.nz</span></a>
+      </div>
     </div>
   </div>
 </section>

@@ -244,7 +244,7 @@
                   <path d="M9 12l2 2 4-4" stroke="#16C172" stroke-width="1.8" stroke-linecap="round"
                     stroke-linejoin="round"></path>
                 </svg>
-                <span style="font-size:var(--text-label);font-weight:700;color:#16C172;letter-spacing:.04em">Free advice
+                <span style="font-size:var(--text-label);font-weight:700;color:#16C172;letter-spacing:.04em">Free chat
                   · No obligation</span>
               </div>
               <h1 class="hero-title"
@@ -252,8 +252,8 @@
                 Get in touch —<br>book a free call.</h1>
               <p
                 style="font-size:var(--text-body);color:rgba(255,255,255,0.5);margin:0 0 36px;line-height:1.7;max-width:420px">
-                Tell us where you are up to and a licensed Wealthify adviser will come back to you within one business
-                day. No cost, no pressure, no jargon.</p>
+                Tell us where you are up to and a Wealthify adviser will aim to come back to you to help guide your
+                next steps. No cost, no pressure, no jargon.</p>
 
               <div style="display:flex;flex-direction:column;gap:14px;max-width:400px">
                 <a href="mailto:info@wealthify.co.nz"
@@ -343,11 +343,8 @@
                 <form onSubmit="{{ onSubmit }}"
                   style="background:white;border-radius:20px;padding:34px 32px;box-shadow:0 0 0 1px rgba(255,255,255,0.07),0 32px 80px rgba(0,0,0,0.5)">
                   <h2
-                    style="font-size:var(--text-h3);font-weight:800;color:#0B1F3A;margin:0 0 6px;letter-spacing:-0.4px">
+                    style="font-size:var(--text-h3);font-weight:800;color:#0B1F3A;margin:0 0 24px;letter-spacing:-0.4px">
                     Send us a message</h2>
-                  <p style="font-size:var(--text-compact);color:#8B9AAD;margin:0 0 24px;line-height:1.6">All fields are
-                    required. We will never share your details.</p>
-
                   <sc-if value="{{ hasAdviser }}" hint-placeholder-val="{{ false }}">
                     <div
                       style="display:flex;align-items:center;gap:10px;padding:11px 14px;background:rgba(22,193,114,0.08);border:1px solid rgba(22,193,114,0.18);border-radius:10px;margin-bottom:20px">
@@ -451,8 +448,8 @@
                 1</div>
               <div style="font-size:var(--text-ui-md);font-weight:700;color:#0B1F3A;margin-bottom:8px">We get in touch
               </div>
-              <p style="font-size:var(--text-compact);color:#5B6B82;line-height:1.7;margin:0">An adviser replies within
-                one business day to book a time that suits you — phone, video or in person.</p>
+              <p style="font-size:var(--text-compact);color:#5B6B82;line-height:1.7;margin:0">An adviser will be
+                connecting with you to book a time that suits you.</p>
             </div>
             <div style="background:#F6F8FB;border:1px solid #E4E9F0;border-radius:16px;padding:28px 26px">
               <div
@@ -460,8 +457,8 @@
                 2</div>
               <div style="font-size:var(--text-ui-md);font-weight:700;color:#0B1F3A;margin-bottom:8px">We map your
                 options</div>
-              <p style="font-size:var(--text-compact);color:#5B6B82;line-height:1.7;margin:0">We compare 20+ lenders and
-                providers against your goals, then explain the trade-offs in plain English.</p>
+              <p style="font-size:var(--text-compact);color:#5B6B82;line-height:1.7;margin:0">We can access a panel of
+                20+ lenders and providers, and explain your options in plain English.</p>
             </div>
             <div style="background:#F6F8FB;border:1px solid #E4E9F0;border-radius:16px;padding:28px 26px">
               <div
@@ -552,7 +549,8 @@
   <script type="text/x-dc" data-dc-script>
 const ADVISERS = {
   'amol-prakash': 'Amol Prakash',
-  'shweta-bhatia': 'Shweta Bhatia',
+  'shweta-karne': 'Shweta Karne',
+  'shweta-bhatia': 'Shweta Karne',
   'jeeson-joseph': 'Jeeson Joseph',
   'vinod-anthony': 'Vinod Pudushery Anthony'
 };

@@ -4,7 +4,8 @@ const ENQUIRY_TYPES = ['Mortgages', 'Insurance', 'KiwiSaver', 'Loans', 'Other'];
 
 const ADVISERS = {
   'amol-prakash': 'Amol Prakash',
-  'shweta-bhatia': 'Shweta Bhatia',
+  'shweta-karne': 'Shweta Karne',
+  'shweta-bhatia': 'Shweta Karne',
   'jeeson-joseph': 'Jeeson Joseph',
   'vinod-anthony': 'Vinod Pudushery Anthony',
 };
