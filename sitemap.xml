@@ -27,6 +27,8 @@
     <loc>https://wealthify.co.nz/KiwiSaver.dc.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+  </url>
+
   <!-- Loans -->
   <url>
     <loc>https://wealthify.co.nz/Loans.dc.html</loc>
@@ -67,6 +69,20 @@
     <loc>https://wealthify.co.nz/Contact.dc.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+
+  <!-- Privacy Policy -->
+  <url>
+    <loc>https://wealthify.co.nz/assets/legal/Wealthify-Privacy-Policy.pdf</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Terms of Use -->
+  <url>
+    <loc>https://wealthify.co.nz/assets/legal/Wealthify-Terms-of-Use.pdf</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
 
 </urlset>
