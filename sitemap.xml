@@ -85,4 +85,11 @@
     <priority>0.5</priority>
   </url>
 
+  <!-- Disclosure Statement -->
+  <url>
+    <loc>https://wealthify.co.nz/assets/legal/Wealthify-Disclosure-Statement.pdf</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
 </urlset>
