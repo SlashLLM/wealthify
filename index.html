@@ -307,11 +307,11 @@
     </div>
 
     <!-- Showcase panel -->
-    <div class="showcase-panel" style="background:#F6F8FB;border:1px solid #E4E9F0;border-radius:20px;padding:44px 48px;min-height:380px" onMouseEnter="{{ pauseTab }}" onMouseLeave="{{ resumeTab }}">
+    <div class="showcase-panel" style="background:#F6F8FB;border:1px solid #E4E9F0;border-radius:20px;padding:44px 48px;min-height:380px;display:grid" onMouseEnter="{{ pauseTab }}" onMouseLeave="{{ resumeTab }}">
 
       <!-- ═══ Panel 0 · Mortgages ═══ -->
-      <sc-if value="{{ isTab0 }}" hint-placeholder-val="{{ true }}">
-        <div class="grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;animation:fadein 0.4s ease">
+      <div class="showcase-layer" style="grid-area:1/1;display:grid;align-content:center;opacity:{{ panel0Op }};visibility:{{ panel0Vis }};transform:translateY({{ panel0Y }});transition:{{ panel0Trans }}">
+        <div class="grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center">
           <div>
             <div style="font-size:38px;font-weight:800;color:#0B1F3A;letter-spacing:-2px;line-height:1;margin-bottom:6px">Up to $165,000</div>
             <div style="font-size:var(--text-ui);font-weight:600;color:#5B6B82;margin-bottom:22px">potential interest saved — based on the rate example above</div>
@@ -363,11 +363,11 @@
             </div>
           </div>
         </div>
-      </sc-if>
+      </div>
 
       <!-- ═══ Panel 1 · Insurance ═══ -->
-      <sc-if value="{{ isTab1 }}" hint-placeholder-val="{{ false }}">
-        <div class="grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;animation:fadein 0.4s ease">
+      <div class="showcase-layer" style="grid-area:1/1;display:grid;align-content:center;opacity:{{ panel1Op }};visibility:{{ panel1Vis }};transform:translateY({{ panel1Y }});transition:{{ panel1Trans }}">
+        <div class="grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center">
           <div>
             <div style="font-size:var(--text-display);font-weight:800;color:#0B1F3A;letter-spacing:-3px;line-height:1;margin-bottom:6px">70%</div>
             <div style="font-size:var(--text-ui);font-weight:600;color:#5B6B82;margin-bottom:22px">of Kiwis are underinsured</div>
@@ -424,11 +424,11 @@
             <div style="font-size:11px;color:#8B9AAD;margin-top:12px;text-align:center;line-height:1.4;max-width:340px">Example figures only. Actual cover amount, benefit percentage and premiums depend on your policy, insurer and circumstances.</div>
           </div>
         </div>
-      </sc-if>
+      </div>
 
       <!-- ═══ Panel 2 · KiwiSaver ═══ -->
-      <sc-if value="{{ isTab2 }}" hint-placeholder-val="{{ false }}">
-        <div class="grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;animation:fadein 0.4s ease">
+      <div class="showcase-layer" style="grid-area:1/1;display:grid;align-content:center;opacity:{{ panel2Op }};visibility:{{ panel2Vis }};transform:translateY({{ panel2Y }});transition:{{ panel2Trans }}">
+        <div class="grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center">
           <div>
             <div style="font-size:26px;font-weight:800;color:#0B1F3A;letter-spacing:-1px;line-height:1.2;margin-bottom:12px">See how your fund choice could affect your balance at 65</div>
             <p style="font-size:var(--text-body);color:#1A2433;line-height:1.7;margin:0 0 24px;max-width:400px">Most Kiwis haven't checked whether their fund still matches their age and goals. A quick review could make a meaningful difference to what you retire with.</p>
@@ -482,11 +482,11 @@
             </div>
           </div>
         </div>
-      </sc-if>
+      </div>
 
       <!-- ═══ Panel 3 · Loans ═══ -->
-      <sc-if value="{{ isTab3 }}" hint-placeholder-val="{{ false }}">
-        <div class="grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;animation:fadein 0.4s ease">
+      <div class="showcase-layer" style="grid-area:1/1;display:grid;align-content:center;opacity:{{ panel3Op }};visibility:{{ panel3Vis }};transform:translateY({{ panel3Y }});transition:{{ panel3Trans }}">
+        <div class="grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center">
           <div>
             <div style="font-size:32px;font-weight:800;color:#0B1F3A;letter-spacing:-1.5px;line-height:1.15;margin-bottom:12px">Tell us once. We do the rest.</div>
             <p style="font-size:var(--text-body);color:#1A2433;line-height:1.7;margin:0 0 24px;max-width:400px">Car, renovation, debt consolidation — we find a loan that fits your situation. Plain terms, and any fees explained upfront.</p>
@@ -554,11 +554,11 @@
             </div>
           </div>
         </div>
-      </sc-if>
+      </div>
 
       <!-- ═══ Panel 4 · Investing ═══ -->
-      <sc-if value="{{ isTab4 }}" hint-placeholder-val="{{ false }}">
-        <div class="grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;animation:fadein 0.4s ease">
+      <div class="showcase-layer" style="grid-area:1/1;display:grid;align-content:center;opacity:{{ panel4Op }};visibility:{{ panel4Vis }};transform:translateY({{ panel4Y }});transition:{{ panel4Trans }}">
+        <div class="grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center">
           <div>
             <div style="font-size:36px;font-weight:800;color:#0B1F3A;letter-spacing:-1.5px;line-height:1;margin-bottom:6px">3 in 4</div>
             <div style="font-size:var(--text-ui);font-weight:600;color:#5B6B82;margin-bottom:22px">New Zealanders have no investments outside property and KiwiSaver</div>
@@ -630,7 +630,7 @@
             </div>
           </div>
         </div>
-      </sc-if>
+      </div>
 
     </div>
   </div>
@@ -1021,6 +1021,38 @@ class Component extends DCLogic {
       // Tab showcase
       isTab0: activeTab === 0, isTab1: activeTab === 1,
       isTab2: activeTab === 2, isTab3: activeTab === 3, isTab4: activeTab === 4,
+      // Showcase layers are all mounted and stacked in one grid cell, so the
+      // panel keeps the height of the tallest tab and the page never shifts.
+      panel0Op: activeTab === 0 ? '1' : '0',
+      panel0Vis: activeTab === 0 ? 'visible' : 'hidden',
+      panel0Y: activeTab === 0 ? '0' : '12px',
+      panel0Trans: activeTab === 0
+        ? 'opacity 0.4s ease, transform 0.4s ease, visibility 0s'
+        : 'opacity 0.4s ease, transform 0.4s ease, visibility 0s linear 0.4s',
+      panel1Op: activeTab === 1 ? '1' : '0',
+      panel1Vis: activeTab === 1 ? 'visible' : 'hidden',
+      panel1Y: activeTab === 1 ? '0' : '12px',
+      panel1Trans: activeTab === 1
+        ? 'opacity 0.4s ease, transform 0.4s ease, visibility 0s'
+        : 'opacity 0.4s ease, transform 0.4s ease, visibility 0s linear 0.4s',
+      panel2Op: activeTab === 2 ? '1' : '0',
+      panel2Vis: activeTab === 2 ? 'visible' : 'hidden',
+      panel2Y: activeTab === 2 ? '0' : '12px',
+      panel2Trans: activeTab === 2
+        ? 'opacity 0.4s ease, transform 0.4s ease, visibility 0s'
+        : 'opacity 0.4s ease, transform 0.4s ease, visibility 0s linear 0.4s',
+      panel3Op: activeTab === 3 ? '1' : '0',
+      panel3Vis: activeTab === 3 ? 'visible' : 'hidden',
+      panel3Y: activeTab === 3 ? '0' : '12px',
+      panel3Trans: activeTab === 3
+        ? 'opacity 0.4s ease, transform 0.4s ease, visibility 0s'
+        : 'opacity 0.4s ease, transform 0.4s ease, visibility 0s linear 0.4s',
+      panel4Op: activeTab === 4 ? '1' : '0',
+      panel4Vis: activeTab === 4 ? 'visible' : 'hidden',
+      panel4Y: activeTab === 4 ? '0' : '12px',
+      panel4Trans: activeTab === 4
+        ? 'opacity 0.4s ease, transform 0.4s ease, visibility 0s'
+        : 'opacity 0.4s ease, transform 0.4s ease, visibility 0s linear 0.4s',
       tab0Bg: activeTab === 0 ? '#0B1F3A' : 'transparent',
       tab0Color: activeTab === 0 ? '#fff' : '#5B6B82',
       tab1Bg: activeTab === 1 ? '#0B1F3A' : 'transparent',
