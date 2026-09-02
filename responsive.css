@@ -32,7 +32,7 @@ body.has-sticky-cta {
 
 .show-mobile-only { display: none !important; }
 
-/* Hero title — uses --hero-tracking so mobile can relax negative spacing */
+/* Hero title — uses --hero-tracking so mobile can tune the expanded spacing */
 .hero-title {
   letter-spacing: var(--hero-tracking);
   max-width: 100%;
@@ -300,7 +300,7 @@ body.nav-open { overflow: hidden; }
     --text-body: 17px;
     --text-nav: 16px;
     --text-lead: 17px;
-    --hero-tracking: -2px;
+    --hero-tracking: 0.01em;
   }
 
   html, body {
@@ -313,7 +313,7 @@ body.nav-open { overflow: hidden; }
   .site-nav__toggle { display: flex; }
   .site-nav.is-open .site-nav__drawer { display: block; }
 
-  /* Hero titles — relax tracking; beat inline letter-spacing */
+  /* Hero titles — tune tracking; beat inline letter-spacing */
   .hero-title {
     letter-spacing: var(--hero-tracking) !important;
     text-wrap: balance;
@@ -608,7 +608,7 @@ body.nav-open { overflow: hidden; }
 @media (max-width: 480px) {
   :root {
     --section-padding-x: 16px;
-    --hero-tracking: -1.5px;
+    --hero-tracking: 0.006em;
   }
 
   .hero-title {
