@@ -268,7 +268,25 @@
       <a href="./Insurance.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navColor }};opacity:0.8;transition:opacity 0.15s,color 0.3s" style-hover="opacity:1">Insurance</a>
       <a href="./KiwiSaver.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navColor }};opacity:0.8;transition:opacity 0.15s,color 0.3s" style-hover="opacity:1">KiwiSaver</a>
       <a href="./Loans.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navColor }};opacity:0.8;transition:opacity 0.15s,color 0.3s" style-hover="opacity:1">Loans</a>
-      <a href="./Tools.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navColor }};opacity:0.8;transition:opacity 0.15s,color 0.3s" style-hover="opacity:1">Tools</a>
+      <div class="site-nav__dropdown">
+        <a href="./Tools.dc.html" class="site-nav__dropdown-trigger" aria-haspopup="true" style="font-size:var(--text-nav);font-weight:600;color:{{ navColor }};opacity:0.8;transition:opacity 0.15s,color 0.3s" style-hover="opacity:1">Tools
+          <svg class="site-nav__chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </a>
+        <div class="site-nav__menu">
+          <a href="./Tools.dc.html">
+            <span class="site-nav__menu-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="4" y="2" width="16" height="20" rx="2.5" stroke="#16C172" stroke-width="2"></rect><path d="M8 7h8M8 12h.01M12 12h.01M16 12h.01M8 16h.01M12 16h.01M16 16h.01" stroke="#16C172" stroke-width="2" stroke-linecap="round"></path></svg></span>
+            <span class="site-nav__menu-text"><span class="site-nav__menu-title">Calculators</span><span class="site-nav__menu-sub">Refinance, repayments, KiwiSaver</span></span>
+          </a>
+          <a href="./PartnerCircle.dc.html">
+            <span class="site-nav__menu-icon" style="background:rgba(15,181,186,0.12)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#0FB5BA" stroke-width="2"></circle><circle cx="12" cy="12" r="3.2" stroke="#0FB5BA" stroke-width="2"></circle></svg></span>
+            <span class="site-nav__menu-text"><span class="site-nav__menu-title">Wealthify Partner Circle</span><span class="site-nav__menu-sub">Member benefits from verified providers</span></span>
+          </a>
+          <a href="./WealthifyScore.dc.html">
+            <span class="site-nav__menu-icon" style="background:rgba(232,176,75,0.14)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M3.5 18a9 9 0 1 1 17 0" stroke="#E8B04B" stroke-width="2" stroke-linecap="round"></path><path d="M12 18l4.2-5" stroke="#E8B04B" stroke-width="2" stroke-linecap="round"></path></svg></span>
+            <span class="site-nav__menu-text"><span class="site-nav__menu-title">Wealthify Score</span><span class="site-nav__menu-sub">Your free 0-100 financial health check</span></span>
+          </a>
+        </div>
+      </div>
       <a href="./Team.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navColor }};opacity:0.8;transition:opacity 0.15s,color 0.3s" style-hover="opacity:1">Our Team</a>
       <a href="./Contact.dc.html" style="font-size:var(--text-nav);font-weight:600;color:{{ navColor }};opacity:0.8;transition:opacity 0.15s,color 0.3s" style-hover="opacity:1">Contact</a>
     </div>
@@ -283,7 +301,10 @@
       <a href="./Insurance.dc.html">Insurance</a>
       <a href="./KiwiSaver.dc.html">KiwiSaver</a>
       <a href="./Loans.dc.html">Loans</a>
-      <a href="./Tools.dc.html">Tools</a>
+      <div class="site-nav__drawer-label">Tools</div>
+      <a href="./Tools.dc.html" class="site-nav__drawer-sub">Calculators</a>
+      <a href="./PartnerCircle.dc.html" class="site-nav__drawer-sub">Wealthify Partner Circle</a>
+      <a href="./WealthifyScore.dc.html" class="site-nav__drawer-sub">Wealthify Score</a>
       <a href="./Team.dc.html">Our Team</a>
       <a href="./Contact.dc.html">Contact</a>
       <a href="./Contact.dc.html" class="site-nav__drawer-cta">Book a free call</a>
@@ -1087,7 +1108,9 @@
         <div style="font-size:var(--text-micro);font-weight:700;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px">Company</div>
         <div style="display:flex;flex-direction:column;gap:10px">
           <a href="./Team.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.55);transition:color 0.15s" style-hover="color:white">Our Team</a>
-          <a href="./Tools.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.55);transition:color 0.15s" style-hover="color:white">Tools</a>
+          <a href="./Tools.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.55);transition:color 0.15s" style-hover="color:white">Calculators</a>
+          <a href="./PartnerCircle.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.55);transition:color 0.15s" style-hover="color:white">Partner Circle</a>
+          <a href="./WealthifyScore.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.55);transition:color 0.15s" style-hover="color:white">Wealthify Score</a>
           <a href="./rates/" style="font-size:var(--text-compact);color:rgba(255,255,255,0.55);transition:color 0.15s" style-hover="color:white">Rates</a>
           <a href="./Contact.dc.html" style="font-size:var(--text-compact);color:rgba(255,255,255,0.55);transition:color 0.15s" style-hover="color:white">Contact</a>
         </div>

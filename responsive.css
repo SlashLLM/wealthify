@@ -227,6 +227,119 @@ body.nav-open { overflow: hidden; }
 /* Rates page wider inner */
 .site-nav--wide .site-nav__inner { max-width: 1240px; }
 
+/* ── Nav dropdown (Tools) ──
+   CSS-only on purpose. The nav sits inside the React-rendered <x-dc> tree and
+   re-renders on every scroll tick, so any class or aria attribute set from JS
+   would be wiped. :hover + :focus-within also work on the two non-DC pages
+   (404.html, rates/index.html) with no runtime at all. */
+.site-nav__dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.site-nav__dropdown-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.site-nav__chevron {
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+.site-nav__menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-top: 10px;
+  min-width: 300px;
+  padding: 8px;
+  background: #fff;
+  border: 1px solid #E4E9F0;
+  border-radius: 14px;
+  box-shadow: 0 18px 44px rgba(11, 31, 58, 0.16);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(4px);
+  transition: opacity 0.18s, transform 0.18s, visibility 0.18s;
+}
+/* Invisible bridge so the pointer can cross the gap to the panel */
+.site-nav__menu::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -12px;
+  height: 12px;
+}
+.site-nav__dropdown:hover .site-nav__menu,
+.site-nav__dropdown:focus-within .site-nav__menu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+.site-nav__dropdown:hover .site-nav__chevron,
+.site-nav__dropdown:focus-within .site-nav__chevron {
+  transform: rotate(180deg);
+}
+.site-nav__menu a {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 11px 12px;
+  border-radius: 10px;
+  transition: background 0.15s;
+  /* beat `.site-nav__links a { white-space: nowrap }` — these items are two-line */
+  white-space: normal;
+}
+.site-nav__menu a:hover,
+.site-nav__menu a:focus-visible {
+  background: #F6F8FB;
+  outline: none;
+}
+.site-nav__menu-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: rgba(22, 193, 114, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.site-nav__menu-text { min-width: 0; }
+.site-nav__menu-title {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: #0B1F3A;
+  line-height: 1.3;
+}
+.site-nav__menu-sub {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: #5B6B82;
+  line-height: 1.4;
+  margin-top: 2px;
+}
+.site-nav__menu a.is-active { background: rgba(22, 193, 114, 0.08); }
+.site-nav__menu a.is-active .site-nav__menu-title { color: #0E9E5C; }
+
+/* Drawer sub-group — a flat labelled list, not an accordion: nav.js closes the
+   drawer on any <a> click inside it, so a toggle link would fight that. */
+.site-nav__drawer-label {
+  padding: 14px 14px 6px;
+  font-size: var(--text-label);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: #8B9AAD;
+}
+.site-nav__drawer a.site-nav__drawer-sub { padding-left: 26px; }
+
 /* ── Embed iframe ── */
 .embed-frame {
   width: 100%;
@@ -311,6 +424,8 @@ body.nav-open { overflow: hidden; }
   .show-mobile-only { display: flex !important; }
 
   .site-nav__toggle { display: flex; }
+  /* The drawer carries the Tools group instead */
+  .site-nav__menu { display: none; }
   .site-nav.is-open .site-nav__drawer { display: block; }
 
   /* Hero titles — tune tracking; beat inline letter-spacing */

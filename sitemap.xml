@@ -43,6 +43,20 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- Wealthify Partner Circle -->
+  <url>
+    <loc>https://wealthify.co.nz/PartnerCircle.dc.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Wealthify Score -->
+  <url>
+    <loc>https://wealthify.co.nz/WealthifyScore.dc.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- Refinance Calculator -->
   <url>
     <loc>https://wealthify.co.nz/Refinance-Calculator-Embed.html</loc>

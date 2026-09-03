@@ -112,6 +112,17 @@
           <span style="background:rgba(22,193,114,0.18);color:#16C172;font-size:var(--text-tiny);font-weight:800;padding:1px 7px;border-radius:20px;border:1px solid rgba(22,193,114,0.2)">{{ totalLeads }}</span>
         </div>
 
+        <div onClick="{{ onNavPrograms }}"
+          style="display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:8px;background:{{ navProgramsBg }};cursor:pointer;margin-bottom:2px;transition:background 0.15s"
+          style-hover="background:rgba(255,255,255,0.06)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{ navProgramsStroke }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"></circle>
+            <circle cx="12" cy="12" r="3.2"></circle>
+          </svg>
+          <span style="font-size:var(--text-nav);font-weight:{{ navProgramsWeight }};color:{{ navProgramsColor }};flex:1">Programs</span>
+          <span style="background:rgba(22,193,114,0.18);color:#16C172;font-size:var(--text-tiny);font-weight:800;padding:1px 7px;border-radius:20px;border:1px solid rgba(22,193,114,0.2)">{{ totalProgramLeads }}</span>
+        </div>
+
         <div style="margin:14px 0 5px;padding:0 8px;font-size:9px;font-weight:700;color:rgba(255,255,255,0.18);text-transform:uppercase;letter-spacing:.1em">Tools</div>
 
         <div onClick="{{ onNavRates }}"
@@ -263,6 +274,94 @@
                 </div>
               </sc-if>
             </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ── PROGRAM SIGN-UPS (Partner Circle / Wealthify Score) ── -->
+      <sc-if value="{{ showPrograms }}" hint-placeholder-val="{{ false }}">
+        <div style="animation:fadein 0.2s ease both">
+
+          <div style="padding:24px 30px 18px;background:#F0F3F8;position:sticky;top:0;z-index:10;border-bottom:1px solid #E0E6EF">
+            <div class="admin-toolbar" style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+              <div>
+                <h1 style="font-size:var(--text-ui-md);font-weight:800;color:#0B1F3A;margin:0;letter-spacing:-0.5px">Program Sign-ups</h1>
+                <p style="font-size:var(--text-dense-sm);color:#8B9AAD;margin:3px 0 0">{{ totalProgramLeads }} total · {{ programThisWeek }} new this week</p>
+              </div>
+              <div style="position:relative">
+                <svg style="position:absolute;left:11px;top:50%;transform:translateY(-50%);pointer-events:none" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8B9AAD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="search" placeholder="Search by name, email or phone…" value="{{ programSearch }}" onInput="{{ onProgramSearch }}"
+                  class="admin-search" style="height:38px;padding:0 14px 0 34px;border:1.5px solid #E4E9F0;border-radius:8px;font-size:var(--text-dense-sm);color:#0B1F3A;background:white;width:290px;transition:border-color 0.15s,box-shadow 0.15s"
+                  style-focus="border-color:#16C172;box-shadow:0 0 0 3px rgba(22,193,114,0.1)">
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-stats" style="padding:20px 30px 0;display:grid;grid-template-columns:repeat(3,1fr);gap:13px">
+            <div style="background:white;border-radius:12px;padding:18px 20px;border:1px solid #E4E9F0">
+              <div style="font-size:var(--text-tiny-sm);font-weight:700;color:#B0BAC5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Total Sign-ups</div>
+              <div style="font-size:30px;font-weight:800;color:#0B1F3A;letter-spacing:-1.5px;line-height:1">{{ totalProgramLeads }}</div>
+              <div style="font-size:var(--text-tiny-sm);color:#C4CDD6;margin-top:6px">all time</div>
+            </div>
+            <div style="background:white;border-radius:12px;padding:18px 20px;border:1px solid #E4E9F0">
+              <div style="font-size:var(--text-tiny-sm);font-weight:700;color:#B0BAC5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Partner Circle</div>
+              <div style="font-size:30px;font-weight:800;color:#16C172;letter-spacing:-1.5px;line-height:1">{{ circleCount }}</div>
+              <div style="font-size:var(--text-tiny-sm);color:#C4CDD6;margin-top:6px">members joined</div>
+            </div>
+            <div style="background:white;border-radius:12px;padding:18px 20px;border:1px solid #E4E9F0">
+              <div style="font-size:var(--text-tiny-sm);font-weight:700;color:#B0BAC5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Wealthify Score</div>
+              <div style="font-size:30px;font-weight:800;color:#E8B04B;letter-spacing:-1.5px;line-height:1">{{ scoreCount }}</div>
+              <div style="font-size:var(--text-tiny-sm);color:#C4CDD6;margin-top:6px">checks requested</div>
+            </div>
+          </div>
+
+          <div style="padding:16px 30px 40px">
+            <div style="background:white;border-radius:14px;border:1px solid #E4E9F0;overflow:hidden">
+              <div class="table-scroll" style="overflow-x:auto">
+                <table style="width:100%;border-collapse:collapse;font-size:var(--text-dense)">
+                  <thead>
+                    <tr style="border-bottom:1px solid #F0F3F8">
+                      <th style="padding:12px 20px;text-align:left;font-size:var(--text-tiny-sm);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;white-space:nowrap;background:#FAFBFC">Date</th>
+                      <th style="padding:12px 20px;text-align:left;font-size:var(--text-tiny-sm);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Program</th>
+                      <th style="padding:12px 20px;text-align:left;font-size:var(--text-tiny-sm);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Name</th>
+                      <th style="padding:12px 20px;text-align:left;font-size:var(--text-tiny-sm);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Email</th>
+                      <th style="padding:12px 20px;text-align:left;font-size:var(--text-tiny-sm);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Phone</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <sc-for list="{{ programRows }}" as="row" hint-placeholder-count="5">
+                      <tr style="border-bottom:1px solid #F6F8FB">
+                        <td style="padding:13px 20px;font-size:var(--text-caption);color:#8B9AAD;white-space:nowrap">{{ row.dateFmt }}</td>
+                        <td style="padding:13px 20px">
+                          <span style="display:inline-block;padding:3px 9px;border-radius:20px;font-size:var(--text-tiny);font-weight:700;white-space:nowrap;background:{{ row.programBg }};color:{{ row.programColor }}">{{ row.programLabel }}</span>
+                        </td>
+                        <td style="padding:13px 20px;font-weight:700;color:#0B1F3A">{{ row.fullName }}</td>
+                        <td style="padding:13px 20px;color:#5B6B82">{{ row.email }}</td>
+                        <td style="padding:13px 20px;color:#5B6B82;white-space:nowrap">{{ row.phone }}</td>
+                      </tr>
+                    </sc-for>
+                  </tbody>
+                </table>
+              </div>
+
+              <sc-if value="{{ programsEmpty }}" hint-placeholder-val="{{ false }}">
+                <div style="padding:52px 24px;text-align:center">
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#D0D6E2" stroke-width="1.5" style="display:block;margin:0 auto 13px">
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <circle cx="12" cy="12" r="3.2"></circle>
+                  </svg>
+                  <p style="font-size:var(--text-compact);color:#8B9AAD;font-weight:600;margin:0">No sign-ups yet</p>
+                  <p style="font-size:var(--text-dense-sm);color:#B0BAC5;margin:5px 0 0">Partner Circle and Wealthify Score sign-ups will appear here</p>
+                </div>
+              </sc-if>
+            </div>
+
+            <sc-if value="{{ programError }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:14px;padding:12px 15px;background:rgba(214,69,69,0.07);border:1px solid rgba(214,69,69,0.15);border-radius:9px;color:#C84040;font-size:var(--text-dense);font-weight:600">{{ programError }}</div>
+            </sc-if>
           </div>
         </div>
       </sc-if>
@@ -603,6 +702,9 @@ class Component extends DCLogic {
     view: 'init',
     activeSection: 'leads',
     leads: [],
+    programLeads: [],
+    programSearch: '',
+    programError: '',
     currentLead: null,
     formLoading: false,
     loginError: '',
@@ -688,6 +790,8 @@ class Component extends DCLogic {
   async _load() {
     const { leads } = await this._req('/api/admin/leads');
     this.setState({ leads: leads || [], view: 'list', activeSection: 'leads' });
+    // Sidebar count only — a failure here must not knock the session back to login.
+    this._loadProgramLeads().catch(() => {});
   }
 
   _flattenRates(institutions) {
@@ -817,6 +921,20 @@ class Component extends DCLogic {
     this.setState({ view: 'rates', activeSection: 'rates', currentLead: null, error: '' });
     this._loadRates();
     this._loadCalculatorRateSettings();
+  }
+
+  onNavPrograms() {
+    this.setState({ view: 'programs', activeSection: 'programs', currentLead: null, error: '' });
+    this._loadProgramLeads();
+  }
+
+  async _loadProgramLeads() {
+    try {
+      const { leads } = await this._req('/api/admin/program-leads');
+      this.setState({ programLeads: leads || [], programError: '' });
+    } catch (err) {
+      this.setState({ programError: err.message });
+    }
   }
 
   onRefreshRates() {
@@ -955,6 +1073,7 @@ class Component extends DCLogic {
   renderVals() {
     const {
       view, activeSection, leads, currentLead, formLoading, loginError, search,
+      programLeads, programSearch, programError,
       saving, saveOk, generating, error, optRate, optCashback, optBreak, optLegal,
       ratesInstitutions, ratesRows, selectedInstitutions, selectedTerms, ratesLoading, ratesError,
       ratesLastUpdated, ratesTermsOfUse, ratesSort, ratesFiltersOpen,
@@ -1124,14 +1243,62 @@ class Component extends DCLogic {
 
     const isLeadsActive = activeSection === 'leads';
     const isRatesActive = activeSection === 'rates';
+    const isProgramsActive = activeSection === 'programs';
+
+    const PROGRAM_LABELS = {
+      'partner-circle': { label: 'Partner Circle', bg: 'rgba(22,193,114,0.12)', color: '#0E9E5C' },
+      'wealthify-score': { label: 'Wealthify Score', bg: 'rgba(232,176,75,0.16)', color: '#8A6520' },
+    };
+
+    const programFiltered = programSearch
+      ? programLeads.filter(l => {
+          const q = programSearch.toLowerCase();
+          return (l.full_name || '').toLowerCase().includes(q)
+              || (l.email || '').toLowerCase().includes(q)
+              || (l.phone || '').toLowerCase().includes(q);
+        })
+      : programLeads;
+
+    const programRows = programFiltered.map(l => {
+      const meta = PROGRAM_LABELS[l.program] || { label: l.program || '—', bg: '#F0F3F8', color: '#5B6B82' };
+      return {
+        id: l.id,
+        dateFmt: this.fmtD(l.created_at),
+        programLabel: meta.label,
+        programBg: meta.bg,
+        programColor: meta.color,
+        fullName: l.full_name || '—',
+        email: l.email || '—',
+        phone: l.phone || '—',
+      };
+    });
+
+    const programWeekAgo = new Date(Date.now() - 7 * 864e5);
 
     return {
       showInit: view === 'init',
       showLogin: view === 'login',
-      showApp: view === 'list' || view === 'detail' || view === 'rates',
+      showApp: view === 'list' || view === 'detail' || view === 'rates' || view === 'programs',
       showList: view === 'list',
       showDetail: view === 'detail',
       showRates: view === 'rates',
+      showPrograms: view === 'programs',
+
+      navProgramsBg: isProgramsActive ? 'rgba(22,193,114,0.1)' : 'transparent',
+      navProgramsColor: isProgramsActive ? '#16C172' : 'rgba(255,255,255,0.5)',
+      navProgramsWeight: isProgramsActive ? '700' : '600',
+      navProgramsStroke: isProgramsActive ? '#16C172' : 'rgba(255,255,255,0.45)',
+      onNavPrograms: () => this.onNavPrograms(),
+
+      programRows,
+      programsEmpty: programRows.length === 0,
+      programSearch,
+      programError,
+      onProgramSearch: e => this.setState({ programSearch: e.target.value }),
+      totalProgramLeads: programLeads.length,
+      programThisWeek: programLeads.filter(l => new Date(l.created_at) > programWeekAgo).length,
+      circleCount: programLeads.filter(l => l.program === 'partner-circle').length,
+      scoreCount: programLeads.filter(l => l.program === 'wealthify-score').length,
 
       navLeadsBg: isLeadsActive ? 'rgba(22,193,114,0.1)' : 'transparent',
       navLeadsColor: isLeadsActive ? '#16C172' : 'rgba(255,255,255,0.5)',
