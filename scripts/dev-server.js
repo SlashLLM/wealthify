@@ -96,6 +96,10 @@ const server = http.createServer(async (req, res) => {
     return loadHandler('../api/contact')(req, res);
   }
 
+  if (url.pathname === '/api/program-signup') {
+    return loadHandler('../api/program-signup')(req, res);
+  }
+
   if (url.pathname === '/api/admin/login') {
     return loadHandler('../api/admin/login')(req, res);
   }
@@ -107,6 +111,9 @@ const server = http.createServer(async (req, res) => {
   }
   if (url.pathname === '/api/admin/lead') {
     return loadHandler('../api/admin/lead')(req, res);
+  }
+  if (url.pathname === '/api/admin/program-leads') {
+    return loadHandler('../api/admin/program-leads')(req, res);
   }
   if (url.pathname === '/api/admin/report') {
     return loadHandler('../api/admin/report')(req, res);
