@@ -124,6 +124,51 @@
     .pc-close{position:absolute;top:14px;right:14px;width:34px;height:34px;border:none;background:rgba(255,255,255,.16);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:inherit;transition:background .15s}
     .pc-close:hover{background:rgba(255,255,255,.3)}
     .cat-tile:hover{border-color:rgba(22,193,114,.4);transform:translateY(-3px)}
+
+    /* ── Hero image corridor ─────────────────────────────────────────
+     * Two rails of cards ride from far behind the screen toward the
+     * viewer. Perspective alone does the work that looks like two
+     * animations: as a card's z grows it gets bigger *and* its screen x
+     * sweeps outward from the vanishing point, because the projection
+     * scales position and size by the same factor.
+     *
+     * Depth is authored as apparent size, geometrically — each card is a
+     * constant ratio bigger than the one behind it — so the ribbon never
+     * tears where the projection blows up. The rails open hard in the
+     * first stretch and then hold, which cancels the still-slow growth
+     * back there and gives the ribbon its one bend. And a card is born
+     * *across* the axis (the first rail offset is negative), so the newest
+     * card sweeps back through the centre and plugs the throat instead of
+     * blinking a hole open at dead centre once a cycle.
+     *
+     * Every length is cqw — a percentage of the section's width — so the
+     * corridor keeps its proportions at any viewport size.
+     * ─────────────────────────────────────────────────────────────── */
+    .pc-hero{position:relative;overflow:hidden;container-type:inline-size}
+    .pc-stream{position:absolute;inset:0;pointer-events:none;perspective:30cqw;perspective-origin:50% 55%}
+    .pc-stream__space{position:absolute;inset:0;transform-style:preserve-3d}
+    .pc-stream__card{position:absolute;left:50%;top:55%;width:18cqw;height:25cqw;margin-left:-9cqw;margin-top:-12.5cqw;border-radius:.4cqw;overflow:hidden;backface-visibility:hidden;animation:pc-stream-r 18s linear infinite}
+    .pc-stream__card--l{animation-name:pc-stream-l}
+    .pc-stream__card img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.92) brightness(.82)}
+    /* Pausing rather than disabling keeps the corridor whole: every card is
+       already dropped mid-flight by its negative delay, so it freezes as a
+       finished still instead of collapsing onto the axis. */
+    @media (prefers-reduced-motion:reduce){.pc-stream__card{animation-play-state:paused}}
+    /* Scrim sits above the corridor, below the copy — the headline has to
+       stay readable while cards pass directly behind it. */
+    .pc-stream__scrim{position:absolute;inset:0;pointer-events:none;background:
+      radial-gradient(ellipse 60% 64% at 50% 50%,rgba(7,25,41,.95) 0%,rgba(7,25,41,.88) 36%,rgba(7,25,41,.45) 70%,rgba(7,25,41,0) 100%),
+      linear-gradient(to bottom,#071929 0%,rgba(7,25,41,.3) 33%,rgba(7,25,41,.3) 64%,#071929 100%)}
+    @media (max-width:860px){
+      /* Narrow viewports put the copy over the widest part of the ribbon,
+         so the corridor steps back and the scrim closes in. */
+      .pc-stream{opacity:.55}
+      .pc-stream__scrim{background:
+        radial-gradient(ellipse 88% 58% at 50% 50%,rgba(7,25,41,.97) 0%,rgba(7,25,41,.92) 44%,rgba(7,25,41,.6) 76%,rgba(7,25,41,.3) 100%),
+        linear-gradient(to bottom,#071929 0%,rgba(7,25,41,.4) 20%,rgba(7,25,41,.4) 74%,#071929 100%)}
+    }
+    @keyframes pc-stream-r{0.00%{transform:translate3d(-11.00cqw,0,-258.46cqw) rotateY(-6.00deg)}4.17%{transform:translate3d(-3.79cqw,0,-225.92cqw) rotateY(-6.92deg)}8.33%{transform:translate3d(2.73cqw,0,-197.04cqw) rotateY(-7.83deg)}12.50%{transform:translate3d(8.60cqw,0,-171.43cqw) rotateY(-8.75deg)}16.67%{transform:translate3d(13.87cqw,0,-148.70cqw) rotateY(-9.67deg)}20.83%{transform:translate3d(18.56cqw,0,-128.54cqw) rotateY(-10.58deg)}25.00%{transform:translate3d(22.72cqw,0,-110.65cqw) rotateY(-11.50deg)}29.17%{transform:translate3d(26.37cqw,0,-94.78cqw) rotateY(-12.42deg)}33.33%{transform:translate3d(29.57cqw,0,-80.70cqw) rotateY(-13.33deg)}37.50%{transform:translate3d(32.34cqw,0,-68.21cqw) rotateY(-14.25deg)}41.67%{transform:translate3d(34.71cqw,0,-57.13cqw) rotateY(-15.17deg)}45.83%{transform:translate3d(36.73cqw,0,-47.30cqw) rotateY(-16.08deg)}50.00%{transform:translate3d(38.42cqw,0,-38.58cqw) rotateY(-17.00deg)}54.17%{transform:translate3d(39.81cqw,0,-30.84cqw) rotateY(-17.92deg)}58.33%{transform:translate3d(40.94cqw,0,-23.98cqw) rotateY(-18.83deg)}62.50%{transform:translate3d(41.84cqw,0,-17.89cqw) rotateY(-19.75deg)}66.67%{transform:translate3d(42.53cqw,0,-12.48cqw) rotateY(-20.67deg)}70.83%{transform:translate3d(43.06cqw,0,-7.69cqw) rotateY(-21.58deg)}75.00%{transform:translate3d(43.43cqw,0,-3.44cqw) rotateY(-22.50deg)}79.17%{transform:translate3d(43.69cqw,0,0.33cqw) rotateY(-23.42deg)}83.33%{transform:translate3d(43.85cqw,0,3.68cqw) rotateY(-24.33deg)}87.50%{transform:translate3d(43.94cqw,0,6.65cqw) rotateY(-25.25deg)}91.67%{transform:translate3d(43.98cqw,0,9.28cqw) rotateY(-26.17deg)}95.83%{transform:translate3d(44.00cqw,0,11.62cqw) rotateY(-27.08deg)}100.00%{transform:translate3d(44.00cqw,0,13.70cqw) rotateY(-28.00deg)}}
+    @keyframes pc-stream-l{0.00%{transform:translate3d(11.00cqw,0,-258.46cqw) rotateY(6.00deg)}4.17%{transform:translate3d(3.79cqw,0,-225.92cqw) rotateY(6.92deg)}8.33%{transform:translate3d(-2.73cqw,0,-197.04cqw) rotateY(7.83deg)}12.50%{transform:translate3d(-8.60cqw,0,-171.43cqw) rotateY(8.75deg)}16.67%{transform:translate3d(-13.87cqw,0,-148.70cqw) rotateY(9.67deg)}20.83%{transform:translate3d(-18.56cqw,0,-128.54cqw) rotateY(10.58deg)}25.00%{transform:translate3d(-22.72cqw,0,-110.65cqw) rotateY(11.50deg)}29.17%{transform:translate3d(-26.37cqw,0,-94.78cqw) rotateY(12.42deg)}33.33%{transform:translate3d(-29.57cqw,0,-80.70cqw) rotateY(13.33deg)}37.50%{transform:translate3d(-32.34cqw,0,-68.21cqw) rotateY(14.25deg)}41.67%{transform:translate3d(-34.71cqw,0,-57.13cqw) rotateY(15.17deg)}45.83%{transform:translate3d(-36.73cqw,0,-47.30cqw) rotateY(16.08deg)}50.00%{transform:translate3d(-38.42cqw,0,-38.58cqw) rotateY(17.00deg)}54.17%{transform:translate3d(-39.81cqw,0,-30.84cqw) rotateY(17.92deg)}58.33%{transform:translate3d(-40.94cqw,0,-23.98cqw) rotateY(18.83deg)}62.50%{transform:translate3d(-41.84cqw,0,-17.89cqw) rotateY(19.75deg)}66.67%{transform:translate3d(-42.53cqw,0,-12.48cqw) rotateY(20.67deg)}70.83%{transform:translate3d(-43.06cqw,0,-7.69cqw) rotateY(21.58deg)}75.00%{transform:translate3d(-43.43cqw,0,-3.44cqw) rotateY(22.50deg)}79.17%{transform:translate3d(-43.69cqw,0,0.33cqw) rotateY(23.42deg)}83.33%{transform:translate3d(-43.85cqw,0,3.68cqw) rotateY(24.33deg)}87.50%{transform:translate3d(-43.94cqw,0,6.65cqw) rotateY(25.25deg)}91.67%{transform:translate3d(-43.98cqw,0,9.28cqw) rotateY(26.17deg)}95.83%{transform:translate3d(-44.00cqw,0,11.62cqw) rotateY(27.08deg)}100.00%{transform:translate3d(-44.00cqw,0,13.70cqw) rotateY(28.00deg)}}
   </style>
 </helmet>
 
@@ -185,8 +230,37 @@
 <main id="main-content">
 
 <!-- ═══ HERO ═══ -->
-<section style="padding:120px 24px 60px;background:#071929">
-  <div style="max-width:1200px;margin:0 auto;text-align:center">
+<section class="pc-hero" style="padding:120px 24px 60px;background:#071929">
+  <!-- Corridor of partner imagery. Decorative: the categories it shows are
+       named in full in the directory below, so it carries no unique meaning. -->
+  <div class="pc-stream" aria-hidden="true">
+    <div class="pc-stream__space">
+      <!-- Each card is dropped mid-flight by a negative delay, so the
+           corridor is already full on the first painted frame. -->
+      <div class="pc-stream__card" style="animation-delay:0s"><img src="/assets/partner-circle/stream/roofers.webp" alt="" decoding="async" draggable="false"></div>
+      <div class="pc-stream__card" style="animation-delay:-2s"><img src="/assets/partner-circle/stream/lawyers.webp" alt="" decoding="async" draggable="false"></div>
+      <div class="pc-stream__card" style="animation-delay:-4s"><img src="/assets/partner-circle/stream/plumbers.webp" alt="" decoding="async" draggable="false"></div>
+      <div class="pc-stream__card" style="animation-delay:-6s"><img src="/assets/partner-circle/stream/electricians.webp" alt="" decoding="async" draggable="false"></div>
+      <div class="pc-stream__card" style="animation-delay:-8s"><img src="/assets/partner-circle/stream/builders.webp" alt="" decoding="async" draggable="false"></div>
+      <div class="pc-stream__card" style="animation-delay:-10s"><img src="/assets/partner-circle/stream/architects.webp" alt="" decoding="async" draggable="false"></div>
+      <div class="pc-stream__card" style="animation-delay:-12s"><img src="/assets/partner-circle/stream/real-estate-agents.webp" alt="" decoding="async" draggable="false"></div>
+      <div class="pc-stream__card" style="animation-delay:-14s"><img src="/assets/partner-circle/stream/accountants.webp" alt="" decoding="async" draggable="false"></div>
+      <div class="pc-stream__card" style="animation-delay:-16s"><img src="/assets/partner-circle/stream/solar-energy.webp" alt="" decoding="async" draggable="false"></div>
+
+      <div class="pc-stream__card pc-stream__card--l" style="animation-delay:0s"><img src="/assets/partner-circle/stream/painters.webp" alt="" decoding="async" draggable="false"></div>
+      <div class="pc-stream__card pc-stream__card--l" style="animation-delay:-2s"><img src="/assets/partner-circle/stream/landscaping.webp" alt="" decoding="async" draggable="false"></div>
+      <div class="pc-stream__card pc-stream__card--l" style="animation-delay:-4s"><img src="/assets/partner-circle/stream/movers.webp" alt="" decoding="async" draggable="false"></div>
+      <div class="pc-stream__card pc-stream__card--l" style="animation-delay:-6s"><img src="/assets/partner-circle/stream/building-inspectors.webp" alt="" decoding="async" draggable="false"></div>
+      <div class="pc-stream__card pc-stream__card--l" style="animation-delay:-8s"><img src="/assets/partner-circle/stream/interior-designers.webp" alt="" decoding="async" draggable="false"></div>
+      <div class="pc-stream__card pc-stream__card--l" style="animation-delay:-10s"><img src="/assets/partner-circle/stream/cleaners.webp" alt="" decoding="async" draggable="false"></div>
+      <div class="pc-stream__card pc-stream__card--l" style="animation-delay:-12s"><img src="/assets/partner-circle/stream/locksmiths.webp" alt="" decoding="async" draggable="false"></div>
+      <div class="pc-stream__card pc-stream__card--l" style="animation-delay:-14s"><img src="/assets/partner-circle/stream/tilers.webp" alt="" decoding="async" draggable="false"></div>
+      <div class="pc-stream__card pc-stream__card--l" style="animation-delay:-16s"><img src="/assets/partner-circle/stream/roofers.webp" alt="" decoding="async" draggable="false"></div>
+    </div>
+  </div>
+  <div class="pc-stream__scrim" aria-hidden="true"></div>
+
+  <div style="position:relative;z-index:10;max-width:1200px;margin:0 auto;text-align:center">
     <div style="display:inline-flex;align-items:center;gap:8px;margin-bottom:24px;padding:6px 14px;background:rgba(22,193,114,0.12);border-radius:100px;border:1px solid rgba(22,193,114,0.2)">
       <span style="width:6px;height:6px;border-radius:50%;background:#16C172;animation:pulse 2s infinite;display:inline-block"></span>
       <span class="badge-wrap" style="font-size:var(--text-label);font-weight:700;color:#16C172;letter-spacing:.04em">Free membership · Verified providers · Rolling out nationwide</span>
