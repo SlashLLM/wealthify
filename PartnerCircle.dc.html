@@ -32,6 +32,7 @@
 <meta name="twitter:image" content="https://wealthify.co.nz/assets/brand/og/partners.jpg">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' blob: https://unpkg.com https://cdn.jsdelivr.net https://maps.googleapis.com; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://images.unsplash.com https://cdn.jsdelivr.net https://maps.googleapis.com https://maps.gstatic.com; connect-src 'self' https://iaqquovppuvxmhwhnxso.supabase.co https://api.resend.com https://maps.googleapis.com; frame-src 'self'; worker-src 'self' blob:; media-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';">
 
+<script src="./components/ui/carousel-squeeze.js?v=1"></script>
 <script src="./support.js?v=2"></script>
 <!-- Structured data (schema.org) -->
 <script type="application/ld+json">
@@ -123,7 +124,15 @@
     .pc-dialog{width:100%;max-width:460px;background:#fff;border-radius:20px;box-shadow:0 32px 80px rgba(0,0,0,.5);animation:modalin .25s ease;max-height:calc(100vh - 48px);overflow-y:auto}
     .pc-close{position:absolute;top:14px;right:14px;width:34px;height:34px;border:none;background:rgba(255,255,255,.16);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:inherit;transition:background .15s}
     .pc-close:hover{background:rgba(255,255,255,.3)}
-    .cat-tile:hover{border-color:rgba(22,193,114,.4);transform:translateY(-3px)}
+
+    /* Categories carousel — components/ui/carousel-squeeze.js, themed for the dark section */
+    .pc-squeeze{--sq-accent:#16C172;--sq-accent-foreground:#fff;--sq-fg:#fff;--sq-muted-fg:rgba(255,255,255,.62);--sq-muted:rgba(255,255,255,.06);--sq-offset:#0B1F3A}
+    .pc-squeeze .sq-copy{font-size:16px;line-height:1.7}
+    .pc-squeeze .sq-copy__title{display:block;margin-bottom:6px;font-size:22px;font-weight:700;letter-spacing:-.4px;line-height:1.3}
+    .pc-squeeze .sq-action{padding:12px 20px;border-radius:10px;font-size:14.5px;font-weight:700}
+    .pc-sq-mark{display:inline-flex;align-items:center;gap:12px;white-space:nowrap}
+    .pc-sq-mark__icon{display:grid;place-items:center;width:40px;height:40px;border-radius:11px;background:rgba(7,25,41,.62);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+    .pc-sq-mark__name{font-size:18px;font-weight:700;color:#fff;letter-spacing:-.3px;text-shadow:0 1px 12px rgba(0,0,0,.35)}
 
     /* ── Hero image corridor ─────────────────────────────────────────
      * Two rails of cards ride from far behind the screen toward the
@@ -336,80 +345,9 @@
       <p style="font-size:var(--text-body);color:rgba(255,255,255,0.65);max-width:620px;margin:0 auto">Organised around what you actually need done — not industry jargon. New categories are added as the network grows.</p>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(270px, 1fr));gap:22px">
-
-      <div class="cat-tile" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:28px 26px;transition:transform 0.2s,border-color 0.2s">
-        <div style="width:44px;height:44px;border-radius:12px;background:rgba(22,193,114,0.15);display:flex;align-items:center;justify-content:center;margin-bottom:18px">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke="#16C172" stroke-width="2" stroke-linejoin="round"></path><path d="M9 22V13h6v9" stroke="#16C172" stroke-width="2" stroke-linejoin="round"></path></svg>
-        </div>
-        <h3 style="font-size:19px;font-weight:700;color:white;margin:0 0 10px">Buy &amp; Sell</h3>
-        <p style="font-size:13.5px;color:rgba(255,255,255,0.6);line-height:1.65;margin:0">Real estate agents, buyers agents, valuers, building inspectors, conveyancing lawyers, photographers and home staging.</p>
-      </div>
-
-      <div class="cat-tile" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:28px 26px;transition:transform 0.2s,border-color 0.2s">
-        <div style="width:44px;height:44px;border-radius:12px;background:rgba(15,181,186,0.15);display:flex;align-items:center;justify-content:center;margin-bottom:18px">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" stroke="#0FB5BA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-        </div>
-        <h3 style="font-size:19px;font-weight:700;color:white;margin:0 0 10px">Build, Renovate &amp; Repair</h3>
-        <p style="font-size:13.5px;color:rgba(255,255,255,0.6);line-height:1.65;margin:0">Builders, architects, designers, engineers, plumbers, electricians, roofers, painters, plasterers, tilers, fencing and drainage.</p>
-      </div>
-
-      <div class="cat-tile" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:28px 26px;transition:transform 0.2s,border-color 0.2s">
-        <div style="width:44px;height:44px;border-radius:12px;background:rgba(232,176,75,0.15);display:flex;align-items:center;justify-content:center;margin-bottom:18px">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" stroke="#E8B04B" stroke-width="2" stroke-linejoin="round"></polygon></svg>
-        </div>
-        <h3 style="font-size:19px;font-weight:700;color:white;margin:0 0 10px">Comfort &amp; Energy</h3>
-        <p style="font-size:13.5px;color:rgba(255,255,255,0.6);line-height:1.65;margin:0">Heat pumps, insulation, double glazing, solar, EV chargers, ventilation, fireplaces, hot water and smart-home systems.</p>
-      </div>
-
-      <div class="cat-tile" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:28px 26px;transition:transform 0.2s,border-color 0.2s">
-        <div style="width:44px;height:44px;border-radius:12px;background:rgba(22,193,114,0.15);display:flex;align-items:center;justify-content:center;margin-bottom:18px">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2.5" stroke="#16C172" stroke-width="2"></rect><path d="M3 9.5h18M9.5 21V9.5" stroke="#16C172" stroke-width="2"></path></svg>
-        </div>
-        <h3 style="font-size:19px;font-weight:700;color:white;margin:0 0 10px">Interior &amp; Lifestyle</h3>
-        <p style="font-size:13.5px;color:rgba(255,255,255,0.6);line-height:1.65;margin:0">Flooring, curtains and blinds, kitchens, bathrooms, cabinetry, furniture, appliances, interior designers and storage.</p>
-      </div>
-
-      <div class="cat-tile" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:28px 26px;transition:transform 0.2s,border-color 0.2s">
-        <div style="width:44px;height:44px;border-radius:12px;background:rgba(15,181,186,0.15);display:flex;align-items:center;justify-content:center;margin-bottom:18px">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M11 20A7 7 0 019.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z" stroke="#0FB5BA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2 21c0-3 1.85-5.36 5.08-6" stroke="#0FB5BA" stroke-width="2" stroke-linecap="round"></path></svg>
-        </div>
-        <h3 style="font-size:19px;font-weight:700;color:white;margin:0 0 10px">Outdoor &amp; Property Care</h3>
-        <p style="font-size:13.5px;color:rgba(255,255,255,0.6);line-height:1.65;margin:0">Landscaping, lawns, arborists, gutter cleaning, exterior washing, pest control, rubbish removal, driveways and outdoor living.</p>
-      </div>
-
-      <div class="cat-tile" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:28px 26px;transition:transform 0.2s,border-color 0.2s">
-        <div style="width:44px;height:44px;border-radius:12px;background:rgba(232,176,75,0.15);display:flex;align-items:center;justify-content:center;margin-bottom:18px">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="1" y="5" width="14" height="12" rx="1.5" stroke="#E8B04B" stroke-width="2"></rect><path d="M15 9h4l4 3.5V17h-8V9z" stroke="#E8B04B" stroke-width="2" stroke-linejoin="round"></path><circle cx="6" cy="19" r="2" stroke="#E8B04B" stroke-width="2"></circle><circle cx="18" cy="19" r="2" stroke="#E8B04B" stroke-width="2"></circle></svg>
-        </div>
-        <h3 style="font-size:19px;font-weight:700;color:white;margin:0 0 10px">Move &amp; Settle</h3>
-        <p style="font-size:13.5px;color:rgba(255,255,255,0.6);line-height:1.65;margin:0">Movers, packing, storage, cleaning, utilities connection, broadband, security and alarms, locksmiths and relocation services.</p>
-      </div>
-
-      <div class="cat-tile" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:28px 26px;transition:transform 0.2s,border-color 0.2s">
-        <div style="width:44px;height:44px;border-radius:12px;background:rgba(22,193,114,0.15);display:flex;align-items:center;justify-content:center;margin-bottom:18px">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#16C172" stroke-width="2" stroke-linejoin="round"></path></svg>
-        </div>
-        <h3 style="font-size:19px;font-weight:700;color:white;margin:0 0 10px">Money, Legal &amp; Protection</h3>
-        <p style="font-size:13.5px;color:rgba(255,255,255,0.6);line-height:1.65;margin:0">Accountants, tax advisers, lawyers, insurance, KiwiSaver, wills and estate planning, trusts and asset finance.</p>
-      </div>
-
-      <div class="cat-tile" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:28px 26px;transition:transform 0.2s,border-color 0.2s">
-        <div style="width:44px;height:44px;border-radius:12px;background:rgba(15,181,186,0.15);display:flex;align-items:center;justify-content:center;margin-bottom:18px">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M16 20v-1.5a3.5 3.5 0 00-3.5-3.5h-6A3.5 3.5 0 003 18.5V20" stroke="#0FB5BA" stroke-width="2" stroke-linecap="round"></path><circle cx="9.5" cy="7.5" r="3.5" stroke="#0FB5BA" stroke-width="2"></circle><path d="M21 20v-1.5a3.5 3.5 0 00-2.6-3.38M15.5 4.2a3.5 3.5 0 010 6.6" stroke="#0FB5BA" stroke-width="2" stroke-linecap="round"></path></svg>
-        </div>
-        <h3 style="font-size:19px;font-weight:700;color:white;margin:0 0 10px">People &amp; Professional</h3>
-        <p style="font-size:13.5px;color:rgba(255,255,255,0.6);line-height:1.65;margin:0">Immigration advisers, employment and family lawyers, HR and payroll support, business brokers and IT or cyber support.</p>
-      </div>
-
-      <div class="cat-tile" style="background:rgba(255,255,255,0.04);border:1px solid rgba(200,64,64,0.22);border-radius:16px;padding:28px 26px;transition:transform 0.2s,border-color 0.2s">
-        <div style="width:44px;height:44px;border-radius:12px;background:rgba(200,64,64,0.15);display:flex;align-items:center;justify-content:center;margin-bottom:18px">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z" stroke="#C84040" stroke-width="2" stroke-linejoin="round"></path><path d="M12 9.5V14M12 17.5h.01" stroke="#C84040" stroke-width="2.2" stroke-linecap="round"></path></svg>
-        </div>
-        <h3 style="font-size:19px;font-weight:700;color:white;margin:0 0 10px">Emergency &amp; Priority</h3>
-        <p style="font-size:13.5px;color:rgba(255,255,255,0.6);line-height:1.65;margin:0">Emergency plumbers and electricians, locksmiths, water damage, glass repair, restoration, urgent heating and after-hours help.</p>
-      </div>
-
+    <!-- Rendered by components/ui/carousel-squeeze.js; slides come from categorySlides() below. -->
+    <div class="pc-squeeze">
+      <sc-if value="{{ categoryCarousel }}" hint-placeholder-val="{{ false }}">{{ categoryCarousel }}</sc-if>
     </div>
   </div>
 </section>
@@ -735,8 +673,73 @@ class Component extends DCLogic {
     }
   }
 
+  // Built once: the carousel keys its state off the slide list, and renderVals
+  // runs on every scroll tick.
+  categorySlides() {
+    if (this._categorySlides) return this._categorySlides;
+    const h = window.React.createElement;
+
+    const mark = (title, color, icon) => h('span', { className: 'pc-sq-mark' },
+      h('span', { className: 'pc-sq-mark__icon' },
+        // Static icon markup authored in this file, not user input.
+        h('svg', { width: 20, height: 20, viewBox: '0 0 24 24', fill: 'none', stroke: color, strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round', dangerouslySetInnerHTML: { __html: icon } })),
+      h('span', { className: 'pc-sq-mark__name' }, title));
+
+    const categories = [
+      { title: 'Buy & Sell', image: 'real-estate-agents', color: '#16C172',
+        imageAlt: 'A real estate agent holding house keys outside a modern timber home',
+        description: 'Real estate agents, buyers agents, valuers, building inspectors, conveyancing lawyers, photographers and home staging.',
+        icon: '<path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path d="M9 22V13h6v9"/>' },
+      { title: 'Build, Renovate & Repair', image: 'builders', color: '#0FB5BA',
+        imageAlt: 'A builder inspecting timber framing on a residential build',
+        description: 'Builders, architects, designers, engineers, plumbers, electricians, roofers, painters, plasterers, tilers, fencing and drainage.',
+        icon: '<path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>' },
+      { title: 'Comfort & Energy', image: 'solar-energy', color: '#E8B04B',
+        imageAlt: 'A technician installing solar panels on a house roof',
+        description: 'Heat pumps, insulation, double glazing, solar, EV chargers, ventilation, fireplaces, hot water and smart-home systems.',
+        icon: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>' },
+      { title: 'Interior & Lifestyle', image: 'interior-designers', color: '#16C172',
+        imageAlt: 'A styled contemporary living room with designer furniture',
+        description: 'Flooring, curtains and blinds, kitchens, bathrooms, cabinetry, furniture, appliances, interior designers and storage.',
+        icon: '<rect x="3" y="3" width="18" height="18" rx="2.5"/><path d="M3 9.5h18M9.5 21V9.5"/>' },
+      { title: 'Outdoor & Property Care', image: 'landscaping', color: '#0FB5BA',
+        imageAlt: 'A landscape gardener planting a garden bed',
+        description: 'Landscaping, lawns, arborists, gutter cleaning, exterior washing, pest control, rubbish removal, driveways and outdoor living.',
+        icon: '<path d="M11 20A7 7 0 019.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/>' },
+      { title: 'Move & Settle', image: 'movers', color: '#E8B04B',
+        imageAlt: 'Movers carrying packed boxes into a modern home',
+        description: 'Movers, packing, storage, cleaning, utilities connection, broadband, security and alarms, locksmiths and relocation services.',
+        icon: '<rect x="1" y="5" width="14" height="12" rx="1.5"/><path d="M15 9h4l4 3.5V17h-8V9z"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="19" r="2"/>' },
+      { title: 'Money, Legal & Protection', image: 'accountants', color: '#16C172',
+        imageAlt: 'An accountant reviewing financial records',
+        description: 'Accountants, tax advisers, lawyers, insurance, KiwiSaver, wills and estate planning, trusts and asset finance.',
+        icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>' },
+      { title: 'People & Professional', image: 'lawyers', color: '#0FB5BA',
+        imageAlt: 'A lawyer reviewing documents in a sunlit office',
+        description: 'Immigration advisers, employment and family lawyers, HR and payroll support, business brokers and IT or cyber support.',
+        icon: '<path d="M16 20v-1.5a3.5 3.5 0 00-3.5-3.5h-6A3.5 3.5 0 003 18.5V20"/><circle cx="9.5" cy="7.5" r="3.5"/><path d="M21 20v-1.5a3.5 3.5 0 00-2.6-3.38M15.5 4.2a3.5 3.5 0 010 6.6"/>' },
+      { title: 'Emergency & Priority', image: 'electricians', color: '#E86A6A',
+        imageAlt: 'An electrician testing a home switchboard with a multimeter',
+        description: 'Emergency plumbers and electricians, locksmiths, water damage, glass repair, restoration, urgent heating and after-hours help.',
+        icon: '<path d="M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/><path d="M12 9.5V14M12 17.5h.01"/>' }
+    ];
+
+    this._categorySlides = categories.map(c => ({
+      id: c.image,
+      title: c.title,
+      description: c.description,
+      image: '/assets/partner-circle/squeeze/' + c.image + '.webp',
+      imageAlt: c.imageAlt,
+      overlay: mark(c.title, c.color, c.icon),
+      action: 'Join free to get matched',
+      onAction: () => this.open()
+    }));
+    return this._categorySlides;
+  }
+
   renderVals() {
     const { scrolled, faqOpen, modalOpen, submitting, sent, error } = this.state;
+    const Carousel = window.SqueezeCarousel;
 
     const faqData = [
       { q: 'What does membership cost?', a: 'Nothing. The Partner Circle is a free benefit for Wealthify clients, and anyone else is welcome to register. There is no card, no subscription and no minimum spend.' },
@@ -760,6 +763,9 @@ class Component extends DCLogic {
       navTextColor: scrolled ? '#0B1F3A' : 'white',
       navClass: scrolled ? '' : 'nav-on-dark',
       faqItems,
+      categoryCarousel: Carousel
+        ? window.React.createElement(Carousel, { slides: this.categorySlides(), label: 'Partner Circle categories', radius: 14 })
+        : null,
 
       modalOpen,
       sent,
