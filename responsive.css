@@ -418,6 +418,9 @@ body.nav-open { overflow: hidden; }
 
   html, body {
     overflow-x: hidden;
+    /* clip, where supported: hidden on both makes body a scroll container,
+       which quietly breaks position:sticky (the Partner Circle hero pins). */
+    overflow-x: clip;
   }
 
   .hide-mobile { display: none !important; }
