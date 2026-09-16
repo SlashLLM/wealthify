@@ -14,6 +14,11 @@
  * Slide shape: { id?, title, description?, image?, imageAlt?, background?,
  *                overlay?, action?, href?, target?, onAction? }
  *
+ * Autoplay: `autoplay` steps on every `interval` ms, counted from when a panel
+ * lands. `progress` (default true) shows that countdown as a bar across the top
+ * of the open panel. It pauses on hover, on keyboard focus and while the
+ * carousel is mostly off screen, and is off for reduced-motion readers.
+ *
  * Theming hooks (set on any ancestor): --sq-accent, --sq-accent-foreground,
  * --sq-fg, --sq-muted-fg, --sq-muted, --sq-offset (focus-ring gap colour).
  */
@@ -65,6 +70,9 @@
 .sq-tab:focus-visible::after{box-shadow:inset 0 0 0 2px var(--sq-fill),inset 0 0 0 4px var(--sq-offset,#fff)}
 .sq-picture{position:absolute;top:0;left:50%;height:100%;width:var(--sq-hero);min-width:100%;max-width:none;transform:translateX(-50%);object-fit:cover;user-select:none}
 .sq-overlay{position:absolute;left:0;right:0;bottom:0;z-index:1;display:flex;align-items:flex-end;padding:64px 16px 16px;pointer-events:none;background-image:linear-gradient(to top,rgb(0 0 0 / .55),transparent)}
+.sq-progress{position:absolute;top:14px;left:16px;right:16px;z-index:1;height:3px;border-radius:3px;overflow:hidden;pointer-events:none;background:rgb(255 255 255 / .3);box-shadow:0 1px 6px rgb(0 0 0 / .25)}
+.sq-progress__fill{display:block;height:100%;border-radius:inherit;background:var(--sq-fill);transform:scaleX(0);transform-origin:left;animation:sq-progress var(--sq-interval) linear var(--sq-ms) forwards}
+@keyframes sq-progress{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 .sq-panel{display:grid;margin-top:24px}
 .sq-slide{grid-column:1;grid-row:1;display:flex;flex-direction:column;align-items:flex-start;gap:16px}
 .sq-copy{max-width:46rem;margin:0;font-size:15px;line-height:1.6;text-wrap:balance}
@@ -73,7 +81,7 @@
 .sq-action{display:inline-flex;flex-shrink:0;align-items:center;gap:8px;padding:10px 16px;border:0;border-radius:8px;cursor:pointer;font:inherit;font-size:14px;font-weight:500;text-decoration:none;background:var(--sq-fill);color:var(--sq-on-fill);transition:opacity .15s;outline:none}
 .sq-action svg{transition:transform .2s}
 .sq-action:hover svg{transform:translateX(2px)}
-@container (min-width:32rem){.sq-overlay{padding:80px 24px 24px}.sq-copy{font-size:17px}}
+@container (min-width:32rem){.sq-overlay{padding:80px 24px 24px}.sq-copy{font-size:17px}.sq-progress{top:18px;left:24px;right:24px}}
 @container (min-width:36rem){.sq-panel{margin-top:28px}.sq-slide{flex-direction:row;justify-content:space-between;gap:40px}}
 `;
 
@@ -109,6 +117,7 @@
       hoverGrow = true,
       autoplay = false,
       interval = 6000,
+      progress = true,
       controls = true,
       accent = "var(--sq-accent, currentColor)",
       accentForeground = "var(--sq-accent-foreground, white)",
@@ -265,11 +274,27 @@
 
     /* --- autoplay --------------------------------------------------------- */
 
+    // No timer: the progress bar on the open card *is* the clock. It starts
+    // once the slide has landed, and its `animationend` steps the row on. Pausing
+    // is `animation-play-state`, so the bar and the step can never disagree
+    // about how much time is left.
+    const playing = autoplay && !reduced && count > 1;
+
+    // Off screen, nothing is being read, so nothing should advance.
+    const root = React.useRef(null);
+    const [inView, setInView] = React.useState(true);
+
     React.useEffect(() => {
-      if (!autoplay || paused || reduced || count < 2) return;
-      const timer = window.setTimeout(() => step(1), interval);
-      return () => clearTimeout(timer);
-    }, [autoplay, paused, reduced, count, open, interval, step]);
+      if (!playing || !root.current || !("IntersectionObserver" in window)) return;
+      const observer = new IntersectionObserver(
+        ([entry]) => setInView(entry.isIntersecting),
+        { threshold: 0.35 },
+      );
+      observer.observe(root.current);
+      return () => observer.disconnect();
+    }, [playing]);
+
+    const running = playing && !paused && inView;
 
     /* --- keyboard --------------------------------------------------------- */
 
@@ -305,6 +330,7 @@
       "--sq-slats": String(slats),
       "--sq-radius": size(radius),
       "--sq-ms": ms + "ms",
+      "--sq-interval": interval + "ms",
       // easeOutExpo, the curve the original slides on
       "--sq-ease": "cubic-bezier(0.16, 1, 0.3, 1)",
       "--sq-fill": accent,
@@ -316,6 +342,7 @@
     return h(
       "div",
       {
+        ref: root,
         className: cx("sq", className),
         style: { ...vars, ...style },
         onMouseEnter: () => setPaused(true),
@@ -323,7 +350,11 @@
           setPaused(false);
           setHover(-1);
         },
-        onFocusCapture: () => setPaused(true),
+        // Keyboard focus holds the row still; the focus a mouse click leaves on
+        // an arrow button must not, or the carousel would never resume.
+        onFocusCapture: (event) => {
+          if (event.target.matches(":focus-visible")) setPaused(true);
+        },
         onBlurCapture: () => setPaused(false),
         ...rest,
       },
@@ -388,6 +419,22 @@
                   },
                 },
                 h(Picture, { slide }),
+                // Keyed by card, so each newly opened card gets a fresh bar
+                // starting from empty.
+                playing &&
+                  progress &&
+                  front &&
+                  h(
+                    "span",
+                    { "aria-hidden": "true", className: "sq-progress" },
+                    h("span", {
+                      className: "sq-progress__fill",
+                      style: { animationPlayState: running ? "running" : "paused" },
+                      onAnimationEnd: (event) => {
+                        if (event.animationName === "sq-progress") step(1);
+                      },
+                    }),
+                  ),
                 slide.overlay &&
                   h(
                     "span",
