@@ -35,3 +35,28 @@ All images are high resolution (1200px+ width), professionally color-graded, and
 - Production Asset Path: `/assets/partner-circle/`
 - Direct Folder Path: `c:\SlashLLM\wealthify\assets\partner-circle\`
 - Convenience Mirror: `c:\SlashLLM\wealthify\partner-circle-photos\`
+
+---
+
+## Hero orbit trade images (`trades/`)
+
+256 × 256 WebP circles for the Partner Circle hero's outer ring. These are deliberately faceless: tools, fittings and finished work rather than people.
+
+- Eleven are square crops of the photos above (`plumber`, `electrician`, `builder`, `roofer`, `tiler`, `solar`, `landscaper`, `cleaner`, `movers`, `locksmith`, `interior-designer`).
+- `painter.webp` is from rawpixel, "Free paint roller brushes image" (CC0): https://www.rawpixel.com/image/5904917/photo-image-background-design-tape
+
+## Hero orbit member avatars (`members/`)
+
+256 × 256 WebP face crops of everyday people for the hero's inner "verified members" ring. All from StockSnap, CC0:
+
+- `member-1.webp`: https://stocksnap.io/photo/woman-business-WL2CO0KNZD
+- `member-2.webp`: https://stocksnap.io/photo/confident-business-ZMIFYSYFK8
+- `member-3.webp`: https://stocksnap.io/photo/person-smiling-QH2V8JROLS
+- `member-4.webp`: https://stocksnap.io/photo/black-portrait-T8VNJRQH7F
+- `member-5.webp`: https://stocksnap.io/photo/senior-couple-CUVC2INVAV
+- `member-6.webp`: https://stocksnap.io/photo/senior-couple-AGFQZGRJBC
+
+Added later to the outer ring:
+
+- `lawyer.webp` and `real-estate.webp` are faceless crops of `lawyers.jpg` (contract documents) and `real-estate-agents.jpg` (house front).
+- `immigration.webp` is from StockSnap, "Passport Table" (CC0): https://stocksnap.io/photo/passport-table-VZTYVVUYZB

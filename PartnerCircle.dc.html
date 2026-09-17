@@ -32,7 +32,6 @@
 <meta name="twitter:image" content="https://wealthify.co.nz/assets/brand/og/partners.jpg">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' blob: https://unpkg.com https://cdn.jsdelivr.net https://maps.googleapis.com; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://images.unsplash.com https://cdn.jsdelivr.net https://maps.googleapis.com https://maps.gstatic.com; connect-src 'self' https://iaqquovppuvxmhwhnxso.supabase.co https://api.resend.com https://maps.googleapis.com; frame-src 'self'; worker-src 'self' blob:; media-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';">
 
-<script src="./components/ui/scroll-morph-hero.js?v=3"></script>
 <script src="./support.js?v=2"></script>
 <!-- Structured data (schema.org) -->
 <script type="application/ld+json">
@@ -157,28 +156,97 @@
     @media (max-width:520px){.pc-flipgrid{grid-template-columns:1fr}.pc-flip__inner{min-height:280px}}
     @media (prefers-reduced-motion:reduce){.pc-flip__inner,.pc-flip__img,.pc-flip__turn{transition:none}}
 
-    /* ── Hero — components/ui/scroll-morph-hero.js, themed dark ───────
-     * The hero pins for --smh-scroll of page scroll while the ring of
-     * partners opens into an arch; the copy below fades in above it.
+    /* ── Hero — copy on the left, the circle on the right ─────────────
+     * Outer ring: fifteen trades and professionals (object photos, no faces). Inner ring:
+     * verified members, each with a check badge. Centre: Wealthify.
+     * The orbit is a square container, so every size is in cqw and the
+     * node positions are percentages of it.
      * ─────────────────────────────────────────────────────────────── */
-    .pc-morph{--smh-fg:#fff;--smh-muted:rgba(255,255,255,.5);--smh-accent:#16C172;--smh-card-bg:#0B1F3A;--smh-back-bg:#0B1F3A;--smh-back-border:rgba(22,193,114,.35);--smh-content-top:clamp(96px,15vh,160px);
-      --smh-bg:radial-gradient(ellipse 70% 55% at 50% 100%,rgba(22,193,114,.12) 0%,rgba(22,193,114,0) 70%),radial-gradient(ellipse 60% 50% at 50% 45%,rgba(15,181,186,.08) 0%,rgba(15,181,186,0) 70%),#071929}
-    .pc-morph .smh-intro__title{font-size:min(56px,calc(var(--smh-ring,420px) * .11));font-weight:800;line-height:1.08;max-width:calc(var(--smh-ring,420px) * .8)}
-    .pc-morph .smh-intro__title span{color:#16C172}
-    .pc-morph__eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:18px;font-size:var(--text-label);font-weight:700;color:rgba(255,255,255,.62);letter-spacing:.1em;text-transform:uppercase}
-    .pc-morph__dot{width:6px;height:6px;border-radius:50%;background:#16C172;box-shadow:0 0 0 4px rgba(22,193,114,.18);animation:pulse 2s infinite}
-    .pc-morph__title{margin:0 0 16px;font-size:clamp(30px,4.2vw,54px);font-weight:800;line-height:1.05;color:#fff}
-    .pc-morph__title span{color:#16C172}
-    .pc-morph__lede{margin:0 auto 28px;max-width:600px;font-size:17px;line-height:1.65;color:rgba(255,255,255,.66)}
-    .pc-morph__actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-    .pc-morph__ghost{padding:15px 26px;border:1.5px solid rgba(255,255,255,.2);border-radius:10px;color:#fff;font-size:var(--text-cta);font-weight:600;transition:background .2s}
-    .pc-morph__ghost:hover{background:rgba(255,255,255,.08)}
-    @media (max-width:640px){
-      .pc-morph{--smh-content-top:92px}
-      .pc-morph__eyebrow{margin-bottom:12px;font-size:10px}
-      .pc-morph__lede{font-size:15px;margin-bottom:20px}
-      .pc-morph__ghost{display:none}
+    @keyframes ringspin-rev{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}}
+    .pc-hero{position:relative;overflow:hidden;padding:clamp(108px,14vh,140px) 24px 72px;color:#fff;
+      background:radial-gradient(ellipse 55% 60% at 72% 45%,rgba(15,181,186,.10) 0%,rgba(15,181,186,0) 70%),radial-gradient(ellipse 60% 70% at 0% 0%,rgba(22,193,114,.10) 0%,rgba(22,193,114,0) 60%),linear-gradient(160deg,#0A2530 0%,#071929 45%,#081a2e 100%)}
+    .pc-hero__inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:clamp(32px,5vw,72px);align-items:center}
+    .pc-hero__eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:20px;font-size:var(--text-label);font-weight:700;color:rgba(255,255,255,.62);letter-spacing:.1em;text-transform:uppercase}
+    .pc-hero__dot{width:6px;height:6px;border-radius:50%;background:#16C172;box-shadow:0 0 0 4px rgba(22,193,114,.18);animation:pulse 2s infinite}
+    .pc-hero__title{margin:0 0 20px;font-size:clamp(36px,4.6vw,62px);font-weight:800;line-height:1.04;letter-spacing:-.03em;color:#fff;text-wrap:balance}
+    .pc-hero__title span{color:#16C172}
+    .pc-hero__lede{margin:0 0 28px;max-width:560px;font-size:17px;line-height:1.7;color:rgba(255,255,255,.66)}
+    .pc-hero__points{list-style:none;margin:0 0 32px;padding:0;display:flex;flex-direction:column;gap:12px;max-width:560px}
+    .pc-hero__point{display:flex;gap:16px;align-items:flex-start;padding:18px 20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:14px;font-size:14px;line-height:1.55;color:rgba(255,255,255,.6)}
+    .pc-hero__point strong{display:block;margin-bottom:3px;font-size:16px;font-weight:700;color:#fff}
+    .pc-hero__point-icon{display:grid;place-items:center;flex-shrink:0;width:38px;height:38px;border-radius:10px}
+    .pc-hero__actions{display:flex;align-items:center;gap:16px 20px;flex-wrap:wrap}
+    .pc-hero__cta{padding:16px 30px;background:#16C172;border:none;color:#fff;border-radius:10px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+    .pc-hero__fine{font-size:14px;color:rgba(255,255,255,.5)}
+
+    .pc-hero__visual{min-width:0}
+    .pc-orbit{position:relative;width:min(100%,600px);aspect-ratio:1;margin:0 auto;container-type:inline-size}
+    .pc-orbit__track{position:absolute;left:50%;top:50%;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none}
+    .pc-orbit__track--outer{width:84%;height:84%;border:1px dashed rgba(255,255,255,.14)}
+    .pc-orbit__track--inner{width:48%;height:48%;border:1px dashed rgba(22,193,114,.4);background:radial-gradient(circle,rgba(22,193,114,.07) 0%,rgba(22,193,114,0) 70%)}
+    .pc-orbit__ring{position:absolute;inset:0;z-index:1;margin:0;padding:0;list-style:none;pointer-events:none;animation:ringspin 160s linear infinite}
+    .pc-orbit__ring--inner{z-index:2;animation-name:ringspin-rev;animation-duration:120s}
+    .pc-orbit__node{position:absolute;width:13.5cqw;height:13.5cqw;transform:translate(-50%,-50%)}
+    .pc-orbit__node--member{width:11cqw;height:11cqw}
+    .pc-orbit__spin{position:relative;display:block;width:100%;height:100%;animation:ringspin-rev 160s linear infinite}
+    .pc-orbit__ring--inner .pc-orbit__spin{animation-name:ringspin;animation-duration:120s}
+    .pc-orbit__photo{display:block;width:100%;height:100%;object-fit:cover;background:#0F2542}
+    .pc-orbit__node--member .pc-orbit__photo{border-radius:50%;border:3px solid #16C172;box-shadow:0 0 0 3px rgba(7,25,41,.9),0 0 0 6px rgba(22,193,114,.28),0 8px 22px rgba(0,0,0,.45)}
+    .pc-orbit__label{position:absolute;left:50%;top:calc(100% - 6px);transform:translateX(-50%);padding:3px 9px;white-space:nowrap;font-size:clamp(8.5px,2cqw,12.5px);font-weight:700;color:#fff;background:rgba(11,31,58,.92);border:1px solid rgba(255,255,255,.14);border-radius:100px;pointer-events:none;transition:opacity .15s}
+
+    /* Trade card — a circle at rest that opens into a rounded rectangle.
+     * orbitCards() sets data-open plus --cw/--ch (open size) and --sx/--sy
+     * (the nudge that keeps the card inside the orbit). */
+    .pc-orbit__card{--ease:cubic-bezier(.2,.8,.2,1);position:absolute;left:50%;top:50%;width:100%;height:100%;overflow:hidden;border-radius:50%;border:3px solid rgba(15,181,186,.85);background:#0B1F3A;box-shadow:0 0 0 4px rgba(7,25,41,.9),0 10px 28px rgba(0,0,0,.45);transform:translate(-50%,-50%);pointer-events:auto;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent;
+      transition:width .4s var(--ease),height .4s var(--ease),border-radius .4s var(--ease),transform .4s var(--ease),border-color .2s,box-shadow .3s}
+    .pc-orbit__card .pc-orbit__photo{position:absolute;left:0;top:0;height:100%;transition:height .4s var(--ease)}
+    .pc-orbit__body{position:absolute;left:0;top:100px;width:var(--cw,250px);padding:12px 16px 16px;text-align:left;opacity:0;transform:translateY(6px);transition:opacity .15s,transform .15s}
+    .pc-orbit__title{display:block;margin-bottom:5px;font-size:16px;font-weight:800;line-height:1.2;color:#fff}
+    .pc-orbit__desc{display:block;font-size:13px;line-height:1.55;color:rgba(255,255,255,.72)}
+    .pc-orbit__card:focus-visible{border-color:#fff}
+    .pc-orbit__card[data-open]{width:var(--cw,250px);height:var(--ch,210px);border-radius:16px;border-color:#16C172;transform:translate(calc(-50% + var(--sx,0px)),calc(-50% + var(--sy,0px)));box-shadow:0 0 0 4px rgba(7,25,41,.9),0 24px 60px rgba(0,0,0,.6)}
+    .pc-orbit__card[data-open] .pc-orbit__photo{height:100px}
+    .pc-orbit__card[data-open] .pc-orbit__body{opacity:1;transform:none;transition:opacity .25s .18s,transform .25s .18s}
+    .pc-orbit__node[data-open]{z-index:2}
+    .pc-orbit__node[data-open] .pc-orbit__label{opacity:0}
+    .pc-orbit__badge{position:absolute;right:-2%;bottom:-2%;display:grid;place-items:center;width:38%;height:38%;border-radius:50%;background:#16C172;color:#071929;border:2px solid #071929}
+    .pc-orbit__badge svg{width:62%;height:62%}
+    .pc-orbit__core{position:absolute;z-index:3;left:50%;top:50%;width:31cqw;height:31cqw;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4cqw;border-radius:50%;background:radial-gradient(circle at 50% 30%,#123055 0%,#0B1F3A 70%);border:1px solid rgba(22,193,114,.45);box-shadow:0 0 0 8px rgba(22,193,114,.06),0 0 60px rgba(22,193,114,.18)}
+    .pc-orbit__mark{width:9.5cqw;height:auto}
+    .pc-orbit__wordmark{width:20cqw;height:auto}
+    .pc-orbit__core-sub{font-size:clamp(8px,1.8cqw,11px);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#16C172}
+    .pc-orbit:hover .pc-orbit__ring,.pc-orbit:hover .pc-orbit__spin,.pc-orbit[data-open] .pc-orbit__ring,.pc-orbit[data-open] .pc-orbit__spin{animation-play-state:paused}
+    .pc-orbit[data-open] .pc-orbit__ring--outer{z-index:4}
+
+    .pc-hero__hint{margin:26px 0 0;text-align:center;font-size:12px;font-weight:600;letter-spacing:.02em;color:rgba(255,255,255,.45)}
+    @media (hover:hover){.pc-hero__hint-tap{display:none}}
+    @media (hover:none){.pc-hero__hint-hover{display:none}}
+    .pc-hero__legend{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 22px;margin:14px 0 0;font-size:13px;font-weight:600;color:rgba(255,255,255,.7)}
+    .pc-hero__legend > span{display:inline-flex;align-items:center;gap:8px}
+    .pc-hero__legend-member{display:grid;place-items:center;width:16px;height:16px;border-radius:50%;background:#16C172;color:#071929}
+    .pc-hero__legend-member svg{width:11px;height:11px}
+    .pc-hero__legend-trade{width:14px;height:14px;border-radius:50%;border:2px solid rgba(15,181,186,.85)}
+    .pc-hero__pro{margin-top:22px;text-align:center}
+    .pc-hero__pro-label{margin-bottom:12px;font-size:var(--text-label);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+    .pc-hero__chips{display:flex;justify-content:center;flex-wrap:wrap;gap:8px}
+    .pc-hero__chips span{padding:7px 14px;font-size:13px;font-weight:600;color:#fff;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:100px}
+    .pc-hero__more{display:inline-block;margin-top:14px;font-size:14px;font-weight:700;color:#16C172}
+    .pc-hero__more:hover{text-decoration:underline}
+
+    @media (max-width:980px){
+      .pc-hero__inner{grid-template-columns:1fr}
+      .pc-orbit{width:min(100%,540px)}
     }
+    @media (max-width:520px){
+      .pc-hero{padding:100px 16px 56px}
+      .pc-hero__point{padding:14px 16px;gap:12px}
+      .pc-hero__actions{flex-direction:column;align-items:stretch;text-align:center}
+      .pc-orbit__card,.pc-orbit__node--member .pc-orbit__photo{border-width:2px}
+      .pc-orbit__label{padding:2px 7px}
+      /* Fifteen labels only clear each other with the long ones parked at the sides. */
+      .pc-orbit__ring,.pc-orbit__spin{animation:none}
+    }
+    @media (prefers-reduced-motion:reduce){.pc-orbit__ring,.pc-orbit__spin{animation:none}.pc-orbit__card,.pc-orbit__card .pc-orbit__photo,.pc-orbit__body{transition:none!important}}
   </style>
 </helmet>
 
@@ -240,8 +308,185 @@
 <main id="main-content">
 
 <!-- ═══ HERO ═══ -->
-<!-- Rendered by components/ui/scroll-morph-hero.js; cards and copy come from heroCards() / renderVals() below. -->
-<sc-if value="{{ partnerHero }}" hint-placeholder-val="{{ false }}">{{ partnerHero }}</sc-if>
+<section class="pc-hero">
+  <div class="pc-hero__inner">
+    <div class="pc-hero__copy">
+      <div class="pc-hero__eyebrow"><span class="pc-hero__dot" aria-hidden="true"></span>Wealthify PartnerCircle · Free membership</div>
+      <h1 class="hero-title pc-hero__title">Every trade you'll ever need — one curated circle<span>.</span></h1>
+      <p class="pc-hero__lede">PartnerCircle is Wealthify's vetted community of tradespeople and professionals — plumbers, builders, sparkies, roofers, lawyers, accountants. Join free, and you stop being a stranger calling a random number.</p>
+
+      <ul class="pc-hero__points">
+        <li class="pc-hero__point">
+          <span class="pc-hero__point-icon" style="background:rgba(22,193,114,.14);color:#16C172"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></span>
+          <span><strong>Members get prioritised</strong>Every partner commits to a response time for Circle members — first callback, first available slot.</span>
+        </li>
+        <li class="pc-hero__point">
+          <span class="pc-hero__point-icon" style="background:rgba(232,176,75,.14);color:#E8B04B"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 5L5 19"></path><circle cx="6.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle></svg></span>
+          <span><strong>Members pay discounted prices</strong>A member discount, a fixed member price or a waived call-out fee — negotiated for you, applied at booking.</span>
+        </li>
+        <li class="pc-hero__point">
+          <span class="pc-hero__point-icon" style="background:rgba(15,181,186,.14);color:#0FB5BA"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 11.5l2 2 4-4"></path></svg></span>
+          <span><strong>Nobody joins unchecked</strong>Licence, insurance and business details verified before a partner is invited in. No review-site roulette.</span>
+        </li>
+      </ul>
+
+      <div class="pc-hero__actions">
+        <button type="button" class="hero-cta pc-hero__cta" onClick="{{ onOpen }}">Join the Circle — it's free →</button>
+        <span class="pc-hero__fine">No card. No fees. Two minutes.</span>
+      </div>
+    </div>
+
+    <!-- Orbit: fifteen trades and professionals on the outer ring, verified members on the inner
+         ring, Wealthify at the centre. Positions are fixed percentages of the
+         square stage; the rings turn slowly and each node counter-turns.
+         Hovering, focusing or tapping a trade opens it into a card; see
+         orbitCards() in the script. -->
+    <div class="pc-hero__visual">
+      <div class="pc-orbit">
+        <div class="pc-orbit__track pc-orbit__track--outer" aria-hidden="true"></div>
+        <div class="pc-orbit__track pc-orbit__track--inner" aria-hidden="true"></div>
+
+        <ul class="pc-orbit__ring pc-orbit__ring--outer" aria-label="Trades in the Partner Circle">
+          <li class="pc-orbit__node" style="left:50%;top:8%"><span class="pc-orbit__spin">
+            <span class="pc-orbit__card" tabindex="0" role="button" aria-expanded="false">
+              <img class="pc-orbit__photo" src="/assets/partner-circle/trades/plumber.webp" alt="" width="256" height="256">
+              <span class="pc-orbit__body"><span class="pc-orbit__title">Plumber</span><span class="pc-orbit__desc">Leaks, blocked drains, hot water cylinders and full kitchen or bathroom replumbs.</span></span>
+            </span>
+            <span class="pc-orbit__label" aria-hidden="true">Plumber</span>
+          </span></li>
+          <li class="pc-orbit__node" style="left:67.08%;top:11.63%"><span class="pc-orbit__spin">
+            <span class="pc-orbit__card" tabindex="0" role="button" aria-expanded="false">
+              <img class="pc-orbit__photo" src="/assets/partner-circle/trades/builder.webp" alt="" width="256" height="256">
+              <span class="pc-orbit__body"><span class="pc-orbit__title">Builder</span><span class="pc-orbit__desc">Renovations, extensions, decks and new builds from licensed building practitioners.</span></span>
+            </span>
+            <span class="pc-orbit__label" aria-hidden="true">Builder</span>
+          </span></li>
+          <li class="pc-orbit__node" style="left:81.21%;top:21.9%"><span class="pc-orbit__spin">
+            <span class="pc-orbit__card" tabindex="0" role="button" aria-expanded="false">
+              <img class="pc-orbit__photo" src="/assets/partner-circle/trades/roofer.webp" alt="" width="256" height="256">
+              <span class="pc-orbit__body"><span class="pc-orbit__title">Roofer</span><span class="pc-orbit__desc">Roof repairs, re-roofing, spouting and leak detection before winter finds the weak spot.</span></span>
+            </span>
+            <span class="pc-orbit__label" aria-hidden="true">Roofer</span>
+          </span></li>
+          <li class="pc-orbit__node" style="left:89.94%;top:37.02%"><span class="pc-orbit__spin">
+            <span class="pc-orbit__card" tabindex="0" role="button" aria-expanded="false">
+              <img class="pc-orbit__photo" src="/assets/partner-circle/trades/electrician.webp" alt="" width="256" height="256">
+              <span class="pc-orbit__body"><span class="pc-orbit__title">Electrician</span><span class="pc-orbit__desc">Rewiring, switchboards, lighting and EV chargers — all signed off with a certificate.</span></span>
+            </span>
+            <span class="pc-orbit__label" aria-hidden="true">Electrician</span>
+          </span></li>
+          <li class="pc-orbit__node" style="left:91.77%;top:54.39%"><span class="pc-orbit__spin">
+            <span class="pc-orbit__card" tabindex="0" role="button" aria-expanded="false">
+              <img class="pc-orbit__photo" src="/assets/partner-circle/trades/landscaper.webp" alt="" width="256" height="256">
+              <span class="pc-orbit__body"><span class="pc-orbit__title">Landscaper</span><span class="pc-orbit__desc">Garden design, planting, lawns, retaining walls and outdoor living spaces.</span></span>
+            </span>
+            <span class="pc-orbit__label" aria-hidden="true">Landscaper</span>
+          </span></li>
+          <li class="pc-orbit__node" style="left:86.37%;top:71%"><span class="pc-orbit__spin">
+            <span class="pc-orbit__card" tabindex="0" role="button" aria-expanded="false">
+              <img class="pc-orbit__photo" src="/assets/partner-circle/trades/painter.webp" alt="" width="256" height="256">
+              <span class="pc-orbit__body"><span class="pc-orbit__title">Painter</span><span class="pc-orbit__desc">Interior and exterior painting, wallpapering and the prep work that makes it last.</span></span>
+            </span>
+            <span class="pc-orbit__label" aria-hidden="true">Painter</span>
+          </span></li>
+          <li class="pc-orbit__node" style="left:74.69%;top:83.98%"><span class="pc-orbit__spin">
+            <span class="pc-orbit__card" tabindex="0" role="button" aria-expanded="false">
+              <img class="pc-orbit__photo" src="/assets/partner-circle/trades/solar.webp" alt="" width="256" height="256">
+              <span class="pc-orbit__body"><span class="pc-orbit__title">Solar</span><span class="pc-orbit__desc">Solar panels, batteries and energy assessments sized to how your household uses power.</span></span>
+            </span>
+            <span class="pc-orbit__label" aria-hidden="true">Solar</span>
+          </span></li>
+          <li class="pc-orbit__node" style="left:58.73%;top:91.08%"><span class="pc-orbit__spin">
+            <span class="pc-orbit__card" tabindex="0" role="button" aria-expanded="false">
+              <img class="pc-orbit__photo" src="/assets/partner-circle/trades/tiler.webp" alt="" width="256" height="256">
+              <span class="pc-orbit__body"><span class="pc-orbit__title">Tiler</span><span class="pc-orbit__desc">Bathroom, kitchen and floor tiling, with waterproofing done to code.</span></span>
+            </span>
+            <span class="pc-orbit__label" aria-hidden="true">Tiler</span>
+          </span></li>
+          <li class="pc-orbit__node" style="left:41.27%;top:91.08%"><span class="pc-orbit__spin">
+            <span class="pc-orbit__card" tabindex="0" role="button" aria-expanded="false">
+              <img class="pc-orbit__photo" src="/assets/partner-circle/trades/movers.webp" alt="" width="256" height="256">
+              <span class="pc-orbit__body"><span class="pc-orbit__title">Movers</span><span class="pc-orbit__desc">Packing, local and long-distance moves, and storage when settlement dates don’t line up.</span></span>
+            </span>
+            <span class="pc-orbit__label" aria-hidden="true">Movers</span>
+          </span></li>
+          <li class="pc-orbit__node" style="left:25.31%;top:83.98%"><span class="pc-orbit__spin">
+            <span class="pc-orbit__card" tabindex="0" role="button" aria-expanded="false">
+              <img class="pc-orbit__photo" src="/assets/partner-circle/trades/cleaner.webp" alt="" width="256" height="256">
+              <span class="pc-orbit__body"><span class="pc-orbit__title">Cleaner</span><span class="pc-orbit__desc">Regular cleans, end-of-tenancy and pre-sale cleans, carpets and exterior washing.</span></span>
+            </span>
+            <span class="pc-orbit__label" aria-hidden="true">Cleaner</span>
+          </span></li>
+          <li class="pc-orbit__node" style="left:13.63%;top:71%"><span class="pc-orbit__spin">
+            <span class="pc-orbit__card" tabindex="0" role="button" aria-expanded="false">
+              <img class="pc-orbit__photo" src="/assets/partner-circle/trades/lawyer.webp" alt="" width="256" height="256">
+              <span class="pc-orbit__body"><span class="pc-orbit__title">Lawyer</span><span class="pc-orbit__desc">Conveyancing, property purchases, wills, trusts and relationship property advice.</span></span>
+            </span>
+            <span class="pc-orbit__label" aria-hidden="true">Lawyer</span>
+          </span></li>
+          <li class="pc-orbit__node" style="left:8.23%;top:54.39%"><span class="pc-orbit__spin">
+            <span class="pc-orbit__card" tabindex="0" role="button" aria-expanded="false">
+              <img class="pc-orbit__photo" src="/assets/partner-circle/trades/immigration.webp" alt="" width="256" height="256">
+              <span class="pc-orbit__body"><span class="pc-orbit__title">Immigration</span><span class="pc-orbit__desc">Licensed immigration advisers for visas, residence and bringing family to New Zealand.</span></span>
+            </span>
+            <span class="pc-orbit__label" aria-hidden="true">Immigration</span>
+          </span></li>
+          <li class="pc-orbit__node" style="left:10.06%;top:37.02%"><span class="pc-orbit__spin">
+            <span class="pc-orbit__card" tabindex="0" role="button" aria-expanded="false">
+              <img class="pc-orbit__photo" src="/assets/partner-circle/trades/real-estate.webp" alt="" width="256" height="256">
+              <span class="pc-orbit__body"><span class="pc-orbit__title">Real estate</span><span class="pc-orbit__desc">Agents, appraisals and buyer’s agents — someone in your corner when you buy or sell.</span></span>
+            </span>
+            <span class="pc-orbit__label" aria-hidden="true">Real estate</span>
+          </span></li>
+          <li class="pc-orbit__node" style="left:18.79%;top:21.9%"><span class="pc-orbit__spin">
+            <span class="pc-orbit__card" tabindex="0" role="button" aria-expanded="false">
+              <img class="pc-orbit__photo" src="/assets/partner-circle/trades/locksmith.webp" alt="" width="256" height="256">
+              <span class="pc-orbit__body"><span class="pc-orbit__title">Locksmith</span><span class="pc-orbit__desc">Lockouts, rekeying after you move in, smart locks and home security upgrades.</span></span>
+            </span>
+            <span class="pc-orbit__label" aria-hidden="true">Locksmith</span>
+          </span></li>
+          <li class="pc-orbit__node" style="left:32.92%;top:11.63%"><span class="pc-orbit__spin">
+            <span class="pc-orbit__card" tabindex="0" role="button" aria-expanded="false">
+              <img class="pc-orbit__photo" src="/assets/partner-circle/trades/interior-designer.webp" alt="" width="256" height="256">
+              <span class="pc-orbit__body"><span class="pc-orbit__title">Interiors</span><span class="pc-orbit__desc">Interior designers for layouts, colour, furnishings, kitchens and bathrooms.</span></span>
+            </span>
+            <span class="pc-orbit__label" aria-hidden="true">Interiors</span>
+          </span></li>
+        </ul>
+
+        <ul class="pc-orbit__ring pc-orbit__ring--inner" aria-label="Verified Partner Circle members">
+          <li class="pc-orbit__node pc-orbit__node--member" style="left:62%;top:29.22%"><span class="pc-orbit__spin"><img class="pc-orbit__photo" src="/assets/partner-circle/members/member-1.webp" alt="Verified Partner Circle member" width="256" height="256"><span class="pc-orbit__badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.5l4 4 8-9"></path></svg></span></span></li>
+          <li class="pc-orbit__node pc-orbit__node--member" style="left:74%;top:50%"><span class="pc-orbit__spin"><img class="pc-orbit__photo" src="/assets/partner-circle/members/member-4.webp" alt="Verified Partner Circle member" width="256" height="256"><span class="pc-orbit__badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.5l4 4 8-9"></path></svg></span></span></li>
+          <li class="pc-orbit__node pc-orbit__node--member" style="left:62%;top:70.78%"><span class="pc-orbit__spin"><img class="pc-orbit__photo" src="/assets/partner-circle/members/member-5.webp" alt="Verified Partner Circle member" width="256" height="256"><span class="pc-orbit__badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.5l4 4 8-9"></path></svg></span></span></li>
+          <li class="pc-orbit__node pc-orbit__node--member" style="left:38%;top:70.78%"><span class="pc-orbit__spin"><img class="pc-orbit__photo" src="/assets/partner-circle/members/member-2.webp" alt="Verified Partner Circle member" width="256" height="256"><span class="pc-orbit__badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.5l4 4 8-9"></path></svg></span></span></li>
+          <li class="pc-orbit__node pc-orbit__node--member" style="left:26%;top:50%"><span class="pc-orbit__spin"><img class="pc-orbit__photo" src="/assets/partner-circle/members/member-3.webp" alt="Verified Partner Circle member" width="256" height="256"><span class="pc-orbit__badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.5l4 4 8-9"></path></svg></span></span></li>
+          <li class="pc-orbit__node pc-orbit__node--member" style="left:38%;top:29.22%"><span class="pc-orbit__spin"><img class="pc-orbit__photo" src="/assets/partner-circle/members/member-6.webp" alt="Verified Partner Circle member" width="256" height="256"><span class="pc-orbit__badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.5l4 4 8-9"></path></svg></span></span></li>
+        </ul>
+
+        <div class="pc-orbit__core">
+          <img class="pc-orbit__mark" src="/assets/brand/favicon.svg" alt="" width="56" height="56">
+          <img class="pc-orbit__wordmark" src="/assets/brand/logo-white.svg" alt="Wealthify" width="130" height="30">
+          <span class="pc-orbit__core-sub">Partner Circle</span>
+        </div>
+      </div>
+
+      <p class="pc-hero__hint"><span class="pc-hero__hint-hover">Hover over a trade to see what they do</span><span class="pc-hero__hint-tap">Tap a trade to see what they do</span></p>
+
+      <div class="pc-hero__legend">
+        <span><span class="pc-hero__legend-member" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.5l4 4 8-9"></path></svg></span>Verified Partner Circle members</span>
+        <span><span class="pc-hero__legend-trade" aria-hidden="true"></span>Trades in the circle</span>
+      </div>
+
+      <div class="pc-hero__pro">
+        <div class="pc-hero__pro-label">Also in the circle · Professional advice</div>
+        <div class="pc-hero__chips">
+          <span>Accountants</span><span>Valuers</span><span>Insurance advisers</span><span>Building inspectors</span>
+        </div>
+        <a href="#categories" class="pc-hero__more">See all categories →</a>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ═══ WHY MEMBERS JOIN ═══ -->
 <section style="padding:80px 24px;background:white">
@@ -561,12 +806,111 @@ class Component extends DCLogic {
       if (e.key === 'Escape' && this.state.modalOpen) this.close();
     };
     window.addEventListener('keydown', this._onKey);
+
+    this._orbitOff = this.orbitCards();
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this._onScroll);
     window.removeEventListener('keydown', this._onKey);
+    if (this._orbitOff) this._orbitOff();
     document.body.classList.remove('nav-open');
+  }
+
+  // Hero orbit: a trade opens into a card on hover (mouse), focus (keyboard)
+  // or tap (touch). The hero markup is static, so this listens on the
+  // document and only touches attributes React never renders: data-open,
+  // aria-expanded and the --cw/--ch/--sx/--sy custom properties.
+  orbitCards() {
+    const CARD_W = 250;
+    const IMG_H = 100; // matches .pc-orbit__card[data-open] .pc-orbit__photo
+    const PAD = 8;
+    let pointerType = 'mouse';
+    let wasOpen = false;
+
+    const cardOf = el => (el && el.closest ? el.closest('.pc-orbit__card') : null);
+    const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+
+    const close = card => {
+      if (!card || !card.hasAttribute('data-open')) return;
+      card.removeAttribute('data-open');
+      card.setAttribute('aria-expanded', 'false');
+      card.closest('.pc-orbit__node').removeAttribute('data-open');
+      const orbit = card.closest('.pc-orbit');
+      if (!orbit.querySelector('.pc-orbit__card[data-open]')) orbit.removeAttribute('data-open');
+    };
+    const closeAll = except => {
+      document.querySelectorAll('.pc-orbit__card[data-open]').forEach(c => { if (c !== except) close(c); });
+    };
+
+    const open = card => {
+      if (card.hasAttribute('data-open')) return;
+      closeAll(card);
+      const orbit = card.closest('.pc-orbit');
+      const node = card.closest('.pc-orbit__node');
+      // Pause the rings first so the node is measured where it will stay.
+      orbit.setAttribute('data-open', '');
+      const o = orbit.getBoundingClientRect();
+      const n = node.getBoundingClientRect();
+      const w = Math.min(CARD_W, o.width - PAD * 2);
+      card.style.setProperty('--cw', w + 'px');
+      const h = IMG_H + card.querySelector('.pc-orbit__body').offsetHeight;
+      const cx = n.left + n.width / 2;
+      const cy = n.top + n.height / 2;
+      const left = clamp(cx - w / 2, o.left + PAD, o.right - PAD - w);
+      const top = clamp(cy - h / 2, o.top + PAD, o.bottom - PAD - h);
+      card.style.setProperty('--ch', h + 'px');
+      card.style.setProperty('--sx', (left + w / 2 - cx) + 'px');
+      card.style.setProperty('--sy', (top + h / 2 - cy) + 'px');
+      card.setAttribute('data-open', '');
+      card.setAttribute('aria-expanded', 'true');
+      node.setAttribute('data-open', '');
+    };
+
+    const handlers = {
+      pointerover: e => {
+        if (e.pointerType !== 'mouse') return;
+        const card = cardOf(e.target);
+        if (card) open(card);
+      },
+      pointerout: e => {
+        if (e.pointerType !== 'mouse') return;
+        const card = cardOf(e.target);
+        if (!card || card.contains(e.relatedTarget)) return;
+        close(card);
+        // A mouse click focuses the card; drop that so focus can't hold it open.
+        if (document.activeElement === card) card.blur();
+      },
+      pointerdown: e => {
+        pointerType = e.pointerType;
+        const card = cardOf(e.target);
+        wasOpen = !!(card && card.hasAttribute('data-open'));
+        // Outside taps close here: iOS doesn't send clicks on plain content.
+        if (!card) closeAll();
+      },
+      // Touch and pen toggle on tap; a mouse already opened it on hover.
+      click: e => {
+        const card = cardOf(e.target);
+        if (!card || pointerType === 'mouse') return;
+        if (wasOpen) { close(card); card.blur(); } else open(card);
+      },
+      focusin: e => {
+        const card = cardOf(e.target);
+        if (card) open(card);
+      },
+      focusout: e => {
+        const card = cardOf(e.target);
+        if (card && !card.contains(e.relatedTarget) && !card.matches(':hover')) close(card);
+      },
+      keydown: e => {
+        if (e.key !== 'Escape') return;
+        const card = document.querySelector('.pc-orbit__card[data-open]');
+        if (card) { close(card); card.blur(); }
+      }
+    };
+
+    Object.keys(handlers).forEach(type => document.addEventListener(type, handlers[type]));
+    return () => Object.keys(handlers).forEach(type => document.removeEventListener(type, handlers[type]));
   }
 
   open() {
@@ -614,28 +958,6 @@ class Component extends DCLogic {
     } catch (err) {
       this.setState({ error: err.message, submitting: false });
     }
-  }
-
-  // Built once: the carousel keys its state off the slide list, and renderVals
-  // runs on every scroll tick.
-  heroCards() {
-    if (this._heroCards) return this._heroCards;
-    // Only the photos with people in them. Twenty cards make the ring, so the
-    // first six come round again, fourteen places from their twin.
-    const people = [
-      ['plumbers', 'Plumber'], ['electricians', 'Electrician'], ['builders', 'Builder'],
-      ['lawyers', 'Lawyer'], ['roofers', 'Roofer'], ['painters', 'Painter'],
-      ['accountants', 'Accountant'], ['landscaping', 'Landscaper'], ['movers', 'Movers'],
-      ['real-estate-agents', 'Real estate agent'], ['solar-energy', 'Solar installer'],
-      ['building-inspectors', 'Building inspector'], ['architects', 'Architect'], ['cleaners', 'Cleaner']
-    ];
-    const cards = people.map(([file, label]) => ({
-      src: '/assets/partner-circle/cards/' + file + '.webp',
-      eyebrow: 'Partner Circle',
-      label
-    }));
-    this._heroCards = cards.concat(cards.slice(0, 20 - cards.length));
-    return this._heroCards;
   }
 
   // Built once: renderVals runs on every scroll tick.
@@ -718,7 +1040,6 @@ class Component extends DCLogic {
 
   renderVals() {
     const { scrolled, faqOpen, modalOpen, submitting, sent, error, flipped } = this.state;
-    const Hero = window.ScrollMorphHero;
     const h = window.React && window.React.createElement;
 
     const faqData = [
@@ -743,21 +1064,6 @@ class Component extends DCLogic {
       navTextColor: scrolled ? '#0B1F3A' : 'white',
       navClass: scrolled ? '' : 'nav-on-dark',
       faqItems,
-      partnerHero: Hero
-        ? h(Hero, {
-            cards: this.heroCards(),
-            introTitle: h(window.React.Fragment, null, "Every trade you'll ever need", h('span', null, '.')),
-            introHint: 'Scroll to explore',
-            label: 'Wealthify Partner Circle',
-            className: 'pc-morph'
-          },
-            h('div', { className: 'pc-morph__eyebrow' }, h('span', { className: 'pc-morph__dot', 'aria-hidden': true }), 'Wealthify Partner Circle · Free membership'),
-            h('h2', { className: 'hero-title pc-morph__title' }, 'One curated circle', h('span', null, '.')),
-            h('p', { className: 'pc-morph__lede' }, "Plumbers, builders, sparkies, roofers, lawyers, accountants — checked before they're invited in, with member pricing and priority bookings. Join free, and stop calling a random number."),
-            h('div', { className: 'pc-morph__actions' },
-              h('button', { type: 'button', className: 'hero-cta', onClick: () => this.open(), style: { padding: '15px 30px', background: '#16C172', border: 'none', color: 'white', borderRadius: 10, fontSize: 'var(--text-cta)', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.2s' } }, "Join the Circle — it's free →"),
-              h('a', { href: '#categories', className: 'pc-morph__ghost' }, "See what's covered")))
-        : null,
       categoryCards: h ? this.categoryCards(flipped) : null,
 
       modalOpen,
