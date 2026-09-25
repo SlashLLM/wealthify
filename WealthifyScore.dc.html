@@ -108,15 +108,348 @@
     a{text-decoration:none;color:inherit}
     .hero-cta:hover{opacity:0.9;transform:translateY(-1px)}
 
-    /* Score dial — the ring sweeps to the illustrative score once, on load.
-       Circumference for r=76 is 477.5; 74/100 leaves an offset of 124.2. */
-    @keyframes dialfill{from{stroke-dashoffset:477.5}to{stroke-dashoffset:124.2}}
-    @keyframes dialglow{0%,100%{opacity:.28}50%{opacity:.55}}
-    .score-ring-fill{stroke-dasharray:477.5;stroke-dashoffset:477.5;animation:dialfill 1.6s cubic-bezier(.22,.85,.3,1) .3s forwards}
-    .score-ring-glow{animation:dialglow 3.4s ease-in-out infinite}
+    /* ── Hero ──
+       The report card on the right is an illustration: it always settles on the
+       same sample score (74, "Healthy"). Gauge geometry: r=88 → circumference
+       552.9; the arc spans 240° (length 368.6) starting at 150°. 74/100 leaves a
+       dash offset of 95.8 and puts the knob at 150° + 0.74 × 240° = 327.6°. */
+    .wsh{position:relative;overflow:hidden;padding:128px 24px 96px;background:#071929}
+    .wsh-bg{position:absolute;inset:0;pointer-events:none}
+    .wsh-glow{position:absolute;border-radius:50%;filter:blur(90px)}
+    .wsh-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:radial-gradient(ellipse 70% 60% at 70% 45%,#000 20%,transparent 75%);mask-image:radial-gradient(ellipse 70% 60% at 70% 45%,#000 20%,transparent 75%)}
+    .wsh-orbits{position:absolute;right:-180px;top:50%;width:900px;height:900px;margin-top:-450px;animation:wshspin 90s linear infinite}
+    @keyframes wshspin{to{transform:rotate(360deg)}}
+
+    .wsh-inner{position:relative;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) 440px;gap:72px;align-items:center}
+    .wsh-rise{opacity:0;animation:wshrise .7s cubic-bezier(.22,.85,.3,1) forwards;animation-delay:var(--d,0s)}
+    @keyframes wshrise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+    .wsh-def{font-size:18px;color:rgba(255,255,255,.72);margin:0 0 28px;line-height:1.7;max-width:560px}
+    .wsh-def strong{color:#fff;font-weight:700}
+
+    /* 6 areas → 1 score → 3 priorities */
+    .wsh-flow{display:flex;align-items:stretch;gap:10px;margin:0 0 34px;max-width:560px}
+    .wsh-step{flex:1;min-width:0;padding:14px 14px 13px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09)}
+    .wsh-step--key{background:rgba(22,193,114,.1);border-color:rgba(22,193,114,.35)}
+    .wsh-step-n{font-size:26px;font-weight:800;color:#fff;line-height:1;letter-spacing:-.5px}
+    .wsh-step--key .wsh-step-n{color:#16C172}
+    .wsh-step-n small{font-size:13px;font-weight:700;color:rgba(255,255,255,.45);letter-spacing:0;margin-left:2px}
+    .wsh-step-l{margin-top:6px;font-size:12.5px;font-weight:600;color:rgba(255,255,255,.6);line-height:1.35}
+    .wsh-arrow{flex:none;align-self:center;color:rgba(22,193,114,.7);animation:wshnudge 2.4s ease-in-out infinite}
+    @keyframes wshnudge{0%,100%{transform:translateX(0);opacity:.5}50%{transform:translateX(3px);opacity:1}}
+
+    .wsh-trust{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:26px;font-size:13px;font-weight:600;color:rgba(255,255,255,.5)}
+    .wsh-trust span{display:inline-flex;align-items:center;gap:7px}
+    .free-chip{display:inline-flex;align-items:center;padding:3px 9px;border-radius:6px;background:#16C172;color:#071929;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;line-height:1.3}
+    .free-note{display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:rgba(255,255,255,.72)}
+    .free-note b{font-size:26px;font-weight:800;color:#16C172;letter-spacing:-.02em;line-height:1}
+    .free-hl{color:#16C172;font-weight:800}
+
+    /* Sample report card */
+    .wsh-card{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:24px 24px 22px;box-shadow:0 40px 90px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.08);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);animation:wshrise .8s cubic-bezier(.22,.85,.3,1) .15s both,wshfloat 7s ease-in-out 1s infinite}
+    @keyframes wshfloat{0%,100%{translate:0 0}50%{translate:0 -8px}}
+    .wsh-card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+    .wsh-card-title{font-size:12px;font-weight:700;color:rgba(255,255,255,.55);letter-spacing:.08em;text-transform:uppercase}
+    .wsh-chip{font-size:11px;font-weight:700;color:#E8B04B;background:rgba(232,176,75,.12);border:1px solid rgba(232,176,75,.25);padding:4px 10px;border-radius:100px}
+
+    .wsh-gauge{position:relative;width:240px;height:200px;margin:0 auto}
+    .wsh-gauge svg{display:block;overflow:visible}
+    .wsh-fill{stroke-dasharray:368.6 552.9;stroke-dashoffset:368.6;animation:wshfill 1.6s cubic-bezier(.22,.85,.3,1) .3s forwards}
+    @keyframes wshfill{to{stroke-dashoffset:95.8}}
+    .wsh-knob{transform-box:view-box;transform-origin:120px 120px;transform:rotate(150deg);animation:wshknob 1.6s cubic-bezier(.22,.85,.3,1) .3s forwards}
+    @keyframes wshknob{to{transform:rotate(327.6deg)}}
+    .wsh-knob-halo{animation:wshhalo 2.6s ease-in-out 2s infinite}
+    @keyframes wshhalo{0%,100%{opacity:.35;r:11}50%{opacity:.1;r:16}}
+    .wsh-readout{position:absolute;left:0;right:0;top:74px;text-align:center;pointer-events:none}
+    .wsh-num{font-size:60px;font-weight:800;color:#fff;line-height:1;letter-spacing:-2.5px;font-variant-numeric:tabular-nums}
+    .wsh-of{font-size:12px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.1em;margin-top:6px}
+    .wsh-band{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:12.5px;font-weight:700;color:#0FB5BA;background:rgba(15,181,186,.12);border:1px solid rgba(15,181,186,.3);padding:4px 11px;border-radius:100px;opacity:0;animation:wshrise .5s ease 1.9s forwards}
+    .wsh-scale{display:flex;justify-content:space-between;width:180px;margin:-16px auto 0;font-size:10.5px;font-weight:700;color:rgba(255,255,255,.3)}
+
+    .wsh-areas{list-style:none;margin:18px 0 0;padding:16px 0 0;border-top:1px solid rgba(255,255,255,.08);display:grid;gap:11px}
+    .wsh-area{display:grid;grid-template-columns:118px 1fr 74px;align-items:center;gap:12px;font-size:13px;font-weight:600;color:rgba(255,255,255,.78);opacity:0;animation:wshrise .5s ease forwards;animation-delay:var(--d)}
+    .wsh-bar{height:6px;border-radius:6px;background:rgba(255,255,255,.08);overflow:hidden}
+    .wsh-bar i{display:block;height:100%;width:var(--w);border-radius:6px;background:var(--c);transform-origin:left;transform:scaleX(0);animation:wshbar 1s cubic-bezier(.22,.85,.3,1) forwards;animation-delay:calc(var(--d) + .1s)}
+    @keyframes wshbar{to{transform:scaleX(1)}}
+    .wsh-status{font-size:11.5px;font-weight:700;text-align:right;color:var(--c)}
+
+    .wsh-priority{display:flex;gap:12px;align-items:flex-start;margin-top:16px;padding:13px 14px;border-radius:14px;background:rgba(232,176,75,.08);border:1px solid rgba(232,176,75,.22);opacity:0;animation:wshrise .6s ease 2.6s forwards}
+    .wsh-priority-k{font-size:11px;font-weight:800;color:#E8B04B;letter-spacing:.08em;text-transform:uppercase}
+    .wsh-priority-t{font-size:13.5px;font-weight:600;color:#fff;margin-top:3px;line-height:1.45}
+
+    @media (max-width:980px){
+      .wsh-inner{grid-template-columns:1fr;gap:48px}
+      .wsh-card{max-width:460px;width:100%;margin:0 auto}
+      .wsh-orbits{right:50%;margin-right:-450px;top:auto;bottom:-520px;margin-top:0}
+    }
+    @media (max-width:560px){
+      .wsh{padding:112px 16px 72px}
+      .wsh-flow{flex-direction:column;gap:6px}
+      .wsh-arrow{transform:rotate(90deg);animation:none}
+      .wsh-step{display:flex;align-items:baseline;gap:12px}
+      .wsh-step-l{margin-top:0}
+      .wsh-card{padding:20px 16px 18px}
+      .wsh-area{grid-template-columns:100px 1fr 64px;gap:10px;font-size:12.5px}
+    }
     @media (prefers-reduced-motion: reduce){
-      .score-ring-fill{animation:none;stroke-dashoffset:124.2}
-      .score-ring-glow{animation:none}
+      .wsh-rise,.wsh-card,.wsh-band,.wsh-area,.wsh-priority{animation:none;opacity:1}
+      .wsh-fill{animation:none;stroke-dashoffset:95.8}
+      .wsh-knob{animation:none;transform:rotate(327.6deg)}
+      .wsh-bar i{animation:none;transform:none}
+      .wsh-orbits,.wsh-arrow,.wsh-knob-halo{animation:none}
+    }
+
+    /* ── Below-the-fold sections ──
+       Scroll reveal: the page script adds .rv-ready to <html> (skipped under
+       reduced motion) and .is-in to each [data-rv] element as it enters view.
+       Without JS everything renders in its final state. */
+    .rv-ready [data-rv]{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .8s cubic-bezier(.22,.85,.3,1);transition-delay:var(--d,0s)}
+    .rv-ready [data-rv].is-in{opacity:1;transform:none}
+
+    .ws-sec{padding:clamp(80px,10vw,120px) 24px;position:relative;overflow:hidden}
+    .ws-wrap{max-width:1200px;margin:0 auto;position:relative}
+    .ws-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:var(--text-micro);font-weight:700;color:#16C172;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px}
+    .ws-eyebrow::before{content:"";width:18px;height:2px;border-radius:2px;background:#16C172}
+    .ws-h2{font-size:var(--text-h2-md);font-weight:800;color:#0B1F3A;letter-spacing:-1px;line-height:1.1;margin:0 0 16px}
+    .ws-h2--light{color:#fff}
+    .ws-hl{display:inline-block;padding:0 .22em .04em;margin:0 -.04em;border-radius:.28em;background:rgba(22,193,114,.14);color:#0E9A5A}
+    .ws-h2--light .ws-hl{background:rgba(22,193,114,.16);color:#16C172}
+    .ws-lede{font-size:var(--text-body);color:#5B6B82;line-height:1.7;margin:0;max-width:560px}
+    .ws-lede--light{color:rgba(255,255,255,.65)}
+    .ws-head-split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:48px}
+    .ws-head-center{text-align:center;margin:0 auto 52px;max-width:640px}
+    .ws-head-center .ws-lede{margin:0 auto}
+
+    /* Six areas — bento */
+    .ws-bento{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    .ws-tile{position:relative;display:flex;flex-direction:column;min-height:300px;padding:26px 24px 22px;border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.1);overflow:hidden;transition:border-color .25s,background .25s}
+    .ws-tile:hover{border-color:rgba(22,193,114,.4);background:linear-gradient(180deg,rgba(22,193,114,.07),rgba(255,255,255,.02))}
+    .ws-tile--wide{grid-column:span 2}
+    .ws-tile-top{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+    .ws-ico{width:40px;height:40px;flex:none;border-radius:11px;display:flex;align-items:center;justify-content:center}
+    .ws-tile h3{font-size:18px;font-weight:700;color:#fff;margin:0}
+    .ws-tile p{font-size:13.5px;color:rgba(255,255,255,.6);line-height:1.65;margin:0}
+    .ws-viz{margin-top:auto;padding-top:22px}
+    .ws-chip{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:100px;background:rgba(22,193,114,.12);color:#16C172;border:1px solid rgba(22,193,114,.25)}
+    .ws-chip--amber{background:rgba(232,176,75,.12);color:#E8B04B;border-color:rgba(232,176,75,.28)}
+
+    .ws-cash{display:flex;align-items:flex-end;gap:14px;height:86px}
+    .ws-cash-m{flex:1;display:flex;align-items:flex-end;justify-content:center;gap:4px;height:100%}
+    .ws-cash-m i{display:block;width:10px;border-radius:4px 4px 2px 2px;transform-origin:bottom}
+    .ws-cash-m i:first-child{background:#16C172}
+    .ws-cash-m i:last-child{background:rgba(255,255,255,.18)}
+    .is-in .ws-cash-m i{animation:wsgrowY .9s cubic-bezier(.22,.85,.3,1) both;animation-delay:calc(var(--i) * 70ms + .25s)}
+    @keyframes wsgrowY{from{transform:scaleY(0)}}
+    .ws-cash-foot{display:flex;justify-content:space-between;align-items:center;margin-top:12px;font-size:11px;font-weight:600;color:rgba(255,255,255,.35)}
+    .ws-legend{display:inline-flex;gap:12px}
+    .ws-legend span{display:inline-flex;align-items:center;gap:5px}
+    .ws-legend span::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--c)}
+
+    .ws-refix{position:relative;height:40px;margin:6px 4px 10px}
+    .ws-refix-line{position:absolute;left:0;right:0;top:19px;height:2px;background:rgba(255,255,255,.1);border-radius:2px}
+    .ws-refix-line i{position:absolute;inset:0;width:62%;background:linear-gradient(90deg,#0FB5BA,rgba(15,181,186,.4));border-radius:2px;transform-origin:left}
+    .is-in .ws-refix-line i{animation:wsgrowX 1.2s cubic-bezier(.22,.85,.3,1) .3s both}
+    @keyframes wsgrowX{from{transform:scaleX(0)}}
+    .ws-refix-dot{position:absolute;top:13px;width:14px;height:14px;border-radius:50%;margin-left:-7px}
+    .ws-refix-dot--pulse::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid #0FB5BA;animation:wsping 2.2s ease-out infinite}
+    @keyframes wsping{from{opacity:.8;transform:scale(.6)}to{opacity:0;transform:scale(1.6)}}
+    .ws-refix-labels{display:flex;justify-content:space-between;font-size:11px;font-weight:600;color:rgba(255,255,255,.4)}
+
+    .ws-tank{height:14px;border-radius:8px;background:rgba(255,255,255,.08);overflow:hidden;margin:10px 0 10px}
+    .ws-tank i{display:block;height:100%;width:47%;border-radius:8px;background:repeating-linear-gradient(-45deg,#E8B04B 0 8px,#d9a03d 8px 16px);transform-origin:left}
+    .is-in .ws-tank i{animation:wsgrowX 1.3s cubic-bezier(.22,.85,.3,1) .35s both}
+    .ws-tank-row{display:flex;justify-content:space-between;align-items:baseline}
+    .ws-tank-big{font-size:26px;font-weight:800;color:#fff;letter-spacing:-.5px}
+    .ws-tank-big small{font-size:13px;font-weight:600;color:rgba(255,255,255,.45);letter-spacing:0}
+
+    .ws-rows{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+    .ws-rows li{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);font-size:12.5px;font-weight:600;color:rgba(255,255,255,.8)}
+    .is-in .ws-rows li{animation:wsslide .6s cubic-bezier(.22,.85,.3,1) both;animation-delay:calc(var(--i) * 110ms + .3s)}
+    @keyframes wsslide{from{opacity:0;transform:translateX(-12px)}}
+    .ws-tick{width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:rgba(22,193,114,.18)}
+    .ws-tick--open{background:transparent;border:1.5px dashed rgba(255,255,255,.3)}
+
+    .ws-growth{display:block;width:100%;height:110px;overflow:visible}
+    .ws-growth-line{stroke-dasharray:640;stroke-dashoffset:0}
+    .is-in .ws-growth-line{animation:wsdraw 1.8s cubic-bezier(.4,0,.2,1) .3s both}
+    @keyframes wsdraw{from{stroke-dashoffset:640}}
+    .is-in .ws-growth-area{animation:wsfade 1.2s ease 1s both}
+    @keyframes wsfade{from{opacity:0}}
+    .is-in .ws-growth-end{animation:wspop .5s cubic-bezier(.3,1.6,.5,1) 1.9s both}
+    @keyframes wspop{from{opacity:0;transform:scale(0)}}
+    .ws-growth-end{transform-box:fill-box;transform-origin:center}
+
+    /* Reading your score — scale */
+    .ws-scale{position:relative;max-width:1000px;margin:0 auto 18px;padding-top:58px}
+    .ws-scale-bar{display:flex;gap:4px;height:16px}
+    .ws-scale-bar span{border-radius:6px;transform-origin:left}
+    .is-in .ws-scale-bar span{animation:wsgrowX .8s cubic-bezier(.22,.85,.3,1) both;animation-delay:calc(var(--i) * 120ms)}
+    .ws-scale-ticks{position:relative;height:22px;margin-top:8px;font-size:12px;font-weight:700;color:#8B9AAD}
+    .ws-scale-ticks span{position:absolute;transform:translateX(-50%)}
+    .ws-scale-ticks span:first-child{transform:none}
+    .ws-scale-ticks span:last-child{transform:translateX(-100%)}
+    .ws-pin{position:absolute;top:0;left:67%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center}
+    .is-in .ws-pin{animation:wspin 1.6s cubic-bezier(.22,.85,.3,1) .5s both}
+    @keyframes wspin{from{left:0;opacity:0}15%{opacity:1}}
+    .ws-pin-label{padding:6px 12px;border-radius:9px;background:#0B1F3A;color:#fff;font-size:13px;font-weight:700;white-space:nowrap;box-shadow:0 8px 20px rgba(11,31,58,.2)}
+    .ws-pin-label b{color:#16C172}
+    .ws-pin-stem{width:2px;height:14px;background:#0B1F3A}
+    .ws-pin-dot{width:12px;height:12px;border-radius:50%;background:#fff;border:3px solid #0B1F3A;margin-top:-1px}
+
+    .ws-bands{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1000px;margin:36px auto 0}
+    .ws-band{position:relative;padding:22px 20px 20px;border-radius:16px;background:#fff;border:1px solid #E4E9F0;transition:transform .25s,box-shadow .25s,border-color .25s}
+    .ws-band:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(11,31,58,.08);border-color:var(--c)}
+    .ws-band::before{content:"";position:absolute;left:20px;right:20px;top:0;height:3px;border-radius:0 0 3px 3px;background:var(--c)}
+    .ws-band-range{font-size:13px;font-weight:800;color:var(--c);letter-spacing:.02em;margin-bottom:8px}
+    .ws-band-name{font-size:19px;font-weight:800;color:#0B1F3A;margin-bottom:6px}
+    .ws-band-desc{font-size:13.5px;color:#5B6B82;line-height:1.55}
+    .ws-band--you{border-color:var(--c);box-shadow:0 0 0 3px rgba(15,181,186,.12)}
+    .ws-band-you{position:absolute;top:16px;right:16px;font-size:10.5px;font-weight:800;color:#fff;background:var(--c);padding:3px 8px;border-radius:100px;letter-spacing:.04em}
+
+    /* What you walk away with */
+    .ws-trio{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+    .ws-get{display:flex;flex-direction:column;background:#fff;border:1px solid #E4E9F0;border-radius:20px;overflow:hidden;transition:transform .25s,box-shadow .25s}
+    .ws-get:hover{transform:translateY(-4px);box-shadow:0 22px 50px rgba(11,31,58,.08)}
+    .ws-get-viz{position:relative;height:170px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 120%,var(--t) 0,transparent 70%),#F6F8FB;border-bottom:1px solid #EEF2F6}
+    .ws-get-n{position:absolute;top:14px;left:16px;font-size:12px;font-weight:800;color:#B0BAC5;letter-spacing:.06em}
+    .ws-get-body{padding:24px 26px 28px}
+    .ws-get h3{font-size:20px;font-weight:700;color:#0B1F3A;margin:0 0 10px}
+    .ws-get p{font-size:14.5px;color:#5B6B82;line-height:1.7;margin:0}
+    .ws-mini-g{position:relative;width:132px;height:76px}
+    .ws-mini-g svg{display:block}
+    .ws-mini-arc{stroke-dasharray:188.5;stroke-dashoffset:62.2}
+    .is-in .ws-mini-arc{animation:wsmini 1.4s cubic-bezier(.22,.85,.3,1) .3s both}
+    @keyframes wsmini{from{stroke-dashoffset:188.5}}
+    .ws-mini-n{position:absolute;left:0;right:0;bottom:0;text-align:center;font-size:26px;font-weight:800;color:#0B1F3A;letter-spacing:-1px;line-height:1}
+    .ws-mini-dots{position:absolute;right:18px;bottom:18px;display:grid;gap:5px}
+    .ws-mini-dots span{display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;color:#5B6B82}
+    .ws-mini-dots span::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--c)}
+    .ws-stack{display:grid;gap:7px;width:190px}
+    .ws-stack div{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:9px;background:#fff;border:1px solid #E4E9F0;box-shadow:0 4px 10px rgba(11,31,58,.04);font-size:11.5px;font-weight:600;color:#1A2433}
+    .ws-stack b{flex:none;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#fff;background:var(--c);padding:2px 6px;border-radius:4px}
+    .is-in .ws-stack div{animation:wsslide .6s cubic-bezier(.22,.85,.3,1) both;animation-delay:calc(var(--i) * 140ms + .3s)}
+    .ws-plan{position:relative;width:210px;padding-top:26px}
+    .ws-plan-line{height:3px;border-radius:3px;background:#E4E9F0;position:relative}
+    .ws-plan-line i{position:absolute;inset:0;border-radius:3px;background:linear-gradient(90deg,#16C172,#E8B04B);transform-origin:left}
+    .is-in .ws-plan-line i{animation:wsgrowX 1.4s cubic-bezier(.22,.85,.3,1) .3s both}
+    .ws-plan-pts{position:absolute;left:0;right:0;top:20px;display:flex;justify-content:space-between}
+    .ws-plan-pts span{width:15px;height:15px;border-radius:50%;background:#fff;border:3px solid var(--c)}
+    .ws-plan-lbl{display:flex;justify-content:space-between;margin-top:14px;font-size:10.5px;font-weight:700;color:#8B9AAD}
+    .ws-plan-flag{position:absolute;right:-6px;top:-8px;font-size:10px;font-weight:800;color:#fff;background:#E8B04B;padding:3px 7px;border-radius:5px;white-space:nowrap}
+    .is-in .ws-plan-flag{animation:wspop .5s cubic-bezier(.3,1.6,.5,1) 1.5s both}
+
+    /* Sample report */
+    .ws-sample{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,560px);gap:72px;align-items:center}
+    .ws-notes{list-style:none;margin:36px 0 0;padding:0;display:grid;gap:14px}
+    .ws-notes li{display:flex;gap:16px;align-items:flex-start;padding:18px 20px;border-radius:16px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08)}
+    .ws-notes h3{font-size:16px;font-weight:700;color:#fff;margin:0 0 4px}
+    .ws-notes p{font-size:13.5px;color:rgba(255,255,255,.58);line-height:1.6;margin:0}
+    .ws-num{flex:none;width:28px;height:28px;border-radius:50%;background:#16C172;color:#071929;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 5px rgba(22,193,114,.16)}
+    .ws-report-stage{perspective:1400px}
+    .ws-report{position:relative;background:#fff;border-radius:22px;padding:34px 32px 28px;box-shadow:0 40px 100px rgba(0,0,0,.5)}
+    .rv-ready .ws-report-stage[data-rv]{transform:none}
+    .rv-ready .ws-report-stage .ws-report{transform:rotateY(-14deg) rotateX(6deg) translateY(30px);transition:transform 1.2s cubic-bezier(.22,.85,.3,1) .1s}
+    .rv-ready .ws-report-stage.is-in .ws-report{transform:rotateY(-4deg) rotateX(2deg)}
+    .ws-report-stage:hover .ws-report{transform:none !important}
+    .ws-report .ws-num{position:absolute;left:-46px}
+    .ws-rep-head{position:relative}
+    .ws-rep-head{display:flex;align-items:center;gap:22px;padding-bottom:24px;border-bottom:1px solid #E4E9F0;margin-bottom:22px}
+    .ws-rep-ring{position:relative;width:96px;height:96px;flex:none}
+    .ws-rep-ring svg{display:block;transform:rotate(-90deg)}
+    .ws-rep-arc{stroke-dasharray:263.9;stroke-dashoffset:87.1}
+    .is-in .ws-rep-arc{animation:wsrep 1.6s cubic-bezier(.22,.85,.3,1) .6s both}
+    @keyframes wsrep{from{stroke-dashoffset:263.9}}
+    .ws-rep-ring div{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:800;color:#0B1F3A;letter-spacing:-1px}
+    .ws-rep-k{font-size:11px;font-weight:700;color:#8B9AAD;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:6px}
+    .ws-rep-score{font-size:22px;font-weight:800;color:#0B1F3A;margin-bottom:8px}
+    .ws-rep-score span{color:#B0BAC5;font-weight:700}
+    .ws-rep-band{display:inline-block;padding:5px 12px;background:rgba(15,181,186,.12);border:1px solid rgba(15,181,186,.26);border-radius:100px;font-size:12.5px;font-weight:700;color:#0B8A8E}
+    .ws-pri{display:flex;flex-direction:column;gap:10px;margin-bottom:22px}
+    .ws-pri div{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:#F6F8FB;border-radius:12px;border-left:3px solid var(--c)}
+    .ws-pri b{flex:none;padding:3px 8px;background:var(--c);color:#fff;border-radius:5px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-top:1px}
+    .ws-pri span{font-size:14px;color:#1A2433;line-height:1.55;font-weight:600}
+    .is-in .ws-pri div{animation:wsslide .6s cubic-bezier(.22,.85,.3,1) both;animation-delay:calc(var(--i) * 150ms + .9s)}
+    .ws-rep-foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-top:18px;border-top:1px solid #E4E9F0}
+    .ws-rep-foot div div:first-child{font-size:11px;font-weight:700;color:#8B9AAD;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px}
+    .ws-rep-foot div div:last-child{font-size:14px;font-weight:700;color:#0B1F3A}
+
+    /* How it works — timeline */
+    .ws-steps{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:28px;max-width:1080px;margin:0 auto}
+    .ws-steps-line{position:absolute;left:16.66%;right:16.66%;top:27px;height:2px;background:#E4E9F0}
+    .ws-steps-line i{position:absolute;inset:0;background:linear-gradient(90deg,#16C172,#0FB5BA,#0B1F3A);transform-origin:left}
+    .is-in .ws-steps-line i{animation:wsgrowX 1.6s cubic-bezier(.4,0,.2,1) .2s both}
+    .ws-step{text-align:center}
+    .ws-node{position:relative;width:56px;height:56px;margin:0 auto 22px;border-radius:50%;background:#fff;border:2px solid var(--c);color:var(--c);font-size:20px;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 8px #fff}
+    .is-in .ws-node{animation:wspop .55s cubic-bezier(.3,1.6,.5,1) both;animation-delay:calc(var(--i) * 450ms + .2s)}
+    .ws-step-card{padding:26px 24px 28px;border-radius:18px;background:#F7FAFC;border:1px solid #E4E9F0;height:calc(100% - 78px)}
+    .ws-time{display:inline-block;font-size:11.5px;font-weight:700;color:var(--c);background:#fff;border:1px solid #E4E9F0;padding:4px 10px;border-radius:100px;margin-bottom:14px}
+    .ws-step h3{font-size:20px;font-weight:700;color:#0B1F3A;margin:0 0 10px}
+    .ws-step p{font-size:14px;color:#5B6B82;line-height:1.65;margin:0}
+    .ws-note{display:flex;align-items:flex-start;gap:12px;max-width:760px;margin:52px auto 0;padding:20px 24px;background:#F6F8FB;border:1px solid #E4E9F0;border-radius:14px}
+    .ws-note p{font-size:14px;color:#5B6B82;line-height:1.7;margin:0}
+
+    /* FAQ */
+    .ws-faq{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:64px;align-items:start}
+    .ws-faq-side{position:sticky;top:110px}
+    .ws-faq-help{margin-top:28px;padding:22px;border-radius:16px;background:#fff;border:1px solid #E4E9F0}
+    .ws-faq-help div{font-size:15px;font-weight:700;color:#0B1F3A;margin-bottom:4px}
+    .ws-faq-help p{font-size:13.5px;color:#5B6B82;margin:0 0 14px;line-height:1.6}
+    .ws-faq-help a{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:#0E9A5A}
+    .ws-faq-list{display:flex;flex-direction:column;gap:12px}
+    .ws-q{background:#fff;border:1px solid #E4E9F0;border-radius:14px;overflow:hidden;transition:border-color .2s,box-shadow .2s}
+    .ws-q:hover{border-color:#CFD8E3}
+    .ws-q.is-open{border-color:rgba(22,193,114,.45);box-shadow:0 12px 30px rgba(11,31,58,.06)}
+    .ws-q button{width:100%;padding:20px 22px;background:none;border:none;display:flex;justify-content:space-between;align-items:center;gap:16px;text-align:left;cursor:pointer;font-family:inherit}
+    .ws-q-t{font-size:16.5px;font-weight:700;color:#0B1F3A}
+    .ws-q-i{flex:none;width:30px;height:30px;border-radius:50%;background:#F0F4F8;display:flex;align-items:center;justify-content:center;transition:transform .3s,background .2s}
+    .ws-q.is-open .ws-q-i{transform:rotate(45deg);background:#16C172}
+    .ws-q.is-open .ws-q-i path{stroke:#fff}
+    .ws-q-a{padding:0 22px 20px;font-size:15px;color:#5B6B82;line-height:1.7;animation:wsqa .35s ease}
+    @keyframes wsqa{from{opacity:0;transform:translateY(-6px)}}
+
+    /* Bottom CTA */
+    .ws-cta{text-align:center}
+    .ws-cta-arc{position:absolute;left:50%;bottom:-340px;width:900px;height:900px;margin-left:-450px;pointer-events:none}
+    .ws-cta-arc .ws-cta-fill{stroke-dasharray:1382 2765;stroke-dashoffset:1382}
+    .is-in .ws-cta-fill,.is-in.ws-cta-arc .ws-cta-fill{animation:wscta 2.4s cubic-bezier(.22,.85,.3,1) .2s forwards}
+    @keyframes wscta{to{stroke-dashoffset:420}}
+    .ws-roll{display:inline-flex;align-items:baseline;gap:6px;padding:10px 20px;margin-bottom:26px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12)}
+    .ws-roll-win{display:inline-block;height:56px;overflow:hidden;line-height:56px;font-size:48px;font-weight:800;color:#16C172;letter-spacing:-1.5px;font-variant-numeric:tabular-nums;min-width:1.3em;text-align:center}
+    .ws-roll-col{display:block;animation:wsroll 9s cubic-bezier(.7,0,.3,1) infinite}
+    .ws-roll-col span{display:block;height:56px}
+    @keyframes wsroll{0%,14%{transform:translateY(0)}18%,32%{transform:translateY(-56px)}36%,50%{transform:translateY(-112px)}54%,68%{transform:translateY(-168px)}72%,86%{transform:translateY(-224px)}90%,100%{transform:translateY(-280px)}}
+    .ws-roll small{font-size:18px;font-weight:700;color:rgba(255,255,255,.4)}
+
+    @media (max-width:1024px){
+      .ws-bento{grid-template-columns:repeat(2,1fr)}
+      .ws-sample{grid-template-columns:1fr;gap:48px}
+      .ws-faq{grid-template-columns:1fr;gap:36px}
+      .ws-faq-side{position:static}
+    }
+    @media (max-width:860px){
+      .ws-head-split{grid-template-columns:1fr;gap:16px}
+      .ws-trio{grid-template-columns:1fr;max-width:520px;margin:0 auto}
+      .ws-bands{grid-template-columns:repeat(2,1fr)}
+      .ws-steps{grid-template-columns:1fr;gap:22px;max-width:520px}
+      .ws-steps-line{display:none}
+      .ws-step{display:grid;grid-template-columns:56px 1fr;gap:18px;text-align:left}
+      .ws-node{margin:0}
+      .ws-step-card{height:auto}
+    }
+    @media (max-width:600px){
+      .ws-sec{padding-left:16px;padding-right:16px}
+      .ws-bento{grid-template-columns:1fr}
+      .ws-tile--wide{grid-column:auto}
+      .ws-tile{min-height:0}
+      .ws-report{padding:28px 20px 22px}
+      .ws-report .ws-num{left:-34px}
+      .ws-rep-head{gap:16px}
+      .ws-step{grid-template-columns:1fr}
+      .ws-scale-ticks span:nth-child(n+2):nth-child(-n+4){display:none}
+    }
+    @media (prefers-reduced-motion: reduce){
+      .ws-refix-dot--pulse::after,.ws-roll-col{animation:none}
+      .ws-cta-arc .ws-cta-fill{stroke-dashoffset:420}
     }
 
     /* Form fields — same contract as the contact page */
@@ -195,44 +528,112 @@
 <main id="main-content">
 
 <!-- ═══ HERO ═══ -->
-<section style="padding:120px 24px 80px;background:#071929">
-  <div style="max-width:1200px;margin:0 auto">
-    <div style="display:inline-flex;align-items:center;gap:8px;margin-bottom:24px;padding:6px 14px;background:rgba(22,193,114,0.12);border-radius:100px;border:1px solid rgba(22,193,114,0.2)">
-      <span style="width:6px;height:6px;border-radius:50%;background:#16C172;animation:pulse 2s infinite;display:inline-block"></span>
-      <span class="badge-wrap" style="font-size:var(--text-label);font-weight:700;color:#16C172;letter-spacing:.04em">Free · About 30 minutes · No obligation</span>
-    </div>
-    <div class="hero-grid" style="display:grid;grid-template-columns:1fr 420px;gap:64px;align-items:center">
-      <div>
-        <h1 class="hero-title" style="font-size:var(--text-hero-md);font-weight:800;color:white;margin:0 0 20px;line-height:1.05;letter-spacing:var(--hero-tracking)">Know exactly where you stand.<br><span style="color:#16C172">Get your Wealthify Score.</span></h1>
-        <p style="font-size:18px;color:rgba(255,255,255,0.7);margin:0 0 32px;line-height:1.7;max-width:520px">Most people have a rough feeling about their finances. The Wealthify Score turns that feeling into one clear number out of 100 — then a licensed adviser walks you through what's helping, what's holding you back, and the three things worth doing next.</p>
-        <div style="display:flex;gap:14px;flex-wrap:wrap">
-          <button type="button" onClick="{{ onOpen }}" class="hero-cta" style="padding:15px 32px;background:#16C172;border:none;color:white;border-radius:10px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:all 0.2s;display:inline-flex;align-items:center;gap:8px">Get my Wealthify Score →</button>
-          <a href="#sample" style="padding:15px 28px;border:1.5px solid rgba(255,255,255,0.2);background:transparent;color:white;border-radius:10px;font-size:var(--text-cta);font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s;display:inline-flex;align-items:center;justify-content:center" style-hover="background:rgba(255,255,255,0.08)">See a sample report</a>
+<section class="wsh" aria-labelledby="wsh-title">
+  <div class="wsh-bg" aria-hidden="true">
+    <div class="wsh-glow" style="width:620px;height:620px;right:-120px;top:-80px;background:rgba(22,193,114,0.16)"></div>
+    <div class="wsh-glow" style="width:420px;height:420px;left:-160px;bottom:-200px;background:rgba(15,181,186,0.12)"></div>
+    <div class="wsh-grid"></div>
+    <svg class="wsh-orbits" viewBox="0 0 900 900" fill="none">
+      <circle cx="450" cy="450" r="250" stroke="rgba(22,193,114,0.14)" stroke-dasharray="2 10"></circle>
+      <circle cx="450" cy="450" r="340" stroke="rgba(255,255,255,0.06)"></circle>
+      <circle cx="450" cy="450" r="440" stroke="rgba(15,181,186,0.1)" stroke-dasharray="1 14"></circle>
+      <circle cx="700" cy="450" r="4" fill="#16C172" opacity="0.7"></circle>
+      <circle cx="450" cy="110" r="3" fill="#0FB5BA" opacity="0.6"></circle>
+      <circle cx="140" cy="630" r="3" fill="#E8B04B" opacity="0.5"></circle>
+    </svg>
+  </div>
+
+  <div class="wsh-inner">
+    <div>
+      <div class="wsh-rise" style="--d:0s;display:inline-flex;align-items:center;gap:8px;margin-bottom:24px;padding:6px 14px;background:rgba(22,193,114,0.12);border-radius:100px;border:1px solid rgba(22,193,114,0.2)">
+        <span style="width:6px;height:6px;border-radius:50%;background:#16C172;animation:pulse 2s infinite;display:inline-block"></span>
+        <span class="free-chip">100% Free</span>
+        <span class="badge-wrap" style="font-size:var(--text-label);font-weight:700;color:#16C172;letter-spacing:.04em">About 30 minutes · No obligation</span>
+      </div>
+
+      <h1 id="wsh-title" class="hero-title wsh-rise" style="--d:.08s;font-size:var(--text-hero-md);font-weight:800;color:white;margin:0 0 22px;line-height:1.05;letter-spacing:var(--hero-tracking)">Your whole financial life,<br><span style="color:#16C172">scored out of 100.</span></h1>
+
+      <p class="wsh-def wsh-rise" style="--d:.16s">The <strong>Wealthify Score</strong> is a <span class="free-hl">completely free</span> financial health check. A licensed NZ adviser looks at six areas of your money and turns them into one clear number — plus the three things worth doing next.</p>
+
+      <div class="wsh-flow wsh-rise" style="--d:.24s" aria-label="How the Wealthify Score works">
+        <div class="wsh-step">
+          <div class="wsh-step-n">6</div>
+          <div class="wsh-step-l">areas of your finances reviewed</div>
+        </div>
+        <svg class="wsh-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <div class="wsh-step wsh-step--key">
+          <div class="wsh-step-n">1<small>/100</small></div>
+          <div class="wsh-step-l">clear score you can track</div>
+        </div>
+        <svg class="wsh-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" style="animation-delay:.3s"><path d="M3 8h9M8.5 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <div class="wsh-step">
+          <div class="wsh-step-n">3</div>
+          <div class="wsh-step-l">priorities in a 90-day plan</div>
         </div>
       </div>
 
-      <!-- Animated score dial (illustration) -->
-      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center">
-        <div style="position:relative;width:220px;height:220px">
-          <svg width="220" height="220" viewBox="0 0 200 200" fill="none" role="img" aria-label="Illustration of a Wealthify Score dial">
-            <defs>
-              <linearGradient id="wsRing" x1="0%" y1="100%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#16C172"></stop>
-                <stop offset="100%" stop-color="#0FB5BA"></stop>
-              </linearGradient>
-            </defs>
-            <circle class="score-ring-glow" cx="100" cy="100" r="76" stroke="#16C172" stroke-width="22" fill="none" opacity="0.28"></circle>
-            <circle cx="100" cy="100" r="76" stroke="rgba(255,255,255,0.08)" stroke-width="14" fill="none"></circle>
-            <circle class="score-ring-fill" cx="100" cy="100" r="76" stroke="url(#wsRing)" stroke-width="14" fill="none"
-                    stroke-linecap="round" transform="rotate(-90 100 100)"></circle>
-          </svg>
-          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none">
-            <div style="font-size:56px;font-weight:800;color:white;line-height:1;letter-spacing:-2px">{{ scoreDisplay }}</div>
-            <div style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.4);margin-top:6px;letter-spacing:.06em">OUT OF 100</div>
-          </div>
+      <div class="wsh-rise" style="--d:.32s;display:flex;gap:14px;flex-wrap:wrap">
+        <button type="button" onClick="{{ onOpen }}" class="hero-cta" style="padding:15px 32px;background:#16C172;border:none;color:white;border-radius:10px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:all 0.2s;display:inline-flex;align-items:center;gap:8px;box-shadow:0 10px 30px rgba(22,193,114,0.28)">Get my free Wealthify Score →</button>
+        <a href="#sample" style="padding:15px 28px;border:1.5px solid rgba(255,255,255,0.2);background:transparent;color:white;border-radius:10px;font-size:var(--text-cta);font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s;display:inline-flex;align-items:center;justify-content:center" style-hover="background:rgba(255,255,255,0.08)">See a sample report</a>
+      </div>
+      <p class="free-note wsh-rise" style="--d:.36s;margin:16px 0 0"><b>$0</b>No cost, no card, no catch — the score is free.</p>
+
+      <div class="wsh-trust wsh-rise" style="--d:.4s">
+        <span><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>Not a credit score</span>
+        <span><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>Won't touch your credit file</span>
+        <span><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>Licensed NZ advisers</span>
+      </div>
+    </div>
+
+    <!-- Sample score report (illustration) -->
+    <div class="wsh-card" role="img" aria-label="Illustration of a sample Wealthify Score report: 74 out of 100, Healthy, with six area ratings and a top priority">
+      <div class="wsh-card-head" aria-hidden="true">
+        <span class="wsh-card-title">Sample score report</span>
+        <span class="wsh-chip">Illustration</span>
+      </div>
+
+      <div class="wsh-gauge" aria-hidden="true">
+        <svg width="240" height="240" viewBox="0 0 240 240">
+          <defs>
+            <linearGradient id="wshFill" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#0FB5BA"></stop>
+              <stop offset="100%" stop-color="#16C172"></stop>
+            </linearGradient>
+          </defs>
+          <!-- Band track: 0-39, 40-59, 60-79, 80-100 -->
+          <circle cx="120" cy="120" r="88" fill="none" stroke="#C84040" stroke-opacity="0.35" stroke-width="12" stroke-dasharray="144.4 552.9" transform="rotate(150 120 120)"></circle>
+          <circle cx="120" cy="120" r="88" fill="none" stroke="#E8B04B" stroke-opacity="0.35" stroke-width="12" stroke-dasharray="70.7 552.9" transform="rotate(246 120 120)"></circle>
+          <circle cx="120" cy="120" r="88" fill="none" stroke="#0FB5BA" stroke-opacity="0.35" stroke-width="12" stroke-dasharray="70.7 552.9" transform="rotate(294 120 120)"></circle>
+          <circle cx="120" cy="120" r="88" fill="none" stroke="#16C172" stroke-opacity="0.35" stroke-width="12" stroke-dasharray="73.7 552.9" transform="rotate(342 120 120)"></circle>
+          <!-- Progress to the sample score -->
+          <circle class="wsh-fill" cx="120" cy="120" r="88" fill="none" stroke="url(#wshFill)" stroke-width="12" stroke-linecap="round" transform="rotate(150 120 120)"></circle>
+          <g class="wsh-knob">
+            <circle class="wsh-knob-halo" cx="208" cy="120" r="11" fill="#16C172" opacity="0.35"></circle>
+            <circle cx="208" cy="120" r="7" fill="#fff" stroke="#16C172" stroke-width="3"></circle>
+          </g>
+        </svg>
+        <div class="wsh-readout">
+          <div class="wsh-num">{{ scoreDisplay }}</div>
+          <div class="wsh-of">OUT OF 100</div>
+          <div class="wsh-band"><span style="width:6px;height:6px;border-radius:50%;background:#0FB5BA"></span>Healthy · 60–79</div>
         </div>
-        <div style="margin-top:20px;padding:8px 18px;background:rgba(22,193,114,0.12);border:1px solid rgba(22,193,114,0.24);border-radius:100px">
-          <span style="font-size:13px;font-weight:700;color:#16C172">Illustration only — yours is personal</span>
+      </div>
+      <div class="wsh-scale" aria-hidden="true"><span>0</span><span>100</span></div>
+
+      <ul class="wsh-areas" aria-hidden="true">
+        <li class="wsh-area" style="--d:1.2s;--c:#16C172"><span>Cashflow</span><span class="wsh-bar"><i style="--w:84%"></i></span><span class="wsh-status">Strong</span></li>
+        <li class="wsh-area" style="--d:1.3s;--c:#0FB5BA"><span>Debt</span><span class="wsh-bar"><i style="--w:70%"></i></span><span class="wsh-status">Healthy</span></li>
+        <li class="wsh-area" style="--d:1.4s;--c:#E8B04B"><span>Safety buffer</span><span class="wsh-bar"><i style="--w:46%"></i></span><span class="wsh-status">Attention</span></li>
+        <li class="wsh-area" style="--d:1.5s;--c:#0FB5BA"><span>Protection</span><span class="wsh-bar"><i style="--w:66%"></i></span><span class="wsh-status">Healthy</span></li>
+        <li class="wsh-area" style="--d:1.6s;--c:#16C172"><span>Future wealth</span><span class="wsh-bar"><i style="--w:88%"></i></span><span class="wsh-status">Strong</span></li>
+        <li class="wsh-area" style="--d:1.7s;--c:#0FB5BA"><span>Readiness</span><span class="wsh-bar"><i style="--w:72%"></i></span><span class="wsh-status">Healthy</span></li>
+      </ul>
+
+      <div class="wsh-priority" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="flex:none;margin-top:1px"><path d="M4 10h16v9a2 2 0 01-2 2H6a2 2 0 01-2-2v-9z" stroke="#E8B04B" stroke-width="2" stroke-linejoin="round"></path><path d="M8 10V7a4 4 0 018 0v3" stroke="#E8B04B" stroke-width="2" stroke-linecap="round"></path></svg>
+        <div>
+          <div class="wsh-priority-k">Priority 1 of 3</div>
+          <div class="wsh-priority-t">Build your safety buffer to three months of essentials</div>
         </div>
       </div>
     </div>
@@ -240,260 +641,358 @@
 </section>
 
 <!-- ═══ WHAT IT COVERS ═══ -->
-<section style="padding:80px 24px;background:#0B1F3A;color:white">
-  <div style="max-width:1200px;margin:0 auto">
-    <div style="text-align:center;margin-bottom:48px">
-      <div style="font-size:var(--text-micro);font-weight:700;color:#16C172;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px">What It Looks At</div>
-      <h2 style="font-size:var(--text-h2-md);font-weight:800;color:white;letter-spacing:-1px;margin:0 0 16px">Six areas, one honest picture</h2>
-      <p style="font-size:var(--text-body);color:rgba(255,255,255,0.65);max-width:620px;margin:0 auto">Your adviser looks across your whole financial life — not just the part you came in about — so the advice you get fits the situation you're actually in.</p>
+<section class="ws-sec" style="background:#0B1F3A;color:white">
+  <div aria-hidden="true" style="position:absolute;width:560px;height:560px;left:-200px;top:-160px;border-radius:50%;background:rgba(22,193,114,0.08);filter:blur(100px)"></div>
+  <div class="ws-wrap">
+    <div class="ws-head-split" data-rv>
+      <div>
+        <div class="ws-eyebrow">What It Looks At</div>
+        <h2 class="ws-h2 ws-h2--light" style="margin:0">Six areas, <span class="ws-hl">one honest picture</span></h2>
+      </div>
+      <p class="ws-lede ws-lede--light">Your adviser looks across your whole financial life — not just the part you came in about — so the advice you get fits the situation you're actually in.</p>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:22px">
+    <div class="ws-bento">
 
-      <div class="area-tile" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:28px 26px;transition:transform 0.2s,border-color 0.2s">
-        <div style="width:44px;height:44px;border-radius:12px;background:rgba(22,193,114,0.15);display:flex;align-items:center;justify-content:center;margin-bottom:18px">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 17l5-5 4 3 8-8" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M16 7h5v5" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <div class="ws-tile ws-tile--wide" data-rv style="--d:0s">
+        <div class="ws-tile-top">
+          <div class="ws-ico" style="background:rgba(22,193,114,0.15)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 17l5-5 4 3 8-8" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M16 7h5v5" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+          <h3>Cashflow &amp; budget</h3>
         </div>
-        <h3 style="font-size:19px;font-weight:700;color:white;margin:0 0 10px">Cashflow &amp; budget</h3>
-        <p style="font-size:13.5px;color:rgba(255,255,255,0.6);line-height:1.65;margin:0">Whether there's money left at the end of the month, where it's quietly going, and which bills or subscriptions are worth a second look.</p>
+        <p style="max-width:440px">Whether there's money left at the end of the month, where it's quietly going, and which bills or subscriptions are worth a second look.</p>
+        <div class="ws-viz" aria-hidden="true">
+          <div class="ws-cash">
+            <div class="ws-cash-m"><i style="--i:0;height:78%"></i><i style="--i:0;height:70%"></i></div>
+            <div class="ws-cash-m"><i style="--i:1;height:80%"></i><i style="--i:1;height:76%"></i></div>
+            <div class="ws-cash-m"><i style="--i:2;height:78%"></i><i style="--i:2;height:84%"></i></div>
+            <div class="ws-cash-m"><i style="--i:3;height:82%"></i><i style="--i:3;height:68%"></i></div>
+            <div class="ws-cash-m"><i style="--i:4;height:84%"></i><i style="--i:4;height:66%"></i></div>
+            <div class="ws-cash-m"><i style="--i:5;height:86%"></i><i style="--i:5;height:62%"></i></div>
+          </div>
+          <div class="ws-cash-foot">
+            <span class="ws-legend"><span style="--c:#16C172">In</span><span style="--c:rgba(255,255,255,0.3)">Out</span></span>
+            <span class="ws-chip">+ $640 left over each month</span>
+          </div>
+        </div>
       </div>
 
-      <div class="area-tile" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:28px 26px;transition:transform 0.2s,border-color 0.2s">
-        <div style="width:44px;height:44px;border-radius:12px;background:rgba(15,181,186,0.15);display:flex;align-items:center;justify-content:center;margin-bottom:18px">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke="#0FB5BA" stroke-width="2" stroke-linejoin="round"></path><path d="M9 15h6" stroke="#0FB5BA" stroke-width="2" stroke-linecap="round"></path></svg>
+      <div class="ws-tile" data-rv style="--d:.08s">
+        <div class="ws-tile-top">
+          <div class="ws-ico" style="background:rgba(15,181,186,0.15)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke="#0FB5BA" stroke-width="2" stroke-linejoin="round"></path><path d="M9 15h6" stroke="#0FB5BA" stroke-width="2" stroke-linecap="round"></path></svg></div>
+          <h3>Debt &amp; repayments</h3>
         </div>
-        <h3 style="font-size:19px;font-weight:700;color:white;margin:0 0 10px">Debt &amp; repayments</h3>
-        <p style="font-size:13.5px;color:rgba(255,255,255,0.6);line-height:1.65;margin:0">How your mortgage is structured, what your rate and refix date mean for you, and whether any other debt is costing more than it needs to.</p>
+        <p>How your mortgage is structured, what your rate and refix date mean for you, and whether any other debt costs more than it needs to.</p>
+        <div class="ws-viz" aria-hidden="true">
+          <div class="ws-refix">
+            <div class="ws-refix-line"><i></i></div>
+            <span class="ws-refix-dot" style="left:0;background:#0FB5BA"></span>
+            <span class="ws-refix-dot ws-refix-dot--pulse" style="left:62%;background:#fff;border:3px solid #0FB5BA"></span>
+          </div>
+          <div class="ws-refix-labels"><span>Today</span><span style="color:#0FB5BA">Refix in 4 mo</span><span>Term</span></div>
+        </div>
       </div>
 
-      <div class="area-tile" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:28px 26px;transition:transform 0.2s,border-color 0.2s">
-        <div style="width:44px;height:44px;border-radius:12px;background:rgba(232,176,75,0.15);display:flex;align-items:center;justify-content:center;margin-bottom:18px">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 10h16v9a2 2 0 01-2 2H6a2 2 0 01-2-2v-9z" stroke="#E8B04B" stroke-width="2" stroke-linejoin="round"></path><path d="M8 10V7a4 4 0 018 0v3" stroke="#E8B04B" stroke-width="2" stroke-linecap="round"></path></svg>
+      <div class="ws-tile" data-rv style="--d:.16s">
+        <div class="ws-tile-top">
+          <div class="ws-ico" style="background:rgba(232,176,75,0.15)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 10h16v9a2 2 0 01-2 2H6a2 2 0 01-2-2v-9z" stroke="#E8B04B" stroke-width="2" stroke-linejoin="round"></path><path d="M8 10V7a4 4 0 018 0v3" stroke="#E8B04B" stroke-width="2" stroke-linecap="round"></path></svg></div>
+          <h3>Safety buffer</h3>
         </div>
-        <h3 style="font-size:19px;font-weight:700;color:white;margin:0 0 10px">Safety buffer</h3>
-        <p style="font-size:13.5px;color:rgba(255,255,255,0.6);line-height:1.65;margin:0">What happens if the car dies or income stops for a month — how much cash you can reach quickly, and how long it would carry you.</p>
+        <p>What happens if the car dies or income stops for a month — how much cash you can reach quickly, and how long it would carry you.</p>
+        <div class="ws-viz" aria-hidden="true">
+          <div class="ws-tank-row"><span class="ws-tank-big">1.4 <small>months</small></span><span class="ws-chip ws-chip--amber">Goal: 3</span></div>
+          <div class="ws-tank"><i></i></div>
+        </div>
       </div>
 
-      <div class="area-tile" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:28px 26px;transition:transform 0.2s,border-color 0.2s">
-        <div style="width:44px;height:44px;border-radius:12px;background:rgba(22,193,114,0.15);display:flex;align-items:center;justify-content:center;margin-bottom:18px">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#16C172" stroke-width="2" stroke-linejoin="round"></path></svg>
+      <div class="ws-tile" data-rv style="--d:0s">
+        <div class="ws-tile-top">
+          <div class="ws-ico" style="background:rgba(22,193,114,0.15)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#16C172" stroke-width="2" stroke-linejoin="round"></path></svg></div>
+          <h3>Protection</h3>
         </div>
-        <h3 style="font-size:19px;font-weight:700;color:white;margin:0 0 10px">Protection</h3>
-        <p style="font-size:13.5px;color:rgba(255,255,255,0.6);line-height:1.65;margin:0">Whether the cover you have matches the risks your household actually faces — and where the gaps sit if the worst happened.</p>
+        <p>Whether your cover matches the risks your household actually faces — and where the gaps sit if the worst happened.</p>
+        <div class="ws-viz" aria-hidden="true">
+          <ul class="ws-rows">
+            <li style="--i:0">Life cover <span class="ws-tick"><svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3 3 7-7" stroke="#16C172" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></li>
+            <li style="--i:1">Income cover <span class="ws-tick"><svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3 3 7-7" stroke="#16C172" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></li>
+            <li style="--i:2">Health cover <span class="ws-chip ws-chip--amber" style="padding:2px 8px">Gap</span></li>
+          </ul>
+        </div>
       </div>
 
-      <div class="area-tile" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:28px 26px;transition:transform 0.2s,border-color 0.2s">
-        <div style="width:44px;height:44px;border-radius:12px;background:rgba(15,181,186,0.15);display:flex;align-items:center;justify-content:center;margin-bottom:18px">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" stroke="#0FB5BA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <div class="ws-tile ws-tile--wide" data-rv style="--d:.08s">
+        <div class="ws-tile-top">
+          <div class="ws-ico" style="background:rgba(15,181,186,0.15)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" stroke="#0FB5BA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+          <h3>Future wealth</h3>
         </div>
-        <h3 style="font-size:19px;font-weight:700;color:white;margin:0 0 10px">Future wealth</h3>
-        <p style="font-size:13.5px;color:rgba(255,255,255,0.6);line-height:1.65;margin:0">Your KiwiSaver contributions and fund fit, your saving habits, and whether you're tracking toward the goals you've set for yourself.</p>
+        <p style="max-width:440px">Your KiwiSaver contributions and fund fit, your saving habits, and whether you're tracking toward the goals you've set for yourself.</p>
+        <div class="ws-viz" aria-hidden="true">
+          <svg class="ws-growth" viewBox="0 0 560 110" fill="none" preserveAspectRatio="xMidYMid meet" style="height:auto">
+            <defs>
+              <linearGradient id="wsGrowFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0FB5BA" stop-opacity="0.32"></stop><stop offset="100%" stop-color="#0FB5BA" stop-opacity="0"></stop></linearGradient>
+            </defs>
+            <path d="M0 108 H560" stroke="rgba(255,255,255,0.08)"></path>
+            <path d="M0 30 H560" stroke="rgba(232,176,75,0.35)" stroke-dasharray="4 6"></path>
+            <text x="560" y="22" text-anchor="end" fill="#E8B04B" font-size="11" font-weight="700" font-family="Plus Jakarta Sans, sans-serif">Your goal</text>
+            <path class="ws-growth-area" d="M0 100 C70 96 120 92 180 84 S300 66 360 58 S470 40 548 32 L548 110 L0 110 Z" fill="url(#wsGrowFill)"></path>
+            <path class="ws-growth-line" pathLength="640" d="M0 100 C70 96 120 92 180 84 S300 66 360 58 S470 40 548 32" stroke="#0FB5BA" stroke-width="3" stroke-linecap="round"></path>
+            <circle class="ws-growth-end" cx="548" cy="32" r="6" fill="#fff" stroke="#0FB5BA" stroke-width="3"></circle>
+          </svg>
+        </div>
       </div>
 
-      <div class="area-tile" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:28px 26px;transition:transform 0.2s,border-color 0.2s">
-        <div style="width:44px;height:44px;border-radius:12px;background:rgba(232,176,75,0.15);display:flex;align-items:center;justify-content:center;margin-bottom:18px">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="4.5" width="18" height="16.5" rx="2.5" stroke="#E8B04B" stroke-width="2"></rect><path d="M3 9.5h18M8 2.5v4M16 2.5v4M8.5 14l2 2 4-4" stroke="#E8B04B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <div class="ws-tile" data-rv style="--d:.16s">
+        <div class="ws-tile-top">
+          <div class="ws-ico" style="background:rgba(232,176,75,0.15)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="4.5" width="18" height="16.5" rx="2.5" stroke="#E8B04B" stroke-width="2"></rect><path d="M3 9.5h18M8 2.5v4M16 2.5v4M8.5 14l2 2 4-4" stroke="#E8B04B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+          <h3>Financial readiness</h3>
         </div>
-        <h3 style="font-size:19px;font-weight:700;color:white;margin:0 0 10px">Financial readiness</h3>
-        <p style="font-size:13.5px;color:rgba(255,255,255,0.6);line-height:1.65;margin:0">Whether your paperwork, renewal dates and goals are in order — so nothing important sneaks up on you unnoticed.</p>
+        <p>Whether your paperwork, renewal dates and goals are in order — so nothing important sneaks up on you.</p>
+        <div class="ws-viz" aria-hidden="true">
+          <ul class="ws-rows">
+            <li style="--i:0">Will up to date <span class="ws-tick"><svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3 3 7-7" stroke="#16C172" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></li>
+            <li style="--i:1">Renewals diarised <span class="ws-tick"><svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3 3 7-7" stroke="#16C172" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></li>
+            <li style="--i:2">Goals written down <span class="ws-tick ws-tick--open"></span></li>
+          </ul>
+        </div>
       </div>
 
     </div>
+    <p style="margin:22px 0 0;font-size:12.5px;color:rgba(255,255,255,0.35)">Figures in the cards are illustrative.</p>
   </div>
 </section>
 
 <!-- ═══ WHAT THE SCORE MEANS ═══ -->
-<section style="padding:80px 24px;background:white">
-  <div style="max-width:1000px;margin:0 auto">
-    <div style="text-align:center;margin-bottom:44px">
-      <div style="font-size:var(--text-micro);font-weight:700;color:#16C172;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px">Reading Your Score</div>
-      <h2 style="font-size:var(--text-h2-md);font-weight:800;color:#0B1F3A;letter-spacing:-1px;margin:0 0 16px">A starting point, not a judgement</h2>
-      <p style="font-size:var(--text-body);color:#5B6B82;max-width:580px;margin:0 auto">Wherever you land, the number is only there to show which area deserves your attention first.</p>
+<section class="ws-sec" style="background:white">
+  <div class="ws-wrap">
+    <div class="ws-head-center" data-rv>
+      <div class="ws-eyebrow">Reading Your Score</div>
+      <h2 class="ws-h2">A starting point, <span class="ws-hl">not a judgement</span></h2>
+      <p class="ws-lede">Wherever you land, the number is only there to show which area deserves your attention first.</p>
     </div>
 
-    <div class="band-row">
-      <div style="border-radius:16px;overflow:hidden;border:1px solid #E4E9F0">
-        <div style="background:#16C172;padding:20px 16px;text-align:center">
-          <div style="font-size:26px;font-weight:800;color:white;line-height:1">80-100</div>
-        </div>
-        <div style="padding:18px 16px;text-align:center">
-          <div style="font-size:16px;font-weight:800;color:#0B1F3A;margin-bottom:4px">Strong</div>
-          <div style="font-size:13px;color:#5B6B82;line-height:1.5">Optimise and build wealth</div>
-        </div>
+    <div class="ws-scale" data-rv aria-hidden="true">
+      <div class="ws-pin">
+        <div class="ws-pin-label">Sample client · <b>67</b></div>
+        <div class="ws-pin-stem"></div>
+        <div class="ws-pin-dot"></div>
       </div>
-      <div style="border-radius:16px;overflow:hidden;border:1px solid #E4E9F0">
-        <div style="background:#0FB5BA;padding:20px 16px;text-align:center">
-          <div style="font-size:26px;font-weight:800;color:white;line-height:1">60-79</div>
-        </div>
-        <div style="padding:18px 16px;text-align:center">
-          <div style="font-size:16px;font-weight:800;color:#0B1F3A;margin-bottom:4px">Healthy</div>
-          <div style="font-size:13px;color:#5B6B82;line-height:1.5">Improve one or two areas</div>
-        </div>
+      <div class="ws-scale-bar">
+        <span style="--i:0;flex:40;background:#C84040"></span>
+        <span style="--i:1;flex:20;background:#E8B04B"></span>
+        <span style="--i:2;flex:20;background:#0FB5BA"></span>
+        <span style="--i:3;flex:20;background:#16C172"></span>
       </div>
-      <div style="border-radius:16px;overflow:hidden;border:1px solid #E4E9F0">
-        <div style="background:#E8B04B;padding:20px 16px;text-align:center">
-          <div style="font-size:26px;font-weight:800;color:white;line-height:1">40-59</div>
-        </div>
-        <div style="padding:18px 16px;text-align:center">
-          <div style="font-size:16px;font-weight:800;color:#0B1F3A;margin-bottom:4px">Needs attention</div>
-          <div style="font-size:13px;color:#5B6B82;line-height:1.5">Prioritise cashflow and debt</div>
-        </div>
+      <div class="ws-scale-ticks"><span style="left:0">0</span><span style="left:40%">40</span><span style="left:60%">60</span><span style="left:80%">80</span><span style="left:100%">100</span></div>
+    </div>
+
+    <div class="ws-bands">
+      <div class="ws-band" data-rv style="--d:0s;--c:#C84040">
+        <div class="ws-band-range">0–39</div>
+        <div class="ws-band-name">Priority support</div>
+        <div class="ws-band-desc">Stabilise things first</div>
       </div>
-      <div style="border-radius:16px;overflow:hidden;border:1px solid #E4E9F0">
-        <div style="background:#C84040;padding:20px 16px;text-align:center">
-          <div style="font-size:26px;font-weight:800;color:white;line-height:1">0-39</div>
-        </div>
-        <div style="padding:18px 16px;text-align:center">
-          <div style="font-size:16px;font-weight:800;color:#0B1F3A;margin-bottom:4px">Priority support</div>
-          <div style="font-size:13px;color:#5B6B82;line-height:1.5">Stabilise things first</div>
-        </div>
+      <div class="ws-band" data-rv style="--d:.08s;--c:#E8B04B">
+        <div class="ws-band-range" style="color:#C98F24">40–59</div>
+        <div class="ws-band-name">Needs attention</div>
+        <div class="ws-band-desc">Prioritise cashflow and debt</div>
+      </div>
+      <div class="ws-band ws-band--you" data-rv style="--d:.16s;--c:#0FB5BA">
+        <span class="ws-band-you">SAMPLE</span>
+        <div class="ws-band-range">60–79</div>
+        <div class="ws-band-name">Healthy</div>
+        <div class="ws-band-desc">Improve one or two areas</div>
+      </div>
+      <div class="ws-band" data-rv style="--d:.24s;--c:#16C172">
+        <div class="ws-band-range">80–100</div>
+        <div class="ws-band-name">Strong</div>
+        <div class="ws-band-desc">Optimise and build wealth</div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ═══ WHAT YOU GET BACK ═══ -->
-<section style="padding:80px 24px;background:#F7FAFC">
-  <div style="max-width:1100px;margin:0 auto">
-    <div style="text-align:center;margin-bottom:48px">
-      <div style="font-size:var(--text-micro);font-weight:700;color:#16C172;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px">What You Walk Away With</div>
-      <h2 style="font-size:var(--text-h2-md);font-weight:800;color:#0B1F3A;letter-spacing:-1px;margin:0 0 16px">Never just a number</h2>
-      <p style="font-size:var(--text-body);color:#5B6B82;max-width:560px;margin:0 auto">A score on its own changes nothing. You leave with a short, ranked list of things you can actually do.</p>
+<section class="ws-sec" style="background:#F7FAFC">
+  <div class="ws-wrap" style="max-width:1140px">
+    <div class="ws-head-center" data-rv>
+      <div class="ws-eyebrow">What You Walk Away With</div>
+      <h2 class="ws-h2">Never <span class="ws-hl">just a number</span></h2>
+      <p class="ws-lede">A score on its own changes nothing. You leave with a short, ranked list of things you can actually do.</p>
     </div>
 
-    <div class="grid-3" style="display:grid;grid-template-columns:repeat(3, 1fr);gap:24px">
-      <div style="background:white;border:1px solid #E4E9F0;border-radius:16px;padding:32px 28px;box-shadow:0 4px 16px rgba(0,0,0,0.03)">
-        <div style="width:48px;height:48px;border-radius:12px;background:rgba(22,193,114,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:20px">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9.5" stroke="#16C172" stroke-width="2"></circle><path d="M12 6.5v5.5l3.5 2" stroke="#16C172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    <div class="ws-trio">
+      <div class="ws-get" data-rv style="--d:0s">
+        <div class="ws-get-viz" style="--t:rgba(22,193,114,0.16)" aria-hidden="true">
+          <span class="ws-get-n">01</span>
+          <div class="ws-mini-g">
+            <svg width="132" height="76" viewBox="0 0 132 76" fill="none">
+              <path d="M6 70 A60 60 0 0 1 126 70" stroke="#E4E9F0" stroke-width="10" stroke-linecap="round"></path>
+              <path class="ws-mini-arc" d="M6 70 A60 60 0 0 1 126 70" stroke="#0FB5BA" stroke-width="10" stroke-linecap="round"></path>
+            </svg>
+            <div class="ws-mini-n">67</div>
+          </div>
+          <div class="ws-mini-dots"><span style="--c:#16C172">Cashflow</span><span style="--c:#E8B04B">Buffer</span><span style="--c:#0FB5BA">Debt</span></div>
         </div>
-        <h3 style="font-size:20px;font-weight:700;color:#0B1F3A;margin:0 0 10px">Your score, explained</h3>
-        <p style="font-size:14.5px;color:#5B6B82;line-height:1.7;margin:0">Where you sit out of 100, which areas are green, amber or red, and — in plain English — what is pulling the number up or down.</p>
+        <div class="ws-get-body">
+          <h3>Your score, explained</h3>
+          <p>Where you sit out of 100, which areas are green, amber or red, and — in plain English — what is pulling the number up or down.</p>
+        </div>
       </div>
 
-      <div style="background:white;border:1px solid #E4E9F0;border-radius:16px;padding:32px 28px;box-shadow:0 4px 16px rgba(0,0,0,0.03)">
-        <div style="width:48px;height:48px;border-radius:12px;background:rgba(15,181,186,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:20px">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 6.5h16M4 12h16M4 17.5h10" stroke="#0FB5BA" stroke-width="2" stroke-linecap="round"></path></svg>
+      <div class="ws-get" data-rv style="--d:.1s">
+        <div class="ws-get-viz" style="--t:rgba(15,181,186,0.16)" aria-hidden="true">
+          <span class="ws-get-n">02</span>
+          <div class="ws-stack">
+            <div style="--i:0;--c:#16C172"><b>Do now</b>Build a buffer</div>
+            <div style="--i:1;--c:#0FB5BA"><b>Do next</b>Review mortgage</div>
+            <div style="--i:2;--c:#E8B04B"><b>Later</b>Set a spend target</div>
+          </div>
         </div>
-        <h3 style="font-size:20px;font-weight:700;color:#0B1F3A;margin:0 0 10px">Your top three priorities</h3>
-        <p style="font-size:14.5px;color:#5B6B82;line-height:1.7;margin:0">Ranked as <strong style="color:#0B1F3A">Do now</strong>, <strong style="color:#0B1F3A">Do next</strong> and <strong style="color:#0B1F3A">Review later</strong> — each with who's doing it and by when. Three things, not thirty.</p>
+        <div class="ws-get-body">
+          <h3>Your top three priorities</h3>
+          <p>Ranked as <strong style="color:#0B1F3A">Do now</strong>, <strong style="color:#0B1F3A">Do next</strong> and <strong style="color:#0B1F3A">Review later</strong> — each with who's doing it and by when. Three things, not thirty.</p>
+        </div>
       </div>
 
-      <div style="background:white;border:1px solid #E4E9F0;border-radius:16px;padding:32px 28px;box-shadow:0 4px 16px rgba(0,0,0,0.03)">
-        <div style="width:48px;height:48px;border-radius:12px;background:rgba(232,176,75,0.14);display:flex;align-items:center;justify-content:center;margin-bottom:20px">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="4.5" width="18" height="16.5" rx="2.5" stroke="#E8B04B" stroke-width="2"></rect><path d="M3 9.5h18M8 2.5v4M16 2.5v4" stroke="#E8B04B" stroke-width="2" stroke-linecap="round"></path></svg>
+      <div class="ws-get" data-rv style="--d:.2s">
+        <div class="ws-get-viz" style="--t:rgba(232,176,75,0.18)" aria-hidden="true">
+          <span class="ws-get-n">03</span>
+          <div class="ws-plan">
+            <span class="ws-plan-flag">Re-score</span>
+            <div class="ws-plan-line"><i></i></div>
+            <div class="ws-plan-pts"><span style="--c:#16C172"></span><span style="--c:#16C172"></span><span style="--c:#0FB5BA"></span><span style="--c:#E8B04B"></span></div>
+            <div class="ws-plan-lbl"><span>Day 0</span><span>30</span><span>60</span><span>90</span></div>
+          </div>
         </div>
-        <h3 style="font-size:20px;font-weight:700;color:#0B1F3A;margin:0 0 10px">A 90-day plan</h3>
-        <p style="font-size:14.5px;color:#5B6B82;line-height:1.7;margin:0">A simple plan for the next three months, with a review booked in so you can see the score move rather than wonder about it.</p>
+        <div class="ws-get-body">
+          <h3>A 90-day plan</h3>
+          <p>A simple plan for the next three months, with a review booked in so you can see the score move rather than wonder about it.</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ═══ SAMPLE REPORT ═══ -->
-<section id="sample" style="padding:80px 24px;background:#071929;scroll-margin-top:80px">
-  <div style="max-width:1000px;margin:0 auto">
-    <div style="text-align:center;margin-bottom:44px">
-      <div style="font-size:var(--text-micro);font-weight:700;color:#16C172;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px">Sample Report</div>
-      <h2 style="font-size:var(--text-h2-md);font-weight:800;color:white;letter-spacing:-1px;margin:0 0 16px">What lands in your inbox</h2>
-      <p style="font-size:var(--text-body);color:rgba(255,255,255,0.65);max-width:560px;margin:0 auto">An example of the summary we leave clients with. Yours will be built entirely around your own numbers.</p>
+<section id="sample" class="ws-sec" style="background:#071929;scroll-margin-top:80px">
+  <div aria-hidden="true" style="position:absolute;width:640px;height:640px;right:-160px;top:50%;margin-top:-320px;border-radius:50%;background:rgba(22,193,114,0.1);filter:blur(110px)"></div>
+  <div class="ws-wrap ws-sample">
+    <div data-rv>
+      <div class="ws-eyebrow">Sample Report</div>
+      <h2 class="ws-h2 ws-h2--light">What lands in <span class="ws-hl">your inbox</span></h2>
+      <p class="ws-lede ws-lede--light">An example of the summary we leave clients with. Yours will be built entirely around your own numbers.</p>
+      <ol class="ws-notes">
+        <li><span class="ws-num">1</span><div><h3>Your score and where it sits</h3><p>One number out of 100, and the band it falls in.</p></div></li>
+        <li><span class="ws-num">2</span><div><h3>Three priorities, ranked</h3><p>What to do now, what's next, and what can wait.</p></div></li>
+        <li><span class="ws-num">3</span><div><h3>A date to re-score</h3><p>A review booked in 90 days, so you see the change.</p></div></li>
+      </ol>
     </div>
 
-    <div style="background:white;border-radius:20px;padding:40px 36px;box-shadow:0 32px 80px rgba(0,0,0,0.4);max-width:640px;margin:0 auto">
-      <div style="text-align:center;padding-bottom:26px;border-bottom:1px solid #E4E9F0;margin-bottom:26px">
-        <div style="font-size:var(--text-micro);font-weight:700;color:#8B9AAD;text-transform:uppercase;letter-spacing:1.4px;margin-bottom:12px">Wealthify Score</div>
-        <div style="display:flex;align-items:baseline;justify-content:center;gap:4px;margin-bottom:12px">
-          <span style="font-size:64px;font-weight:800;color:#0B1F3A;line-height:1;letter-spacing:-2.5px">67</span>
-          <span style="font-size:24px;font-weight:700;color:#B0BAC5">/ 100</span>
+    <div class="ws-report-stage" data-rv style="--d:.1s">
+      <div class="ws-report" role="img" aria-label="Sample Wealthify Score report: 67 out of 100, Healthy, with three ranked priorities and a review in 90 days">
+        <div class="ws-rep-head" aria-hidden="true">
+          <span class="ws-num" style="top:34px">1</span>
+          <div class="ws-rep-ring">
+            <svg width="96" height="96" viewBox="0 0 96 96" fill="none">
+              <circle cx="48" cy="48" r="42" stroke="#EEF2F6" stroke-width="9"></circle>
+              <circle class="ws-rep-arc" cx="48" cy="48" r="42" stroke="#0FB5BA" stroke-width="9" stroke-linecap="round"></circle>
+            </svg>
+            <div>67</div>
+          </div>
+          <div>
+            <div class="ws-rep-k">Wealthify Score</div>
+            <div class="ws-rep-score">67 <span>/ 100</span></div>
+            <span class="ws-rep-band">Healthy — improvement available</span>
+          </div>
         </div>
-        <span style="display:inline-block;padding:7px 16px;background:rgba(15,181,186,0.12);border:1px solid rgba(15,181,186,0.26);border-radius:100px;font-size:13.5px;font-weight:700;color:#0B8A8E">Healthy — improvement available</span>
-      </div>
 
-      <div style="font-size:var(--text-micro);font-weight:700;color:#8B9AAD;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:16px">Your three priorities</div>
+        <div aria-hidden="true" style="position:relative">
+          <span class="ws-num" style="top:34px">2</span>
+          <div class="ws-rep-k" style="margin-bottom:14px">Your three priorities</div>
+          <div class="ws-pri">
+            <div style="--i:0;--c:#16C172"><b>Do now</b><span>Build a one-month emergency buffer</span></div>
+            <div style="--i:1;--c:#0FB5BA"><b>Do next</b><span>Review your mortgage structure before the refix date</span></div>
+            <div style="--i:2;--c:#E8B04B"><b>Review</b><span>Reduce discretionary spending to an agreed monthly target</span></div>
+          </div>
+        </div>
 
-      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:26px">
-        <div style="display:flex;align-items:flex-start;gap:14px;padding:16px 18px;background:#F6F8FB;border-radius:12px;border-left:3px solid #16C172">
-          <span style="flex-shrink:0;padding:3px 9px;background:#16C172;color:white;border-radius:5px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-top:1px">Do now</span>
-          <span style="font-size:14.5px;color:#1A2433;line-height:1.6;font-weight:600">Build a one-month emergency buffer</span>
-        </div>
-        <div style="display:flex;align-items:flex-start;gap:14px;padding:16px 18px;background:#F6F8FB;border-radius:12px;border-left:3px solid #0FB5BA">
-          <span style="flex-shrink:0;padding:3px 9px;background:#0FB5BA;color:white;border-radius:5px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-top:1px">Do next</span>
-          <span style="font-size:14.5px;color:#1A2433;line-height:1.6;font-weight:600">Review your mortgage structure before the refix date</span>
-        </div>
-        <div style="display:flex;align-items:flex-start;gap:14px;padding:16px 18px;background:#F6F8FB;border-radius:12px;border-left:3px solid #E8B04B">
-          <span style="flex-shrink:0;padding:3px 9px;background:#E8B04B;color:white;border-radius:5px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-top:1px">Review</span>
-          <span style="font-size:14.5px;color:#1A2433;line-height:1.6;font-weight:600">Reduce discretionary spending to an agreed monthly target</span>
-        </div>
-      </div>
-
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding-top:20px;border-top:1px solid #E4E9F0">
-        <div>
-          <div style="font-size:11px;font-weight:700;color:#8B9AAD;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px">Next review</div>
-          <div style="font-size:14px;font-weight:700;color:#0B1F3A">In 90 days</div>
-        </div>
-        <div style="text-align:right">
-          <div style="font-size:11px;font-weight:700;color:#8B9AAD;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px">Your adviser</div>
-          <div style="font-size:14px;font-weight:700;color:#0B1F3A">Wealthify — Licensed FAP</div>
+        <div class="ws-rep-foot" aria-hidden="true" style="position:relative">
+          <span class="ws-num" style="top:20px">3</span>
+          <div><div>Next review</div><div>In 90 days</div></div>
+          <div style="text-align:right"><div>Your adviser</div><div>Wealthify — Licensed FAP</div></div>
         </div>
       </div>
+      <p style="text-align:center;font-size:13px;color:rgba(255,255,255,0.35);margin:26px auto 0;max-width:480px;line-height:1.65">Illustrative example. Any figures or improvements we show you will be specific to your circumstances and only what we can reasonably support.</p>
     </div>
-
-    <p style="text-align:center;font-size:13px;color:rgba(255,255,255,0.35);margin:22px auto 0;max-width:520px;line-height:1.65">Illustrative example. Any figures or improvements we show you will be specific to your circumstances and only what we can reasonably support.</p>
   </div>
 </section>
 
 <!-- ═══ HOW IT WORKS ═══ -->
-<section style="padding:80px 24px;background:white">
-  <div style="max-width:1000px;margin:0 auto">
-    <div style="text-align:center;margin-bottom:56px">
-      <div style="font-size:var(--text-micro);font-weight:700;color:#16C172;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px">How It Works</div>
-      <h2 style="font-size:var(--text-h2-md);font-weight:800;color:#0B1F3A;letter-spacing:-1px;margin:0 0 16px">Three steps, one conversation</h2>
-      <p style="font-size:var(--text-body);color:#5B6B82;max-width:560px;margin:0 auto">No forms to wade through beforehand, and no product pitch at the end.</p>
+<section class="ws-sec" style="background:white">
+  <div class="ws-wrap">
+    <div class="ws-head-center" data-rv>
+      <div class="ws-eyebrow">How It Works</div>
+      <h2 class="ws-h2">Three steps, <span class="ws-hl">one conversation</span></h2>
+      <p class="ws-lede">No forms to wade through beforehand, and no product pitch at the end.</p>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:32px">
-      <div style="background:#F7FAFC;padding:36px 30px;border-radius:16px;border:1px solid #E4E9F0">
-        <div style="width:44px;height:44px;border-radius:50%;background:#16C172;color:white;font-weight:800;font-size:18px;display:flex;align-items:center;justify-content:center;margin-bottom:20px">1</div>
-        <h3 style="font-size:20px;font-weight:700;color:#0B1F3A;margin:0 0 10px">Request your score</h3>
-        <p style="font-size:14px;color:#5B6B82;line-height:1.65;margin:0">Leave your name, email and mobile. We'll call to find a time that suits.</p>
+    <div class="ws-steps" data-rv>
+      <div class="ws-steps-line" aria-hidden="true"><i></i></div>
+      <div class="ws-step" style="--c:#16C172;--i:0">
+        <div class="ws-node">1</div>
+        <div class="ws-step-card">
+          <span class="ws-time">Takes 1 minute</span>
+          <h3>Request your score</h3>
+          <p>Leave your name, email and mobile. We'll call to find a time that suits.</p>
+        </div>
       </div>
-      <div style="background:#F7FAFC;padding:36px 30px;border-radius:16px;border:1px solid #E4E9F0">
-        <div style="width:44px;height:44px;border-radius:50%;background:#0FB5BA;color:white;font-weight:800;font-size:18px;display:flex;align-items:center;justify-content:center;margin-bottom:20px">2</div>
-        <h3 style="font-size:20px;font-weight:700;color:#0B1F3A;margin:0 0 10px">A 30-minute conversation</h3>
-        <p style="font-size:14px;color:#5B6B82;line-height:1.65;margin:0">A licensed adviser starts with what matters to you, then works through the figures needed to score each area properly.</p>
+      <div class="ws-step" style="--c:#0FB5BA;--i:1">
+        <div class="ws-node">2</div>
+        <div class="ws-step-card">
+          <span class="ws-time">About 30 minutes</span>
+          <h3>A 30-minute conversation</h3>
+          <p>A licensed adviser starts with what matters to you, then works through the figures needed to score each area properly.</p>
+        </div>
       </div>
-      <div style="background:#F7FAFC;padding:36px 30px;border-radius:16px;border:1px solid #E4E9F0">
-        <div style="width:44px;height:44px;border-radius:50%;background:#0B1F3A;color:white;font-weight:800;font-size:18px;display:flex;align-items:center;justify-content:center;margin-bottom:20px">3</div>
-        <h3 style="font-size:20px;font-weight:700;color:#0B1F3A;margin:0 0 10px">Your score and plan</h3>
-        <p style="font-size:14px;color:#5B6B82;line-height:1.65;margin:0">You get your score, your three priorities and a 90-day plan — plus a review date so you can watch it move.</p>
+      <div class="ws-step" style="--c:#0B1F3A;--i:2">
+        <div class="ws-node">3</div>
+        <div class="ws-step-card">
+          <span class="ws-time">Next 90 days</span>
+          <h3>Your score and plan</h3>
+          <p>You get your score, your three priorities and a 90-day plan — plus a review date so you can watch it move.</p>
+        </div>
       </div>
     </div>
 
-    <div style="display:flex;align-items:flex-start;gap:12px;max-width:700px;margin:44px auto 0;padding:20px 24px;background:#F6F8FB;border-radius:12px">
+    <div class="ws-note" data-rv>
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="9.5" stroke="#5B6B82" stroke-width="1.8"></circle><path d="M12 11v5.5M12 7.8h.01" stroke="#5B6B82" stroke-width="2" stroke-linecap="round"></path></svg>
-      <p style="font-size:14px;color:#5B6B82;line-height:1.7;margin:0"><strong style="color:#0B1F3A">Your Wealthify Score is our own financial wellness indicator.</strong> It is not a bank credit score, a lending approval, an investment return forecast, or a guarantee of any financial outcome. Your score is a starting point for a conversation — never a reason to be pushed into a product.</p>
+      <p><strong style="color:#0B1F3A">Your Wealthify Score is our own financial wellness indicator.</strong> It is not a bank credit score, a lending approval, an investment return forecast, or a guarantee of any financial outcome. Your score is a starting point for a conversation — never a reason to be pushed into a product.</p>
     </div>
   </div>
 </section>
 
 <!-- ═══ FAQ ═══ -->
-<section style="padding:80px 24px;background:#F7FAFC">
-  <div style="max-width:800px;margin:0 auto">
-    <div style="text-align:center;margin-bottom:48px">
-      <div style="font-size:var(--text-micro);font-weight:700;color:#16C172;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px">FAQ</div>
-      <h2 style="font-size:var(--text-h2-md);font-weight:800;color:#0B1F3A;letter-spacing:-1px;margin:0">Frequently Asked Questions</h2>
+<section class="ws-sec" style="background:#F7FAFC">
+  <div class="ws-wrap ws-faq" style="max-width:1100px">
+    <div class="ws-faq-side" data-rv>
+      <div class="ws-eyebrow">FAQ</div>
+      <h2 class="ws-h2">Questions, <span class="ws-hl">answered</span></h2>
+      <p class="ws-lede">The things people most often ask before booking their score.</p>
+      <div class="ws-faq-help">
+        <div>Still wondering about something?</div>
+        <p>Talk it through with an adviser — no commitment.</p>
+        <a href="tel:0220614584"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2" stroke="#0E9A5A" stroke-width="2" stroke-linejoin="round"></path></svg>Call 022 061 4584</a>
+      </div>
     </div>
 
-    <div style="display:flex;flex-direction:column;gap:14px">
+    <div class="ws-faq-list" data-rv style="--d:.1s">
       <sc-for list="{{ faqItems }}" as="faq" hint-placeholder-count="5">
-        <div style="background:white;border:1.5px solid #E4E9F0;border-radius:12px;overflow:hidden;transition:border-color 0.2s">
-          <button type="button" onClick="{{ faq.toggle }}" style="width:100%;padding:20px 24px;background:none;border:none;display:flex;justify-content:space-between;align-items:center;text-align:left;cursor:pointer;font-family:inherit">
-            <span style="font-size:17px;font-weight:700;color:#0B1F3A">{{ faq.q }}</span>
-            <span style="font-size:22px;font-weight:700;color:#16C172;margin-left:16px">{{ faq.icon }}</span>
+        <div class="{{ faq.cls }}">
+          <button type="button" onClick="{{ faq.toggle }}" aria-expanded="{{ faq.expanded }}">
+            <span class="ws-q-t">{{ faq.q }}</span>
+            <span class="ws-q-i" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="#0B1F3A" stroke-width="2" stroke-linecap="round"></path></svg></span>
           </button>
           <sc-if value="{{ faq.open }}" hint-placeholder-val="{{ false }}">
-            <div style="padding:0 24px 20px;font-size:15px;color:#5B6B82;line-height:1.65;border-top:1px solid #F0F4F8;padding-top:16px">
-              {{ faq.a }}
-            </div>
+            <div class="ws-q-a">{{ faq.a }}</div>
           </sc-if>
         </div>
       </sc-for>
@@ -502,17 +1001,28 @@
 </section>
 
 <!-- ═══ BOTTOM CTA ═══ -->
-<section style="padding:80px 24px;background:#071929;text-align:center">
-  <div style="max-width:800px;margin:0 auto">
-    <div style="display:inline-flex;align-items:center;gap:8px;margin-bottom:20px;padding:6px 14px;background:rgba(22,193,114,0.12);border-radius:100px;border:1px solid rgba(22,193,114,0.2)">
-      <span style="width:6px;height:6px;border-radius:50%;background:#16C172"></span>
-      <span style="font-size:var(--text-label);font-weight:700;color:#16C172">Free · No Obligation · No Product Push</span>
+<section class="ws-sec ws-cta" style="background:#071929">
+  <svg class="ws-cta-arc" data-rv viewBox="0 0 900 900" fill="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="wsCtaArc" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#0FB5BA"></stop><stop offset="100%" stop-color="#16C172"></stop></linearGradient>
+    </defs>
+    <circle cx="450" cy="450" r="440" stroke="rgba(255,255,255,0.06)" stroke-width="18" stroke-dasharray="1382 2765" transform="rotate(180 450 450)"></circle>
+    <circle class="ws-cta-fill" cx="450" cy="450" r="440" stroke="url(#wsCtaArc)" stroke-opacity="0.4" stroke-width="18" stroke-linecap="round" transform="rotate(180 450 450)"></circle>
+    <circle cx="450" cy="450" r="380" stroke="rgba(255,255,255,0.04)" stroke-dasharray="2 12"></circle>
+  </svg>
+  <div class="ws-wrap" style="max-width:800px" data-rv>
+    <div class="ws-roll" aria-hidden="true">
+      <span class="ws-roll-win"><span class="ws-roll-col"><span>?</span><span>58</span><span>71</span><span>83</span><span>64</span><span>?</span></span></span>
+      <small>/ 100</small>
     </div>
-    <h2 style="font-size:var(--text-cta-banner);font-weight:800;color:white;margin:0 0 16px;letter-spacing:-1.5px;line-height:1.1">What would your score be?</h2>
-    <p style="font-size:16px;color:rgba(255,255,255,0.65);margin:0 0 36px;line-height:1.65">Thirty minutes to find out where you really stand — and three clear things to do about it over the next 90 days.</p>
+    <h2 style="font-size:var(--text-cta-banner);font-weight:800;color:white;margin:0 0 16px;letter-spacing:-1.5px;line-height:1.1">What would <span style="color:#16C172">your</span> score be?</h2>
+    <p style="font-size:16px;color:rgba(255,255,255,0.65);margin:0 auto 36px;line-height:1.65;max-width:560px">Thirty minutes to find out where you really stand — and three clear things to do about it over the next 90 days.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-      <button type="button" onClick="{{ onOpen }}" style="padding:15px 30px;background:#16C172;border:none;color:white;border-radius:10px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s;display:inline-flex;align-items:center;justify-content:center" style-hover="opacity:0.9">Get my Wealthify Score →</button>
+      <button type="button" onClick="{{ onOpen }}" class="hero-cta" style="padding:15px 30px;background:#16C172;border:none;color:white;border-radius:10px;font-size:var(--text-cta);font-weight:700;cursor:pointer;font-family:inherit;transition:all 0.2s;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(22,193,114,0.28)">Get my Wealthify Score →</button>
       <a href="tel:0220614584" style="padding:15px 28px;border:1.5px solid rgba(255,255,255,0.2);background:transparent;color:rgba(255,255,255,0.75);border-radius:10px;font-size:var(--text-cta);font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s;display:inline-flex;align-items:center;justify-content:center" style-hover="background:rgba(255,255,255,0.07);color:white">Call 022 061 4584</a>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;margin-top:28px;font-size:13px;font-weight:600;color:rgba(255,255,255,0.45)">
+      <span>Free</span><span aria-hidden="true">·</span><span>No obligation</span><span aria-hidden="true">·</span><span>No product push</span>
     </div>
   </div>
 </section>
@@ -668,6 +1178,23 @@ class Component extends DCLogic {
     window.addEventListener('keydown', this._onKey);
 
     this.startCountUp();
+    this.startReveal();
+  }
+
+  // Scroll reveal for [data-rv] blocks. Skipped under reduced motion, and the
+  // CSS only hides blocks once .rv-ready is set, so no-JS renders everything.
+  startReveal() {
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || !('IntersectionObserver' in window)) return;
+    document.documentElement.classList.add('rv-ready');
+    this._revealObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('is-in');
+        this._revealObs.unobserve(e.target);
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('[data-rv]').forEach(el => this._revealObs.observe(el));
   }
 
   componentWillUnmount() {
@@ -675,6 +1202,7 @@ class Component extends DCLogic {
     window.removeEventListener('keydown', this._onKey);
     if (this._countTimer) clearInterval(this._countTimer);
     if (this._startTimer) clearTimeout(this._startTimer);
+    if (this._revealObs) this._revealObs.disconnect();
     document.body.classList.remove('nav-open');
   }
 
@@ -764,7 +1292,8 @@ class Component extends DCLogic {
       q: f.q,
       a: f.a,
       open: faqOpen === i,
-      icon: faqOpen === i ? '−' : '+',
+      cls: faqOpen === i ? 'ws-q is-open' : 'ws-q',
+      expanded: faqOpen === i ? 'true' : 'false',
       toggle: () => this.setState(s => ({ faqOpen: s.faqOpen === i ? null : i }))
     }));
 
