@@ -1,5 +1,11 @@
+// Admin rates: lender rate table and the refinance calculator's rate setting.
+// One function for both to stay within Vercel's serverless function limit.
+//   GET   ?type=lenders      NZ lender mortgage rates
+//   GET   ?type=calculator   calculator rate settings
+//   PATCH ?type=calculator   { manualEnabled?, manualRate? }
 const { requireAdmin, unauthorized, readBody, json } = require('../_auth');
 const {
+  fetchMortgageRates,
   getCalculatorRateSettingsView,
   saveSettings,
   validateManualRate,
@@ -7,9 +13,24 @@ const {
   loadSettings,
 } = require('../../lib/calculator-rate');
 
-module.exports = async (req, res) => {
-  if (!requireAdmin(req)) return unauthorized(res);
+async function lenderRates(req, res) {
+  if (req.method !== 'GET') {
+    res.setHeader('Allow', 'GET');
+    return json(res, 405, { error: 'Method not allowed' });
+  }
 
+  try {
+    const data = await fetchMortgageRates();
+    return json(res, 200, data);
+  } catch (err) {
+    const message = err.name === 'AbortError'
+      ? 'Mortgage rates request timed out'
+      : (err.message || 'Failed to fetch mortgage rates');
+    return json(res, 502, { error: message });
+  }
+}
+
+async function calculatorRate(req, res) {
   if (req.method === 'GET') {
     try {
       const view = await getCalculatorRateSettingsView();
@@ -60,4 +81,13 @@ module.exports = async (req, res) => {
 
   res.setHeader('Allow', 'GET, PATCH');
   return json(res, 405, { error: 'Method not allowed' });
+}
+
+module.exports = async (req, res) => {
+  if (!requireAdmin(req)) return unauthorized(res);
+
+  const type = new URL(req.url, 'http://localhost').searchParams.get('type');
+  if (type === 'lenders') return lenderRates(req, res);
+  if (type === 'calculator') return calculatorRate(req, res);
+  return json(res, 400, { error: 'Unknown rates type' });
 };

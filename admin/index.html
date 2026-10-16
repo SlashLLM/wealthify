@@ -3,6 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/lib/markdown.js"></script>
+<!-- TOAST UI Editor 3.2.2 (MIT) — vendored so the admin needs no extra CDN in the CSP -->
+<link rel="stylesheet" href="/admin/vendor/toastui/toastui-editor.min.css">
+<script src="/admin/vendor/toastui/toastui-editor-all.min.js"></script>
 <script src="/support.js?v=2"></script>
 </head>
 <body>
@@ -16,9 +20,88 @@
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
+  <!-- Blog .prose styles, so the editor preview matches the live article. Loaded before
+       the admin styles below so their body/link rules win. -->
+  <link href="/blog.css?v=20261016" rel="stylesheet">
   <style>
     *{box-sizing:border-box}
     html,body{margin:0;height:100%;font-family:'Plus Jakarta Sans',sans-serif;font-size:var(--text-body);color:#1A2433;background:#071929}
+    /* ── Blog editor ── */
+    .bl-card{background:#fff;border:1px solid #E4E9F0;border-radius:14px;padding:18px 20px}
+    .bl-card h3{font-size:var(--text-dense-sm);font-weight:800;color:#0B1F3A;margin:0 0 14px;letter-spacing:-0.2px}
+    .bl-field{margin-bottom:14px}
+    .bl-field:last-child{margin-bottom:0}
+    .bl-label{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:var(--text-tiny-sm);font-weight:700;color:#5B6B82;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+    .bl-count{font-size:11px;font-weight:600;color:#B0BAC5;text-transform:none;letter-spacing:0}
+    .bl-count.is-over{color:#C84040}
+    .bl-hint{font-size:var(--text-caption);color:#8B9AAD;margin-top:5px;line-height:1.5}
+    .bl-input{width:100%;height:40px;padding:0 11px;border:1.5px solid #E4E9F0;border-radius:8px;font-size:14px;font-weight:500;color:#0B1F3A;background:#fff;transition:border-color .15s,box-shadow .15s}
+    .bl-input:focus{outline:none;border-color:#16C172;box-shadow:0 0 0 3px rgba(22,193,114,.1)}
+    textarea.bl-input{height:auto;padding:10px 11px;line-height:1.55;resize:vertical}
+    .bl-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:36px;padding:0 14px;border-radius:8px;border:1.5px solid #E4E9F0;background:#fff;font-size:13px;font-weight:700;color:#0B1F3A;cursor:pointer;white-space:nowrap;transition:all .15s}
+    .bl-btn:hover{border-color:#C4CDD6;background:#FAFBFC}
+    .bl-btn--primary{background:linear-gradient(135deg,#16C172,#0E9E5C);border:none;color:#fff}
+    .bl-btn--primary:hover{opacity:.9;background:linear-gradient(135deg,#16C172,#0E9E5C)}
+    .bl-btn--danger{color:#C84040}
+    .bl-btn--danger:hover{border-color:rgba(214,69,69,.4);background:rgba(214,69,69,.05)}
+    .bl-btn:disabled{opacity:.55;cursor:default}
+    .bl-btn--block{width:100%}
+    .bl-editor-grid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:18px;align-items:start}
+    .bl-side{display:flex;flex-direction:column;gap:14px}
+    .bl-title,.bl-excerpt{field-sizing:content}
+    .bl-title{display:block;resize:none;line-height:1.2;width:100%;border:none;background:transparent;font-family:inherit;font-size:30px;font-weight:800;color:#0B1F3A;letter-spacing:-.6px;padding:2px 0;outline:none}
+    .bl-title::placeholder{color:#C4CDD6}
+    .bl-excerpt{width:100%;border:none;background:transparent;font-family:inherit;font-size:16px;color:#5B6B82;line-height:1.6;padding:2px 0;resize:none;outline:none}
+    .bl-doc{background:#fff;border:1px solid #E4E9F0;border-radius:14px;overflow:hidden}
+    /* Rich-text editor (TOAST UI) themed to match the admin + the live .prose styles */
+    .bl-rte .toastui-editor-defaultUI{border:none;border-radius:0;font-family:inherit}
+    .bl-rte .toastui-editor-defaultUI-toolbar{background:#FAFBFC;border-bottom:1px solid #E4E9F0;padding:0 8px;border-radius:0}
+    .bl-rte .toastui-editor-toolbar-icons{border-radius:6px;border:none;margin:7px 1px}
+    .bl-rte .toastui-editor-toolbar-icons:not(:disabled):hover{background-color:#EEF1F6;border:none}
+    .bl-rte .toastui-editor-toolbar-divider{background-color:#E4E9F0}
+    .bl-rte .toastui-editor-main .toastui-editor-ww-container{background:#fff}
+    .bl-rte .toastui-editor-contents{font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;line-height:1.75;color:#2A3646;padding:24px 30px}
+    .bl-rte .toastui-editor-contents p{font-size:16px;line-height:1.75;margin:0 0 14px;color:#2A3646}
+    .bl-rte .toastui-editor-contents h1,.bl-rte .toastui-editor-contents h2{font-size:26px;font-weight:800;color:#0B1F3A;border:none;letter-spacing:-.4px;margin:30px 0 12px;padding:0;line-height:1.25}
+    .bl-rte .toastui-editor-contents h3{font-size:20px;font-weight:800;color:#0B1F3A;margin:24px 0 10px}
+    .bl-rte .toastui-editor-contents h4,.bl-rte .toastui-editor-contents h5,.bl-rte .toastui-editor-contents h6{font-size:17px;font-weight:700;color:#0B1F3A;margin:20px 0 8px}
+    .bl-rte .toastui-editor-contents a{color:#0E9E5C;text-decoration:underline}
+    .bl-rte .toastui-editor-contents blockquote{border-left:4px solid #16C172;background:#F2FBF6;padding:12px 18px;border-radius:0 10px 10px 0}
+    .bl-rte .toastui-editor-contents blockquote p{color:#0B1F3A;margin:0}
+    .bl-rte .toastui-editor-contents ul>li::before{background-color:#16C172}
+    .bl-rte .toastui-editor-contents img{border-radius:10px}
+    .bl-rte .toastui-editor-contents table th{background:#F6F8FB;color:#0B1F3A}
+    .bl-rte .toastui-editor-contents .placeholder,.bl-rte .ProseMirror .placeholder{color:#B0BAC5}
+    /* Headings menu: offer only the levels the published page uses */
+    .bl-rte .toastui-editor-popup-add-heading li[data-level="1"],
+    .bl-rte .toastui-editor-popup-add-heading li[data-level="5"],
+    .bl-rte .toastui-editor-popup-add-heading li[data-level="6"]{display:none}
+    .bl-docfoot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 16px;border-top:1px solid #F0F3F8;font-size:12px;color:#8B9AAD;background:#FAFBFC}
+    .bl-cover{position:relative;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#F6F8FB;border:1.5px dashed #D0D6E2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;color:#8B9AAD;font-size:13px;font-weight:600;text-align:center;transition:border-color .15s}
+    .bl-cover:hover{border-color:#16C172}
+    .bl-cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .bl-file{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+    .bl-switch{display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;font-size:13px;font-weight:600;color:#0B1F3A}
+    .bl-switch input{width:16px;height:16px;accent-color:#16C172;cursor:pointer}
+    .bl-serp{padding:14px;border:1px solid #E4E9F0;border-radius:10px;background:#fff;font-family:Arial,sans-serif}
+    .bl-serp__url{font-size:12px;color:#202124;margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .bl-serp__title{font-size:18px;color:#1a0dab;line-height:1.3;margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .bl-serp__desc{font-size:13px;color:#4d5156;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .bl-tabs{display:flex;gap:4px;flex-wrap:wrap}
+    .bl-tab{height:34px;padding:0 13px;border-radius:8px;border:1.5px solid transparent;background:transparent;font-size:13px;font-weight:700;color:#5B6B82;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+    .bl-tab:hover{background:#E6EBF2}
+    .bl-tab.is-active{background:#fff;border-color:#E4E9F0;color:#0B1F3A}
+    .bl-tab__n{font-size:11px;font-weight:800;padding:1px 7px;border-radius:20px;background:#E6EBF2;color:#5B6B82}
+    .bl-thumb{width:64px;height:40px;border-radius:6px;object-fit:cover;background:linear-gradient(135deg,#0B1F3A,#123a4a);display:block}
+    .bl-notice{padding:10px 14px;border-radius:9px;font-size:13px;font-weight:700}
+    .bl-notice--ok{background:rgba(22,193,114,.08);border:1px solid rgba(22,193,114,.2);color:#0E9E5C}
+    .bl-notice--err{background:rgba(214,69,69,.07);border:1px solid rgba(214,69,69,.15);color:#C84040}
+    @media (max-width:1150px){
+      .bl-editor-grid{grid-template-columns:minmax(0,1fr)}
+    }
+    @media (max-width:768px){
+      .bl-title{font-size:24px}
+    }
     input,button,textarea{font-family:inherit}
     a{text-decoration:none;color:inherit}
     ::placeholder{color:#8B9AAD}
@@ -121,6 +204,19 @@
           </svg>
           <span style="font-size:var(--text-nav);font-weight:{{ navProgramsWeight }};color:{{ navProgramsColor }};flex:1">Programs</span>
           <span style="background:rgba(22,193,114,0.18);color:#16C172;font-size:var(--text-tiny);font-weight:800;padding:1px 7px;border-radius:20px;border:1px solid rgba(22,193,114,0.2)">{{ totalProgramLeads }}</span>
+        </div>
+
+        <div style="margin:14px 0 5px;padding:0 8px;font-size:9px;font-weight:700;color:rgba(255,255,255,0.18);text-transform:uppercase;letter-spacing:.1em">Content</div>
+
+        <div onClick="{{ onNavBlog }}"
+          style="display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:8px;background:{{ navBlogBg }};cursor:pointer;margin-bottom:2px;transition:background 0.15s"
+          style-hover="background:rgba(255,255,255,0.06)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{ navBlogStroke }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20h9"></path>
+            <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"></path>
+          </svg>
+          <span style="font-size:var(--text-nav);font-weight:{{ navBlogWeight }};color:{{ navBlogColor }};flex:1">Blog</span>
+          <span style="background:rgba(22,193,114,0.18);color:#16C172;font-size:var(--text-tiny);font-weight:800;padding:1px 7px;border-radius:20px;border:1px solid rgba(22,193,114,0.2)">{{ totalBlogPosts }}</span>
         </div>
 
         <div style="margin:14px 0 5px;padding:0 8px;font-size:9px;font-weight:700;color:rgba(255,255,255,0.18);text-transform:uppercase;letter-spacing:.1em">Tools</div>
@@ -691,6 +787,250 @@
         </div>
       </sc-if>
 
+      <!-- ── BLOG: POST LIST ── -->
+      <sc-if value="{{ showBlog }}" hint-placeholder-val="{{ false }}">
+        <div style="animation:fadein 0.2s ease both">
+
+          <div style="padding:24px 30px 14px;background:#F0F3F8;position:sticky;top:0;z-index:10;border-bottom:1px solid #E0E6EF">
+            <div class="admin-toolbar" style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+              <div>
+                <h1 style="font-size:var(--text-ui-md);font-weight:800;color:#0B1F3A;margin:0;letter-spacing:-0.5px">Blog</h1>
+                <p style="font-size:var(--text-dense-sm);color:#8B9AAD;margin:3px 0 0">{{ blogCountPublished }} published · {{ blogCountScheduled }} scheduled · {{ blogCountDraft }} drafts</p>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                <a href="/blog" target="_blank" rel="noopener" class="bl-btn">View blog ↗</a>
+                <button type="button" class="bl-btn bl-btn--primary" onClick="{{ onNewPost }}">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  New post
+                </button>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:14px">
+              <div class="bl-tabs">
+                <sc-for list="{{ blogTabs }}" as="tab" hint-placeholder-count="4">
+                  <button type="button" class="{{ tab.cls }}" onClick="{{ tab.onClick }}">{{ tab.label }}<b class="bl-tab__n">{{ tab.count }}</b></button>
+                </sc-for>
+              </div>
+              <div style="position:relative">
+                <svg style="position:absolute;left:11px;top:50%;transform:translateY(-50%);pointer-events:none" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8B9AAD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="search" placeholder="Search posts…" value="{{ blogSearch }}" onInput="{{ onBlogSearch }}"
+                  class="admin-search" style="height:36px;padding:0 14px 0 34px;border:1.5px solid #E4E9F0;border-radius:8px;font-size:var(--text-dense-sm);color:#0B1F3A;background:white;transition:border-color 0.15s,box-shadow 0.15s"
+                  style-focus="border-color:#16C172;box-shadow:0 0 0 3px rgba(22,193,114,0.1)">
+              </div>
+            </div>
+          </div>
+
+          <div style="padding:16px 30px 40px">
+            <sc-if value="{{ blogError }}" hint-placeholder-val="{{ false }}">
+              <div class="bl-notice bl-notice--err" style="margin-bottom:14px">{{ blogError }}</div>
+            </sc-if>
+            <div style="background:white;border-radius:14px;border:1px solid #E4E9F0;overflow:hidden">
+              <sc-if value="{{ blogLoading }}" hint-placeholder-val="{{ false }}">
+                <div style="padding:52px 24px;text-align:center">
+                  <div style="width:22px;height:22px;border:2px solid #E4E9F0;border-top-color:#16C172;border-radius:50%;animation:spin 0.75s linear infinite;margin:0 auto 13px"></div>
+                  <p style="font-size:var(--text-compact);color:#8B9AAD;font-weight:600;margin:0">Loading posts…</p>
+                </div>
+              </sc-if>
+              <sc-if value="{{ showBlogTable }}" hint-placeholder-val="{{ false }}">
+                <div class="table-scroll" style="overflow-x:auto">
+                  <table style="width:100%;border-collapse:collapse;font-size:var(--text-dense)">
+                    <thead>
+                      <tr style="border-bottom:1px solid #F0F3F8">
+                        <th style="padding:12px 20px;text-align:left;font-size:var(--text-tiny-sm);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Post</th>
+                        <th style="padding:12px 20px;text-align:center;font-size:var(--text-tiny-sm);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Status</th>
+                        <th style="padding:12px 20px;text-align:left;font-size:var(--text-tiny-sm);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Category</th>
+                        <th style="padding:12px 20px;text-align:left;font-size:var(--text-tiny-sm);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;background:#FAFBFC">Author</th>
+                        <th style="padding:12px 20px;text-align:left;font-size:var(--text-tiny-sm);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;white-space:nowrap;background:#FAFBFC">Publish date</th>
+                        <th style="padding:12px 20px;text-align:left;font-size:var(--text-tiny-sm);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#B0BAC5;white-space:nowrap;background:#FAFBFC">Last edited</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <sc-for list="{{ blogRows }}" as="row" hint-placeholder-count="5">
+                        <tr style="border-bottom:1px solid #F6F8FB;cursor:pointer;transition:background 0.1s" style-hover="background:#F8FAFC" onClick="{{ row.onClick }}">
+                          <td style="padding:12px 20px">
+                            <div style="display:flex;align-items:center;gap:14px;min-width:280px">
+                              {{ row.thumbEl }}
+                              <div style="min-width:0">
+                                <div style="font-weight:700;color:#0B1F3A;line-height:1.35">{{ row.title }}</div>
+                                <div style="font-size:var(--text-caption);color:#8B9AAD;margin-top:2px">{{ row.path }}<sc-if value="{{ row.featured }}" hint-placeholder-val="{{ false }}"> · <span style="color:#B7862F;font-weight:700">Featured</span></sc-if></div>
+                              </div>
+                            </div>
+                          </td>
+                          <td style="padding:12px 20px;text-align:center">
+                            <span style="display:inline-block;padding:3px 9px;border-radius:20px;font-size:var(--text-tiny);font-weight:700;white-space:nowrap;background:{{ row.statusBg }};color:{{ row.statusColor }}">{{ row.statusLabel }}</span>
+                          </td>
+                          <td style="padding:12px 20px;color:#5B6B82;white-space:nowrap">{{ row.category }}</td>
+                          <td style="padding:12px 20px;color:#5B6B82;white-space:nowrap">{{ row.author }}</td>
+                          <td style="padding:12px 20px;color:#5B6B82;white-space:nowrap">{{ row.dateFmt }}</td>
+                          <td style="padding:12px 20px;font-size:var(--text-caption);color:#8B9AAD;white-space:nowrap">{{ row.updatedFmt }}</td>
+                        </tr>
+                      </sc-for>
+                    </tbody>
+                  </table>
+                </div>
+                <sc-if value="{{ blogEmpty }}" hint-placeholder-val="{{ false }}">
+                  <div style="padding:56px 24px;text-align:center">
+                    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#D0D6E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:0 auto 13px"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"></path></svg>
+                    <p style="font-size:var(--text-compact);color:#8B9AAD;font-weight:600;margin:0">{{ blogEmptyTitle }}</p>
+                    <p style="font-size:var(--text-dense-sm);color:#B0BAC5;margin:5px 0 16px">{{ blogEmptyHint }}</p>
+                    <button type="button" class="bl-btn bl-btn--primary" onClick="{{ onNewPost }}">Write your first post</button>
+                  </div>
+                </sc-if>
+              </sc-if>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ── BLOG: EDITOR ── -->
+      <sc-if value="{{ showBlogEdit }}" hint-placeholder-val="{{ false }}">
+        <div style="animation:fadein 0.2s ease both">
+
+          <!-- Action bar -->
+          <div style="padding:14px 30px;background:#F0F3F8;position:sticky;top:0;z-index:10;border-bottom:1px solid #E0E6EF">
+            <div class="admin-toolbar" style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;min-width:0">
+                <button type="button" class="bl-btn" onClick="{{ onBackToPosts }}">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                  All posts
+                </button>
+                <span style="display:inline-block;padding:3px 9px;border-radius:20px;font-size:var(--text-tiny);font-weight:700;background:{{ edStatusBg }};color:{{ edStatusColor }}">{{ edStatusLabel }}</span>
+                <span style="font-size:var(--text-caption);color:{{ edSavedColor }};font-weight:600">{{ edSavedText }}</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                <sc-if value="{{ edLiveUrl }}" hint-placeholder-val="{{ false }}">
+                  <a href="{{ edLiveUrl }}" target="_blank" rel="noopener" class="bl-btn">View live ↗</a>
+                </sc-if>
+                <button type="button" class="bl-btn" onClick="{{ onPreviewPost }}">Preview</button>
+                <button type="button" class="bl-btn" onClick="{{ onSecondaryAction }}" disabled="{{ blogSaving }}">{{ edSecondaryText }}</button>
+                <button type="button" class="bl-btn bl-btn--primary" onClick="{{ onPrimaryAction }}" disabled="{{ blogSaving }}">{{ edPrimaryText }}</button>
+              </div>
+            </div>
+          </div>
+
+          <div style="padding:20px 30px 48px">
+            <sc-if value="{{ blogEditorError }}" hint-placeholder-val="{{ false }}">
+              <div class="bl-notice bl-notice--err" style="margin-bottom:14px">{{ blogEditorError }}</div>
+            </sc-if>
+            <sc-if value="{{ blogNotice }}" hint-placeholder-val="{{ false }}">
+              <div class="bl-notice bl-notice--ok" style="margin-bottom:14px">{{ blogNotice }}</div>
+            </sc-if>
+
+            <div class="bl-editor-grid">
+
+              <!-- Main column -->
+              <div style="display:flex;flex-direction:column;gap:14px;min-width:0">
+                <div class="bl-card" style="padding:18px 24px">
+                  <textarea class="bl-title" rows="{{ edTitleRows }}" placeholder="Post title" maxlength="160" value="{{ edTitle }}" onInput="{{ onEdTitle }}"></textarea>
+                  <textarea class="bl-excerpt" rows="2" placeholder="Write a one or two sentence summary. It shows on the blog listing, under the title and in Google results." maxlength="320" value="{{ edExcerpt }}" onInput="{{ onEdExcerpt }}"></textarea>
+                  <div style="text-align:right"><span class="{{ edExcerptCountCls }}">{{ edExcerptCount }}/320</span></div>
+                </div>
+
+                <div class="bl-doc">
+                  <!-- Word-processor style editor (TOAST UI). Mounted from JS in _syncEditor();
+                       the framework never renders children here, so it leaves the editor alone. -->
+                  <div id="blog-rte" class="bl-rte"></div>
+                  <div class="bl-docfoot">
+                    <span>{{ edWordCount }} words · {{ edReadMins }} min read</span>
+                    <span>{{ edEditorStatus }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Settings column -->
+              <div class="bl-side">
+
+                <div class="bl-card">
+                  <h3>Publishing</h3>
+                  <div class="bl-field">
+                    <label class="bl-label">Publish date &amp; time</label>
+                    <input class="bl-input" type="datetime-local" value="{{ edPublishedAt }}" onInput="{{ onEdPublishedAt }}">
+                    <div class="bl-hint">{{ edDateHint }}</div>
+                  </div>
+                  <div class="bl-field">
+                    <label class="bl-switch">
+                      <span>Feature at the top of the blog</span>
+                      <input type="checkbox" checked="{{ edFeatured }}" onChange="{{ onEdFeatured }}">
+                    </label>
+                  </div>
+                  <sc-if value="{{ edCanDelete }}" hint-placeholder-val="{{ false }}">
+                    <div class="bl-field" style="padding-top:12px;border-top:1px solid #F0F3F8">
+                      <button type="button" class="bl-btn bl-btn--danger bl-btn--block" onClick="{{ onDeletePost }}">Delete post</button>
+                    </div>
+                  </sc-if>
+                </div>
+
+                <div class="bl-card">
+                  <h3>Cover image</h3>
+                  <label class="bl-cover">
+                    {{ edCoverImg }}
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                    <span>{{ edCoverText }}</span>
+                    <span style="font-size:11px;font-weight:500;color:#B0BAC5">1600×900 or larger · JPG, PNG, WebP</span>
+                    <input class="bl-file" type="file" accept="image/jpeg,image/png,image/webp" onChange="{{ onCoverFile }}">
+                  </label>
+                  <sc-if value="{{ edCover }}" hint-placeholder-val="{{ false }}">
+                    <div class="bl-field" style="margin-top:12px">
+                      <label class="bl-label">Alt text <span class="bl-count">for accessibility &amp; SEO</span></label>
+                      <input class="bl-input" type="text" maxlength="200" placeholder="Describe the image" value="{{ edCoverAlt }}" onInput="{{ onEdCoverAlt }}">
+                    </div>
+                    <button type="button" class="bl-btn bl-btn--danger bl-btn--block" onClick="{{ onRemoveCover }}">Remove image</button>
+                  </sc-if>
+                </div>
+
+                <div class="bl-card">
+                  <h3>Organisation</h3>
+                  <div class="bl-field">
+                    <label class="bl-label">Category</label>
+                    {{ edCategorySelect }}
+                  </div>
+                  <div class="bl-field">
+                    <label class="bl-label">Author</label>
+                    {{ edAuthorSelect }}
+                  </div>
+                  <div class="bl-field">
+                    <label class="bl-label">Tags <span class="bl-count">comma separated</span></label>
+                    <input class="bl-input" type="text" placeholder="e.g. first home, deposit" value="{{ edTags }}" onInput="{{ onEdTags }}">
+                  </div>
+                </div>
+
+                <div class="bl-card">
+                  <h3>SEO</h3>
+                  <div class="bl-field">
+                    <label class="bl-label">URL slug</label>
+                    <input class="bl-input" type="text" maxlength="80" value="{{ edSlug }}" onInput="{{ onEdSlug }}" onBlur="{{ onEdSlugBlur }}">
+                    <div class="bl-hint" style="word-break:break-all">wealthify.co.nz/blog/<b style="color:#0B1F3A">{{ edSlug }}</b></div>
+                    <sc-if value="{{ edSlugWarning }}" hint-placeholder-val="{{ false }}">
+                      <div class="bl-hint" style="color:#B7862F">Changing the URL of a live post breaks existing links and shares.</div>
+                    </sc-if>
+                  </div>
+                  <div class="bl-field">
+                    <label class="bl-label">SEO title <span class="{{ edSeoTitleCountCls }}">{{ edSeoTitleCount }}/60</span></label>
+                    <input class="bl-input" type="text" maxlength="120" placeholder="{{ edSeoTitlePlaceholder }}" value="{{ edSeoTitle }}" onInput="{{ onEdSeoTitle }}">
+                  </div>
+                  <div class="bl-field">
+                    <label class="bl-label">Meta description <span class="{{ edSeoDescCountCls }}">{{ edSeoDescCount }}/160</span></label>
+                    <textarea class="bl-input" rows="3" maxlength="300" placeholder="Defaults to the summary" value="{{ edSeoDesc }}" onInput="{{ onEdSeoDesc }}"></textarea>
+                  </div>
+                  <div class="bl-field">
+                    <label class="bl-label">Google preview</label>
+                    <div class="bl-serp">
+                      <div class="bl-serp__url">wealthify.co.nz › blog › {{ edSlug }}</div>
+                      <div class="bl-serp__title">{{ edSerpTitle }}</div>
+                      <div class="bl-serp__desc">{{ edSerpDesc }}</div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
     </main>
     </div>
   </div>
@@ -736,6 +1076,22 @@ class Component extends DCLogic {
     calcRateSaving: false,
     calcRateSaveOk: false,
     calcRateError: '',
+    blogPosts: [],
+    blogCategories: [],
+    blogAuthors: [],
+    blogLoading: false,
+    blogError: '',
+    blogFilter: 'all',
+    blogSearch: '',
+    draft: null,
+    draftDirty: false,
+    slugTouched: false,
+    blogSaving: false,
+    blogNotice: '',
+    blogEditorError: '',
+    editorKey: 0,
+    uploadingCover: false,
+    uploadingInline: false,
   };
 
   _clean(v) { return parseFloat(String(v).replace(/[^0-9.]/g, '')) || 0; }
@@ -758,6 +1114,519 @@ class Component extends DCLogic {
 
   componentDidMount() {
     this._load().catch(() => this.setState({ view: 'login' }));
+
+    this._onBeforeUnload = e => {
+      if (this.state.view === 'blogEdit' && this.state.draftDirty) {
+        e.preventDefault();
+        e.returnValue = '';
+      }
+    };
+    window.addEventListener('beforeunload', this._onBeforeUnload);
+
+    this._onKeyDown = e => {
+      if (this.state.view !== 'blogEdit') return;
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
+        e.preventDefault();
+        if (!this.state.blogSaving) this.savePost(this.state.draft.status);
+      }
+    };
+    document.addEventListener('keydown', this._onKeyDown);
+  }
+
+  componentWillUnmount() {
+    if (this._rte) this._rte.destroy();
+    window.removeEventListener('beforeunload', this._onBeforeUnload);
+    document.removeEventListener('keydown', this._onKeyDown);
+  }
+
+  // ── Blog ──────────────────────────────────────────────────────────────────
+
+  _md() {
+    return window.WealthifyMarkdown;
+  }
+
+  _blankDraft() {
+    return {
+      id: null, title: '', slug: '', excerpt: '', content_md: '',
+      cover_image_url: '', cover_image_alt: '', category: 'Mortgages', tags: '',
+      author_name: 'Wealthify Team', status: 'draft', featured: false, published_at: '',
+      seo_title: '', seo_description: '', updated_at: null,
+    };
+  }
+
+  _toLocalInput(iso) {
+    if (!iso) return '';
+    const d = new Date(iso);
+    const p = n => String(n).padStart(2, '0');
+    return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`;
+  }
+
+  _toDraft(post) {
+    return {
+      ...this._blankDraft(),
+      ...post,
+      tags: (post.tags || []).join(', '),
+      cover_image_url: post.cover_image_url || '',
+      cover_image_alt: post.cover_image_alt || '',
+      seo_title: post.seo_title || '',
+      seo_description: post.seo_description || '',
+      excerpt: post.excerpt || '',
+      content_md: post.content_md || '',
+      published_at: this._toLocalInput(post.published_at),
+    };
+  }
+
+  // 'published' | 'scheduled' | 'draft' — a published post dated in the future is scheduled.
+  _blogStatus(status, publishedAt) {
+    if (status !== 'published') return 'draft';
+    return publishedAt && new Date(publishedAt) > new Date() ? 'scheduled' : 'published';
+  }
+
+  _confirmDiscard() {
+    if (this.state.view === 'blogEdit' && this.state.draftDirty) {
+      return window.confirm('You have unsaved changes. Leave without saving?');
+    }
+    return true;
+  }
+
+  async _loadBlog() {
+    this.setState({ blogLoading: !this.state.blogPosts.length, blogError: '' });
+    try {
+      const { posts, categories, authors } = await this._req('/api/blog?admin=list');
+      this.setState({ blogPosts: posts || [], blogCategories: categories || [], blogAuthors: authors || [], blogLoading: false });
+    } catch (err) {
+      this.setState({ blogLoading: false, blogError: err.message });
+    }
+  }
+
+  onNavBlog() {
+    if (!this._confirmDiscard()) return;
+    this.setState({ view: 'blog', activeSection: 'blog', currentLead: null, error: '', draft: null, draftDirty: false });
+    this._loadBlog();
+  }
+
+  onNewPost() {
+    this.setState({
+      view: 'blogEdit', activeSection: 'blog', draft: this._blankDraft(), draftDirty: false,
+      slugTouched: false, blogEditorError: '', blogNotice: '', editorKey: this.state.editorKey + 1,
+    });
+  }
+
+  async openPost(id) {
+    try {
+      const { post } = await this._req('/api/blog?admin=get&id=' + encodeURIComponent(id));
+      const md = this._md();
+      this.setState({
+        view: 'blogEdit', activeSection: 'blog', draft: this._toDraft(post), draftDirty: false,
+        slugTouched: !!post.slug && (!md || post.slug !== md.slugify(post.title)),
+        blogEditorError: '', blogNotice: '', editorKey: this.state.editorKey + 1,
+      });
+    } catch (err) {
+      this.setState({ blogError: err.message });
+    }
+  }
+
+  setDraft(patch) {
+    const { draft, slugTouched } = this.state;
+    const next = { ...draft, ...patch };
+    // New/draft posts follow the title until the slug is edited by hand; a live
+    // post's URL never changes on its own.
+    const md = this._md();
+    if ('title' in patch && !slugTouched && draft.status !== 'published' && md) {
+      next.slug = md.slugify(patch.title);
+    }
+    this.setState({ draft: next, draftDirty: true, blogNotice: '' });
+  }
+
+  async savePost(status) {
+    const d = this.state.draft;
+    if (!d) return null;
+    this.setState({ blogSaving: true, blogEditorError: '', blogNotice: '' });
+    try {
+      const body = { ...d, status, published_at: d.published_at ? new Date(d.published_at).toISOString() : null };
+      const { post } = await this._req('/api/blog?admin=save', { method: 'POST', body: JSON.stringify(body) });
+      const kind = this._blogStatus(post.status, post.published_at);
+      const notice = kind === 'published'
+        ? (d.status === 'published' ? 'Changes are live.' : 'Published — your post is live.')
+        : kind === 'scheduled' ? 'Scheduled — goes live ' + this.fmtDT(post.published_at) + '.'
+        : (d.status === 'published' ? 'Unpublished — the post is now a draft.' : 'Draft saved.');
+      this.setState({
+        draft: this._toDraft(post),
+        draftDirty: false,
+        blogSaving: false,
+        blogNotice: notice,
+        blogPosts: [post, ...this.state.blogPosts.filter(p => p.id !== post.id)],
+      });
+      return post;
+    } catch (err) {
+      this.setState({ blogSaving: false, blogEditorError: err.message });
+      return null;
+    }
+  }
+
+  onPrimaryAction() {
+    this.savePost('published');
+  }
+
+  onSecondaryAction() {
+    const d = this.state.draft;
+    if (d.status === 'published') {
+      if (!window.confirm('Unpublish this post? It will be removed from the blog until you publish it again.')) return;
+    }
+    this.savePost('draft');
+  }
+
+  async onDeletePost() {
+    const d = this.state.draft;
+    if (!d || !d.id) return;
+    if (!window.confirm(`Delete "${d.title || 'Untitled post'}"? This can't be undone.`)) return;
+    try {
+      await this._req('/api/blog?admin=delete', { method: 'POST', body: JSON.stringify({ id: d.id }) });
+      this.setState({
+        view: 'blog', draft: null, draftDirty: false,
+        blogPosts: this.state.blogPosts.filter(p => p.id !== d.id),
+      });
+    } catch (err) {
+      this.setState({ blogEditorError: err.message });
+    }
+  }
+
+  onBackToPosts() {
+    if (!this._confirmDiscard()) return;
+    this.setState({ view: 'blog', draft: null, draftDirty: false });
+    this._loadBlog();
+  }
+
+  // Renders the unsaved editor state in a new tab without saving it.
+  onPreviewPost() {
+    const d = this.state.draft;
+    const payload = { ...d, published_at: d.published_at ? new Date(d.published_at).toISOString() : null };
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '/api/blog?admin=preview';
+    form.target = '_blank';
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'payload';
+    input.value = JSON.stringify(payload);
+    form.appendChild(input);
+    document.body.appendChild(form);
+    form.submit();
+    form.remove();
+  }
+
+  async _resizeImage(file, maxWidth) {
+    try {
+      const bmp = await createImageBitmap(file);
+      const scale = Math.min(1, maxWidth / bmp.width);
+      if (scale === 1 && file.size < 1.5 * 1024 * 1024) return file;
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.round(bmp.width * scale);
+      canvas.height = Math.round(bmp.height * scale);
+      canvas.getContext('2d').drawImage(bmp, 0, 0, canvas.width, canvas.height);
+      // PNGs may be transparent, so they go to WebP rather than JPEG.
+      const type = file.type === 'image/png' ? 'image/webp' : 'image/jpeg';
+      const out = await new Promise(resolve => canvas.toBlob(resolve, type, 0.85));
+      return out && out.size < file.size ? out : file;
+    } catch {
+      return file;
+    }
+  }
+
+  async _uploadImage(file) {
+    if (!/^image\/(jpeg|png|webp|gif)$/.test(file.type)) throw new Error('Choose a JPG, PNG, WebP or GIF image.');
+    const blob = file.type === 'image/gif' ? file : await this._resizeImage(file, 2000);
+    if (blob.size > 3 * 1024 * 1024) throw new Error('That image is too large (max 3 MB). Try a smaller file.');
+    const data = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(String(reader.result).split(',')[1]);
+      reader.onerror = () => reject(new Error('Could not read the file.'));
+      reader.readAsDataURL(blob);
+    });
+    const { url } = await this._req('/api/blog?admin=upload', {
+      method: 'POST',
+      body: JSON.stringify({ filename: file.name, contentType: blob.type || file.type, data }),
+    });
+    return url;
+  }
+
+  async onCoverFile(e) {
+    const file = e.target.files && e.target.files[0];
+    e.target.value = '';
+    if (!file) return;
+    this.setState({ uploadingCover: true, blogEditorError: '' });
+    try {
+      const url = await this._uploadImage(file);
+      const d = this.state.draft;
+      this.setDraft({ cover_image_url: url, cover_image_alt: d.cover_image_alt || d.title });
+    } catch (err) {
+      this.setState({ blogEditorError: err.message });
+    }
+    this.setState({ uploadingCover: false });
+  }
+
+  // ── Rich-text editor (TOAST UI) ──
+  // The editor lives outside the framework's render tree: it is mounted into
+  // #blog-rte after each render when a post is open, and destroyed when the
+  // post changes or the editor leaves the page. Content is stored as Markdown.
+
+  componentDidUpdate() {
+    this._syncEditor();
+  }
+
+  _syncEditor() {
+    const el = document.getElementById('blog-rte');
+    const { view, draft, editorKey } = this.state;
+    const want = view === 'blogEdit' && draft ? editorKey : null;
+
+    if (this._rte && (want === null || this._rteKey !== want || !el || !el.contains(this._rteRoot))) {
+      this._rte.destroy();
+      this._rte = null;
+    }
+    if (this._rte || want === null || !el || !window.toastui) return;
+
+    const editor = new window.toastui.Editor({
+      el,
+      height: '640px',
+      initialEditType: 'wysiwyg',
+      hideModeSwitch: true,
+      usageStatistics: false,
+      autofocus: false,
+      initialValue: draft.content_md || '',
+      placeholder: 'Start writing your article…',
+      toolbarItems: [
+        ['heading', 'bold', 'italic'],
+        ['ul', 'ol', 'quote'],
+        ['link', 'image', 'table'],
+        ['hr'],
+      ],
+      hooks: {
+        addImageBlobHook: (blob, done, source) => { this._onEditorImage(blob, done, source); },
+      },
+    });
+    this._rte = editor;
+    this._rteKey = want;
+    this._rteRoot = el.firstElementChild;
+
+    // The editor tidies Markdown on load (e.g. "-" bullets become "*"). Adopt
+    // that as the saved baseline so opening a post doesn't count as an edit.
+    const normalised = editor.getMarkdown();
+    if (normalised !== (draft.content_md || '')) {
+      this.setState({ draft: { ...draft, content_md: normalised } });
+    }
+    editor.on('change', () => {
+      const md = editor.getMarkdown();
+      if (md !== this.state.draft.content_md) this.setDraft({ content_md: md });
+    });
+  }
+
+  // Toolbar image button, drag-and-drop and pasted images all arrive here.
+  async _onEditorImage(blob, done, source) {
+    this.setState({ uploadingInline: true, blogEditorError: '' });
+    try {
+      const file = blob.name
+        ? blob
+        : new File([blob], 'pasted-image.' + ((blob.type || 'image/png').split('/')[1] || 'png'), { type: blob.type || 'image/png' });
+      const url = await this._uploadImage(file);
+      // The image dialog ('ui') fills alt text from its own Description field;
+      // pasted and dropped images get one derived from the file name.
+      if (source === 'ui') done(url);
+      else done(url, this._altFromFileName(blob.name));
+    } catch (err) {
+      this.setState({ blogEditorError: err.message });
+    }
+    this.setState({ uploadingInline: false });
+  }
+
+  // "kitchen-reno_2026.jpg" → "Kitchen reno 2026"; generic names
+  // ("image.png", "Screenshot 2026…", "IMG_1234") fall back to the post title.
+  _altFromFileName(name) {
+    const base = String(name || '').replace(/\.[a-z0-9]+$/i, '').replace(/[-_]+/g, ' ').replace(/\s+/g, ' ').trim();
+    if (!base || /^(image|pasted|screenshot|screen shot|img|dsc|photo)\b/i.test(base) || /^[\d\s]+$/.test(base)) {
+      return this.state.draft.title || 'Article image';
+    }
+    return base.charAt(0).toUpperCase() + base.slice(1);
+  }
+
+  _blogVals() {
+    const {
+      view, activeSection, blogPosts, blogCategories, blogAuthors, blogLoading, blogError,
+      blogFilter, blogSearch, draft, draftDirty, blogSaving, blogNotice, blogEditorError,
+      uploadingCover, uploadingInline,
+    } = this.state;
+    const R = window.React;
+    const md = this._md();
+
+    const STATUS = {
+      published: { label: 'Published', bg: 'rgba(22,193,114,0.1)', color: '#0E9E5C' },
+      scheduled: { label: 'Scheduled', bg: 'rgba(37,99,235,0.1)', color: '#2563EB' },
+      draft: { label: 'Draft', bg: '#EEF1F6', color: '#5B6B82' },
+    };
+    const kindOf = p => this._blogStatus(p.status, p.published_at);
+    const counts = { all: blogPosts.length, published: 0, scheduled: 0, draft: 0 };
+    blogPosts.forEach(p => { counts[kindOf(p)]++; });
+
+    const q = blogSearch.trim().toLowerCase();
+    const rows = blogPosts
+      .filter(p => blogFilter === 'all' || kindOf(p) === blogFilter)
+      .filter(p => !q || [p.title, p.slug, p.category, p.author_name, (p.tags || []).join(' ')].join(' ').toLowerCase().includes(q))
+      .map(p => {
+        const meta = STATUS[kindOf(p)];
+        return {
+          title: p.title || 'Untitled post',
+          path: '/blog/' + p.slug,
+          featured: !!p.featured,
+          // Built here, not in the template: a literal src="{{ … }}" gets fetched before render.
+          thumbEl: p.cover_image_url
+            ? R.createElement('img', { className: 'bl-thumb', src: p.cover_image_url, alt: '', loading: 'lazy' })
+            : R.createElement('span', { className: 'bl-thumb' }),
+          statusLabel: meta.label,
+          statusBg: meta.bg,
+          statusColor: meta.color,
+          category: p.category,
+          author: p.author_name,
+          dateFmt: p.published_at ? this.fmtDT(p.published_at) : '—',
+          updatedFmt: this.fmtD(p.updated_at),
+          onClick: () => this.openPost(p.id),
+        };
+      });
+
+    const blogTabs = [['all', 'All'], ['published', 'Published'], ['scheduled', 'Scheduled'], ['draft', 'Drafts']]
+      .map(([key, label]) => ({
+        label,
+        count: counts[key],
+        cls: 'bl-tab' + (blogFilter === key ? ' is-active' : ''),
+        onClick: () => this.setState({ blogFilter: key }),
+      }));
+
+    const isBlogActive = activeSection === 'blog';
+    const vals = {
+      showBlog: view === 'blog',
+      showBlogEdit: view === 'blogEdit' && !!draft,
+      navBlogBg: isBlogActive ? 'rgba(22,193,114,0.1)' : 'transparent',
+      navBlogColor: isBlogActive ? '#16C172' : 'rgba(255,255,255,0.5)',
+      navBlogWeight: isBlogActive ? '700' : '600',
+      navBlogStroke: isBlogActive ? '#16C172' : 'rgba(255,255,255,0.45)',
+      onNavBlog: () => this.onNavBlog(),
+      totalBlogPosts: blogPosts.length,
+      blogCountPublished: counts.published,
+      blogCountScheduled: counts.scheduled,
+      blogCountDraft: counts.draft,
+      blogTabs,
+      blogSearch,
+      onBlogSearch: e => this.setState({ blogSearch: e.target.value }),
+      blogLoading,
+      blogError,
+      showBlogTable: !blogLoading,
+      blogRows: rows,
+      blogEmpty: !blogLoading && rows.length === 0,
+      blogEmptyTitle: blogPosts.length ? 'No posts match' : 'No posts yet',
+      blogEmptyHint: blogPosts.length ? 'Try another search or tab' : 'Guides and market updates you publish appear on wealthify.co.nz/blog',
+      onNewPost: () => this.onNewPost(),
+      blogSaving,
+      blogNotice,
+      blogEditorError,
+    };
+    if (!draft) return vals;
+
+    // ── Editor ──
+    const content = draft.content_md || '';
+    const plain = md ? md.plainText(content) : content;
+    const words = plain ? plain.split(' ').filter(Boolean).length : 0;
+    const kind = this._blogStatus(draft.status, draft.published_at ? new Date(draft.published_at).toISOString() : null);
+    const futureDate = draft.published_at && new Date(draft.published_at) > new Date();
+    const isLive = draft.status === 'published';
+    const statusMeta = STATUS[kind];
+    const count = (n, max) => ({ n, cls: 'bl-count' + (n > max ? ' is-over' : '') });
+    const seoTitleEff = draft.seo_title || (draft.title ? draft.title + ' | Wealthify' : 'Post title | Wealthify');
+    const seoDescEff = draft.seo_description || draft.excerpt || 'Add a summary or meta description so Google shows a helpful snippet.';
+    const t = count(seoTitleEff.length, 60);
+    const dsc = count((draft.seo_description || draft.excerpt || '').length, 160);
+    const ex = count((draft.excerpt || '').length, 300);
+
+    const selectStyle = { width: '100%', height: 40, padding: '0 10px', border: '1.5px solid #E4E9F0', borderRadius: 8, fontSize: 14, fontWeight: 500, color: '#0B1F3A', background: '#fff', fontFamily: 'inherit', cursor: 'pointer' };
+    const select = (value, options, onChange) => R.createElement('select', { value, onChange, style: selectStyle },
+      options.map(o => R.createElement('option', { key: o, value: o }, o)));
+    const categories = blogCategories.length ? blogCategories : [draft.category];
+    const authors = blogAuthors.includes(draft.author_name) ? blogAuthors : blogAuthors.concat(draft.author_name);
+
+    let dateHint;
+    if (kind === 'scheduled') dateHint = 'Scheduled — the post goes live automatically at this time.';
+    else if (isLive) dateHint = 'Shown on the post. Set a future time to schedule.';
+    else if (futureDate) dateHint = 'Publishing will schedule the post for this time.';
+    else dateHint = 'Leave empty to publish immediately, or pick a future time to schedule.';
+
+
+    return {
+      ...vals,
+      edStatusLabel: statusMeta.label,
+      edStatusBg: statusMeta.bg,
+      edStatusColor: statusMeta.color,
+      edSavedText: draftDirty ? 'Unsaved changes' : draft.updated_at ? 'Saved ' + this.fmtDT(draft.updated_at) : 'Not saved yet',
+      edSavedColor: draftDirty ? '#B7862F' : '#8B9AAD',
+      edLiveUrl: kind === 'published' && draft.slug ? '/blog/' + draft.slug : '',
+      edPrimaryText: blogSaving ? 'Saving…' : isLive ? 'Update' : futureDate ? 'Schedule' : 'Publish',
+      edSecondaryText: isLive ? 'Unpublish' : 'Save draft',
+      onPrimaryAction: () => this.onPrimaryAction(),
+      onSecondaryAction: () => this.onSecondaryAction(),
+      onPreviewPost: () => this.onPreviewPost(),
+      onBackToPosts: () => this.onBackToPosts(),
+      onDeletePost: () => this.onDeletePost(),
+      edCanDelete: !!draft.id,
+
+      edTitle: draft.title,
+      onEdTitle: e => this.setDraft({ title: e.target.value.replace(/\s*\n+\s*/g, ' ') }),
+      edTitleRows: Math.max(1, Math.ceil((draft.title || '').length / 30)),
+      edExcerpt: draft.excerpt,
+      onEdExcerpt: e => this.setDraft({ excerpt: e.target.value }),
+      edExcerptCount: ex.n,
+      edExcerptCountCls: ex.cls,
+
+      edWordCount: words.toLocaleString('en-NZ'),
+      edReadMins: md ? md.readingMinutes(content) : 1,
+      edEditorStatus: uploadingInline ? 'Uploading image…' : 'Paste or drag images straight in · Ctrl+S to save',
+
+      edPublishedAt: draft.published_at || '',
+      onEdPublishedAt: e => this.setDraft({ published_at: e.target.value }),
+      edDateHint: dateHint,
+      edFeatured: !!draft.featured,
+      onEdFeatured: () => this.setDraft({ featured: !draft.featured }),
+
+      edCover: draft.cover_image_url || '',
+      edCoverImg: draft.cover_image_url ? R.createElement('img', { src: draft.cover_image_url, alt: '' }) : null,
+      edCoverText: uploadingCover ? 'Uploading…' : draft.cover_image_url ? 'Replace image' : 'Upload cover image',
+      edCoverAlt: draft.cover_image_alt || '',
+      onEdCoverAlt: e => this.setDraft({ cover_image_alt: e.target.value }),
+      onCoverFile: e => this.onCoverFile(e),
+      onRemoveCover: () => this.setDraft({ cover_image_url: '', cover_image_alt: '' }),
+
+      edCategorySelect: select(draft.category, categories, e => this.setDraft({ category: e.target.value })),
+      edAuthorSelect: select(draft.author_name, authors.length ? authors : [draft.author_name], e => this.setDraft({ author_name: e.target.value })),
+      edTags: draft.tags,
+      onEdTags: e => this.setDraft({ tags: e.target.value }),
+
+      edSlug: draft.slug,
+      onEdSlug: e => {
+        this.setState({ slugTouched: true });
+        this.setDraft({ slug: e.target.value.toLowerCase().replace(/[^a-z0-9-]+/g, '-') });
+      },
+      onEdSlugBlur: () => {
+        const clean = md ? md.slugify(draft.slug) : draft.slug;
+        if (clean !== draft.slug) this.setDraft({ slug: clean });
+      },
+      edSlugWarning: isLive && draftDirty && draft.id && !!blogPosts.find(p => p.id === draft.id && p.slug !== draft.slug),
+      edSeoTitle: draft.seo_title,
+      edSeoTitlePlaceholder: (draft.title || 'Post title') + ' | Wealthify',
+      onEdSeoTitle: e => this.setDraft({ seo_title: e.target.value }),
+      edSeoTitleCount: t.n,
+      edSeoTitleCountCls: t.cls,
+      edSeoDesc: draft.seo_description,
+      onEdSeoDesc: e => this.setDraft({ seo_description: e.target.value }),
+      edSeoDescCount: dsc.n,
+      edSeoDescCountCls: dsc.cls,
+      edSerpTitle: seoTitleEff,
+      edSerpDesc: seoDescEff,
+    };
   }
 
   async _req(path, opts = {}) {
@@ -829,7 +1698,7 @@ class Component extends DCLogic {
   async _loadCalculatorRateSettings() {
     this.setState({ calcRateLoading: true, calcRateError: '' });
     try {
-      const data = await this._req('/api/admin/calculator-rate');
+      const data = await this._req('/api/admin/rates?type=calculator');
       this.setState({
         calcRateManualEnabled: !!data.manualEnabled,
         calcRateManualRate: data.manualRate != null ? String(data.manualRate) : '',
@@ -849,7 +1718,7 @@ class Component extends DCLogic {
       const body = {};
       if (patch.manualEnabled !== undefined) body.manualEnabled = patch.manualEnabled;
       if (patch.manualRate !== undefined) body.manualRate = patch.manualRate;
-      const data = await this._req('/api/admin/calculator-rate', {
+      const data = await this._req('/api/admin/rates?type=calculator', {
         method: 'PATCH',
         body: JSON.stringify(body),
       });
@@ -896,7 +1765,7 @@ class Component extends DCLogic {
     if (!force && this.state.ratesRows.length && !this.state.ratesError) return;
     this.setState({ ratesLoading: true, ratesError: '' });
     try {
-      const data = await this._req('/api/admin/mortgage-rates');
+      const data = await this._req('/api/admin/rates?type=lenders');
       const institutions = (data.data || [])
         .map(i => ({ id: i.id, name: i.name }))
         .sort((a, b) => a.name.localeCompare(b.name));
@@ -914,16 +1783,19 @@ class Component extends DCLogic {
   }
 
   onNavLeads() {
+    if (!this._confirmDiscard()) return;
     this.setState({ view: 'list', activeSection: 'leads', currentLead: null, error: '' });
   }
 
   onNavRates() {
+    if (!this._confirmDiscard()) return;
     this.setState({ view: 'rates', activeSection: 'rates', currentLead: null, error: '' });
     this._loadRates();
     this._loadCalculatorRateSettings();
   }
 
   onNavPrograms() {
+    if (!this._confirmDiscard()) return;
     this.setState({ view: 'programs', activeSection: 'programs', currentLead: null, error: '' });
     this._loadProgramLeads();
   }
@@ -977,7 +1849,7 @@ class Component extends DCLogic {
   async login(pw) {
     this.setState({ formLoading: true, loginError: '' });
     try {
-      await this._req('/api/admin/login', { method: 'POST', body: JSON.stringify({ password: pw }) });
+      await this._req('/api/admin/session?action=login', { method: 'POST', body: JSON.stringify({ password: pw }) });
       await this._load();
     } catch (err) {
       this.setState({ loginError: err.message === 'Unauthorized' ? 'Incorrect password' : err.message });
@@ -986,7 +1858,8 @@ class Component extends DCLogic {
   }
 
   async logout() {
-    try { await this._req('/api/admin/logout', { method: 'POST' }); } catch {}
+    if (!this._confirmDiscard()) return;
+    try { await this._req('/api/admin/session?action=logout', { method: 'POST' }); } catch {}
     this.setState({
       view: 'login',
       activeSection: 'leads',
@@ -1010,6 +1883,9 @@ class Component extends DCLogic {
       calcRateSaving: false,
       calcRateSaveOk: false,
       calcRateError: '',
+      draft: null,
+      draftDirty: false,
+      blogPosts: [],
     });
   }
 
@@ -1275,14 +2151,17 @@ class Component extends DCLogic {
 
     const programWeekAgo = new Date(Date.now() - 7 * 864e5);
 
+    const blogVals = this._blogVals();
+
     return {
       showInit: view === 'init',
       showLogin: view === 'login',
-      showApp: view === 'list' || view === 'detail' || view === 'rates' || view === 'programs',
+      showApp: ['list', 'detail', 'rates', 'programs', 'blog', 'blogEdit'].includes(view),
       showList: view === 'list',
       showDetail: view === 'detail',
       showRates: view === 'rates',
       showPrograms: view === 'programs',
+      ...blogVals,
 
       navProgramsBg: isProgramsActive ? 'rgba(22,193,114,0.1)' : 'transparent',
       navProgramsColor: isProgramsActive ? '#16C172' : 'rgba(255,255,255,0.5)',

@@ -79,20 +79,32 @@ body.has-sticky-cta {
   justify-content: center;
 }
 .site-nav__links a { white-space: nowrap; }
-/* Six nav items plus the CTA get tight below ~1080px — links carry an inline
+/* Seven nav items plus the CTA get tight below ~1180px — links carry an inline
    font-size:var(--text-nav), so scale the variable rather than fighting specificity. */
-@media (max-width: 1080px) {
+@media (max-width: 1180px) {
   .site-nav__links {
     --text-nav: 15px;
-    gap: 16px;
+    gap: 14px;
   }
 }
-@media (max-width: 940px) {
-  .site-nav__inner { gap: 14px; }
+@media (max-width: 1040px) {
+  .site-nav__inner { gap: 12px; }
   .site-nav__links {
     --text-nav: 14px;
-    gap: 12px;
+    gap: 10px;
   }
+  .site-nav__actions { --text-nav-cta: 14px; }
+}
+/* Last desktop step before the 768px drawer. */
+@media (max-width: 900px) {
+  .site-nav__inner { gap: 10px; padding: 0 14px; }
+  .site-nav__brand .brand-logo { width: 112px; height: 26px; }
+  .site-nav__links {
+    --text-nav: 13px;
+    gap: 8px;
+  }
+  .site-nav__actions { --text-nav-cta: 13px; }
+  .site-nav__actions > a { padding-left: 11px !important; padding-right: 11px !important; }
 }
 .site-nav__actions {
   display: flex;

@@ -9,3 +9,4 @@ Disallow: /uploads/
 
 # Sitemap
 Sitemap: https://wealthify.co.nz/sitemap.xml
+Sitemap: https://wealthify.co.nz/blog/sitemap.xml
