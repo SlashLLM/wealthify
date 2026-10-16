@@ -106,4 +106,10 @@
     <priority>0.5</priority>
   </url>
 
+  <!-- Blog index (posts are listed in /blog/sitemap.xml) -->
+  <url>
+    <loc>https://wealthify.co.nz/blog</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>

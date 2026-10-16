@@ -2,7 +2,12 @@
   "name": "wealthify",
   "private": true,
   "scripts": {
-    "dev": "node scripts/dev-server.js"
+    "dev": "node scripts/dev-server.js",
+    "dev:test": "node scripts/dev-server.js --env .env.test",
+    "db:start": "npx --yes supabase@2.121.0 start",
+    "db:stop": "npx --yes supabase@2.121.0 stop",
+    "db:status": "npx --yes supabase@2.121.0 status",
+    "db:reset": "npx --yes supabase@2.121.0 db reset"
   },
   "dependencies": {
     "pdfkit": "^0.13.0",

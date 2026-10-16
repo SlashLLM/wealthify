@@ -5,10 +5,22 @@ const path = require('path');
 const root = path.resolve(path.join(__dirname, '..'));
 const port = Number(process.env.PORT) || 3000;
 
+// `--env <file>` loads only that file (e.g. `npm run dev:test` → .env.test for
+// the local Docker Supabase), so a key missing from it can never fall back to
+// a production value in .env.
+const envArg = process.argv.indexOf('--env');
+const envFiles = envArg > -1 ? [process.argv[envArg + 1]] : ['.env', '.env.local'];
+
 function loadEnv() {
-  for (const name of ['.env', '.env.local']) {
+  for (const name of envFiles) {
     const file = path.join(root, name);
-    if (!fs.existsSync(file)) continue;
+    if (!fs.existsSync(file)) {
+      if (envArg > -1) {
+        console.error(`Env file not found: ${name}`);
+        process.exit(1);
+      }
+      continue;
+    }
     for (const line of fs.readFileSync(file, 'utf8').split(/\r?\n/)) {
       const trimmed = line.trim();
       if (!trimmed || trimmed.startsWith('#')) continue;
@@ -72,11 +84,23 @@ function resolveFile(urlPath) {
 }
 
 const SECURITY_HEADERS = {
-  'Content-Security-Policy': "default-src 'self'; script-src 'self' blob: https://unpkg.com https://cdn.jsdelivr.net https://maps.googleapis.com; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://images.unsplash.com https://cdn.jsdelivr.net https://maps.googleapis.com https://maps.gstatic.com; connect-src 'self' https://iaqquovppuvxmhwhnxso.supabase.co https://api.resend.com https://maps.googleapis.com; frame-src 'self'; worker-src 'self' blob:; media-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';",
+  'Content-Security-Policy': "default-src 'self'; script-src 'self' 'sha256-prraiiUvhrz76aMcmh6uNYMWnLDF7Ko0KnaOHQfF6SE=' blob: https://unpkg.com https://cdn.jsdelivr.net https://maps.googleapis.com https://www.googletagmanager.com; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://images.unsplash.com https://cdn.jsdelivr.net https://maps.googleapis.com https://maps.gstatic.com https://*.supabase.co https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://*.g.doubleclick.net https://www.google.com; connect-src 'self' https://iaqquovppuvxmhwhnxso.supabase.co https://api.resend.com https://maps.googleapis.com https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://*.g.doubleclick.net https://www.google.com; frame-src 'self' https://www.googletagmanager.com; worker-src 'self' blob:; media-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';",
   'X-Frame-Options': 'SAMEORIGIN',
   'X-Content-Type-Options': 'nosniff',
   'Referrer-Policy': 'strict-origin-when-cross-origin'
 };
+
+// Blog images live in Supabase Storage; allow whichever Supabase this server
+// points at (the local Docker one is http://127.0.0.1:54321).
+try {
+  const supabaseOrigin = new URL(process.env.SUPABASE_URL).origin;
+  const csp = SECURITY_HEADERS['Content-Security-Policy'];
+  if (!csp.includes(supabaseOrigin)) {
+    SECURITY_HEADERS['Content-Security-Policy'] = csp.replace('img-src ', `img-src ${supabaseOrigin} `);
+  }
+} catch {
+  // SUPABASE_URL unset or invalid — API calls will report it.
+}
 
 const server = http.createServer(async (req, res) => {
   for (const [key, value] of Object.entries(SECURITY_HEADERS)) {
@@ -100,11 +124,8 @@ const server = http.createServer(async (req, res) => {
     return loadHandler('../api/program-signup')(req, res);
   }
 
-  if (url.pathname === '/api/admin/login') {
-    return loadHandler('../api/admin/login')(req, res);
-  }
-  if (url.pathname === '/api/admin/logout') {
-    return loadHandler('../api/admin/logout')(req, res);
+  if (url.pathname === '/api/admin/session') {
+    return loadHandler('../api/admin/session')(req, res);
   }
   if (url.pathname === '/api/admin/leads') {
     return loadHandler('../api/admin/leads')(req, res);
@@ -118,11 +139,28 @@ const server = http.createServer(async (req, res) => {
   if (url.pathname === '/api/admin/report') {
     return loadHandler('../api/admin/report')(req, res);
   }
-  if (url.pathname === '/api/admin/mortgage-rates') {
-    return loadHandler('../api/admin/mortgage-rates')(req, res);
+  if (url.pathname === '/api/admin/rates') {
+    return loadHandler('../api/admin/rates')(req, res);
   }
-  if (url.pathname === '/api/admin/calculator-rate') {
-    return loadHandler('../api/admin/calculator-rate')(req, res);
+
+  if (url.pathname === '/api/blog') {
+    return loadHandler('../api/blog')(req, res);
+  }
+
+  // Mirrors the /blog rewrites in vercel.json
+  const blogPath = url.pathname.replace(/\/+$/, '');
+  const blogRoute =
+    blogPath === '/blog' ? { view: 'index' }
+    : blogPath === '/blog/rss.xml' ? { view: 'rss' }
+    : blogPath === '/blog/sitemap.xml' ? { view: 'sitemap' }
+    : /^\/blog\/category\/[^/]+$/.test(blogPath) ? { view: 'index', category: blogPath.split('/')[3] }
+    : /^\/blog\/[^/]+$/.test(blogPath) ? { view: 'post', slug: blogPath.split('/')[2] }
+    : null;
+  if (blogRoute) {
+    const params = new URLSearchParams(url.search);
+    for (const [k, v] of Object.entries(blogRoute)) params.set(k, v);
+    req.url = '/api/blog?' + params.toString();
+    return loadHandler('../api/blog')(req, res);
   }
 
   const adminPath = url.pathname.replace(/\/+$/, '') || '/';
