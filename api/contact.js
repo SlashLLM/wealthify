@@ -8,6 +8,8 @@ const ADVISERS = {
   'shweta-bhatia': 'Shweta Karne',
   'jeeson-joseph': 'Jeeson Joseph',
   'vinod-anthony': 'Vinod Pudushery Anthony',
+  'tem-huang': 'Tem Huang',
+  'kristina-lusby': 'Kristina Lusby',
 };
 
 const MAX_MESSAGE = 4000;
