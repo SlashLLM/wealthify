@@ -10,6 +10,8 @@ const ADVISERS = {
   'vinod-anthony': 'Vinod Pudushery Anthony',
   'tem-huang': 'Tem Huang',
   'kristina-lusby': 'Kristina Lusby',
+  'tinia-jeffy': 'Tinia Jeffy',
+  'tisson-thomas': 'Tisson Thomas',
 };
 
 const MAX_MESSAGE = 4000;
